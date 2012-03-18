@@ -1,0 +1,9 @@
+<h2>Организаторы</h2>
+{% for organization in items.orgs %}
+    <p>{{ organization.organization.name }}</p>
+{% endfor %}
+
+<h2>Партнёры</h2>
+{% for organization in items.partners %}
+    <p>{{ organization.organization.name }}</p>
+{% endfor %}

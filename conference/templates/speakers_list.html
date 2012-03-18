@@ -1,0 +1,4 @@
+{% for speaker in items %}
+    <h2>{{ speaker.person.first_name }} {{ speaker.person.last_name }}</h2>
+    <p>{{ speaker.person.organization }}</p>
+{% endfor %}
