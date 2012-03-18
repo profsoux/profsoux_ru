@@ -1,0 +1,74 @@
+{% load conference_tags %}
+
+<!DOCTYPE HTML>
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body id="index">
+    <header>
+        <div class="logo">
+            <img src="/media/i/logo.png" >
+        </div>
+        <hgroup>
+            <h1>Первая UX-конференция в Санкт-Петербурге </h1>
+            <h2>19 мая 2012, Санкт-Петербург, ИТМО</h2>
+        </hgroup>
+    </header>
+    <nav class="main-nav">
+        <a href="/schedule/">Программа</a>
+        <a href="/speakers/">Докладчики</a>
+        <a href="/people/">Кто пойдёт?</a>
+        <a href="/map/">Место проведения</a>
+        <a href="/contacts/">Контакты</a>
+    </nav>
+    <table width="100%">
+        <tr>
+            <td width="33%">
+                <p>ПрофсоUX – главная питерская конференция о юзабилити, UX и создании цифровых продуктов, ориентированных на человека.</p>
+                <p><button>Принять участие</button></p>
+                <p>Участие бесплатное.
+                Торопитесь! Количество мест ограничено.</p>     
+                <p>Уже идут: 100500. <a href="/people/">Кто идёт? »</a></p>
+                <p><button>Рассказать друзьям</button></p>
+            </td>
+            <td width="33%">
+                <h2>В программе</h2>
+                {% category_list %}
+                <p><a href="/schedule/">Подробная программа</a></p>
+            </td>
+            <td width="33%">
+                <h2>Докладчики</h2>
+                {% speakers_list %}
+                <p><a href="/speakers/">Все докладчики »</a></p>
+                <p><button>Хочу выступить</button></p>
+            </td>
+        </tr>
+    </table>
+    <section class="partners">
+        {% partners_list %}
+    </section>
+    <footer>
+        <section>
+            <h3>Что будет?</h3>
+            <p><a href="/schedule/">Программа конференции</a></p>
+        </section>
+        <section>
+            <h3>Кто пойдёт?</h3>
+            <p>Докладчики</p>
+            <p>Участники</p>
+        </section>
+        <section>
+            <h3>Где и когда?</h3>
+            <p>19 мая 2012, Санкт-Петербург, ИТМО</p>
+            <p>Схема проезад</p>
+        </section>
+        <section>
+            <h3>Контакты</h3>
+            <p>Email: contact@ux-spb.ru</p>
+            <p>Телефон: +7 (812) 336 93 44</p>
+        </section>
+    </footer>
+</body>
+</html>
