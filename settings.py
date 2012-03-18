@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 # Django settings for uxspb_site project.
 import os
 
@@ -101,6 +102,16 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+
+    'django.core.context_processors.request',
 )
 
 ROOT_URLCONF = 'uxspb_site.urls'
@@ -124,7 +135,7 @@ INSTALLED_APPS = (
 
     'django.contrib.admin',
     'django.contrib.flatpages',
-    
+
     'conference',
 )
 
