@@ -39,7 +39,7 @@ class Organization(models.Model):
 
 
 class Partner(models.Model):
-    title = models.ForeignKey('Organization', verbose_name='Название')
+    organization = models.ForeignKey('Organization', verbose_name='Название')
     partner_type = models.IntegerField('Категория партнёрства', choices=PARTNER_TYPE_CHOISES)
 
     class Meta:
@@ -47,14 +47,14 @@ class Partner(models.Model):
         verbose_name_plural = 'Партнёры конференции'
 
     def __unicode__(self):
-        return self.title
+        return self.title.__unicode__()
 
 
 class Lecture(models.Model):
     title = models.CharField("Название доклада", max_length=255)
-    speaker = models.ManyToManyField('Person', verbose_name='Докладчик')
+    speaker = models.ManyToManyField('Speaker', verbose_name='Докладчик')
     category = models.ForeignKey('Category', verbose_name='Категория доклада')
-    timing = models.IntegerField('Длительность, мин.', blank=True)
+    timing = models.IntegerField('Длительность, мин.', blank=True, null=True)
     description = models.TextField("Описание доклада", blank=True)
     thesises = models.TextField("Тезисы доклада", blank=True)
     presentation = models.FileField("Презентация", upload_to='presentations/%Y', blank=True)
@@ -65,7 +65,18 @@ class Lecture(models.Model):
         verbose_name_plural = 'Доклады'
 
     def __unicode__(self):
-        return u"%2s (%2s)" % (self.title, self.speaker)
+        return u"%2s" % (self.title)
+
+
+class Speaker(models.Model):
+    person = models.ForeignKey('Person', verbose_name='Личность')
+
+    class Meta:
+        verbose_name = 'Докладчик'
+        verbose_name_plural = 'Докладчики'
+
+    def __unicode__(self):
+        return self.person.__unicode__()
 
 
 class Category(models.Model):
