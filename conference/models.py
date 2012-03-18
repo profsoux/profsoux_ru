@@ -1,6 +1,10 @@
 # -*- coding: utf8 -*-
 from django.db import models
 
+PARTNER_TYPE_CHOISES = (
+    (0, 'Организаторы'),
+    (1, 'Партнёры')
+    )
 
 class Person(models.Model):
     first_name = models.CharField("Имя", max_length=64)
@@ -34,9 +38,23 @@ class Organization(models.Model):
         return self.name
 
 
+class Partner(models.Model):
+    title = models.ForeignKey('Organization', verbose_name='Название')
+    partner_type = models.IntegerField('Категория партнёрства', choices=PARTNER_TYPE_CHOISES)
+
+    class Meta:
+        verbose_name = 'Партнёр'
+        verbose_name_plural = 'Партнёры конференции'
+
+    def __unicode__(self):
+        return self.title
+
+
 class Lecture(models.Model):
     title = models.CharField("Название доклада", max_length=255)
-    speaker = models.ManyToManyField('Person', related_name='Докладчик')
+    speaker = models.ManyToManyField('Person', verbose_name='Докладчик')
+    category = models.ForeignKey('Category', verbose_name='Категория доклада')
+    timing = models.IntegerField('Длительность, мин.', blank=True)
     description = models.TextField("Описание доклада", blank=True)
     thesises = models.TextField("Тезисы доклада", blank=True)
     presentation = models.FileField("Презентация", upload_to='presentations/%Y', blank=True)
@@ -48,3 +66,31 @@ class Lecture(models.Model):
 
     def __unicode__(self):
         return u"%2s (%2s)" % (self.title, self.speaker)
+
+
+class Category(models.Model):
+    title = models.CharField('Название категории', max_length=255)
+    description = models.TextField('Описание', blank=True)
+
+    class Meta:
+        verbose_name = 'Категория докладов'
+        verbose_name_plural = 'Категории докладов'
+
+    def __unicode__(self):
+        return self.title
+
+
+class ScheduleSection(models.Model):
+    start_time = models.TimeField('Время начала секции')
+    title = models.CharField('Название', max_length=64, blank=True)
+    category = models.ForeignKey('Category', verbose_name='Категория', blank=True)
+
+    class Meta:
+        verbose_name = 'Секция расписания'
+        verbose_name_plural = 'Секции расписания'
+
+    def __unicode__(self):
+        if self.title:
+            return u"%2s. %2s" % (self.start_time, self.title)
+        else:
+            return u"%2s. %2s" % (self.start_time, self.category)
