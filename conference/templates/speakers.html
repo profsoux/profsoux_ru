@@ -10,10 +10,12 @@
             {% if speaker.person.photo %}
                 {{ speaker.person.photo }}
             {% endif %}
-            <h2>{{ speaker.person.first_name }} {{ speaker.person.last_name }}</h2>
+            <h2><a href="/speakers/{{ speaker.person.id }}/">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a></h2>
             <p>{{ speaker.person.organization.name }}</p>
             {% for lecture in speaker.lectures %}
                 <p><a href="/papers/{{ lecture.id }}">{{ lecture.title }}</a></p>
+            {% empty %}
+                <p>Тема доклада уточняется</p>
             {% endfor %}
         </div>
     {% endfor %}
