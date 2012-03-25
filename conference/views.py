@@ -20,5 +20,4 @@ def speakers(request):
             pass
         else:
             speaker.lectures = lectures
-    print speakers
     return render_to_response('speakers.html', {'speakers': speakers})
