@@ -95,7 +95,8 @@ class Category(models.Model):
 class ScheduleSection(models.Model):
     start_time = models.TimeField('Время начала секции')
     title = models.CharField('Название', max_length=64, blank=True)
-    category = models.ForeignKey('Category', verbose_name='Категория', blank=True)
+    category = models.ForeignKey('Category', verbose_name='Категория', blank=True, null=True)
+    lecture = models.ForeignKey('Lecture', verbose_name='Доклад', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Секция расписания'
