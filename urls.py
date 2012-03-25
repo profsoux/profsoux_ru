@@ -24,6 +24,7 @@ urlpatterns = patterns('',
 
     url(r'^$', 'conference.views.index'),
     url(r'^speakers/$', 'conference.views.speakers'),
+    url(r'^speakers/(?P<speaker_id>[0-9]+)/$', 'conference.views.speaker'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

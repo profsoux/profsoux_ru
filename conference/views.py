@@ -21,3 +21,15 @@ def speakers(request):
         else:
             speaker.lectures = lectures
     return render_to_response('speakers.html', {'speakers': speakers})
+
+
+def speaker(request, speaker_id):
+    speaker = Speaker.objects.get(id=speaker_id).person
+    try:
+        lectures = Lecture.objects.filter(speaker=speaker.id)
+        print lectures
+    except:
+        pass
+    else:
+        speaker.lectures = lectures
+    return render_to_response('speaker.html', {'speaker': speaker})
