@@ -25,7 +25,10 @@ urlpatterns = patterns('',
 
     url(r'^media/(?P<path>.*)', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 
-    url(r'^$', 'conference.views.index')    
+    url(r'^$', 'conference.views.index'),
+    url(r'^speakers/$', 'conference.views.speakers'),
+    url(r'^speakers/(?P<speaker_id>[0-9]+)/$', 'conference.views.speaker'),
+    url(r'^schedule/$', 'conference.views.schedule'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

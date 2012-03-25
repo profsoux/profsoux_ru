@@ -6,6 +6,7 @@ PARTNER_TYPE_CHOISES = (
     (1, 'Партнёры')
     )
 
+
 class Person(models.Model):
     first_name = models.CharField("Имя", max_length=64)
     last_name = models.CharField("Фамилия", max_length=64)
@@ -47,7 +48,7 @@ class Partner(models.Model):
         verbose_name_plural = 'Партнёры конференции'
 
     def __unicode__(self):
-        return self.title.__unicode__()
+        return self.organization.name
 
 
 class Lecture(models.Model):
@@ -94,7 +95,8 @@ class Category(models.Model):
 class ScheduleSection(models.Model):
     start_time = models.TimeField('Время начала секции')
     title = models.CharField('Название', max_length=64, blank=True)
-    category = models.ForeignKey('Category', verbose_name='Категория', blank=True)
+    category = models.ForeignKey('Category', verbose_name='Категория', blank=True, null=True)
+    lecture = models.ForeignKey('Lecture', verbose_name='Доклад', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Секция расписания'

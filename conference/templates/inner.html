@@ -1,0 +1,64 @@
+{% load conference_tags %}
+
+<!DOCTYPE HTML>
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .sidebar {
+            width: 300px;
+        }
+    </style>
+</head>
+<body id="index">
+    <p><em>Первая UX-конференция в Санкт-Петербурге</em></p>
+    <nav class="main-nav">
+        <a href="/"><strong>Profso UX</strong></a>
+        <a href="/schedule/">Программа</a>
+        <a href="/speakers/">Докладчики</a>
+        <a href="/people/">Кто пойдёт?</a>
+        <a href="/map/">Место проведения</a>
+        <a href="/contacts/">Контакты</a>
+    </nav>
+    <table width="100%">
+        <tr valign="top">
+            <td>
+                <h1>{% block page_title %}
+                    
+                {% endblock page_title %}</h1>
+                
+                {% block content %}
+                    
+                {% endblock content %}
+            </td>
+            <td class="sidebar"> 
+                <h2>19 мая 2012</h2>
+                <h3>Санкт-Петербург, ИТМО</h3>
+                <p><button>Принять участие</button></p>
+            </td>
+        </tr>
+    </table>
+    <footer>
+        <section>
+            <h3>Что будет?</h3>
+            <p><a href="/schedule/">Программа конференции</a></p>
+        </section>
+        <section>
+            <h3>Кто пойдёт?</h3>
+            <p>Докладчики</p>
+            <p>Участники</p>
+        </section>
+        <section>
+            <h3>Где и когда?</h3>
+            <p>19 мая 2012, Санкт-Петербург, ИТМО</p>
+            <p>Схема проезад</p>
+        </section>
+        <section>
+            <h3>Контакты</h3>
+            <p>Email: contact@ux-spb.ru</p>
+            <p>Телефон: +7 (812) 336 93 44</p>
+        </section>
+    </footer>
+</body>
+</html>
