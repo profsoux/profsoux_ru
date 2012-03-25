@@ -33,3 +33,9 @@ def speaker(request, speaker_id):
     else:
         speaker.lectures = lectures
     return render_to_response('speaker.html', {'speaker': speaker})
+
+
+def schedule(request):
+    items = ScheduleSection.objects.order_by('start_time')
+    print items
+    return render_to_response('schedule.html', {'items': items})

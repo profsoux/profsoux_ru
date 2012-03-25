@@ -1,0 +1,23 @@
+{% extends "inner.html" %}
+
+{% block page_title %}
+    Программа <button>Хочу выступить</button>
+{% endblock page_title %}
+
+{% block content %}
+    {% for item in items %}
+    <p><em>{{item.start_time}}</em>
+        {% if item.title %}
+            <strong>{{ item.title }}</strong>
+        {% endif %}
+        {% if item.lecture %}
+            <strong>
+            {% for speaker in item.lecture.speaker.all %}
+                {{ speaker }}{% if forloop.last %}{% else %}, {% endif %}
+            {% endfor %}
+            </strong> «<a href="/papers/{{ item.lecture.id }}/">{{ item.lecture.title }}</a>»
+        {% endif %}
+    </p>
+        
+    {% endfor %}
+{% endblock content %}
