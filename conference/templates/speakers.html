@@ -1,0 +1,20 @@
+{% extends "inner.html" %}
+
+{% block page_title %}
+    Докладчики <button>Хочу выступить</button>
+{% endblock page_title %}
+
+{% block content %}
+    {% for speaker in speakers %}
+        <div class="speaker">
+            {% if speaker.person.photo %}
+                {{ speaker.person.photo }}
+            {% endif %}
+            <h2>{{ speaker.person.first_name }} {{ speaker.person.last_name }}</h2>
+            <p>{{ speaker.person.organization.name }}</p>
+            {% for lecture in speaker.lectures %}
+                <p><a href="/papers/{{ lecture.id }}">{{ lecture.title }}</a></p>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock content %}
