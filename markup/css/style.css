@@ -166,3 +166,8 @@ body {
 	#partners li {
 		width:33%;
 		}
+
+
+figure.thumbnail {
+	margin:0;
+	}
