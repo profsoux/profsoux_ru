@@ -107,3 +107,22 @@ class ScheduleSection(models.Model):
             return u"%2s. %2s" % (self.start_time, self.title)
         else:
             return u"%2s. %2s" % (self.start_time, self.category)
+
+
+class Participant(models.Model):
+    first_name = models.CharField("Имя", max_length=64)
+    last_name = models.CharField("Фамилия", max_length=64)
+    phone = models.CharField("Телефон", max_length=16)
+    email = models.EmailField("Email")
+    company_name = models.CharField("Компания", max_length=128)
+    position = models.CharField("Должность", max_length=64)
+    comment = models.TextField("Ваши предложения и пожелания")
+    allow_news = models.BooleanField("Новости конференции", default=True)
+    is_public = models.BooleanField("Публикация профиля", default=True)
+
+    class Meta:
+        verbose_name = 'Участник'
+        verbose_name_plural = 'Участники'
+
+    def __unicode__(self):
+        return u"%2s %2s" % (self.first_name, self.last_name)

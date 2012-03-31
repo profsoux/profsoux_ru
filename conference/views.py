@@ -1,8 +1,10 @@
 # Create your views here.
 
 from django.shortcuts import render_to_response
+from django.core.context_processors import csrf
 
 from conference.models import *
+from conference.forms import ParticipantForm
 
 
 def index(request):
@@ -39,3 +41,23 @@ def schedule(request):
     items = ScheduleSection.objects.order_by('start_time')
     print items
     return render_to_response('schedule.html', {'items': items})
+
+
+def registration(request):
+    if request.method == 'POST':
+        form = ParticipantForm(request.POST)
+        if form.is_valid():
+            form.save()
+            c = {
+                'state': 'thanks'
+                }
+            c.update(csrf(request))
+            return render_to_response('registration.html', c)
+    else:
+        form = ParticipantForm()
+        c = {
+            'state': 'default',
+            'form': form
+            }
+        c.update(csrf(request))
+    return render_to_response('registration.html', c)
