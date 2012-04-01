@@ -51,13 +51,16 @@ def registration(request):
             c = {
                 'state': 'thanks'
                 }
-            c.update(csrf(request))
-            return render_to_response('registration.html', c)
+        else:
+            c = {
+            'state': 'default',
+            'form': form
+            }
     else:
         form = ParticipantForm()
         c = {
             'state': 'default',
             'form': form
             }
-        c.update(csrf(request))
+    c.update(csrf(request))
     return render_to_response('registration.html', c)
