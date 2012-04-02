@@ -2,9 +2,16 @@
 
 from django.shortcuts import render_to_response
 from django.core.context_processors import csrf
+from django.views.generic import ListView
 
 from conference.models import *
 from conference.forms import ParticipantForm
+
+
+class Papers(ListView):
+    model = Lecture
+    context_object_name = 'papers'
+    template_name = 'papers.html'
 
 
 def index(request):
@@ -29,7 +36,6 @@ def speaker(request, speaker_id):
     speaker = Speaker.objects.get(id=speaker_id).person
     try:
         lectures = Lecture.objects.filter(speaker=speaker.id)
-        print lectures
     except:
         pass
     else:
@@ -43,6 +49,11 @@ def schedule(request):
     return render_to_response('schedule.html', {'items': items})
 
 
+def paper(request, paper_id):
+    paper = Lecture.objects.get(id=paper_id)
+    return render_to_response('paper.html', {'paper': paper})
+
+
 def registration(request):
     if request.method == 'POST':
         form = ParticipantForm(request.POST)
@@ -51,13 +62,16 @@ def registration(request):
             c = {
                 'state': 'thanks'
                 }
-            c.update(csrf(request))
-            return render_to_response('registration.html', c)
+        else:
+            c = {
+            'state': 'default',
+            'form': form
+            }
     else:
         form = ParticipantForm()
         c = {
             'state': 'default',
             'form': form
             }
-        c.update(csrf(request))
+    c.update(csrf(request))
     return render_to_response('registration.html', c)

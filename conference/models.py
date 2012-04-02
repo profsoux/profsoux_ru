@@ -59,7 +59,7 @@ class Lecture(models.Model):
     description = models.TextField("Описание доклада", blank=True)
     thesises = models.TextField("Тезисы доклада", blank=True)
     presentation = models.FileField("Презентация", upload_to='presentations/%Y', blank=True)
-    slideshare_link = models.URLField("Ссылка на Slideshare", blank=True)
+    slideshare_link = models.TextField("Ссылка на Slideshare", blank=True)
 
     class Meta:
         verbose_name = 'Доклад'

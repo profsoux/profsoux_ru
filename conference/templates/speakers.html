@@ -1,12 +1,12 @@
 {% extends "inner.html" %}
 
 {% block page_title %}
-    Докладчики <button>Хочу выступить</button>
+    Список докладов
 {% endblock page_title %}
 
 {% block content %}
-    {% for speaker in speakers %}
-        <div class="speaker">
+    {% for paper in Papers %}
+        <div class="paper">
             {% if speaker.person.photo %}
                 {{ speaker.person.photo }}
             {% endif %}
