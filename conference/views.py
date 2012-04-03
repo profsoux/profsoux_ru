@@ -15,7 +15,10 @@ class Papers(ListView):
 
 
 def index(request):
-    return render_to_response('index.html', {})
+    people_count = Participant.objects.count()
+    return render_to_response('index.html', 
+        {'people_count': people_count}
+        )
 
 
 def speakers(request):

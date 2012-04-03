@@ -3,72 +3,125 @@
 <!DOCTYPE HTML>
 <html lang="ru-RU">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
+    <meta charset="utf-8">
+    <title>ПрофсоUX – Первая UX-конференция в Санкт-Петербурге</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="less/style.less" rel="stylesheet/less">
+    
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 </head>
-<body id="index">
-    <header>
-        <div class="logo">
-            <img src="/media/i/logo.png" >
-        </div>
-        <hgroup>
-            <h1>Первая UX-конференция в Санкт-Петербурге </h1>
-            <h2>19 мая 2012, Санкт-Петербург, ИТМО</h2>
-        </hgroup>
-    </header>
-    <nav class="main-nav">
-        <a href="/schedule/">Программа</a>
-        <a href="/speakers/">Докладчики</a>
-        <a href="/people/">Кто пойдёт?</a>
-        <a href="/map/">Место проведения</a>
-        <a href="/contacts/">Контакты</a>
-    </nav>
-    <table width="100%">
-        <tr valign="top">
-            <td width="33%">
+<body>
+    <div class="container">
+        <header id="header">
+            <div id="branding" class="row">
+                <div id="logo" class="span6">
+                    <a  href="#"><img src="img/branding/logo.png" alt="" /></a>
+                </div>
+                
+                <hgroup class="span6">
+                    <h1>ПрофсоUX</h1>
+                    <h2>Конференция UX-специалистов</h2>
+                    <p><time>19 мая 2012</time>, Санкт-Петербург, ИТМО</p>
+                </hgroup>
+            </div>
+        </header>
+        
+        <div class="row">
+            <section id="intro" class="span4">
                 <p>ПрофсоUX – главная питерская конференция о юзабилити, UX и создании цифровых продуктов, ориентированных на человека.</p>
-                <p><button>Принять участие</button></p>
-                <p>Участие бесплатное.
-                Торопитесь! Количество мест ограничено.</p>     
-                <p>Уже идут: 100500. <a href="/people/">Кто идёт? »</a></p>
-                <p><button>Рассказать друзьям</button></p>
-            </td>
-            <td width="33%">
+
+                <a href="/registration/" class="btn btn-primary btn-large">Принять участие</a>
+
+                <p><small>Участие бесплатное.<br />
+                Торопитесь! Количество мест ограничено.</small></p>
+
+                <p>Уже идут: {{ people_count }}. <a href="/registration/">Кто идёт? »</a></p>
+
+                <p><a class="btn" href="#">Рассказать друзьям</a></p>
+            </section>
+            <section id="programm" class="span4">
                 <h2>В программе</h2>
+
                 {% category_list %}
-                <p><a href="/schedule/">Подробная программа</a></p>
-            </td>
-            <td width="33%">
+
+                <p><a href="/schedule/">Подробная программа »</a></p>
+            </section>
+
+            <section id="speakers" class="span4">
                 <h2>Докладчики</h2>
+
                 {% speakers_list %}
+                
                 <p><a href="/speakers/">Все докладчики »</a></p>
-                <p><button>Хочу выступить</button></p>
-            </td>
-        </tr>
-    </table>
-    <section class="partners">
-        {% partners_list %}
-    </section>
-    <footer>
-        <section>
-            <h3>Что будет?</h3>
-            <p><a href="/schedule/">Программа конференции</a></p>
-        </section>
-        <section>
-            <h3>Кто пойдёт?</h3>
-            <p>Докладчики</p>
-            <p>Участники</p>
-        </section>
-        <section>
-            <h3>Где и когда?</h3>
-            <p>19 мая 2012, Санкт-Петербург, ИТМО</p>
-            <p>Схема проезад</p>
-        </section>
-        <section>
-            <h3>Контакты</h3>
-            <p>Email: contact@ux-spb.ru</p>
-            <p>Телефон: +7 (812) 336 93 44</p>
-        </section>
+
+                <p><a class="btn btn-large" href="#">Хочу выступить</a></p>
+            </section>
+        </div>
+
+        <div class="row">
+            {% partners_list %}
+        </div>
+   
+    </div><!-- /container -->
+    
+    <nav id="nav-main" class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <!-- <a class="brand" href="#">ProfsoUX</a> -->
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li><a href="#">Программа</a></li>
+                        <li class="active"><a href="#">Докладчики</a></li>
+                        <li><a href="#">Кто пойдёт?</a></li>
+                        <li><a href="#">Место проведения</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </nav>
+    
+    <footer id="footer">
+        <div class="container">
+            <nav class="row">
+                <div class="span3">
+                    <h3>Что будет?</h3>
+                    <p><a href="#">Программа конференции</a></p>
+                </div>
+                <div class="span3">
+                    <h3>Кто пойдёт?</h3>
+                    <ul>
+                        <li><a href="#">Докладчики</a></li>
+                        <li><a href="#">Участники</a></li>
+                    </ul>
+                </div>
+                <div class="span3">
+                    <h3>Где и когда?</h3>
+                    <p>19 мая 2012,
+                    <br />Санкт-Петербург, ИТМО</p>
+                    <p><a href="#">Схема проезда</a></p>
+                </div>
+                <div class="span3">
+                    <h3>Контакты</h3>
+                    <p>Email: <a href="#">contact@ux-spb.ru</a><br />
+                    Телефон: <a href="#">+7 (812) 336 93 44</a></p>
+                </div>
+            </nav>
+        </div>
     </footer>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/less.js"></script>
+    <script src="js/bootstrap.js"></script>
 </body>
 </html>

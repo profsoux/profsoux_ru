@@ -1,9 +1,17 @@
-<h2>Организаторы</h2>
-{% for organization in items.orgs %}
-    <p>{{ organization.organization.name }}</p>
-{% endfor %}
+<section id="organizers" class="span5">
+    <h2>Организаторы</h2>
+    <ul class="clearfix">
+    {% for organization in items.orgs %}
+        <li><a href="{{ organization.organization.site }}"><img src="{{ organization.organization.logo }}" alt="{{ organization.organization.name }}"></a></li>
+    {% endfor %}
+    </ul>
+</section>
 
-<h2>Партнёры</h2>
-{% for organization in items.partners %}
-    <p>{{ organization.organization.name }}</p>
-{% endfor %}
+<section id="partners" class="span7">
+    <h2>Партнёры</h2>
+    <ul class="clearfix">
+    {% for organization in items.partners %}
+        <li><a href="{{ organization.organization.site }}"><img src="{{ organization.organization.logo }}" alt="{{ organization.organization.name }}"></a></li>
+    {% endfor %}
+    </ul>
+</section>
