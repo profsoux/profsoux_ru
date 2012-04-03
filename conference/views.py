@@ -1,6 +1,6 @@
 # Create your views here.
 
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.core.context_processors import csrf
 from django.views.generic import ListView
 
@@ -75,3 +75,17 @@ def registration(request):
             }
     c.update(csrf(request))
     return render_to_response('registration.html', c)
+
+
+def people(request):
+    people_q = Participant.objects.filter(is_public=True).order_by('first_name')
+    l = len(people_q)
+    people = [
+            people_q[0:l / 3],
+            people_q[l / 3:l / 3 * 2],
+            people_q[l / 3 * 2:]
+        ]
+
+    return render(request, 'people.html', {
+            'people': people
+        })
