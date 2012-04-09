@@ -1,4 +1,12 @@
+<ul>
 {% for speaker in items %}
-    <h2>{{ speaker.person.first_name }} {{ speaker.person.last_name }}</h2>
-    <p>{{ speaker.person.organization }}</p>
+    <li>
+        <h3>{{ speaker.person.first_name }} {{ speaker.person.last_name }}</h3>
+        <p>{{ speaker.person.organization }}</p>
+
+        <a href="/speakers/{{ speaker.person.id }}" class="thumbnail">
+            <img src="{{ speaker.person.photo }}" alt="">
+        </a>
+    </li>
 {% endfor %}
+</ul>
