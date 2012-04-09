@@ -12,20 +12,25 @@
 
   overflow: visible;
   margin-bottom: 60px;
+
+  background:#555b3f url(../img/textures/bg_footer.png) 0 0 repeat;
 }
 
 // Gradient is applied to it's own element because overflow visible is not honored by IE when filter is present
 .navbar-inner {
   padding-left:  20px;
   padding-right: 20px;
+  min-height:43px;
   //#gradient > .vertical(@navbarBackgroundHighlight, @navbarBackground);
   .border-radius(4px);
-  @shadow: 0 1px 3px rgba(0,0,0,.25), inset 0 -1px 0 rgba(0,0,0,.1);
+  @shadow: 0 1px 5px rgba(0,0,0,.25), inset 0 -1px 0 rgba(0,0,0,.1);
   .box-shadow(@shadow);
 
-  background:#555b3f url(../img/textures/bg_footer.png) 0 0 repeat;
+  //background:#555b3f url(../img/textures/bg_footer.png) 0 0 repeat;
+  background:url(../img/textures/brd_nav.png) 0 0 repeat-x;
 
-  border-width:6px 0 3px;
+  //border-width:6px 0 3px;
+  border:0;
   -webkit-border-image:url(../img/textures/brd_nav.png) 6 0 3 repeat;
   -moz-border-image:url(../img/textures/brd_nav.png) 6 0 3 repeat;
   -o-border-image:url(../img/textures/brd_nav.png) 6 0 3 repeat;
@@ -226,11 +231,11 @@
 // Links
 .navbar .nav > li > a {
   float: none;
-  padding: 10px 10px 11px;
+  padding: 15px 10px 16px;
   line-height: 19px;
   color: @navbarLinkColor;
   text-decoration: none;
-  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+  text-shadow: 0 -1px 0 #000;
 }
 // Hover
 .navbar .nav > li > a:hover {
