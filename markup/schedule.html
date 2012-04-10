@@ -7,9 +7,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<link href="less/bootstrap.less" rel="stylesheet/less">
-
-	<link href="css/style.css" rel="stylesheet">
+	<link href="less/style.less" rel="stylesheet/less">
 
 	<!--[if lt IE 9]>
 	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -17,133 +15,141 @@
 </head>
 <body>
 
-	<div class="container">
+	<nav id="nav-main" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<!-- <a class="brand" href="#">ProfsoUX</a> -->
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li><a href="#">Программа</a></li>
+						<li class="active"><a href="#">Докладчики</a></li>
+						<li><a href="#">Кто пойдёт?</a></li>
+						<li><a href="#">Место проведения</a></li>
+						<li><a href="#">Контакты</a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div>
+		</div>
+	</nav>
 
-		<header id="header">
+	<header id="header">
+		<div class="container">
 			<div id="branding" class="row">
 				<div id="logo" class="span6">
 					<a  href="#"><img src="img/branding/logo.png" alt="" /></a>
 				</div>
 				
 				<hgroup class="span6">
-					<h1>ПрофсоUX</h1>
+					<h1><a href="#">ПрофсоUX</a></h1>
 					<h2>Конференция UX-специалистов</h2>
 					<p><time>19 мая 2012</time>, Санкт-Петербург, ИТМО</p>
 				</hgroup>
-			</div>	
-
-			<nav id="nav-main" class="navbar">
-				<div class="navbar-inner">
-					<div class="container">
-						<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</a>
-						<!-- <a class="brand" href="#">ProfsoUX</a> -->
-						<div class="nav-collapse">
-							<ul class="nav">
-								<li class="active"><a href="#">Программа</a></li>
-								<li><a href="#">Докладчики</a></li>
-								<li><a href="#">Кто пойдёт?</a></li>
-								<li><a href="#">Место проведения</a></li>
-								<li><a href="#">Контакты</a></li>
-							</ul>
-						</div><!--/.nav-collapse -->
-					</div>
-				</div>
-			</nav>
-		</header>
-
-		<div class="row">
-
-            <div class="schedule span8">
-                <ul class="schedule-legends unstyled">
-                    <li><span class="legend-view legend-analytics"></span><span class="legend-name">Анатилика</span></li>
-                    <li><span class="legend-view legend-ui"></span><span class="legend-name">Проектирование</span></li>
-                    <li><span class="legend-view legend-tests"></span><span class="legend-name">Тестирование</span></li>
-                    <li><span class="legend-view legend-implementation"></span><span class="legend-name">Внедрение</span></li>
-                </ul>
-                <div class="schedule-axis ">
-
-                    <!-- 10:00 -->
-                    <div class="unit">
-                        <span class="unit-label">10:00</span>
-
-                        <div class="segment div-30">
-                            <div class="segment-data">
-                                <span class="time">10:00</span>
-                                <p>Регистрация участников</p>
-                            </div>
-                        </div>
-
-                        <div class="segment div-15">
-                            <div class="segment-data">
-                                <span class="time">10:30</span>
-                                <p>Открытие конференции</p>
-                            </div>
-                        </div>
-
-                        <div class="segment div-15 legend-analytics">
-                            <div class="segment-data">
-                                <span class="time">10:45</span>
-                                <p>Ольга Павлова <a href="#">«Проектирование интерфейса: как запланировать и оценить стоимость работ»</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/ 10:00 -->
-
-
-                    <!-- 11:00 -->
-                    <div class="unit">
-                        <span class="unit-label">11:00</span>
-
-                        <div class="segment div-45 pre-30 legend-analytics">
-                            <div class="segment-data">
-                                <span class="time">11:30</span>
-                                <p>Панельная дискуссия</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/ 11:00 -->
-
-
-                    <!-- 12:00 -->
-                    <div class="unit">
-                        <span class="unit-label">12:00</span>
-
-                        <div class="segment div-30 pre-15">
-                            <div class="segment-data">
-                                <span class="time">12:15</span>
-                                <p>Кофе-брейк</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/ 12:00 -->
-
-                </div>
-            </div>
-
+			</div>
 		</div>
+	</header>
 
+	<div class="container">
+		<div class="row">
+			<article class="span9">
+
+				<div class="schedule span8">
+	                <ul class="schedule-legends unstyled">
+	                    <li><span class="legend-view legend-analytics"></span><span class="legend-name">Анатилика</span></li>
+	                    <li><span class="legend-view legend-ui"></span><span class="legend-name">Проектирование</span></li>
+	                    <li><span class="legend-view legend-tests"></span><span class="legend-name">Тестирование</span></li>
+	                    <li><span class="legend-view legend-implementation"></span><span class="legend-name">Внедрение</span></li>
+	                </ul>
+	                <div class="schedule-axis ">
+
+	                    <!-- 10:00 -->
+	                    <div class="unit">
+	                        <span class="unit-label">10:00</span>
+
+	                        <div class="segment div-30">
+	                            <div class="segment-data">
+	                                <span class="time">10:00</span>
+	                                <p>Регистрация участников</p>
+	                            </div>
+	                        </div>
+
+	                        <div class="segment div-15">
+	                            <div class="segment-data">
+	                                <span class="time">10:30</span>
+	                                <p>Открытие конференции</p>
+	                            </div>
+	                        </div>
+
+	                        <div class="segment div-15 legend-analytics">
+	                            <div class="segment-data">
+	                                <span class="time">10:45</span>
+	                                <p>Ольга Павлова <a href="#">«Проектирование интерфейса: как запланировать и оценить стоимость работ»</a></p>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <!--/ 10:00 -->
+
+
+	                    <!-- 11:00 -->
+	                    <div class="unit">
+	                        <span class="unit-label">11:00</span>
+
+	                        <div class="segment div-45 pre-30 legend-analytics">
+	                            <div class="segment-data">
+	                                <span class="time">11:30</span>
+	                                <p>Панельная дискуссия</p>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <!--/ 11:00 -->
+
+
+	                    <!-- 12:00 -->
+	                    <div class="unit">
+	                        <span class="unit-label">12:00</span>
+
+	                        <div class="segment div-30 pre-15">
+	                            <div class="segment-data">
+	                                <span class="time">12:15</span>
+	                                <p>Кофе-брейк</p>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <!--/ 12:00 -->
+
+	                </div>
+	            </div>
+				
+			</article>
+			<aside class="span3">
+				<h3>19 мая 2012<br />
+				Санкт-Петербург,
+				ИТМО</h3>
+
+				<a href="#" class="btn btn-primary btn-large">Принять участие</a>
+
+				<p><small>Участие бесплатное.<br />
+				Количество мест ограничено.</small></p>
+
+				<p><a class="btn" href="#">Рассказать друзьям</a></p>
+
+				<nav>
+					<ul>
+						<li><a href="#">Скачать программу (PDF, 1,4 Мб)</a></li>
+						<li><a href="#">Добавить в Google Calendar</a></li>
+					</ul>
+				</nav>
+			</aside>
+		</div>
 	</div><!-- /container -->
 
-	<div id="top-bar">
-		<!-- <div class="row">
-			<ul id="social" class="span3 offset9 clearfix">
-				<li class="facebook"><a class="ico hide-text" href="#">facebook</a></li>
-				<li class="twitter"><a class="ico hide-text" href="#">twitter</a></li>
-				<li class="linkedin"><a class="ico hide-text" href="#">linkedin</a></li>
-				<li class="flickr"><a class="ico hide-text" href="#">flickr</a></li>
-				<li class="vimeo"><a class="ico hide-text" href="#">vimeo</a></li>
-				<li class="email"><a class="ico hide-text" href="#">email</a></li>
-			</ul>
-		</div> -->
-	</div>
-
 	<footer id="footer">
-		<div class="container">
-			<nav class="row">
+		<nav class="container">
+			<div class="row">
 				<div class="span3">
 					<h3>Что будет?</h3>
 					<p><a href="#">Программа конференции</a></p>
@@ -166,8 +172,20 @@
 					<p>Email: <a href="#">contact@ux-spb.ru</a><br />
 					Телефон: <a href="#">+7 (812) 336 93 44</a></p>
 				</div>
-			</nav>
-		</div>
+			</div>
+
+			<div id="social">
+				<ul class="clearfix">
+					<li class="facebook"><a class="ico hide-text" href="#">Facebook</a></li>
+					<li class="twitter"><a class="ico hide-text" href="#">Twitter</a></li>
+					<li class="linkedin"><a class="ico hide-text" href="#">LinkedIn</a></li>
+					<li class="flickr"><a class="ico hide-text" href="#">Flickr</a></li>
+					<li class="vimeo"><a class="ico hide-text" href="#">Vimeo</a></li>
+					<li class="email"><a class="ico hide-text" href="#">Email</a></li>
+				</ul>
+			</div>
+			
+		</nav>
 	</footer>
 
 	<script src="js/jquery.js"></script>
