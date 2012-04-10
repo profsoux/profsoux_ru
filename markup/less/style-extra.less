@@ -1,0 +1,102 @@
+/* schedule */
+@sheduleAxisBorderColor: #ACACAC;
+@scheduleAxisMargin: 55px;
+@scheduleUnitHeight: 100px;
+
+.segment-height(@val) {
+    height:(@scheduleUnitHeight * (((@val * 100%)/60%))/100) - 3px;
+}
+.segment-pre(@val) {
+    margin-top:(@scheduleUnitHeight * (((@val * 100%)/60%))/100) - 0;
+}
+
+
+.schedule {
+    text-align:left;
+    padding-left:@scheduleAxisMargin;
+    }
+
+    /* legends list */
+    .schedule-legends {}
+    .schedule-legends li {display:inline-block; position:relative; margin-left:20px;}
+    .schedule-legends li:first-child {margin-left:0;}
+    .schedule-legends .legend-view {left:0; top:3px; width:15px; height:15px; border:1px solid #ccc; position:absolute;}
+    .schedule-legends .legend-name {padding-left:25px;}
+
+    /* axis unit */
+    .schedule-axis {border-width:0 1px; border-color:@sheduleAxisBorderColor; border-style:solid;}
+    .schedule-axis .unit {
+        border-width:1px 0;
+        border-style:solid;
+        border-color:@sheduleAxisBorderColor;
+        height:@scheduleUnitHeight;
+        position:relative;
+        margin-bottom:-1px;
+        }
+    .schedule-axis .unit:after {
+        top:50%;
+        height:1px;
+        left:0;
+        right:0;
+        margin-top:-1px;
+        position:absolute;
+        content:"";
+        display:block;
+        background-color:@sheduleAxisBorderColor;
+    }
+    .schedule-axis .unit-label {
+        top:-10px;
+        left:-@scheduleAxisMargin;
+        position:absolute;
+        }
+
+    /* segment */
+    .schedule-axis .segment {
+        margin:0 10px 1px;
+        background-color:#F6F6F6;
+
+        border-width:1px;
+        border-style:solid;
+        border-color:@sheduleAxisBorderColor;
+
+        .border-radius(3px);
+        }
+    .schedule-axis .segment-data {padding:1px 5px 0; font-size:12px; position:relative; height:100%;}
+    .schedule-axis .segment-data .time {float:left; padding-right:10px; }
+    .schedule-axis .segment-data p {overflow:hidden; white-space:nowrap; font-size:12px; margin-bottom:0;}
+
+        /* axis division */
+        /* percent in .segment-height == minutes */
+        .schedule-axis .segment.div-5 {.segment-height(5%);}
+        .schedule-axis .segment.div-10 {.segment-height(10%);}
+        .schedule-axis .segment.div-15 {.segment-height(15%);}
+        .schedule-axis .segment.div-20 {.segment-height(20%);}
+        .schedule-axis .segment.div-25 {.segment-height(25%);}
+        .schedule-axis .segment.div-30 {.segment-height(30%);}
+        .schedule-axis .segment.div-35 {.segment-height(35%);}
+        .schedule-axis .segment.div-40 {.segment-height(40%);}
+        .schedule-axis .segment.div-45 {.segment-height(45%);}
+        .schedule-axis .segment.div-50 {.segment-height(50%);}
+        .schedule-axis .segment.div-55 {.segment-height(55%);}
+        .schedule-axis .segment.div-60 {.segment-height(60%);}
+
+        /* percent in .segment-pre == minutes */
+        .schedule-axis .segment.pre-5 {.segment-pre(5%);}
+        .schedule-axis .segment.pre-10 {.segment-pre(10%);}
+        .schedule-axis .segment.pre-15 {.segment-pre(15%);}
+        .schedule-axis .segment.pre-20 {.segment-pre(20%);}
+        .schedule-axis .segment.pre-25 {.segment-pre(25%);}
+        .schedule-axis .segment.pre-30 {.segment-pre(30%);}
+        .schedule-axis .segment.pre-35 {.segment-pre(35%);}
+        .schedule-axis .segment.pre-40 {.segment-pre(40%);}
+        .schedule-axis .segment.pre-45 {.segment-pre(45%);}
+        .schedule-axis .segment.pre-50 {.segment-pre(50%);}
+        .schedule-axis .segment.pre-55 {.segment-pre(55%);}
+        .schedule-axis .segment.pre-60 {.segment-pre(605%);}
+
+
+    /* legends */
+    .schedule .legend-analytics {background-color:#EEF6FE;}
+    .schedule .legend-ui {background-color:#F5FEF6}
+    .schedule .legend-tests {background-color:#FEF6ED;}
+    .schedule .legend-implementation {background-color:#FEF1F0;}
