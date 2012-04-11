@@ -55,7 +55,12 @@ textarea {
 label {
   display: block;
   margin-bottom: 5px;
+  padding-left: 3px;
   color: @grayDark;
+  em {
+    font-weight:bold;
+    color: @red;
+  }
 }
 
 // Inputs, Textareas, Selects
@@ -64,15 +69,15 @@ textarea,
 select,
 .uneditable-input {
   display: inline-block;
-  width: 210px;
-  height: @baseLineHeight;
-  padding: 4px;
+  width: 190px;
+  height: 36px;
+  padding: 4px 14px;
   margin-bottom: 9px;
-  font-size: @baseFontSize;
-  line-height: @baseLineHeight;
-  color: @gray;
+  font-size: 20px;
+  line-height: 36px;
+  color: #444;
   border: 1px solid @inputBorder;
-  .border-radius(3px);
+  .border-radius(4px);
 }
 .uneditable-textarea {
   width: auto;
@@ -138,7 +143,7 @@ input[type="file"] {
 
 // Chrome on Linux and Mobile Safari need background-color
 select {
-  width: 220px; // default input width + 10px of padding that doesn't get applied
+  width: 200px; // default input width + 10px of padding that doesn't get applied
   background-color: @inputBackground;
 }
 
@@ -206,14 +211,15 @@ input[type="hidden"] {
 
 input,
 textarea {
-  .box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+  //.box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+  .box-shadow(inset 0 1px 2px rgba(51,51,51,.25));
   @transition: border linear .2s, box-shadow linear .2s;
   .transition(@transition);
 }
 input:focus,
 textarea:focus {
   border-color: rgba(82,168,236,.8);
-  @shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+  @shadow: inset 0 1px 2px rgba(51,51,51,.25), 0 0 8px rgba(82,168,236,.6);
   .box-shadow(@shadow);
   outline: 0;
   outline: thin dotted \9; /* IE6-9 */
@@ -253,9 +259,68 @@ textarea[class*="span"],
 // GRID SIZING FOR INPUTS
 // ----------------------
 
-#grid > .input (@gridColumnWidth, @gridGutterWidth);
+//#grid > .input (@gridColumnWidth, @gridGutterWidth);
 
-
+input.span1,
+textarea.span1,
+.uneditable-input.span1 {
+  width:30px;  
+  }
+input.span2,
+textarea.span2,
+.uneditable-input.span2 {
+  width:110px;  
+  }
+input.span3,
+textarea.span3,
+.uneditable-input.span3 {
+  width:190px;  
+  }
+input.span4,
+textarea.span4,
+.uneditable-input.span4 {
+  width:270px;  
+  }
+input.span5,
+textarea.span5,
+.uneditable-input.span5 {
+  width:350px;  
+  }
+input.span6,
+textarea.span6,
+.uneditable-input.span6 {
+  width:430px;  
+  }
+input.span7,
+textarea.span7,
+.uneditable-input.span7 {
+  width:510px;  
+  }
+input.span8,
+textarea.span8,
+.uneditable-input.span8 {
+  width:590px;  
+  }
+input.span9,
+textarea.span9,
+.uneditable-input.span9 {
+  width:670px;  
+  }
+input.span10,
+textarea.span10,
+.uneditable-input.span10 {
+  width:750px;  
+  }
+input.span11,
+textarea.span11,
+.uneditable-input.span11 {
+  width:830px;  
+  }
+input.span12,
+textarea.span12,
+.uneditable-input.span12 {
+  width:910px;  
+  }
 
 
 // DISABLED STATE
@@ -301,7 +366,8 @@ select:focus:required:invalid {
   border-color: #ee5f5b;
   &:focus {
     border-color: darken(#ee5f5b, 10%);
-    .box-shadow(0 0 6px lighten(#ee5f5b, 20%));
+    @shadow: inset 0 1px 2px rgba(51,51,51,.25), 0 0 6px lighten(#ee5f5b, 20%);
+    .box-shadow(@shadow);
   }
 }
 
@@ -329,7 +395,7 @@ select:focus:required:invalid {
 }
 
 // Placeholder text gets special styles; can't be bundled together though for some reason
-.placeholder(@grayLight);
+.placeholder(@placeholderText);
 
 
 
@@ -338,7 +404,8 @@ select:focus:required:invalid {
 
 .help-block,
 .help-inline {
-  color: @gray; // lighten the text some for contrast
+  font-size:14px;
+  color: #777; // lighten the text some for contrast
 }
 
 .help-block {
@@ -350,7 +417,7 @@ select:focus:required:invalid {
   display: inline-block;
   .ie7-inline-block();
   vertical-align: middle;
-  padding-left: 5px;
+  padding-left: 3px;
 }
 
 
