@@ -144,6 +144,12 @@
     margin-left: -20px;
     margin-right: -20px;
   }
+  #header,
+  #footer {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding:0 20px;
+    }
 
   // GRID & CONTAINERS
   // -----------------
@@ -224,7 +230,7 @@
   // Unfix the navbar
   .navbar-fixed-top {
     position: static;
-    margin-bottom: @baseLineHeight;
+    //margin-bottom: @baseLineHeight;
   }
   .navbar-fixed-top .navbar-inner {
     padding: 5px;
@@ -250,9 +256,16 @@
   }
   .navbar .nav > li {
     float: none;
+    width: auto;
   }
   .navbar .nav > li > a {
     margin-bottom: 2px;
+  }
+
+  .navbar .nav .active > a,
+  .navbar .nav .active > a:hover {
+    @shadow: inset 0 -20px 20px rgba(255,255,255,.25), 0 1px 1px rgba(82,97,49,1);
+    .box-shadow(@shadow);
   }
   .navbar .nav > .divider-vertical {
     display: none;
@@ -264,8 +277,8 @@
   // Nav and dropdown links in navbar
   .navbar .nav > li > a,
   .navbar .dropdown-menu a {
-    padding: 6px 15px;
-    font-weight: bold;
+    padding: 10px 15px;
+    //font-weight: bold;
     color: @navbarLinkColor;
     .border-radius(3px);
   }
