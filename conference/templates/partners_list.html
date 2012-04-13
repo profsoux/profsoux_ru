@@ -2,7 +2,13 @@
     <h2>Организаторы</h2>
     <ul class="clearfix">
     {% for organization in items.orgs %}
-        <li><a href="{{ organization.organization.site }}"><img src="{{ organization.organization.logo }}" alt="{{ organization.organization.name }}"></a></li>
+        <li><a href="{{ organization.organization.site }}">
+            {% if organization.organization.logo %}
+                <img src="{{ organization.organization.logo }}" alt="{{ organization.organization.name }}">
+            {% else %}
+                <img src="http://placehold.it/80x40" alt="{{ organization.organization.name }}">    
+            {% endif %}
+        </a></li>
     {% endfor %}
     </ul>
 </section>
@@ -11,7 +17,13 @@
     <h2>Партнёры</h2>
     <ul class="clearfix">
     {% for organization in items.partners %}
-        <li><a href="{{ organization.organization.site }}"><img src="{{ organization.organization.logo }}" alt="{{ organization.organization.name }}"></a></li>
+        <li><a href="{{ organization.organization.site }}">
+            {% if organization.organization.logo %}
+                <img src="{{ organization.organization.logo }}" alt="{{ organization.organization.name }}">
+            {% else %}
+                <img src="http://placehold.it/80x40" alt="{{ organization.organization.name }}">    
+            {% endif %}
+        </a></li>
     {% endfor %}
     </ul>
 </section>
