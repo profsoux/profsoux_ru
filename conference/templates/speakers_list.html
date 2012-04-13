@@ -1,11 +1,20 @@
-<ul>
+<ul class="list-of-speakers">
 {% for speaker in items %}
-    <li>
+    <li class="speaker">
         <h3>{{ speaker.person.first_name }} {{ speaker.person.last_name }}</h3>
         <p>{{ speaker.person.organization }}</p>
+        {% for lecture in speaker.lectures %}
+            <p><a href="/papers/{{ lecture.id }}">«{{ lecture.title }}»</a></p>
+        {% empty %}
+            <p>Тема доклада уточняется</p>
+        {% endfor %}
 
         <a href="/speakers/{{ speaker.person.id }}" class="thumbnail">
-            <img src="{{ speaker.person.photo }}" alt="">
+            {% if speaker.person.photo %}
+                <img src="{{ speaker.person.photo }}" alt="{{ speaker.person.first_name }} {{ speaker.person.last_name }}">   
+            {% else %}
+                <img src="http://placehold.it/80x80" alt="{{ speaker.person.first_name }} {{ speaker.person.last_name }}">
+            {% endif %}
         </a>
     </li>
 {% endfor %}

@@ -1,11 +1,11 @@
 {% extends "inner.html" %}
 
 {% block page_title %}
-    Список докладов
+    Докладчики
 {% endblock page_title %}
 
 {% block content %}
-    {% for paper in Papers %}
+    {% for speaker in speakers %}
         <div class="paper">
             {% if speaker.person.photo %}
                 {{ speaker.person.photo }}
