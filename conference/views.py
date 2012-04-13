@@ -25,26 +25,25 @@ def index(request):
 def speakers(request):
     speakers = list(Speaker.objects.all())
     for speaker in speakers:
-        speaker.lectures = []
-        try:
-            lectures = Lecture.objects.filter(speaker=speaker.id)
-            print lectures
-        except:
-            pass
-        else:
-            speaker.lectures = lectures
-    return render_to_response('speakers.html', {'speakers': speakers})
+        speaker.lectures = get_speakers_lectures(speaker)
+    return render(request,
+        'speakers.html',
+        {'speakers': speakers}
+        )
 
 
 def speaker(request, speaker_id):
     speaker = Speaker.objects.get(id=speaker_id).person
+    speaker.lectures = get_speakers_lectures(speaker)
+    return render_to_response('speaker.html', {'speaker': speaker})
+
+
+def get_speakers_lectures(speaker):
     try:
         lectures = Lecture.objects.filter(speaker=speaker.id)
     except:
-        pass
-    else:
-        speaker.lectures = lectures
-    return render_to_response('speaker.html', {'speaker': speaker})
+        lectures = {}
+    return lectures
 
 
 def schedule(request):

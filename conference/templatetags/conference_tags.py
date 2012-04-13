@@ -1,5 +1,6 @@
 from django import template
 from conference.models import *
+from conference.views import get_speakers_lectures
 
 register = template.Library()
 
@@ -13,7 +14,8 @@ def category_list():
 @register.inclusion_tag('speakers_list.html')
 def speakers_list():
     speakers = Speaker.objects.all()[:4]
-    print speakers
+    for speaker in speakers:
+        speaker.lectures = get_speakers_lectures(speaker)
     return {'items': speakers}
 
 
@@ -23,7 +25,7 @@ def partners_list():
     partners = Partner.objects.filter(partner_type=1)
     return {
         'items': {
-            'orgs':orgs,
-            'partners':partners
+            'orgs': orgs,
+            'partners': partners
             }
         }
