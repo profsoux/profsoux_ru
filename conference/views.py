@@ -1,11 +1,15 @@
 # Create your views here.
 
+import datetime
+
 from django.shortcuts import render
 from django.core.context_processors import csrf
 from django.views.generic import ListView
 
 from conference.models import *
 from conference.forms import ParticipantForm
+
+conf_start = datetime.datetime(2012, 5, 29, 10, 00)
 
 
 class Papers(ListView):
@@ -49,7 +53,16 @@ def get_speakers_lectures(speaker):
 
 
 def schedule(request):
-    items = ScheduleSection.objects.order_by('start_time')
+    sections = ScheduleSection.objects.order_by('start_time')
+    items = []
+    for item in sections:
+        start_dt = datetime.datetime(2012, 5, 19,
+            item.start_time.hour,
+            item.start_time.minute)
+        items.append({
+            'section': item,
+            'offset': (start_dt - conf_start).seconds / 60 / 15
+            })
     return render(request,
         'schedule.html',
         {'items': items})
