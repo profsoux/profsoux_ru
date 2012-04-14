@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>ПрофсоUX – Первая UX-конференция в Санкт-Петербурге</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<link href="less/style.less" rel="stylesheet/less">
+
+	<!--[if lt IE 9]>
+	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+
+	<nav id="nav-main" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<!-- <a class="brand" href="#">ProfsoUX</a> -->
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li><a href="#">Программа</a></li>
+						<li class="active"><a href="#">Докладчики</a></li>
+						<li><a href="#">Кто пойдёт?</a></li>
+						<li><a href="#">Место проведения</a></li>
+						<li><a href="#">Контакты</a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div>
+		</div>
+	</nav>
+
+	<header id="header">
+		<div class="container">
+			<div id="branding" class="row">
+				<div id="logo" class="span6">
+					<a  href="#"><img src="img/branding/logo.png" alt="" /></a>
+				</div>
+				
+				<hgroup class="span6">
+					<h1><a href="#">ПрофсоUX</a></h1>
+					<h2>Конференция UX-специалистов</h2>
+					<p><time>19 мая 2012</time>, Санкт-Петербург, ИТМО</p>
+				</hgroup>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+
+		<div class="row">
+			<div class="span9">
+				<div class="page-header clearfix">
+					<h2>Место проведения</h2>
+				</div>
+
+				<div class="row">
+					<div class="span4">
+						<div id="map_canvas"></div>
+					</div>
+					<div class="span4">
+						<h3>Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики (ИТМО)</h3>
+						<dl>
+							<dt>Адрес:</dt>
+							<dd>Санкт-Петербург, пр. Кронверкский, д.49</dd>
+
+							<dt>Координаты:</dt>
+							<dd>59.956557, 30.309863</dd>
+
+							<dt>Метро:</dt>
+							<dd>ст. Горьковская (10 минут пешком),
+							ст. Спортивная (20 минут пешком),
+							ст. Петроградская (20 минут пешком),
+							ст. Площадь Ленина (40 минут пешком)</dd>
+
+							<dt>Трамвай:</dt>
+							<dd>6, 40</dd>
+
+							<dt>Автобус:</dt>
+							<dd>14, 46</dd>
+
+							<dt>Маршрутное такси:</dt>
+							<dd>К30, К46, К76, К223, К183</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+			<aside class="span3">
+				<h3>19 мая 2012<br />
+				Санкт-Петербург,
+				ИТМО</h3>
+
+				<a href="#" class="btn btn-primary btn-large">Принять участие</a>
+
+				<p><small>Участие бесплатное.<br />
+				Количество мест ограничено.</small></p>
+
+				<p><a class="btn" href="#">Рассказать друзьям</a></p>
+			</aside>
+		</div>
+
+	</div><!-- /container -->
+
+	<footer id="footer">
+		<nav class="container">
+			<div class="row">
+				<div class="span3">
+					<h3>Что будет?</h3>
+					<p><a href="#">Программа конференции</a></p>
+				</div>
+				<div class="span3">
+					<h3>Кто пойдёт?</h3>
+					<ul>
+						<li><a href="#">Докладчики</a></li>
+						<li><a href="#">Участники</a></li>
+					</ul>
+				</div>
+				<div class="span3">
+					<h3>Где и когда?</h3>
+					<p>19 мая 2012,
+					<br />Санкт-Петербург, ИТМО</p>
+					<p><a href="#">Схема проезда</a></p>
+				</div>
+				<div class="span3">
+					<h3>Контакты</h3>
+					<p>Email: <a href="#">contact@ux-spb.ru</a><br />
+					Телефон: <a href="#">+7 (812) 336 93 44</a></p>
+				</div>
+			</div>
+
+			<div id="social">
+				<ul class="clearfix">
+					<li class="facebook"><a class="ico hide-text" href="#">Facebook</a></li>
+					<li class="twitter"><a class="ico hide-text" href="#">Twitter</a></li>
+					<li class="linkedin"><a class="ico hide-text" href="#">LinkedIn</a></li>
+					<li class="flickr"><a class="ico hide-text" href="#">Flickr</a></li>
+					<li class="vimeo"><a class="ico hide-text" href="#">Vimeo</a></li>
+					<li class="email"><a class="ico hide-text" href="#">Email</a></li>
+				</ul>
+			</div>
+			
+		</nav>
+	</footer>
+
+	<script src="js/jquery.js"></script>
+	<script src="js/less.js"></script>
+	<script src="js/bootstrap.js"></script>
+
+	<script type="text/javascript"
+		src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCsKlIpzWXPGSMR6Dgq7hwPuX1lf5voHZU&sensor=true">
+    </script>
+
+    <script type="text/javascript">
+	$(document).ready(function() {
+		var latlng = new google.maps.LatLng(59.956557,30.309863);
+
+		var myOptions = {
+			zoom: 14,
+			center: latlng,
+			mapTypeControl: false,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+		var marker = new google.maps.Marker({
+			position: latlng,
+			map: map,
+			title:"ИТМО"
+		});
+
+	});
+	</script>
+</body>
+</html>
