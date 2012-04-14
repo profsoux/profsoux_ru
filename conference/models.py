@@ -83,6 +83,7 @@ class Speaker(models.Model):
 class Category(models.Model):
     title = models.CharField('Название категории', max_length=255)
     description = models.TextField('Описание', blank=True)
+    class_name = models.CharField('CSS-класс', max_length=255)
 
     class Meta:
         verbose_name = 'Категория докладов'
@@ -94,7 +95,7 @@ class Category(models.Model):
 
 class ScheduleSection(models.Model):
     start_time = models.TimeField('Время начала секции')
-    duration = models.IntegerField('Длительность, мин.')
+    duration = models.IntegerField('Длительность, мин.', default=15)
     title = models.CharField('Название', max_length=64, blank=True)
     category = models.ForeignKey('Category', verbose_name='Категория', blank=True, null=True)
     lecture = models.ForeignKey('Lecture', verbose_name='Доклад', blank=True, null=True)
