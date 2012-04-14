@@ -131,11 +131,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django.contrib.admin',
-    'django.contrib.flatpages',
-
     'filebrowser',
     'grappelli',
+
+    'django.contrib.admin',
+    'django.contrib.flatpages',
 
     'conference',
 )
