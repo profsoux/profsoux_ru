@@ -55,7 +55,7 @@ class Lecture(models.Model):
     title = models.CharField("Название доклада", max_length=255)
     speaker = models.ManyToManyField('Speaker', verbose_name='Докладчик')
     category = models.ForeignKey('Category', verbose_name='Категория доклада')
-    timing = models.IntegerField('Длительность, мин.', blank=True, null=True)
+    timing = models.IntegerField('Предполагаемая длительность, мин.', blank=True, null=True)
     description = models.TextField("Описание доклада", blank=True)
     thesises = models.TextField("Тезисы доклада", blank=True)
     presentation = models.FileField("Презентация", upload_to='presentations/%Y', blank=True)
@@ -94,6 +94,7 @@ class Category(models.Model):
 
 class ScheduleSection(models.Model):
     start_time = models.TimeField('Время начала секции')
+    duration = models.IntegerField('Длительность, мин.')
     title = models.CharField('Название', max_length=64, blank=True)
     category = models.ForeignKey('Category', verbose_name='Категория', blank=True, null=True)
     lecture = models.ForeignKey('Lecture', verbose_name='Доклад', blank=True, null=True)
