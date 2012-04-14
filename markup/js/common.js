@@ -1,10 +1,13 @@
 var ui = {};
+ui.confDate = new Date(2012, 5-1, 19);
 ui.schedule = {
     init: function() {
         var $schedule = $("#schedule"),
             $currentTimeEl, $timeLabels,
             labelHeight,
-            now,
+            //now = new Date(2012, 4-1, 14, 12, 45),
+            now = new Date(),
+            confDate = ui.confDate,
             currentHours,
             currentMinutes,
             parseHourRegexp,
@@ -12,15 +15,21 @@ ui.schedule = {
             endHour,
             inHourPixelVal, timeTopMargin;
 
-        if ($schedule.length == 0) {
+        if ( $schedule.length == 0) {
             return;
         }
+        if (confDate.getFullYear() != now.getFullYear() ||
+            confDate.getMonth() != now.getMonth() ||
+            confDate.getDate() != now.getDate) {
+            // comment this return for debug
+            return false;
+        }
+
+        currentHours = now.getHours();
+        currentMinutes = now.getMinutes();
 
         $currentTimeEl = $schedule.find(".current-time");
         $timeLabels = $schedule.find(".caption");
-        now = new Date();
-        currentHours = now.getHours();
-        currentMinutes = now.getMinutes();
         parseHourRegexp = /time_([0-9]{1,2})\-[0-9]{1,2}/;
         labelHeight = $timeLabels[0].offsetHeight;
         startHour = $timeLabels[0].className.match(parseHourRegexp);
@@ -32,7 +41,10 @@ ui.schedule = {
             endHour = Number(endHour[1]);
             timeTopMargin = ((currentHours - startHour) * labelHeight) + (inHourPixelVal);
 
-            $currentTimeEl.css('top', timeTopMargin);
+            $currentTimeEl.css({
+                'display': 'block',
+                'top': timeTopMargin
+            });
         }
     }
 };
