@@ -77,19 +77,5 @@
             </aside>
         </div>
     </div><!-- /container -->
-
-{% block content %}
-<table width="100%">
-    <tr>
-    {% for section in people %}
-        <td width="33%" valign="top">
-            {% for person in section %}
-                <p>{{ person.first_name }} {{ person.last_name }}</p>
-            {% endfor %}
-        </td>
-    {% endfor %}
-    </tr>
-</table>
-{% endblock content %}
     
 {% include "inc/footer.inc" %}
