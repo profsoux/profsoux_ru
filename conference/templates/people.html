@@ -1,8 +1,82 @@
-{% extends "inner.html" %}
+{% load conference_tags %}
 
-{% block page_title %}
-    Участники <button>Принять участие</button>
-{% endblock page_title %}
+{% include "inc/html-head.inc" %}
+
+<body>
+
+    {% include "inc/nav.inc" %}
+
+    {% include "inc/header.inc" %}
+
+    <div class="container">
+        <div class="row">
+            <article class="span9">
+
+                <div class="page-header clearfix">
+                    <h2>Участники</h2>
+                    <a href="#" class="btn">Принять участие</a>
+                </div>
+
+                <div class="members">
+                    <h3>Список людей, зарегистрировавшихся на конференцию. Нас уже {{ count }}</h3>
+
+                    <ul class="letters-list unstyled">
+                        {% for l in people %}
+                            {% for letter, persons in l.items %}
+                                <li><a href="#letter-{{ forloop.counter }}"
+                                {% if not persons %}
+                                    class="disabled"
+                                {% endif %}
+                                >{{ letter|upper }}</a></li>    
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+
+                    <div class="row">
+                        <div class="span4">
+                            {% for l in people %}
+                                {% for letter, persons in l.items %}
+                                    {% if persons %}
+                                        <h4 class="people-list-header" id="letter-{{ forloop.counter }}">{{ letter|upper }}</h4>
+                                        <ul class="people-list">
+                                        {% for person in persons %}
+                                            <li>{{ person}}</li>
+                                        {% endfor %}
+                                        </ul>  
+                                    {% endif %}
+                                {% endfor %}
+                                {% if forloop.counter == block_1_end or forloop.counter == block_2_end %}
+                                   </div>
+                                   <div class="span4"> 
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+                
+            </article>
+            <aside class="span3">
+                <h3>19 мая 2012<br />
+                Санкт-Петербург,
+                ИТМО</h3>
+
+                <a href="#" class="btn btn-primary btn-large">Принять участие</a>
+
+                <p><small>Участие бесплатное.<br />
+                Количество мест ограничено.</small></p>
+
+                <p><a class="btn" href="#">Рассказать друзьям</a></p>
+
+                <nav>
+                    <ul>
+                        <li><a href="#">Скачать программу (PDF, 1,4 Мб)</a></li>
+                        <li><a href="#">Добавить в Google Calendar</a></li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+    </div><!-- /container -->
 
 {% block content %}
 <table width="100%">
@@ -17,3 +91,5 @@
     </tr>
 </table>
 {% endblock content %}
+    
+{% include "inc/footer.inc" %}
