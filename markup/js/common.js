@@ -32,21 +32,8 @@ ui.schedule = {
             endHour = Number(endHour[1]);
             timeTopMargin = ((currentHours - startHour) * labelHeight) + (inHourPixelVal);
 
-            console.log([
-                currentHours,
-                currentMinutes,
-                60,
-                labelHeight,
-                endHour,
-                startHour
-            ]);
-
-            $currentTimeEl.css({
-                top: timeTopMargin
-            });
-
+            $currentTimeEl.css('top', timeTopMargin);
         }
-
     }
 };
 
