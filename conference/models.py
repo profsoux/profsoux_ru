@@ -55,7 +55,7 @@ class Lecture(models.Model):
     title = models.CharField("Название доклада", max_length=255)
     speaker = models.ManyToManyField('Speaker', verbose_name='Докладчик')
     category = models.ForeignKey('Category', verbose_name='Категория доклада')
-    timing = models.IntegerField('Длительность, мин.', blank=True, null=True)
+    timing = models.IntegerField('Предполагаемая длительность, мин.', blank=True, null=True)
     description = models.TextField("Описание доклада", blank=True)
     thesises = models.TextField("Тезисы доклада", blank=True)
     presentation = models.FileField("Презентация", upload_to='presentations/%Y', blank=True)
@@ -83,6 +83,7 @@ class Speaker(models.Model):
 class Category(models.Model):
     title = models.CharField('Название категории', max_length=255)
     description = models.TextField('Описание', blank=True)
+    class_name = models.CharField('CSS-класс', max_length=255)
 
     class Meta:
         verbose_name = 'Категория докладов'
@@ -94,6 +95,7 @@ class Category(models.Model):
 
 class ScheduleSection(models.Model):
     start_time = models.TimeField('Время начала секции')
+    duration = models.IntegerField('Длительность, мин.', default=15)
     title = models.CharField('Название', max_length=64, blank=True)
     category = models.ForeignKey('Category', verbose_name='Категория', blank=True, null=True)
     lecture = models.ForeignKey('Lecture', verbose_name='Доклад', blank=True, null=True)
@@ -114,9 +116,9 @@ class Participant(models.Model):
     last_name = models.CharField("Фамилия", max_length=64)
     phone = models.CharField("Телефон", max_length=16)
     email = models.EmailField("Email")
-    company_name = models.CharField("Компания", max_length=128)
-    position = models.CharField("Должность", max_length=64)
-    comment = models.TextField("Ваши предложения и пожелания")
+    company_name = models.CharField("Компания", max_length=128, blank=True, null=True)
+    position = models.CharField("Должность", max_length=64, blank=True, null=True)
+    comment = models.TextField("Ваши предложения и пожелания", blank=True, null=True)
     allow_news = models.BooleanField("Новости конференции", default=True)
     is_public = models.BooleanField("Публикация профиля", default=True)
 

@@ -1,17 +1,97 @@
-{% extends "inner.html" %}
+{% load conference_tags %}
 
-{% block page_title %}
-    Регистрация <button>Хочу выступить</button>
-{% endblock page_title %}
+{% include "inc/html-head.inc" %}
 
-{% block content %}
-    {% if state == 'default' %}
-        <form action="/registration/" method="POST">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit" />
-        </form>
-    {% endif %}
-    {% if state == 'thanks' %}
-        <p>Заявка принята, спасибо!</p>
-    {% endif %}
-{% endblock content %}
+<body>
+
+    {% include "inc/nav.inc" %}
+
+    {% include "inc/header.inc" %}
+
+    <div class="container">
+        <article id="signup-page">
+            <div class="row">
+                <div class="page-header clearfix">
+                    <h2 class="span6 offset2">Регистрация</h2>
+                </div>
+            </div>
+            <div class="row">
+                {% if state == 'default' %}
+                <form action="/registration/" id="signup-form" class="span6 offset2" method="POST">{% csrf_token %}
+                    <div class="control-group">
+                        {{ form.first_name.errors }}
+                        <label class="control-label" for="id_first_name">{{ form.first_name.label }} <em>*</em></label>
+                        {{ form.first_name }}
+                    </div>
+
+                    <div class="control-group">
+                        {{ form.last_name.errors }}
+                        <label class="control-label" for="id_last_name">{{ form.last_name.label }} <em>*</em></label>
+                        {{ form.last_name }}
+                    </div>
+
+                    <div class="control-group">
+                        {{ form.phone.errors }}
+                        <label class="control-label" for="id_phone">{{ form.phone.label }} <em>*</em></label>
+                        <div class="controls">
+                            {{ form.phone }}
+                            <small class="help-inline">Телефон нужен, чтобы подтвердить ваше участие перед конференцией</small>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        {{ form.email.errors }}
+                        <label class="control-label" for="id_email">{{ form.email.label }} <em>*</em></label>
+                        {{ form.email }}
+                    </div>
+
+                    <div class="control-group">
+                        {{ form.company_name.errors }}
+                        <label class="control-label" for="id_company">{{ form.company_name.label }}</label>
+                        {{ form.company_name }}
+                    </div>
+
+                    <div class="control-group">
+                        {{ form.position.errors }}
+                        <label class="control-label" for="id_position">{{ form.position.label }}</label>
+                        <div class="controls">
+                            {{ form.position }}
+                            <small class="help-inline">Поможет докладчикам понять, на какую аудиторию ориентироваться</small>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        {{ form.comment.errors }}
+                        <label class="control-label" for="id_comment">{{ form.comment.label }}</label>
+                        {{ form.comment }}
+                    </div>
+
+                    <div class="control-group">
+                        {{ form.allow_news.errors }}
+                        <label class="checkbox">
+                            {{ form.allow_news }} Я хочу получать новости конференции на указанный Email
+                        </label>
+                        <small class="help-inline">Мы сообщим вам об изменениях времени или места проведения конференции.</small>
+                    </div>
+
+                    <div class="control-group">
+                        {{ form.is_public.errors }}
+                        <label class="checkbox">
+                            {{ form.is_public }} Я хочу, чтобы мои контакты были добавлены в открытый список участников конференции
+                        </label>
+                        <small class="help-inline">Мы хотим создать список участников конференции для того, чтобы вы знали, кто собирается на ней присутствовать. Это поможет вам завести новые знакомства. Вы можете отказаться от публикации своих данных.</small>
+                    </div>
+                    
+                    <button type="submit" id="submit-button" class="btn btn-primary btn-large">Зарегистрироваться</button>
+                </form>
+                {% endif %}
+                {% if state == 'thanks' %}
+                    <p>Заявка принята, спасибо!</p>
+                    <p>Перейти в <a href="/people/">список участников</a>.</p>
+                {% endif %}
+            </div>
+
+        </article>
+    </div><!-- /container -->
+    
+{% include "inc/footer.inc" %}

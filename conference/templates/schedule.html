@@ -1,23 +1,110 @@
-{% extends "inner.html" %}
+{% load conference_tags %}
 
-{% block page_title %}
-    Программа <button>Хочу выступить</button>
-{% endblock page_title %}
+{% include "inc/html-head.inc" %}
 
-{% block content %}
-    {% for item in items %}
-    <p><em>{{item.start_time}}</em>
-        {% if item.title %}
-            <strong>{{ item.title }}</strong>
-        {% endif %}
-        {% if item.lecture %}
-            <strong>
-            {% for speaker in item.lecture.speaker.all %}
-                {{ speaker }}{% if forloop.last %}{% else %}, {% endif %}
-            {% endfor %}
-            </strong> «<a href="/papers/{{ item.lecture.id }}/">{{ item.lecture.title }}</a>»
-        {% endif %}
-    </p>
-        
-    {% endfor %}
-{% endblock content %}
+<body>
+
+    {% include "inc/nav.inc" %}
+
+    {% include "inc/header.inc" %}<div class="container">
+        <div class="row">
+            <article class="span9">
+
+                <div class="page-header clearfix">
+                    <h2>Программа</h2>
+                    <a href="#" class="btn">Хочу выступить</a>
+                </div>
+
+                <div class="schedule span8" id="schedule">
+
+                    <ul class="schedule-legends unstyled">
+                        <li><span class="legend-view legend-analytics"></span><span class="legend-name">Анатилика</span></li>
+                        <li><span class="legend-view legend-ui"></span><span class="legend-name">Проектирование</span></li>
+                        <li><span class="legend-view legend-testing"></span><span class="legend-name">Тестирование</span></li>
+                        <li><span class="legend-view legend-implementation"></span><span class="legend-name">Внедрение</span></li>
+                    </ul>
+                    <div class="schedule-axl">
+
+                        <span class="current-time"></span>
+
+                        <ul class="captions">
+                            <li class="caption time_10-00"><span class="text">10:00</span></li>
+                            <li class="caption time_11-00"><span class="text">11:00</span></li>
+                            <li class="caption time_12-00"><span class="text">12:00</span></li>
+                            <li class="caption time_13-00"><span class="text">13:00</span></li>
+                            <li class="caption time_14-00"><span class="text">14:00</span></li>
+                            <li class="caption time_15-00"><span class="text">15:00</span></li>
+                            <li class="caption time_16-00"><span class="text">16:00</span></li>
+                            <li class="caption time_17-00"><span class="text">17:00</span></li>
+                            <li class="caption time_18-00"><span class="text">18:00</span></li>
+                            <li class="caption time_19-00"><span class="text">19:00</span></li>
+                        </ul>
+
+                        <ul class="events">
+
+                        {% for item in items %}
+                            <li style="position:absolute; top: {{ item.offset|multiply:"38" }}px; width: 100%;">
+                                {% if item.section.lecture %}
+                                    <a href="/papers/{{ item.section.lecture.id }}/" class="event div-{{ item.section.duration }} 
+                                    {% if item.section.category %}
+                                        legend-{{ item.section.lecture.category.class_name }}
+                                    {% endif %}
+                                    ">
+                                {% else %}
+                                    <span class="event div-{{ item.section.duration }} 
+                                    {% if item.section.category %}
+                                        legend-{{ item.section.category.class_name }}
+                                    {% endif %}
+                                    ">
+                                {% endif %}
+                                    
+                                    <span class="description">
+                                        <time class="time">{{ item.section.start_time|time:"H:i" }}</time>
+                                        {% if item.section.title %}
+                                            {{ item.section.title }}
+                                        {% endif %}
+                                        {% if item.section.lecture %}
+                                            {% for speaker in item.section.lecture.speaker.all %}
+                                                {{ speaker }}{% if forloop.last %}{% else %}, {% endif %}
+                                            {% endfor %} 
+                                            <em>«{{ item.section.lecture.title }}»</em>
+                                        {% endif %}
+                                    </span>
+                                {% if item.section.lecture %}
+                                    </a>
+                                {% else %}
+                                    </span>
+                                {% endif %}
+                            </li>
+                                
+                        {% endfor %}
+                        </ul>
+
+                    </div>
+                </div>
+                
+            </article>
+            <aside class="span3">
+                <h3>19 мая 2012<br />
+                Санкт-Петербург,
+                ИТМО</h3>
+
+                <a href="#" class="btn btn-primary btn-large">Принять участие</a>
+
+                <p><small>Участие бесплатное.<br />
+                Количество мест ограничено.</small></p>
+
+                <p><a class="btn" href="#">Рассказать друзьям</a></p>
+
+                <nav>
+                    <ul>
+                        <li><a href="#">Скачать программу (PDF, 1,4 Мб)</a></li>
+                        <li><a href="#">Добавить в Google Calendar</a></li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+    </div><!-- /container -->
+
+    
+{% include "inc/footer.inc" %}

@@ -1,28 +1,85 @@
-{% extends "inner.html" %}
+{% load conference_tags %}
 
-{% block page_title %}
-    {{ speaker.first_name }} {{ speaker.last_name }}
-{% endblock page_title %}
+{% include "inc/html-head.inc" %}
 
-{% block content %}
+<body>
 
-{% for lecture in speaker.lectures %}
-    <p>«<a href="/papers/{{ lecture.id }}">{{ lecture.title }}</a>»</p>
-{% endfor %}
+    {% include "inc/nav.inc" %}
 
-<hr>
+    {% include "inc/header.inc" %}
 
-<div class="speaker">
-    {% if speaker.photo %}
-        {{ speaker.photo }}
-    {% endif %}
-    {{ speaker.about|safe }}
+    <div class="container">
 
-    <p><a href="{{speaker.site}}">{{speaker.site}}</a></p>
-    <p>{{speaker.twitter}}</p>
+        <div class="row">
+            <article class="span9">
+                <hgroup class="page-header">
+                    <h2>{{ speaker.first_name }} {{ speaker.last_name }}</h2>
+                    {% for lecture in speaker.lectures %}
+                        <h3><a href="/papers/{{ lecture.id }}">«{{ lecture.title }}»</a></h3>
+                    {% endfor %}
+                </hgroup>
+                <div class="row">
+                    <div class="span2">
+                        <figure class="thumbnail">
+                            {% if speaker.photo %}
+                                {{ speaker.photo }}
+                            {% else %}
+                                <img src="http://placehold.it/132x132" alt="">
+                            {% endif %}
+                        </figure>
+                    </div>
+                    <div class="span6">
+                        {{ speaker.about|safe }}
 
-    <h3>{{speaker.organization.name}}</h3>
-    <p><a href="{{speaker.organization.site}}">{{speaker.organization.site}}</a></p>
-    <p><a href="{{speaker.organization.facebook}}">{{speaker.organization.facebook}}</a></p>
-</div>
-{% endblock content %}
+                        {% if speaker.site or speaker.twitter %}
+                        <p>
+                            {% if speaker.site %}
+                                <a href="{{speaker.site}}">{{speaker.site}}</a><br />
+                            {% endif %}
+
+                            {% if speaker.twitter %}
+                                {{speaker.twitter}}
+                            {% endif %}
+                        </p>
+                        {% endif %}
+
+                        <h4>{{speaker.organization.name}}</h4>
+
+                        {% if speaker.organization.site or speaker.organization.facebook %}
+                        <p>
+                            {% if speaker.organization.site %}
+                            <a href="{{speaker.organization.site}}">{{speaker.organization.site}}</a><br />
+                            {% endif %}
+
+                            {% if speaker.organization.facebook %}
+                            <a href="{{speaker.organization.facebook}}">{{speaker.organization.facebook}}</a>
+                            {% endif %}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </article>
+            <aside class="span3">
+                <h3>19 мая 2012<br />
+                Санкт-Петербург,
+                ИТМО</h3>
+
+                <a href="#" class="btn btn-primary btn-large">Принять участие</a>
+
+                <p><small>Участие бесплатное.<br />
+                Количество мест ограничено.</small></p>
+
+                <p><a class="btn" href="#">Рассказать друзьям</a></p>
+
+                <nav>
+                    <ul>
+                        <li><a href="/speakers/">Другие докладчики »</a></li>
+                        <li><a href="/schedule/">Список докладов »</a></li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+
+    </div><!-- /container -->
+    
+{% include "inc/footer.inc" %}

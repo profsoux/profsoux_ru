@@ -29,3 +29,8 @@ def partners_list():
             'partners': partners
             }
         }
+
+
+@register.filter
+def multiply(value, arg):
+    return int(value) * int(arg)

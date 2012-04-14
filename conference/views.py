@@ -1,11 +1,15 @@
 # Create your views here.
 
-from django.shortcuts import render_to_response, render
+import datetime
+
+from django.shortcuts import render
 from django.core.context_processors import csrf
 from django.views.generic import ListView
 
 from conference.models import *
 from conference.forms import ParticipantForm
+
+conf_start = datetime.datetime(2012, 5, 29, 10, 00)
 
 
 class Papers(ListView):
@@ -35,7 +39,9 @@ def speakers(request):
 def speaker(request, speaker_id):
     speaker = Speaker.objects.get(id=speaker_id).person
     speaker.lectures = get_speakers_lectures(speaker)
-    return render_to_response('speaker.html', {'speaker': speaker})
+    return render(request,
+        'speaker.html',
+        {'speaker': speaker})
 
 
 def get_speakers_lectures(speaker):
@@ -47,14 +53,26 @@ def get_speakers_lectures(speaker):
 
 
 def schedule(request):
-    items = ScheduleSection.objects.order_by('start_time')
-    print items
-    return render_to_response('schedule.html', {'items': items})
+    sections = ScheduleSection.objects.order_by('start_time')
+    items = []
+    for item in sections:
+        start_dt = datetime.datetime(2012, 5, 19,
+            item.start_time.hour,
+            item.start_time.minute)
+        items.append({
+            'section': item,
+            'offset': (start_dt - conf_start).seconds / 60 / 15
+            })
+    return render(request,
+        'schedule.html',
+        {'items': items})
 
 
 def paper(request, paper_id):
     paper = Lecture.objects.get(id=paper_id)
-    return render_to_response('paper.html', {'paper': paper})
+    return render(request,
+        'paper.html',
+        {'paper': paper})
 
 
 def registration(request):
@@ -77,7 +95,9 @@ def registration(request):
             'form': form
             }
     c.update(csrf(request))
-    return render_to_response('registration.html', c)
+    return render(request,
+        'registration.html',
+        c)
 
 
 def people(request):
