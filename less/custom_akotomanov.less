@@ -1,0 +1,221 @@
+/* Layout */
+#header {
+	padding:40px 0 0;
+	border-top:1px solid #ebeaea;
+	border-bottom:2px solid #f4f3f1;
+	background:#ece8e2 url(../img/textures/bg_header.png) 0 0 repeat;
+	@shadow: inset 0 -5px 10px rgba(43, 28, 4, .1), inset 0 5px 10px rgba(43, 28, 4, .1);
+	.box-shadow(@shadow);
+	}
+	#branding {
+		margin-bottom:50px;
+		}
+		#logo img {
+			float:right;
+			}
+
+	#header h1,
+	#header h2 {
+		line-height:1.2;
+		}
+	#header h1 {
+		margin:2px 0 3px;
+		}
+	#header h2 {
+		margin:0;
+		font-size:24px;
+		}
+	#header p {
+		margin:0;
+		font-size:14px;
+		}
+
+
+#footer {
+	padding:10px 0;
+	background:#555b3f url(../img/textures/bg_footer.png) 0 0 repeat;
+	color:#fff3c8;
+
+	text-shadow:0 -1px 0 rgba(0, 0, 0, .75);
+
+	border-width:30px 0;
+	-webkit-border-image:url(../img/textures/brd_footer.png) 30 0 repeat;
+	-moz-border-image:url(../img/textures/brd_footer.png) 30 0 repeat;
+	-o-border-image:url(../img/textures/brd_footer.png) 30 0 repeat;
+	border-image:url(../img/textures/brd_footer.png) 30 0 repeat;
+	}
+	#footer .row {
+		margin-bottom:40px;
+		}
+	#footer h3 {
+		margin-bottom:10px;
+		line-height:1.2;
+		font-size:24px;
+		color:#fff3c8;
+		}
+	#footer p {
+		margin:0;
+		}
+	#footer ul {
+		margin:0;
+		list-style:none;
+		}
+	#footer a {
+		color:#fff3c8;
+		}
+
+#social ul {
+	margin:0 auto;
+	width:265px;
+	list-style:none;
+	}
+	#social li {
+		display:inline;
+		float:left;
+		margin:6px;
+		}
+		#social .ico {
+			display:block;
+			width:32px;
+			height:32px;
+			}
+			#social a.ico:hover {
+				.box-shadow(-1px -2px 15px #959f3c);
+				.border-radius(15px);
+				}
+		#social .facebook .ico {
+			background:url(../img/social_icons.png) 0 -41px no-repeat;
+			}
+			#social .facebook a.ico:hover {
+				background:url(../img/social_icons.png) 0 0 no-repeat;
+				}
+		#social .twitter .ico {
+			background:url(../img/social_icons.png) -40px -41px no-repeat;
+			}
+			#social .twitter a.ico:hover {
+				background:url(../img/social_icons.png) -40px 0 no-repeat;
+				}
+		#social .linkedin .ico {
+			background:url(../img/social_icons.png) -80px -41px no-repeat;
+			}
+			#social .linkedin a.ico:hover {
+				background:url(../img/social_icons.png) -80px 0 no-repeat;
+				}
+		#social .flickr .ico {
+			background:url(../img/social_icons.png) -120px -41px no-repeat;
+			}
+			#social .flickr a.ico:hover {
+				background:url(../img/social_icons.png) -120px 0 no-repeat;
+				}
+		#social .vimeo .ico {
+			background:url(../img/social_icons.png) -160px -41px no-repeat;
+			}
+			#social .vimeo a.ico:hover {
+				background:url(../img/social_icons.png) -160px 0 no-repeat;
+				}
+		#social .email .ico {
+			background:url(../img/social_icons.png) -200px -41px no-repeat;
+			}
+			#social .email a.ico:hover {
+				background:url(../img/social_icons.png) -200px 0 no-repeat;
+				}
+
+#content-container {
+	padding-top:50px;
+	}
+
+#intro,
+#programm, 
+#speakers {
+	margin-bottom:20px;
+	}
+#programm h2, 
+#speakers h2,
+#organizers h2, 
+#partners h2 {
+	margin:0 0 15px;
+	line-height:1.2;
+	font-size: 30px;
+	}
+
+#programm h3 {
+	margin:0 0 5px;
+	line-height:1.2;
+	font-size:21px;
+	}
+
+#intro small {
+	
+	}
+
+#programm p {
+	line-height:20px;
+	font-size:14px;
+	}
+
+/*#speakers h3 {
+	margin:0;
+	}*/
+
+
+#organizers h2,
+#partners h2 {
+	padding-bottom:10px;
+	margin-bottom:30px;
+	border-bottom:1px solid #d2d2d2;
+	-webkit-box-shadow:0px 1px 0 #fff;
+	-moz-box-shadow:0 1px 0 #fff;
+	box-shadow:0 1px 0 #fff;
+	}
+#organizers ul,
+#partners ul {
+	margin:0 0 100px;
+	list-style:none;
+	}
+	#organizers li,
+	#partners li {
+		display:inline;
+		float:left;
+		text-align:center;
+		}
+	#organizers li {
+		width:50%;
+		}
+	#partners li {
+		width:33%;
+		}
+
+
+figure.thumbnail {
+	margin:0;
+	}
+
+#signup-page {
+	padding-bottom:40px;
+	}
+
+ul.list-of-speakers {
+	margin:0;
+	list-style:none;
+	}
+	.list-of-speakers .speaker {
+		position:relative;
+		margin-bottom:20px;
+		min-height:115px;
+		}
+	.list-of-speakers .thumbnail {
+		position:absolute;
+		top:0;
+		left:0;
+		display:block;
+		}
+	.list-of-speakers h3 {
+		margin:0 0 5px 115px;
+		line-height:1.2;
+		font-size:21px;
+		}
+	.list-of-speakers p {
+		margin:0 0 0 115px;
+		line-height:20px;
+		font-size:14px;
+		}
