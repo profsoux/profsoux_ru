@@ -11,7 +11,7 @@
                     <li><a href="/schedule/">Программа</a></li>
                     <li><a href="/speakers/">Докладчики</a></li>
                     <li><a href="/people/">Кто пойдёт?</a></li>
-                    <li><a href="/map/">Место проведения</a></li>
+                    <li><a href="/location/">Место проведения</a></li>
                     <li><a href="/contacts/">Контакты</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
