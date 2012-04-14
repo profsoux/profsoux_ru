@@ -1,6 +1,6 @@
 # Create your views here.
 
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render
 from django.core.context_processors import csrf
 from django.views.generic import ListView
 
