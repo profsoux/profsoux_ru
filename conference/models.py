@@ -114,9 +114,9 @@ class Participant(models.Model):
     last_name = models.CharField("Фамилия", max_length=64)
     phone = models.CharField("Телефон", max_length=16)
     email = models.EmailField("Email")
-    company_name = models.CharField("Компания", max_length=128)
-    position = models.CharField("Должность", max_length=64)
-    comment = models.TextField("Ваши предложения и пожелания")
+    company_name = models.CharField("Компания", max_length=128, blank=True, null=True)
+    position = models.CharField("Должность", max_length=64, blank=True, null=True)
+    comment = models.TextField("Ваши предложения и пожелания", blank=True, null=True)
     allow_news = models.BooleanField("Новости конференции", default=True)
     is_public = models.BooleanField("Публикация профиля", default=True)
 

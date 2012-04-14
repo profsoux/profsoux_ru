@@ -1,22 +1,69 @@
-{% extends "inner.html" %}
+{% load conference_tags %}
 
-{% block page_title %}
-    Докладчики
-{% endblock page_title %}
+{% include "inc/html-head.inc" %}
 
-{% block content %}
-    {% for speaker in speakers %}
-        <div class="paper">
-            {% if speaker.person.photo %}
-                {{ speaker.person.photo }}
-            {% endif %}
-            <h2><a href="/speakers/{{ speaker.person.id }}/">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a></h2>
-            <p>{{ speaker.person.organization.name }}</p>
-            {% for lecture in speaker.lectures %}
-                <p><a href="/papers/{{ lecture.id }}">{{ lecture.title }}</a></p>
-            {% empty %}
-                <p>Тема доклада уточняется</p>
-            {% endfor %}
+<body>
+
+    {% include "inc/nav.inc" %}
+
+    {% include "inc/header.inc" %}
+     
+
+<div class="container">
+
+        <div class="row">
+            <div class="span9">
+                <div class="page-header clearfix">
+                    <h2>Докладчики</h2>
+                </div>
+
+                <div class="list-of-speakers">
+                
+                        {% for speaker in speakers %}
+
+                        {% cycle '<div class="row">' '' %}
+
+                        <div class="speaker span4">
+                            <h3>{{ speaker.person.first_name }} {{ speaker.person.last_name }}</h3>
+                            <p>{{ speaker.person.organization.name }}</p>
+                            {% for lecture in speaker.lectures %}
+                                <p><a href="/papers/{{ lecture.id }}">{{ lecture.title }}</a></p>
+                            {% empty %}
+                                <p>Тема доклада уточняется</p>
+                            {% endfor %}
+                            <a href="/speakers/{{ speaker.person.id }}/" class="thumbnail">
+                                {% if speaker.person.photo %}
+                                    {{ speaker.person.photo }}
+                                {% else %}
+                                    <img src="http://placehold.it/80x80" alt="">
+                                {% endif %}
+                            </a>
+                        </div>
+                        
+                        {% cycle '' '</div>' %}
+
+                        {% if forloop.last %}
+                            {% cycle '</div>' '' %} 
+                        {% endif %}
+
+                        {% endfor %}
+                    
+                </div><!-- /.list-of-speakers -->
+            </div>
+            <aside class="span3">
+                <h3>19 мая 2012<br />
+                Санкт-Петербург,
+                ИТМО</h3>
+
+                <a href="/registration/" class="btn btn-primary btn-large">Принять участие</a>
+
+                <p><small>Участие бесплатное.<br />
+                Количество мест ограничено.</small></p>
+
+                <p><a class="btn" href="#">Рассказать друзьям</a></p>
+            </aside>
         </div>
-    {% endfor %}
-{% endblock content %}
+
+    </div><!-- /container -->
+    
+{% include "inc/footer.inc" %}
