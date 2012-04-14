@@ -50,7 +50,6 @@ def get_speakers_lectures(speaker):
 
 def schedule(request):
     items = ScheduleSection.objects.order_by('start_time')
-    print items
     return render(request,
         'schedule.html',
         {'items': items})
