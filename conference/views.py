@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 # Create your views here.
 
 import datetime
@@ -5,6 +6,7 @@ import datetime
 from django.shortcuts import render
 from django.core.context_processors import csrf
 from django.views.generic import ListView
+from django.db.models import Count
 
 from conference.models import *
 from conference.forms import ParticipantForm
@@ -101,14 +103,36 @@ def registration(request):
 
 
 def people(request):
+    total = Participant.objects.all().aggregate(Count('first_name'))
     people_q = Participant.objects.filter(is_public=True).order_by('first_name')
-    l = len(people_q)
-    people = [
-            people_q[0:l / 3],
-            people_q[l / 3:l / 3 * 2],
-            people_q[l / 3 * 2:]
-        ]
+
+    if ord(people_q[0].first_name.lower()[0]) < 1072:
+        abc = [
+            unichr(ord(u'a') + i) for i in xrange(0, 26)] + [
+            unichr(ord(u'а') + i) for i in xrange(0, 6)] + [u'ё'] + [
+            unichr(ord(u'а') + i) for i in xrange(6, 32)
+            ]
+
+    persons = {i: [] for i in abc}
+
+    for person in people_q:
+        try:
+            persons[person.first_name.lower()[0]].append(person)
+        except:
+            persons_en[person.first_name.lower()[0]].append(person)
+
+    people = [{i: persons[i]} for i in abc]
+
+    block_1_end_letter = people_q[len(people_q) / 3].first_name.lower()[0]
+    block_2_end_letter = people_q[len(people_q) / 3 * 2].first_name.lower()[0]
+
+    block_1_end = abc.index(block_1_end_letter)
+    block_2_end = abc.index(block_2_end_letter)
 
     return render(request, 'people.html', {
-            'people': people
+            'abc': abc,
+            'people': people,
+            'count': total['first_name__count'],
+            'block_1_end': block_1_end,
+            'block_2_end': block_2_end
         })
