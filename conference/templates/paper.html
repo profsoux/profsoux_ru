@@ -1,29 +1,61 @@
-{% extends "inner.html" %}
+{% load conference_tags %}
 
-{% block page_title %}
-    {{ paper.title }}
-{% endblock page_title %}
+{% include "inc/html-head.inc" %}
 
-{% block content %}
+<body>
 
-<p>{% for speaker in paper.speaker.all %}
-    <a href="/speaker/{{ speaker.person.id }}">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a>
-{% endfor %}</p>
+    {% include "inc/nav.inc" %}
 
-<hr>
+    {% include "inc/header.inc" %}
 
-<div class="paper">
-    <div class="paper-description">
-        {{ paper.description|safe }}
-    </div>
-    {% if paper.presentation %}
-        <p><a href="{{ paper.presentation }}">Скачать презентацию</a></p>
-    {% endif %}
+    <div class="container">
 
-    {% if paper.slideshare_link %}
-       {{ paper.slideshare_link|safe }}
-    {% endif %}
+        <div class="row">
+            <article class="span9">
+                <hgroup class="page-header">
+                    <h2>{{ paper.title }}</h2>
+                    <h3>{% for speaker in paper.speaker.all %}
+                        <a href="/speaker/{{ speaker.person.id }}">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a>
+                        {% if not forloop.last %}
+                            <br />
+                        {% endif %}
+                    {% endfor %}</h3>
+                </hgroup>
+                <div class="row">
+                    <div class="span8">
+                        {{ paper.description|safe }}
 
-    <p><a href="/papers/">Другие доклады</a> <a href="/speakers/">Список докладчиков</a></p>
-</div>
-{% endblock content %}
+                        {% if paper.presentation %}
+                            <p><a href="{{ paper.presentation }}">Скачать презентацию</a></p>
+                        {% endif %}
+
+                        {% if paper.slideshare_link %}
+                           {{ paper.slideshare_link|safe }}
+                        {% endif %}
+                    </div>
+                </div>
+            </article>
+            <aside class="span3">
+                <h3>19 мая 2012<br />
+                Санкт-Петербург,
+                ИТМО</h3>
+
+                <a href="#" class="btn btn-primary btn-large">Принять участие</a>
+
+                <p><small>Участие бесплатное.<br />
+                Количество мест ограничено.</small></p>
+
+                <p><a class="btn" href="#">Рассказать друзьям</a></p>
+
+                <nav>
+                    <ul>
+                        <li><a href="/schedule/">Список докладов »</a></li>
+                        <li><a href="/speakers/">Список докладчиков</a></li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+
+    </div><!-- /container -->
+    
+{% include "inc/footer.inc" %}
