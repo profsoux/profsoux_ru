@@ -163,7 +163,10 @@ def people(request):
             unichr(ord(u'а') + i) for i in xrange(6, 32)
             ]
 
-    persons = {i: [] for i in abc}
+    persons = {}
+
+    for i in abc:
+        persons[i] = []
 
     for person in people_q:
         try:
