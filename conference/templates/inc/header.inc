@@ -1,7 +1,7 @@
 <header id="header">
     <div id="branding" class="row">
         <div id="logo" class="span6">
-            <a  href="#"><img src="{{ STATIC_URL }}img/branding/logo.png" alt="" /></a>
+            <a  href="/"><img src="{{ STATIC_URL }}img/branding/logo.png" alt="" /></a>
         </div>
         
         <hgroup class="span6">

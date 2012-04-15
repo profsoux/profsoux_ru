@@ -43,6 +43,7 @@ class Organization(models.Model):
     logo = models.ImageField("Логотип", upload_to="logotypes", blank=True)
     site = models.URLField("Адрес сайта", blank=True)
     facebook = models.URLField("Страница в Facebook", blank=True)
+    description = models.TextField("Дополнительная информация", blank=True)
 
     class Meta:
         verbose_name = 'Организация'

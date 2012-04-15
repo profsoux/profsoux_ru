@@ -39,6 +39,16 @@ def speakers(request):
         )
 
 
+def partners(request):
+    orgs = Partner.objects.filter(partner_type=0)
+    partners = Partner.objects.filter(partner_type=1)
+    return render(request,
+        'partners.html',
+        {'orgs': orgs,
+        'partners': partners
+        })
+
+
 def speaker(request, speaker_id):
     speaker = Speaker.objects.get(id=speaker_id).person
     speaker.lectures = get_speakers_lectures(speaker)

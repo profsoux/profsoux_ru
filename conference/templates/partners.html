@@ -1,0 +1,64 @@
+{% load conference_tags %}
+
+{% include "inc/html-head.inc" %}
+
+<body>
+
+    {% main_menu %}
+
+    {% include "inc/header.inc" %}
+     
+
+<div class="container">
+
+        <div class="row">
+            <div class="span9">
+                <div class="page-header clearfix">
+                    <h2>Партнёры</h2>
+                </div>
+
+                <div class="list-of-speakers">
+                
+                        {% for partner in partners %}
+
+                        <div class="span6">
+                            <h3>{{ partner.organization.name }}</h3>
+                            {% if partner.organization.description %}
+                                <div>{{ partner.organization.description|safe }}</div>
+                            {% endif %}
+                            {% if partner.organization.site %}
+                                <p><a href="{{ partner.organization.site }}">{{ partner.organization.site }}</a></p>
+                            {% endif %}
+                            {% if partner.organization.facebook %}
+                                <p><a href="{{ partner.organization.facebook }}">{{ partner.organization.facebook }}</a></p>
+                            {% endif %}
+                            <div class="logo">
+                                {% if partner.organization.logo %}
+                                    {{ partner.organization.logo }}
+                                {% else %}
+                                    <img src="http://placehold.it/80x80" alt="">
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        {% endfor %}
+                    
+                </div><!-- /.list-of-speakers -->
+            </div>
+            <aside class="span3">
+                <h3>19 мая 2012<br />
+                Санкт-Петербург,
+                ИТМО</h3>
+
+                <a href="/registration/" class="btn btn-primary btn-large">Принять участие</a>
+
+                <p><small>Участие бесплатное.<br />
+                Количество мест ограничено.</small></p>
+
+                <p><a class="btn" href="#">Рассказать друзьям</a></p>
+            </aside>
+        </div>
+
+    </div><!-- /container -->
+    
+{% include "inc/footer.inc" %}

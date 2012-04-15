@@ -17,7 +17,7 @@
     <h2>Партнёры</h2>
     <ul class="clearfix">
     {% for organization in items.partners %}
-        <li><a href="{{ organization.organization.site }}">
+        <li><a href="/partners/">
             {% if organization.organization.logo %}
                 <img src="{{ organization.organization.logo }}" alt="{{ organization.organization.name }}">
             {% else %}
