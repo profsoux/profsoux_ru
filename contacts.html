@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>ПрофсоUX – Первая UX-конференция в Санкт-Петербурге</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<link href="less/style.less" rel="stylesheet/less">
+	<script src="js/less.js"></script>
+
+	<!--[if lt IE 9]>
+	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+
+	<nav id="nav-main" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<!-- <a class="brand" href="#">ProfsoUX</a> -->
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li><a href="#">Программа</a></li>
+						<li class="active"><a href="#">Докладчики</a></li>
+						<li><a href="#">Кто пойдёт?</a></li>
+						<li><a href="#">Место проведения</a></li>
+						<li><a href="#">Контакты</a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div>
+		</div>
+	</nav>
+
+	<header id="header">
+		<div class="container">
+			<div id="branding" class="row">
+				<div id="logo" class="span6">
+					<a  href="#"><img src="img/branding/logo.png" alt="" /></a>
+				</div>
+				
+				<hgroup class="span6">
+					<h1><a href="#">ПрофсоUX</a></h1>
+					<h2>Конференция UX-специалистов</h2>
+					<p><time>19 мая 2012</time>, Санкт-Петербург, ИТМО</p>
+				</hgroup>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div id="content-main">
+			<div class="row">
+				<div class="page-header clearfix">
+					<h2 class="span6 offset2">Остались вопросы?</h2>
+				</div>
+			</div>
+			<div class="row">
+				<form id="contact-form" class="span6 offset2" action="#">
+					<p>Вы можете позвонить нам по телефону <a href="tel:+79213369344">+7 (921) 336 93 44</a> или написать письмо.</p>
+
+					<div class="control-group">
+						<label class="control-label" for="first-name-field">Имя <em>*</em></label>
+		  				<input type="text" id="first-name-field" class="span4" placeholder="Введите ваше имя" required>
+	  				</div>
+
+	  				<div class="control-group">
+						<label class="control-label" for="email-field">Email <em>*</em></label>
+		  				<input type="email" id="email-field" class="span4" placeholder="Введите ваш Email" required>
+		  			</div>
+
+		  			<div class="control-group">
+		  				<label class="control-label" for="website-field">Сайт</label>
+		  				<input type="text" id="website-field" class="span4" placeholder="">
+	  				</div>
+
+	  				<div class="control-group">
+		  				<label class="control-label" for="message-field">Сообщение <em>*</em></label>
+		  				<textarea id="message-field" class="span6" cols="30" rows="5" required></textarea>
+		  			</div>
+
+		  			<p><small><em>*</em> Обязательные поля</small></p>
+					
+					<button type="submit" id="submit-button" class="btn btn-primary btn-large">Отправить</button>
+				</form>
+			</div>
+			<div class="row">
+				<div id="follow-us" class="span6 offset2 clearfix">
+					<h3>Следите за нами!</h3>
+					<div id="social">
+						<ul class="clearfix">
+							<li class="facebook"><a class="ico hide-text" href="#">Facebook</a></li>
+							<li class="twitter"><a class="ico hide-text" href="#">Twitter</a></li>
+							<li class="linkedin"><a class="ico hide-text" href="#">LinkedIn</a></li>
+							<li class="flickr"><a class="ico hide-text" href="#">Flickr</a></li>
+							<li class="vimeo"><a class="ico hide-text" href="#">Vimeo</a></li>
+							<li class="email"><a class="ico hide-text" href="#">Email</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- /container -->
+
+	<footer id="footer">
+		<nav class="container">
+			<div class="row">
+				<div class="span3">
+					<h3>Что будет?</h3>
+					<p><a href="#">Программа конференции</a></p>
+				</div>
+				<div class="span3">
+					<h3>Кто пойдёт?</h3>
+					<ul>
+						<li><a href="#">Докладчики</a></li>
+						<li><a href="#">Участники</a></li>
+					</ul>
+				</div>
+				<div class="span3">
+					<h3>Где и когда?</h3>
+					<p>19 мая 2012,
+					<br />Санкт-Петербург, ИТМО</p>
+					<p><a href="#">Схема проезда</a></p>
+				</div>
+				<div class="span3">
+					<h3>Контакты</h3>
+					<p>Email: <a href="#">contact@ux-spb.ru</a><br />
+					Телефон: <a href="#">+7 (812) 336 93 44</a></p>
+				</div>
+			</div>
+		</nav>
+	</footer>
+
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.js"></script>
+</body>
+</html>
