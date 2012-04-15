@@ -8,11 +8,11 @@
             </a>
             <div class="nav-collapse">
                 <ul class="nav">
-                    <li><a href="/schedule/">Программа</a></li>
-                    <li><a href="/speakers/">Докладчики</a></li>
-                    <li><a href="/people/">Кто пойдёт?</a></li>
-                    <li><a href="/location/">Место проведения</a></li>
-                    <li><a href="/contacts/">Контакты</a></li>
+                    {% for item in items %}
+                    <li {% if item.link == path %}
+                         class="active"
+                        {% endif %}><a href="{{ item.link }}">{{ item.name }}</a></li> 
+                    {% endfor %}                       
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
