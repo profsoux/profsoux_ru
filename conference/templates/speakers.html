@@ -33,7 +33,7 @@
                             {% endfor %}
                             <a href="/speakers/{{ speaker.person.id }}/" class="thumbnail">
                                 {% if speaker.person.photo %}
-                                    {{ speaker.person.photo }}
+                                    <img src="{{ speaker.person.photo.url }}" width="80" alt="{{ speaker.person.first_name }} {{ speaker.person.last_name }}">
                                 {% else %}
                                     <img src="http://placehold.it/80x80" alt="">
                                 {% endif %}

@@ -34,7 +34,7 @@
                             {% endif %}
                             <div class="logo">
                                 {% if partner.organization.logo %}
-                                    {{ partner.organization.logo }}
+                                    <img src="{{ partner.organization.logo.url }}" width="80" alt="{{ partner.organization.name }}">
                                 {% else %}
                                     <img src="http://placehold.it/80x80" alt="">
                                 {% endif %}
