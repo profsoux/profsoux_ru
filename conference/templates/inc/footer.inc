@@ -25,6 +25,7 @@
                 </div>
             </div>
 
+            {% if not nosocial %}
             <div id="social">
                 <ul class="clearfix">
                     <li class="facebook"><a class="ico hide-text" href="#">Facebook</a></li>
@@ -35,6 +36,7 @@
                     <li class="email"><a class="ico hide-text" href="#">Email</a></li>
                 </ul>
             </div>
+            {% endif %}
         </nav>
     </footer>
 
