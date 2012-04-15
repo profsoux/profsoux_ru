@@ -128,3 +128,17 @@ class Participant(models.Model):
 
     def __unicode__(self):
         return u"%2s %2s" % (self.first_name, self.last_name)
+
+
+class Contacts(models.Model):
+    name = models.CharField("Имя", max_length=64)
+    email = models.EmailField("Email")
+    site = models.CharField("Сайт", max_length=64, blank=True, null=True)
+    comment = models.TextField("Сообщение")
+
+    class Meta:
+        verbose_name = 'Сообщение в форме'
+        verbose_name_plural = 'Сообщения в форме'
+
+    def __unicods__(self):
+        return u"%s (%s)" % (self.name, self.email)

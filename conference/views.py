@@ -102,6 +102,31 @@ def registration(request):
         c)
 
 
+def contacts(request):
+    if request.method == 'POST':
+        form = ContactsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            c = {
+                'state': 'thanks'
+                }
+        else:
+            c = {
+            'state': 'default',
+            'form': form
+            }
+    else:
+        form = ContactsForm()
+        c = {
+            'state': 'default',
+            'form': form
+            }
+    c.update(csrf(request))
+    return render(request,
+        'contacts.html',
+        c)
+
+
 def people(request):
     total = Participant.objects.all().aggregate(Count('first_name'))
     people_q = Participant.objects.filter(is_public=True).order_by('first_name')
