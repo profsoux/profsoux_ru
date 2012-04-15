@@ -266,6 +266,16 @@
 }
 
 
+//Border image
+.border-image(@img, @number, @repeat: repeat){
+  @val: @img @number @repeat;
+  -webkit-border-image: @val;
+  -moz-border-image: @val;
+  -ms-border-image: @val;
+  -o-border-image: @val;
+  border-image: @val;
+}
+
 // Box sizing
 .box-sizing(@boxmodel) {
   -webkit-box-sizing: @boxmodel;
