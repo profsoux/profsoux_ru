@@ -266,6 +266,16 @@
 }
 
 
+//Border image
+.border-image(@img, @number, @repeat: repeat){
+  @val: @img @number @repeat;
+  -webkit-border-image: @val;
+  -moz-border-image: @val;
+  -ms-border-image: @val;
+  -o-border-image: @val;
+  border-image: @val;
+}
+
 // Box sizing
 .box-sizing(@boxmodel) {
   -webkit-box-sizing: @boxmodel;
@@ -611,4 +621,10 @@
 
   }
 
+}
+
+
+.title-border-bottom(){
+  border-bottom:1px solid #d0cbc5;
+  .box-shadow(0 1px 0 rgba(255, 255, 255, .75));
 }
