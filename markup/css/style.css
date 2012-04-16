@@ -6028,12 +6028,12 @@ ul.list-of-speakers {
 }
 #footer #social a.ico:hover {
   border: none;
-  -webkit-box-shadow: -1px -2px 15px #959f3c;
-  -moz-box-shadow: -1px -2px 15px #959f3c;
-  box-shadow: -1px -2px 15px #959f3c;
-  -webkit-box-shadow: -1px -2px 15px #959f3c;
-  -moz-box-shadow: -1px -2px 15px #959f3c;
-  box-shadow: -1px -2px 15px #959f3c;
+  -webkit-box-shadow: -1px -2px 15px rgba(149, 159, 60, 0.5);
+  -moz-box-shadow: -1px -2px 15px rgba(149, 159, 60, 0.5);
+  box-shadow: -1px -2px 15px rgba(149, 159, 60, 0.5);
+  -webkit-box-shadow: -1px -2px 15px rgba(149, 159, 60, 0.5);
+  -moz-box-shadow: -1px -2px 15px rgba(149, 159, 60, 0.5);
+  box-shadow: -1px -2px 15px rgba(149, 159, 60, 0.5);
 }
 #content-main #social a.ico:hover {
   border: none;
@@ -6045,40 +6045,46 @@ ul.list-of-speakers {
   box-shadow: -1px -2px 15px #ffffff;
 }
 #social .facebook .ico {
-  background: url(../img/social_icons.png) 0 -41px no-repeat;
+  background: url(../img/social_icons.png) 0 -40px no-repeat;
 }
 #social .facebook a.ico:hover {
   background: url(../img/social_icons.png) 0 0 no-repeat;
 }
 #social .twitter .ico {
-  background: url(../img/social_icons.png) -40px -41px no-repeat;
+  background: url(../img/social_icons.png) -40px -40px no-repeat;
 }
 #social .twitter a.ico:hover {
   background: url(../img/social_icons.png) -40px 0 no-repeat;
 }
 #social .linkedin .ico {
-  background: url(../img/social_icons.png) -80px -41px no-repeat;
+  background: url(../img/social_icons.png) -80px -40px no-repeat;
 }
 #social .linkedin a.ico:hover {
   background: url(../img/social_icons.png) -80px 0 no-repeat;
 }
 #social .flickr .ico {
-  background: url(../img/social_icons.png) -120px -41px no-repeat;
+  background: url(../img/social_icons.png) -120px -40px no-repeat;
 }
 #social .flickr a.ico:hover {
   background: url(../img/social_icons.png) -120px 0 no-repeat;
 }
 #social .vimeo .ico {
-  background: url(../img/social_icons.png) -160px -41px no-repeat;
+  background: url(../img/social_icons.png) -160px -40px no-repeat;
 }
 #social .vimeo a.ico:hover {
   background: url(../img/social_icons.png) -160px 0 no-repeat;
 }
 #social .email .ico {
-  background: url(../img/social_icons.png) -200px -41px no-repeat;
+  background: url(../img/social_icons.png) -200px -40px no-repeat;
 }
 #social .email a.ico:hover {
   background: url(../img/social_icons.png) -200px 0 no-repeat;
+}
+#social .vkontakte .ico {
+  background: url(../img/social_icons.png) -240px -40px no-repeat;
+}
+#social .vkontakte a.ico:hover {
+  background: url(../img/social_icons.png) -240px 0 no-repeat;
 }
 #follow-us {
   padding: 20px 0;
