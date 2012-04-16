@@ -1,0 +1,12 @@
+#dsq-content .dsq-pagination {padding:0;}
+#dsq-content h3 {margin-bottom:10px !important; display:none;}
+#dsq-content #dsq-reply h3 {display:block;}
+
+    #dsq-pagination,
+    #dsq-sort-by,
+    #dsq-content #dsq-global-toolbar,
+    #dsq-content #dsq-comments-title,
+    #dsq-content .dsq-options {display:none;}
+
+#dsq-account-dropdown {margin-top:17px;}
+.dsq-comment-meta a, .dsq-comment-actions a {border-bottom:0;}
