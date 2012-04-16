@@ -654,7 +654,7 @@ h6 {
 }
 .page-header {
   padding-bottom: 23px;
-  margin: 0 0 24px;
+  margin: 0 0 30px;
   border-bottom: 1px solid #d0cbc5;
   -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.75);
   -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.75);
@@ -5859,6 +5859,23 @@ a.thumbnail:hover {
 }
 #content-container {
   padding: 60px 0;
+}
+/* Aside */
+#content-sup h3 {
+  margin: 0 0 30px;
+  font-size: 21px;
+  line-height: 1.4;
+}
+#content-sup .btn-signup {
+  display: block;
+  margin: 0 0 15px;
+}
+#content-sup nav ul {
+  margin: 0 0 30px;
+}
+#content-sup nav li {
+  margin: 0 0 5px;
+  list-style: none;
 }
 #intro,
 #programm,
