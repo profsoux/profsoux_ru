@@ -89,16 +89,16 @@ h6 {
 
 // Page header
 .page-header {
-  padding-bottom: @baseLineHeight - 1;
-  margin: @baseLineHeight 0;
-  border-bottom: 1px solid @grayLighter;
-}
+  padding-bottom:@baseLineHeight - 1;
+  margin:0 0 @baseLineHeight;
+  .title-border-bottom();
+  }
 .page-header h1 {
   line-height: 1;
-}
+  }
 .page-header h2 {
   margin-bottom:0;
-}
+  }
 
 
 
@@ -269,3 +269,4 @@ del {
 ins {
   color: @grayDarker;
 }
+
