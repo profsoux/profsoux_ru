@@ -1,0 +1,75 @@
+{% load conference_tags %}
+
+{% include "inc/html-head.inc" %}
+
+<body>
+
+    {% main_menu %}
+
+    {% include "inc/header.inc" %}
+
+
+    <div class="container">
+        <article id="signup-page">
+            <div class="row">
+                <div class="page-header clearfix">
+                    <h2 class="span6 offset2">Остались вопросы?</h2>
+                </div>
+            </div>
+            <div class="row">
+                {% if state == 'default' %}
+                <form action="/contacts/" id="signup-form" class="span6 offset2" method="POST">{% csrf_token %}
+                    <p>Вы можете позвонить нам по телефону <a href="tel:+79213369344">+7 (921) 336 93 44</a> или написать письмо.</p>
+
+                    <div class="control-group">
+                        {{ form.name.errors }}
+                        <label class="control-label" for="id_name">{{ form.name.label }} <em>*</em></label>
+                        {{ form.name }}
+                    </div>
+
+                    <div class="control-group">
+                        {{ form.email.errors }}
+                        <label class="control-label" for="id_email">{{ form.email.label }} <em>*</em></label>
+                        {{ form.email }}
+                    </div>
+
+                    <div class="control-group">
+                        {{ form.site.errors }}
+                        <label class="control-label" for="id_site">{{ form.site.label }}</label>
+                        {{ form.site }}
+                    </div>
+
+                    <div class="control-group">
+                        {{ form.comment.errors }}
+                        <label class="control-label" for="id_comment">{{ form.comment.label }} <em>*</em></label>
+                        {{ form.comment }}
+                    </div>
+
+                    <p><small><em>*</em> Обязательные поля</small></p>
+                    
+                    <button type="submit" id="submit-button" class="btn btn-primary btn-large">Отправить</button>
+                </form>
+                {% endif %}
+                {% if state == 'thanks' %}
+                    <p>Письмо отправлено, спасибо!</p>
+                {% endif %}
+            </div>
+
+            <div class="row">
+                <div id="follow-us" class="span6 offset2 clearfix">
+                    <h3>Следите за нами!</h3>
+                    <div id="social">
+                        <ul class="clearfix">
+                            <li class="facebook"><a class="ico hide-text" href="http://www.facebook.com/events/294327657291715/">Facebook</a></li>
+                            <li class="twitter"><a class="ico hide-text" href="https://twitter.com/#!/uxspb">Twitter</a></li>
+                            <li class="linkedin"><a class="ico hide-text" href="http://linkd.in/yN9ET2">LinkedIn</a></li>
+                            <li class="email"><a class="ico hide-text" href="mailto:contact@ux-spb.ru">Email</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </article>
+    </div><!-- /container -->
+    
+{% include "inc/footer.inc" with nosocial="True" %}

@@ -1,6 +1,7 @@
 *.pyc
 data.db
 *.sublime-*
+uploads
 
 # Idea projects files & folders
 .idea

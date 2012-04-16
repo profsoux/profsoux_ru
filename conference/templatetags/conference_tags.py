@@ -31,6 +31,16 @@ def partners_list():
         }
 
 
+@register.inclusion_tag('inc/nav.inc', takes_context=True)
+def main_menu(context):
+    items = Menu.objects.order_by('weight')
+    path = context['request'].path
+    return {
+        'items': items,
+        'path': path
+    }
+
+
 @register.filter
 def multiply(value, arg):
     return int(value) * int(arg)

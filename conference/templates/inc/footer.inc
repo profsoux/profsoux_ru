@@ -25,16 +25,16 @@
                 </div>
             </div>
 
+            {% if not nosocial %}
             <div id="social">
                 <ul class="clearfix">
-                    <li class="facebook"><a class="ico hide-text" href="#">Facebook</a></li>
-                    <li class="twitter"><a class="ico hide-text" href="#">Twitter</a></li>
-                    <li class="linkedin"><a class="ico hide-text" href="#">LinkedIn</a></li>
-                    <li class="flickr"><a class="ico hide-text" href="#">Flickr</a></li>
-                    <li class="vimeo"><a class="ico hide-text" href="#">Vimeo</a></li>
-                    <li class="email"><a class="ico hide-text" href="#">Email</a></li>
+                    <li class="facebook"><a class="ico hide-text" href="http://www.facebook.com/events/294327657291715/">Facebook</a></li>
+                    <li class="twitter"><a class="ico hide-text" href="https://twitter.com/#!/uxspb">Twitter</a></li>
+                    <li class="linkedin"><a class="ico hide-text" href="http://linkd.in/yN9ET2">LinkedIn</a></li>
+                    <li class="email"><a class="ico hide-text" href="mailto:contact@ux-spb.ru">Email</a></li>
                 </ul>
             </div>
+            {% endif %}
         </nav>
     </footer>
 

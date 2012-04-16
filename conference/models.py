@@ -7,6 +7,19 @@ PARTNER_TYPE_CHOISES = (
     )
 
 
+class Menu(models.Model):
+    name = models.CharField("Имя", max_length=64)
+    link = models.CharField("Ссылка", max_length=64)
+    weight = models.IntegerField('Порядок вывода')
+
+    class Meta:
+        verbose_name = 'Пункт меню'
+        verbose_name_plural = 'Пункты меню'
+
+    def __unicode__(self):
+        return u'%s (%s)' % (self.name, self.link)
+
+
 class Person(models.Model):
     first_name = models.CharField("Имя", max_length=64)
     last_name = models.CharField("Фамилия", max_length=64)
@@ -30,6 +43,7 @@ class Organization(models.Model):
     logo = models.ImageField("Логотип", upload_to="logotypes", blank=True)
     site = models.URLField("Адрес сайта", blank=True)
     facebook = models.URLField("Страница в Facebook", blank=True)
+    description = models.TextField("Дополнительная информация", blank=True)
 
     class Meta:
         verbose_name = 'Организация'

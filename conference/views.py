@@ -7,9 +7,10 @@ from django.shortcuts import render
 from django.core.context_processors import csrf
 from django.views.generic import ListView
 from django.db.models import Count
+from django.core.mail import send_mail
 
 from conference.models import *
-from conference.forms import ParticipantForm
+from conference.forms import ParticipantForm, ContactsForm
 
 conf_start = datetime.datetime(2012, 5, 29, 10, 00)
 
@@ -36,6 +37,16 @@ def speakers(request):
         'speakers.html',
         {'speakers': speakers}
         )
+
+
+def partners(request):
+    orgs = Partner.objects.filter(partner_type=0)
+    partners = Partner.objects.filter(partner_type=1)
+    return render(request,
+        'partners.html',
+        {'orgs': orgs,
+        'partners': partners
+        })
 
 
 def speaker(request, speaker_id):
@@ -107,6 +118,20 @@ def contacts(request):
         form = ContactsForm(request.POST)
         if form.is_valid():
             form.save()
+
+            subject = u'Сообщения с сайта profsoux.ru'
+            message = u'''Имя: %s
+                email: %s
+                Сайт: %s
+                Сообщение: %s''' % (form.cleaned_data['name'],
+                    form.cleaned_data['email'],
+                    form.cleaned_data['site'],
+                    form.cleaned_data['comment'])
+            sender = 'robot@profsoux.ru'
+            recipients = ['contact@ux-spb.ru']
+
+            from django.core.mail import send_mail
+            send_mail(subject, message, sender, recipients)
             c = {
                 'state': 'thanks'
                 }
@@ -138,7 +163,10 @@ def people(request):
             unichr(ord(u'а') + i) for i in xrange(6, 32)
             ]
 
-    persons = {i: [] for i in abc}
+    persons = {}
+
+    for i in abc:
+        persons[i] = []
 
     for person in people_q:
         try:
