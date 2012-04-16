@@ -39,6 +39,8 @@
   text-decoration: none;
   background-color: darken(@white, 10%);
   background-position: 0 -15px;
+  border: 1px solid @btnBorder;
+  border-bottom-color: darken(@btnBorder, 10%);
 
   // transition is only when going to hover, otherwise the background
   // behind the gradient (there for IE<=9 fallback) gets mismatched
@@ -136,27 +138,31 @@
 
 // Primary button
 // -------------------------
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active {
+  border-width:5px;
+  .border-image(url(../img/textures/brd_btn.png), 5, repeat);
+  background:@navbarLinkBackgroundActive url(../img/textures/bg_nav_active.png) 0 0 repeat;
+  }
+
 .btn-primary {
   padding: 0 8px 2px;
 
-  border-width:5px;
-  .border-image(url(../img/textures/brd_btn.png), 5, repeat);
-  
-  background:@navbarLinkBackgroundActive url(../img/textures/bg_nav_active.png) 0 0 repeat;
-  
   @shadow:inset 0 20px 20px rgba(255,255,255,.25), 0 1px 2px rgba(0,0,0,.25);
   .box-shadow(@shadow);
 
   color: @navbarLinkColorActive;
   text-shadow:0 -1px 0 fadeout(#4a1809, 10%);
 
-  &:hover,
-  &:active {
-    background:@navbarLinkBackgroundActive url(../img/textures/bg_nav_active.png) 0 0 repeat;
-    
+  &:hover{
     @shadow:inset 0 20px 20px rgba(255,255,255,.15), 0 1px 2px rgba(0,0,0,.3);
     .box-shadow(@shadow);
-
+    text-shadow: 0 -1px 0 rgba(0,0,0,.75);
+  }
+  &:active {
+    @shadow:0 10px 5px rgba(0,0,0, 0.1) inset,0 -10px 5px rgba(255, 255, 255, 0.1) inset, 0 1px 2px rgba(0, 0, 0, 0.3);
+    .box-shadow(@shadow);
     text-shadow: 0 -1px 0 rgba(0,0,0,.75);
   }
 
