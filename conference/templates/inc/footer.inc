@@ -3,7 +3,7 @@
             <div class="row">
                 <div class="span3">
                     <h3>Что будет?</h3>
-                    <p><a href="/schedle/">Программа конференции</a></p>
+                    <p><a href="/schedule/">Программа конференции</a></p>
                 </div>
                 <div class="span3">
                     <h3>Кто пойдёт?</h3>
