@@ -23,11 +23,13 @@
                     <ul class="letters-list unstyled">
                         {% for l in people %}
                             {% for letter, persons in l.items %}
-                                <li><a href="#letter-{{ forloop.counter }}"
-                                {% if not persons %}
-                                    class="disabled"
+                                <li>
+                                {% if persons %}
+                                    <a href="#letter-{{ forloop.parentloop.counter }}">{{ letter|upper }}</a>
+                                {% else %}
+                                    <span>{{ letter|upper }}</span>
                                 {% endif %}
-                                >{{ letter|upper }}</a></li>    
+                                </li>    
                             {% endfor %}
                         {% endfor %}
                     </ul>
@@ -37,7 +39,7 @@
                             {% for l in people %}
                                 {% for letter, persons in l.items %}
                                     {% if persons %}
-                                        <h4 class="people-list-header" id="letter-{{ forloop.counter }}">{{ letter|upper }}</h4>
+                                        <h4 class="people-list-header" id="letter-{{ forloop.parentloop.counter }}">{{ letter|upper }}</h4>
                                         <ul class="people-list">
                                         {% for person in persons %}
                                             <li>{{ person}}</li>
