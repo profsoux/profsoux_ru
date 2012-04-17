@@ -2,13 +2,25 @@
     <h2>Организаторы</h2>
     <ul class="clearfix">
     {% for organization in items.orgs %}
-        <li><a href="{{ organization.organization.site }}">
-            {% if organization.organization.logo %}
-                <img src="{{ organization.organization.logo.url }}" width="80" alt="{{ organization.organization.name }}">
+        <li>
+            {% if organization.organization.site %}
+            <a href="{{ organization.organization.site }}">
+                {% if organization.organization.logo %}
+                    <img src="{{ organization.organization.logo.url }}" width="80" alt="{{ organization.organization.name }}">
+                {% else %}
+                    <img src="http://placehold.it/80x40" alt="{{ organization.organization.name }}">    
+                {% endif %}    
+            </a>
             {% else %}
-                <img src="http://placehold.it/80x40" alt="{{ organization.organization.name }}">    
+            <span>
+                {% if organization.organization.logo %}
+                    <img src="{{ organization.organization.logo.url }}" width="80" alt="{{ organization.organization.name }}">
+                {% else %}
+                    <img src="http://placehold.it/80x40" alt="{{ organization.organization.name }}">    
+                {% endif %}
+            </span>
             {% endif %}
-        </a></li>
+        </li>
     {% endfor %}
     </ul>
 </section>
