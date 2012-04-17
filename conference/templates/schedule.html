@@ -8,9 +8,9 @@
 
     {% include "inc/header.inc" %}
 
-    <div class="container">
+    <div id="content-container" class="container">
         <div class="row">
-            <article class="span9">
+            <article id="content-main" class="span9">
 
                 <div class="page-header clearfix">
                     <h2>Программа</h2>
@@ -85,15 +85,17 @@
                 </div>
                 
             </article>
-            <aside class="span3">
+            <aside id="content-sup" class="span3">
                 {% include "inc/aside.inc" %}
 
+                <!-- 
+                TODO: make it works
                 <nav>
                     <ul>
                         <li><a href="#">Скачать программу (PDF, 1,4 Мб)</a></li>
                         <li><a href="#">Добавить в Google Calendar</a></li>
                     </ul>
-                </nav>
+                </nav> -->
             </aside>
         </div>
     </div><!-- /container -->
