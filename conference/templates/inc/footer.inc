@@ -42,6 +42,7 @@
     <script src="{{ STATIC_URL }}js/jquery.js"></script>
     <script src="{{ STATIC_URL }}js/less.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+    <script src="{{ STATIC_URL }}js/common.js"></script>
     <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
 
     <script>
