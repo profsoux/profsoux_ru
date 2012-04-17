@@ -7,7 +7,6 @@ from django.shortcuts import render
 from django.core.context_processors import csrf
 from django.views.generic import ListView
 from django.db.models import Count
-from django.core.mail import send_mail
 
 from conference.models import *
 from conference.forms import ParticipantForm, ContactsForm
@@ -189,3 +188,7 @@ def people(request):
             'block_1_end': block_1_end,
             'block_2_end': block_2_end
         })
+
+
+def map(request):
+    return render(request, 'map.html', {})
