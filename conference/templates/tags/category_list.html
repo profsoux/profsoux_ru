@@ -1,4 +1,6 @@
+<dl>
 {% for item in items %}
-    <h3>{{ item.title }}</h3>
-    <p>{{ item.description }}</p>
+    <dt>{{ item.title }}</dt>
+    <dd>{{ item.description }}</dd>
 {% endfor %}
+</dl>
