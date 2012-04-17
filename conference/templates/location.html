@@ -4,49 +4,13 @@
 
 <body class="page-location">
 
-    <script type="text/javascript"
-        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCsKlIpzWXPGSMR6Dgq7hwPuX1lf5voHZU&sensor=true">
-    </script>
-
-    <script type="text/javascript">
-    (function () {
-        if(typeof $ === 'undefined') {
-            t = setTimeout(arguments.callee, 100)
-        } else {
-            init_map();
-        }
-    })();
-
-    function init_map() {
-        $(document).ready(function() {
-            var latlng = new google.maps.LatLng(59.956557,30.309863);
-
-            var myOptions = {
-                zoom: 14,
-                center: latlng,
-                mapTypeControl: false,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-            var marker = new google.maps.Marker({
-                position: latlng,
-                map: map,
-                title:"ИТМО"
-            });
-
-        });
-    }
-    </script>
-
     {% main_menu %}
 
     {% include "inc/header.inc" %}
 
-    <div class="container">
-        
+    <div id="content-container" class="container">
         <div class="row">
-            <div class="span9">
+            <div id="content-main" class="span9">
                 <div class="page-header clearfix">
                     <h2>Место проведения</h2>
                 </div>
@@ -60,11 +24,43 @@
                     </div>
                 </div>
             </div>
-            <aside class="span3">
+            <aside id="content-sup" class="span3">
                 {% include "inc/aside.inc" %}
             </aside>
         </div>
 
     </div><!-- /container -->
-    
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCsKlIpzWXPGSMR6Dgq7hwPuX1lf5voHZU&sensor=true"></script>
+<script type="text/javascript">
+(function () {
+    if(typeof $ === 'undefined') {
+        t = setTimeout(arguments.callee, 100)
+    } else {
+        init_map();
+    }
+})();
+
+function init_map() {
+    $(document).ready(function() {
+        var latlng = new google.maps.LatLng(59.956557,30.309863);
+
+        var myOptions = {
+            zoom: 14,
+            center: latlng,
+            mapTypeControl: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+        var marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            title:"ИТМО"
+        });
+
+    });
+}
+</script>
+
 {% include "inc/footer.inc" %}
