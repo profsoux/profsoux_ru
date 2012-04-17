@@ -7,7 +7,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href="{{ STATIC_URL }}less/style.less" rel="stylesheet/less">
+    <!-- <link href="{{ STATIC_URL }}less/style.less" rel="stylesheet/less"> -->
+    <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet">
     
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
