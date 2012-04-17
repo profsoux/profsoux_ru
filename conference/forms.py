@@ -35,6 +35,7 @@ class ParticipantForm(forms.ModelForm):
         )
     company_name = forms.CharField(
         label="Компания",
+        required=False,
         widget=forms.TextInput(
             attrs={
             'class': 'span4',
@@ -42,6 +43,7 @@ class ParticipantForm(forms.ModelForm):
         )
     position = forms.CharField(
         label="Должность",
+        required=False,
         widget=forms.TextInput(
             attrs={
             'class': 'span4',
@@ -49,6 +51,7 @@ class ParticipantForm(forms.ModelForm):
         )
     comment = forms.CharField(
         label="Ваши пожелания и предложения",
+        required=False,
         widget=forms.Textarea(
             attrs={
             'class': 'span6'})
@@ -75,6 +78,7 @@ class ContactsForm(forms.ModelForm):
         )
     site = forms.CharField(
         label="Сайт",
+        required=False,
         widget=forms.TextInput(
             attrs={
             'class': 'span4'})
