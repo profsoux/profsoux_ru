@@ -22,7 +22,7 @@
                     <div class="span2">
                         <figure class="thumbnail">
                             {% if speaker.photo %}
-                                <img src="{{ speaker.photo.url }}" width="140" alt="{{ speaker.person.first_name }} {{ speaker.person.last_name }}">
+                                <img src="{{ speaker.photo|thumbnail:"140x80" }}" alt="{{ speaker.person.first_name }} {{ speaker.person.last_name }}">
                             {% else %}
                                 <img src="http://placehold.it/132x132" alt="">
                             {% endif %}
