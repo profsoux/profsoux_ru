@@ -1,3 +1,5 @@
+{% load conference_tags %}
+
 <section id="organizers" class="span5">
     <h2>Организаторы</h2>
     <ul class="clearfix">
@@ -6,7 +8,7 @@
             {% if organization.organization.site %}
             <a href="{{ organization.organization.site }}">
                 {% if organization.organization.logo %}
-                    <img src="{{ organization.organization.logo.url }}" width="80" alt="{{ organization.organization.name }}">
+                    <img src="{{ organization.organization.logo|thumbnail:"80x80" }}" alt="{{ organization.organization.name }}">
                 {% else %}
                     <img src="http://placehold.it/80x40" alt="{{ organization.organization.name }}">    
                 {% endif %}    
@@ -14,7 +16,7 @@
             {% else %}
             <span>
                 {% if organization.organization.logo %}
-                    <img src="{{ organization.organization.logo.url }}" width="80" alt="{{ organization.organization.name }}">
+                    <img src="{{ organization.organization.logo|thumbnail:"80x80" }}" alt="{{ organization.organization.name }}">
                 {% else %}
                     <img src="http://placehold.it/80x40" alt="{{ organization.organization.name }}">    
                 {% endif %}
@@ -31,7 +33,7 @@
     {% for organization in items.partners %}
         <li><a href="/partners/">
             {% if organization.organization.logo %}
-                <img src="{{ organization.organization.logo.url }}" width="80" alt="{{ organization.organization.name }}">
+                <img src="{{ organization.organization.logo|thumbnail:"80x80" }}" alt="{{ organization.organization.name }}">
             {% else %}
                 <img src="http://placehold.it/80x40" alt="{{ organization.organization.name }}">    
             {% endif %}

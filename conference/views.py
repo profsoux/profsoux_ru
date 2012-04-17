@@ -187,7 +187,10 @@ def people(request):
         try:
             persons[person.first_name.lower()[0]].append(person)
         except:
-            persons_en[person.first_name.lower()[0]].append(person)
+            try:
+                persons_en[person.first_name.lower()[0]].append(person)
+            except:
+                pass
 
     people = [{i: persons[i]} for i in abc]
 
