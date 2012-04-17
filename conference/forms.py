@@ -10,6 +10,7 @@ class ParticipantForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
             'class': 'span4',
+            'required': 'required',
             'placeholder': 'Введите ваше имя'})
         )
     last_name = forms.CharField(
@@ -17,6 +18,7 @@ class ParticipantForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
             'class': 'span4',
+            'required': 'required',
             'placeholder': 'Введите вашу фамилию'})
         )
     phone = forms.CharField(
@@ -24,6 +26,7 @@ class ParticipantForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
             'class': 'span4',
+            'required': 'required',
             'placeholder': 'Введите номер телефона'})
         )
     email = forms.CharField(
@@ -31,6 +34,7 @@ class ParticipantForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
             'class': 'span4',
+            'required': 'required',
             'placeholder': 'Введите ваш  email'})
         )
     company_name = forms.CharField(
@@ -68,6 +72,7 @@ class ContactsForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
             'class': 'span4',
+            'required': 'required',
             'placeholder': 'Введите ваше имя'})
         )
     email = forms.EmailField(
@@ -75,6 +80,7 @@ class ContactsForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
             'class': 'span4',
+            'required': 'required',
             'placeholder': 'Введите ваш  email'})
         )
     site = forms.CharField(
@@ -89,6 +95,7 @@ class ContactsForm(forms.ModelForm):
         widget=forms.Textarea(
             attrs={
             'class': 'span6',
+            'required': 'required',
             'rows': 5})
         )
 
