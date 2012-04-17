@@ -15,7 +15,7 @@
                 <hgroup class="page-header">
                     <h2>{{ paper.title }}</h2>
                     <h3>{% for speaker in paper.speaker.all %}
-                        <a href="/speaker/{{ speaker.person.id }}">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a>
+                        <a href="/speakers/{{ speaker.person.id }}">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a>
                         {% if not forloop.last %}
                             <br />
                         {% endif %}
