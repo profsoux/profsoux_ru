@@ -91,7 +91,7 @@ class ContactsForm(forms.ModelForm):
             'class': 'span4'})
         )
     comment = forms.CharField(
-        label="Сайт",
+        label="Сообщение",
         widget=forms.Textarea(
             attrs={
             'class': 'span6',
