@@ -54,7 +54,8 @@ class ParticipantForm(forms.ModelForm):
         required=False,
         widget=forms.Textarea(
             attrs={
-            'class': 'span6'})
+            'class': 'span6',
+            'rows': 5})
         )
 
     class Meta:
@@ -85,8 +86,10 @@ class ContactsForm(forms.ModelForm):
         )
     comment = forms.CharField(
         label="Сайт",
-        widget=forms.Textarea(attrs={
-        'class': 'span6'})
+        widget=forms.Textarea(
+            attrs={
+            'class': 'span6',
+            'rows': 5})
         )
 
     class Meta:
