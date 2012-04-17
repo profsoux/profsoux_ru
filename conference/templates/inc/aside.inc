@@ -7,4 +7,4 @@
 <p><small>Участие бесплатное.<br />
 Количество мест ограничено.</small></p>
 
-{% include "inc/html-head.inc" %}
+{% include "inc/btn-share.inc" %}
