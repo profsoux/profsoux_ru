@@ -51,7 +51,7 @@ ui.schedule = {
 
 $(function(){
     $('.btn-share').click(function(){
-        $(this).parent().next('.yashare-auto-init').show();
+        $(this).parent().siblings('.yashare-auto-init').show();
 
         return false;
     });
