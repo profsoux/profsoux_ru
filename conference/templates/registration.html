@@ -19,20 +19,20 @@
                 {% if state == 'default' %}
                 <form action="/registration/" id="signup-form" class="span6 offset2" method="POST">{% csrf_token %}
                     <div class="control-group">
-                        {{ form.first_name.errors }}
                         <label class="control-label" for="id_first_name">{{ form.first_name.label }} <em>*</em></label>
+                        {{ form.first_name.errors }}
                         {{ form.first_name }}
                     </div>
 
                     <div class="control-group">
-                        {{ form.last_name.errors }}
                         <label class="control-label" for="id_last_name">{{ form.last_name.label }} <em>*</em></label>
+                        {{ form.last_name.errors }}
                         {{ form.last_name }}
                     </div>
 
                     <div class="control-group">
-                        {{ form.phone.errors }}
                         <label class="control-label" for="id_phone">{{ form.phone.label }} <em>*</em></label>
+                        {{ form.phone.errors }}
                         <div class="controls">
                             {{ form.phone }}
                             <small class="help-inline">Телефон нужен, чтобы подтвердить ваше участие перед конференцией</small>
@@ -40,20 +40,20 @@
                     </div>
 
                     <div class="control-group">
-                        {{ form.email.errors }}
                         <label class="control-label" for="id_email">{{ form.email.label }} <em>*</em></label>
+                        {{ form.email.errors }}
                         {{ form.email }}
                     </div>
 
                     <div class="control-group">
-                        {{ form.company_name.errors }}
                         <label class="control-label" for="id_company">{{ form.company_name.label }}</label>
+                        {{ form.company_name.errors }}
                         {{ form.company_name }}
                     </div>
 
                     <div class="control-group">
-                        {{ form.position.errors }}
                         <label class="control-label" for="id_position">{{ form.position.label }}</label>
+                        {{ form.position.errors }}
                         <div class="controls">
                             {{ form.position }}
                             <small class="help-inline">Поможет докладчикам понять, на какую аудиторию ориентироваться</small>
@@ -61,8 +61,8 @@
                     </div>
 
                     <div class="control-group">
-                        {{ form.comment.errors }}
                         <label class="control-label" for="id_comment">{{ form.comment.label }}</label>
+                        {{ form.comment.errors }}
                         {{ form.comment }}
                     </div>
 
