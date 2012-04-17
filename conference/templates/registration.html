@@ -16,31 +16,35 @@
                 </div>
             </div>
             <div class="row">
-                {% if state == 'default' %}
+                {% if state == 'thanks' %}
+                    <div class="alert alert-block alert-success">
+                      <a class="close" data-dismiss="alert">×</a>
+                      <h4 class="alert-heading">Спасибо!</h4>
+                      Ваша заявка на участие принята, до встречи на конференции!
+                    </div>
+                {% endif %}
+                {% if form.errors %}
+                    <div class="alert alert-block alert-error">
+                      <a class="close" data-dismiss="alert">×</a>
+                      <h4 class="alert-heading">Произошла ошибка</h4>
+                      Проверьте правильность заполнения полей формы
+                    </div>
+                {% endif %}
                 <form action="/registration/" id="signup-form" class="span6 offset2" method="POST">{% csrf_token %}
                     <div class="control-group {% if form.first_name.errors %}error{% endif %}">
                         <label class="control-label" for="id_first_name">{{ form.first_name.label }} <em>*</em></label>
                         {{ form.first_name }}
-                        {% if form.first_name.errors %}
-                            <span>Обязательное поле.</span>
-                        {% endif %}
                     </div>
 
                     <div class="control-group {% if form.last_name.errors %}error{% endif %}">
                         <label class="control-label" for="id_last_name">{{ form.last_name.label }} <em>*</em></label>
                         {{ form.last_name }}
-                        {% if form.last_name.errors %}
-                            <span>Обязательное поле.</span>
-                        {% endif %}
                     </div>
 
                     <div class="control-group {% if form.phone.errors %}error{% endif %}">
                         <label class="control-label" for="id_phone">{{ form.phone.label }} <em>*</em></label>
                         <div class="controls">
                             {{ form.phone }}
-                        {% if form.phone.errors %}
-                            <span>Обязательное поле.</span>
-                        {% endif %}
                             <small class="help-inline">Телефон нужен, чтобы подтвердить ваше участие перед конференцией</small>
                         </div>
                     </div>
@@ -48,9 +52,6 @@
                     <div class="control-group {% if form.email.errors %}error{% endif %}">
                         <label class="control-label" for="id_email">{{ form.email.label }} <em>*</em></label>
                         {{ form.email }}
-                        {% if form.email.errors %}
-                            <span>Обязательное поле.</span>
-                        {% endif %}
                     </div>
 
                     <div class="control-group {% if form.company_name.errors %}error{% endif %}">
@@ -72,7 +73,6 @@
                     </div>
 
                     <div class="control-group {% if form.allow_news.errors %}error{% endif %}">
-                        {{ form.allow_news.errors }}
                         <label class="checkbox">
                             {{ form.allow_news }} Я хочу получать новости конференции на указанный Email
                         </label>
@@ -80,7 +80,6 @@
                     </div>
 
                     <div class="control-group {% if form.is_public.errors %}error{% endif %}">
-                        {{ form.is_public.errors }}
                         <label class="checkbox">
                             {{ form.is_public }} Я хочу, чтобы мои контакты были добавлены в открытый список участников конференции
                         </label>
@@ -91,11 +90,6 @@
                     
                     <button type="submit" id="submit-button" class="btn btn-primary btn-large">Зарегистрироваться</button>
                 </form>
-                {% endif %}
-                {% if state == 'thanks' %}
-                    <p>Заявка принята, спасибо!</p>
-                    <p>Перейти в <a href="/people/">список участников</a>.</p>
-                {% endif %}
             </div>
 
         </article>

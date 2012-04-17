@@ -92,8 +92,22 @@ def registration(request):
         form = ParticipantForm(request.POST)
         if form.is_valid():
             form.save()
+
+            subject = u'Регистрация на конференцию ProfsoUX'
+            message = u'''Добрый день!
+
+            Мы получили вашу заявку на участие в конференции UX-специалистов «ПрофсоUX».
+
+            До встречи 19 мая 2012 в ИТМО!'''
+            sender = 'robot@profsoux.ru'
+            recipients = [form.cleaned_data['email']]
+
+            from django.core.mail import send_mail
+            send_mail(subject, message, sender, recipients)
+
             c = {
-                'state': 'thanks'
+                'state': 'thanks',
+                'form': ParticipantForm()
                 }
         else:
             c = {
@@ -131,8 +145,10 @@ def contacts(request):
 
             from django.core.mail import send_mail
             send_mail(subject, message, sender, recipients)
+
             c = {
-                'state': 'thanks'
+                'state': 'thanks',
+                'form': ContactsForm()
                 }
         else:
             c = {
