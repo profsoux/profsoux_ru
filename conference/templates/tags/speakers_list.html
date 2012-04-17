@@ -1,7 +1,7 @@
 <ul class="list-of-speakers">
 {% for speaker in items %}
     <li class="speaker">
-        <h3>{{ speaker.person.first_name }} {{ speaker.person.last_name }}</h3>
+        <h3><a href="/speakers/{{ speaker.person.id }}">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a></h3>
         <p>{{ speaker.person.organization }}</p>
         {% for lecture in speaker.lectures %}
             <p><a href="/papers/{{ lecture.id }}">«{{ lecture.title }}»</a></p>
