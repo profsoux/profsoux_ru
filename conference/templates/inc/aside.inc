@@ -2,9 +2,9 @@
 Санкт-Петербург,
 ИТМО</h3>
 
-<a href="/registration/" class="btn btn-primary btn-large">Принять участие</a>
+<p><a href="/registration/" class="btn btn-primary btn-large">Принять участие</a>
 
-<p><small>Участие бесплатное.<br />
+<small>Участие бесплатное.<br />
 Количество мест ограничено.</small></p>
 
 {% include "inc/btn-share.inc" %}
