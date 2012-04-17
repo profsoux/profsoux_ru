@@ -18,55 +18,60 @@
             <div class="row">
                 {% if state == 'default' %}
                 <form action="/registration/" id="signup-form" class="span6 offset2" method="POST">{% csrf_token %}
-                    <div class="control-group">
+                    <div class="control-group {% if form.first_name.errors %}error{% endif %}">
                         <label class="control-label" for="id_first_name">{{ form.first_name.label }} <em>*</em></label>
-                        {{ form.first_name.errors }}
                         {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                            <span>Обязательное поле.</span>
+                        {% endif %}
                     </div>
 
-                    <div class="control-group">
+                    <div class="control-group {% if form.last_name.errors %}error{% endif %}">
                         <label class="control-label" for="id_last_name">{{ form.last_name.label }} <em>*</em></label>
-                        {{ form.last_name.errors }}
                         {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                            <span>Обязательное поле.</span>
+                        {% endif %}
                     </div>
 
-                    <div class="control-group">
+                    <div class="control-group {% if form.phone.errors %}error{% endif %}">
                         <label class="control-label" for="id_phone">{{ form.phone.label }} <em>*</em></label>
-                        {{ form.phone.errors }}
                         <div class="controls">
                             {{ form.phone }}
+                        {% if form.phone.errors %}
+                            <span>Обязательное поле.</span>
+                        {% endif %}
                             <small class="help-inline">Телефон нужен, чтобы подтвердить ваше участие перед конференцией</small>
                         </div>
                     </div>
 
-                    <div class="control-group">
+                    <div class="control-group {% if form.email.errors %}error{% endif %}">
                         <label class="control-label" for="id_email">{{ form.email.label }} <em>*</em></label>
-                        {{ form.email.errors }}
                         {{ form.email }}
+                        {% if form.email.errors %}
+                            <span>Обязательное поле.</span>
+                        {% endif %}
                     </div>
 
-                    <div class="control-group">
+                    <div class="control-group {% if form.company_name.errors %}error{% endif %}">
                         <label class="control-label" for="id_company">{{ form.company_name.label }}</label>
-                        {{ form.company_name.errors }}
                         {{ form.company_name }}
                     </div>
 
-                    <div class="control-group">
+                    <div class="control-group {% if form.position.errors %}error{% endif %}">
                         <label class="control-label" for="id_position">{{ form.position.label }}</label>
-                        {{ form.position.errors }}
                         <div class="controls">
                             {{ form.position }}
                             <small class="help-inline">Поможет докладчикам понять, на какую аудиторию ориентироваться</small>
                         </div>
                     </div>
 
-                    <div class="control-group">
+                    <div class="control-group {% if form.comment.errors %}error{% endif %}">
                         <label class="control-label" for="id_comment">{{ form.comment.label }}</label>
-                        {{ form.comment.errors }}
                         {{ form.comment }}
                     </div>
 
-                    <div class="control-group">
+                    <div class="control-group {% if form.allow_news.errors %}error{% endif %}">
                         {{ form.allow_news.errors }}
                         <label class="checkbox">
                             {{ form.allow_news }} Я хочу получать новости конференции на указанный Email
@@ -74,7 +79,7 @@
                         <small class="help-inline">Мы сообщим вам об изменениях времени или места проведения конференции.</small>
                     </div>
 
-                    <div class="control-group">
+                    <div class="control-group {% if form.is_public.errors %}error{% endif %}">
                         {{ form.is_public.errors }}
                         <label class="checkbox">
                             {{ form.is_public }} Я хочу, чтобы мои контакты были добавлены в открытый список участников конференции
