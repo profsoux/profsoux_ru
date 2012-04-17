@@ -2,7 +2,7 @@
 
 {% include "inc/html-head.inc" %}
 
-<body>
+<body class="page-partners">
 
     {% main_menu %}
 
@@ -17,33 +17,51 @@
                     <h2>Партнёры</h2>
                 </div>
 
-                <div class="list-of-speakers">
+                <div class="clearfix">
+                    <ul class="list-of-partners span8">
                 
                         {% for partner in partners %}
 
-                        <div class="span6">
-                            <h3>{{ partner.organization.name }}</h3>
-                            {% if partner.organization.description %}
-                                <div>{{ partner.organization.description|safe }}</div>
-                            {% endif %}
-                            {% if partner.organization.site %}
-                                <p><a href="{{ partner.organization.site }}">{{ partner.organization.site }}</a></p>
-                            {% endif %}
-                            {% if partner.organization.facebook %}
-                                <p><a href="{{ partner.organization.facebook }}">{{ partner.organization.facebook }}</a></p>
-                            {% endif %}
-                            <div class="logo">
-                                {% if partner.organization.logo %}
-                                    <img src="{{ partner.organization.logo.url }}" width="80" alt="{{ partner.organization.name }}">
-                                {% else %}
-                                    <img src="http://placehold.it/80x80" alt="">
-                                {% endif %}
-                            </div>
-                        </div>
+                        <li class="partner">
+                            <article class="row">
+                                <div class="span2">
+                                    <figure class="logo">
+                                        {% if partner.organization.site %}
+                                        <a href="{{ partner.organization.site }}" class="thumbnail" target="_blank" title="Orange Page">
+                                            {% if partner.organization.logo %}
+                                                <img src="{{ partner.organization.logo.url }}" width="140" alt="{{ partner.organization.name }}">
+                                            {% else %}
+                                                <img src="http://placehold.it/140x140" alt="{{ partner.organization.name }}">
+                                            {% endif %}
+                                        </a>
+                                        {% else %}
+                                        <span class="thumbnail" title="Orange Page">
+                                            {% if partner.organization.logo %}
+                                                <img src="{{ partner.organization.logo.url }}" width="140" alt="{{ partner.organization.name }}">
+                                            {% else %}
+                                                <img src="http://placehold.it/140x140" alt="{{ partner.organization.name }}">
+                                            {% endif %}
+                                        </span>
+                                        {% endif %}
+                                    </figure>   
+                                </div>
+                                <div class="span6">
+                                    <h3>{{ partner.organization.name }}</h3>
+                                    
+                                    {% if partner.organization.site %}
+                                    <address><a href="{{ partner.organization.site }}" target="_blank">{{ partner.organization.site }}</a></address>
+                                    {% endif %}
+                                    
+                                    {% if partner.organization.description %}
+                                    {{ partner.organization.description|safe }}
+                                    {% endif %}
+                                </div>
+                            </article>
+                        </li>
                         
                         {% endfor %}
-                    
-                </div><!-- /.list-of-speakers -->
+                    </ul>
+                </div>
             </div>
             <aside class="span3">
                 {% include "inc/aside.inc" %}

@@ -49,7 +49,12 @@ ui.schedule = {
     }
 };
 
+$(function(){
+    $('.btn-share').click(function(){
+        $(this).parent().siblings('.yashare-auto-init').slideToggle();
 
-$().ready(function(){
+        return false;
+    });
+
     ui.schedule.init();
 });
