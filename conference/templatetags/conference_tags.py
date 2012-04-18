@@ -62,11 +62,26 @@ def thumbnail(file, size='104x104'):
     # if the image wasn't already resized, resize it
     if not os.path.exists(miniature_filename):
         image = Image.open(filename)
-        image.thumbnail([x, y], Image.ANTIALIAS)
-        try:
-            image.save(miniature_filename, image.format, quality=90, optimize=1)
-        except:
-            image.save(miniature_filename, image.format, quality=90)
+        format = image.format
+        size = image.size
+        if format == 'GIF':
+            transparency = image.info['transparency']
+
+        if size[0] > x and size[1] > y:
+            image.thumbnail([x, y], Image.ANTIALIAS)
+        else:
+            delta_x = (x - size[0]) / 2
+            delta_y = (y - size[1]) / 2
+
+            image = image.crop((-delta_x, -delta_y, size[0] + delta_x, size[1] + delta_y))
+            image.thumbnail([x, y], Image.ANTIALIAS)
+
+        if format == 'GIF':
+            image.save(miniature_filename, format, transparency=transparency)
+        if format == 'PNG':
+            image.save(miniature_filename, format, optimize=1)
+        if format == 'JPEG':
+            image.save(miniature_filename, format, quality=90)
 
     return miniature_url
 
