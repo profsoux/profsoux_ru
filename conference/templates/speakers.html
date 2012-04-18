@@ -41,8 +41,10 @@
                         
                         {% cycle '' '</div>' %}
 
-                        {% if forloop.last %}
-                            {% cycle '</div>' '' %} 
+                        {% if forloop.last %} 
+                        {% if not forloop.counter|divisibleby:"2" %}
+                            </div>
+                        {% endif %}
                         {% endif %}
 
                         {% endfor %}
