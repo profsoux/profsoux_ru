@@ -5,7 +5,6 @@ from django import template
 
 from conference.models import *
 from conference.views import get_speakers_lectures
-from settings import MEDIA_URL
 
 register = template.Library()
 
