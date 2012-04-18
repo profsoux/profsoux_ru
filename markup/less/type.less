@@ -35,11 +35,9 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
     color: @grayLight;
   }
-  a {
-    text-decoration: none;
-  }
+  a,
   a:hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
 }
 h1 {
@@ -93,13 +91,20 @@ h6 {
   margin:0 0 30px;
   .title-border-bottom();
   }
-.page-header h1 {
-  line-height: 1;
-  }
-.page-header h2 {
-  margin-bottom:0;
-  }
-
+  .page-header h2 {
+    display:inline-block;
+    margin:0 20px 10px 0;
+    line-height: 1;
+    }
+  .page-header h3 {
+    margin:0;
+    line-height:1.4;
+    font-size:24px;
+    }
+  .page-header .btn {
+    position:relative;
+    top:-5px; 
+    }
 
 
 // LISTS
