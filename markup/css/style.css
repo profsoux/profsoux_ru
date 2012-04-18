@@ -5169,7 +5169,13 @@ input[type="submit"].btn.btn-mini {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 a.thumbnail:hover {
-  border-color: #9d2900;
+  border-color: rgba(153, 153, 153, 0.9);
+  -webkit-box-shadow: 0 1px 4px rgba(157, 41, 0, 0.25);
+  -moz-box-shadow: 0 1px 4px rgba(157, 41, 0, 0.25);
+  box-shadow: 0 1px 4px rgba(157, 41, 0, 0.25);
+  -webkit-box-shadow: 0 1px 4px rgba(157, 41, 0, 0.25);
+  -moz-box-shadow: 0 1px 4px rgba(157, 41, 0, 0.25);
+  box-shadow: 0 1px 4px rgba(157, 41, 0, 0.25);
 }
 .thumbnail > img {
   display: block;
@@ -5995,8 +6001,15 @@ ul.list-of-speakers {
   line-height: 1.2;
   font-size: 21px;
 }
+.list-of-speakers h3 a {
+  border-bottom-color: #ccc;
+  color: #000;
+}
+.list-of-speakers h3 a:hover {
+  border-bottom-color: #999;
+}
 .list-of-speakers p {
-  margin: 0 0 0 115px;
+  margin: 0 0 10px 115px;
   line-height: 20px;
   font-size: 14px;
 }
