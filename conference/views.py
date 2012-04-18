@@ -177,6 +177,11 @@ def people(request):
             unichr(ord(u'а') + i) for i in xrange(0, 6)] + [u'ё'] + [
             unichr(ord(u'а') + i) for i in xrange(6, 32)
             ]
+    else:
+        abc = [
+            unichr(ord(u'а') + i) for i in xrange(0, 6)] + [u'ё'] + [
+            unichr(ord(u'а') + i) for i in xrange(6, 32)
+            ]
 
     persons = {}
 
