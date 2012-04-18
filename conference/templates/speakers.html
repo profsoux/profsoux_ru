@@ -23,7 +23,7 @@
                         {% cycle '<div class="row">' '' %}
 
                         <div class="speaker span4">
-                            <h3><a href="/speakers/{{ speaker.person.id }}/">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a></h3>
+                            <h3><a href="/speakers/{{ speaker.id }}/">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a></h3>
                             <p>{{ speaker.person.organization.name }}</p>
                             {% for lecture in speaker.lectures %}
                                 <p><a href="/papers/{{ lecture.id }}">{{ lecture.title }}</a></p>
