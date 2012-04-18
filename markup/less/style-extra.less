@@ -2,43 +2,44 @@
 @scheduleAxlColor: #ACACAC;
 @scheduleBgColor: #f7f7f7;
 @scheduleAxisMargin: 55px;
-@scheduleUnitHeight: 150px;
+@scheduleUnitHeight: 151px;
 
 .segment-height(@val) {
-    height:(@scheduleUnitHeight * (((@val * 100%)/60%))/100) - 2px;
+    height:round(@scheduleUnitHeight * (((@val * 100%)/60%))/100) - 3px;
 }
 .segment-pre(@val) {
-    margin-top:(@scheduleUnitHeight * (((@val * 100%)/60%))/100) - 0;
+    margin-top:round(@scheduleUnitHeight * (((@val * 100%)/60%))/100) - 0;
 }
 
     /* axl division */
     /* percent in .segment-height() == minutes */
-    .schedule-axl .div-5 {.segment-height(5%);}
-    .schedule-axl .div-10 {.segment-height(10%);}
-    .schedule-axl .div-15 {.segment-height(15%);}
-    .schedule-axl .div-20 {.segment-height(20%);}
-    .schedule-axl .div-25 {.segment-height(25%);}
-    .schedule-axl .div-30 {.segment-height(30%);}
-    .schedule-axl .div-35 {.segment-height(35%);}
-    .schedule-axl .div-40 {.segment-height(40%);}
-    .schedule-axl .div-45 {.segment-height(45%);}
-    .schedule-axl .div-50 {.segment-height(50%);}
-    .schedule-axl .div-55 {.segment-height(55%);}
-    .schedule-axl .div-60 {.segment-height(60%);}
+    .schedule-axl {
+        .div-5 {.segment-height(5%);}
+        .div-10 {.segment-height(10%);}
+        .div-15 {.segment-height(15%);}
+        .div-20 {.segment-height(20%);}
+        .div-25 {.segment-height(25%);}
+        .div-30 {.segment-height(30%);}
+        .div-35 {.segment-height(35%);}
+        .div-40 {.segment-height(40%);}
+        .div-45 {.segment-height(45%);}
+        .div-50 {.segment-height(50%);}
+        .div-55 {.segment-height(55%);}
+        .div-60 {.segment-height(60%); height:149px;}
 
-    /* percent in .segment-pre() == minutes */
-    .schedule-axl .pre-5 {.segment-pre(5%);}
-    .schedule-axl .pre-10 {.segment-pre(10%);}
-    .schedule-axl .pre-15 {.segment-pre(15%);}
-    .schedule-axl .pre-20 {.segment-pre(20%);}
-    .schedule-axl .pre-25 {.segment-pre(25%);}
-    .schedule-axl .pre-30 {.segment-pre(30%);}
-    .schedule-axl .pre-35 {.segment-pre(35%);}
-    .schedule-axl .pre-40 {.segment-pre(40%);}
-    .schedule-axl .pre-45 {.segment-pre(45%);}
-    .schedule-axl .pre-50 {.segment-pre(50%);}
-    .schedule-axl .pre-55 {.segment-pre(55%);}
-    .schedule-axl .pre-60 {.segment-pre(605%);}
+        .pre-5 {.segment-pre(5%);}
+        .pre-10 {.segment-pre(10%);}
+        .pre-15 {.segment-pre(15%);}
+        .pre-20 {.segment-pre(20%);}
+        .pre-25 {.segment-pre(25%);}
+        .pre-30 {.segment-pre(30%);}
+        .pre-35 {.segment-pre(35%);}
+        .pre-40 {.segment-pre(40%);}
+        .pre-45 {.segment-pre(45%);}
+        .pre-50 {.segment-pre(50%);}
+        .pre-55 {.segment-pre(55%);}
+        .pre-60 {.segment-pre(605%);}
+    }
 
 
 .schedule {
@@ -49,7 +50,7 @@
 
     /* axl */
     .schedule-axl {
-        border-width:0 1px 1px;
+        border-width:1px 1px 0;
         border-color:@scheduleAxlColor;
         border-style:solid;
         position:relative;
@@ -62,8 +63,8 @@
             left:-5px;
             right:0;
             /*width:16px;*/
-            height:1px;
-            background-color:darken(@scheduleAxlColor, 50%);
+            height:0;
+            border-bottom:1px dashed #2d2d2d;
             top:0;
             position:absolute;
             display:none;
@@ -100,6 +101,7 @@
             background-color:transparent;
             background-image:url("../img/schedule/event-bg.png");
             border-width:1px;
+
             border-style:solid;
             border-color:@scheduleAxlColor;
             .border-radius(6px);
@@ -138,7 +140,7 @@
             list-style:none;
         }
         .schedule-axl .caption {
-            border-width:1px 0 0;
+            border-width:0 0 1px;
             border-style:solid;
             border-color:@scheduleAxlColor;
             height:@scheduleUnitHeight;
@@ -153,13 +155,12 @@
             position:absolute;
             height:1px;
             left:0;
-            top:50%;
             width:100%;
-            margin-top:-1px;
             background-color:@scheduleAxlColor;
         }
+        .schedule-axl .caption:after {top:50%; margin-top:0;}
         .schedule-axl .caption .text {
-            top:-11px;
+            top:-12px;
             left:-@scheduleAxisMargin;
             position:absolute;
         }
