@@ -8,9 +8,8 @@
 
     {% include "inc/header.inc" %}
 
-
-    <div class="container">
-        <article id="signup-page">
+    <div id="content-container" class="container">
+        <div id="content-main">
             <div class="row">
                 <div class="page-header clearfix">
                     <h2 class="span6 offset2">Остались вопросы?</h2>
@@ -31,7 +30,7 @@
                       Проверьте правильность заполнения полей формы
                     </div>
                 {% endif %}
-                <form action="/contacts/" id="signup-form" class="span6 offset2" method="POST">{% csrf_token %}
+                <form action="/contacts/" id="contact-form" class="span6 offset2" method="POST">{% csrf_token %}
                     <p>Вы можете позвонить нам по телефону <a href="tel:+79213369344">+7 (921) 336 93 44</a> или написать письмо.</p>
 
                     <div class="control-group {% if form.name.errors %}error{% endif %}">
@@ -75,7 +74,7 @@
                 </div>
             </div>
 
-        </article>
+        </div>
     </div><!-- /container -->
     
 {% include "inc/footer.inc" with nosocial="True" %}
