@@ -28,7 +28,7 @@ class Person(models.Model):
     email = models.EmailField("Email", max_length=64, blank=True)
     twitter = models.CharField("Аккаунт в Twitter", max_length=32, blank=True)
     site = models.URLField("Адрес сайта", blank=True)
-    organization = models.ForeignKey("Organization", blank=True)
+    organization = models.ForeignKey("Organization", blank=True, null=True)
 
     class Meta:
         verbose_name = 'Персона'
