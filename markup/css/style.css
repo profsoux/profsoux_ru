@@ -595,16 +595,14 @@ h2 a,
 h3 a,
 h4 a,
 h5 a,
-h6 a {
-  text-decoration: none;
-}
+h6 a,
 h1 a:hover,
 h2 a:hover,
 h3 a:hover,
 h4 a:hover,
 h5 a:hover,
 h6 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 h1 {
   margin: 0 0 70px;
@@ -670,11 +668,19 @@ h6 {
   -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.75);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.75);
 }
-.page-header h1 {
+.page-header h2 {
+  display: inline-block;
+  margin: 0 20px 10px 0;
   line-height: 1;
 }
-.page-header h2 {
-  margin-bottom: 0;
+.page-header h3 {
+  margin: 0;
+  line-height: 1.4;
+  font-size: 24px;
+}
+.page-header .btn {
+  position: relative;
+  top: -5px;
 }
 ul,
 ol {
@@ -6438,14 +6444,6 @@ ul.list-of-organizers {
 }
 .schedule .legend-implementation {
   background-image: url("../img/schedule/legend-implementation.png");
-}
-.page-header h2 {
-  display: inline-block;
-  margin-right: 20px;
-}
-.page-header .btn {
-  top: -5px;
-  position: relative;
 }
 /* Members */
 .members .row {
