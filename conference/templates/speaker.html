@@ -8,10 +8,9 @@
 
     {% include "inc/header.inc" %}
 
-    <div class="container">
-
+    <div id="content-container" class="container">
         <div class="row">
-            <article class="span9">
+            <article id="content-main" class="span9">
                 <hgroup class="page-header">
                     <h2>{{ speaker.first_name }} {{ speaker.last_name }}</h2>
                     {% for lecture in speaker.lectures %}
@@ -59,7 +58,7 @@
                     </div>
                 </div>
             </article>
-            <aside class="span3">
+            <aside id="content-sup" class="span3">
                 {% include "inc/aside.inc" %}
 
                 <nav>
