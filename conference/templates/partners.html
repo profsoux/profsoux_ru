@@ -9,10 +9,9 @@
     {% include "inc/header.inc" %}
      
 
-<div class="container">
-
+<div id="content-container" class="container">
         <div class="row">
-            <div class="span9">
+            <div id="contant-main" class="span9">
                 <div class="page-header clearfix">
                     <h2>Партнёры</h2>
                 </div>
@@ -27,7 +26,7 @@
                                 <div class="span2">
                                     <figure class="logo">
                                         {% if partner.organization.site %}
-                                        <a href="{{ partner.organization.site }}" class="thumbnail" target="_blank" title="Orange Page">
+                                        <a href="{{ partner.organization.site }}" class="thumbnail" target="_blank" title="{{ partner.organization.name }}">
                                             {% if partner.organization.logo %}
                                                 <img src="{{ partner.organization.logo|thumbnail:"140x140" }}" alt="{{ partner.organization.name }}">
                                             {% else %}
@@ -35,7 +34,7 @@
                                             {% endif %}
                                         </a>
                                         {% else %}
-                                        <span class="thumbnail" title="Orange Page">
+                                        <span class="thumbnail" title="{{ partner.organization.name }}">
                                             {% if partner.organization.logo %}
                                                 <img src="{{ partner.organization.logo|thumbnail:"140x140" }}" width="140" alt="{{ partner.organization.name }}">
                                             {% else %}
@@ -63,7 +62,7 @@
                     </ul>
                 </div>
             </div>
-            <aside class="span3">
+            <aside id="content-sup" class="span3">
                 {% include "inc/aside.inc" %}
             </aside>
         </div>
