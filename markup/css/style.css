@@ -6217,77 +6217,77 @@ ul.list-of-organizers {
 /* axl division */
 /* percent in .segment-height() == minutes */
 .schedule-axl .div-5 {
-  height: 10.5px;
+  height: 10px;
 }
 .schedule-axl .div-10 {
-  height: 23px;
+  height: 22px;
 }
 .schedule-axl .div-15 {
-  height: 35.5px;
+  height: 35px;
 }
 .schedule-axl .div-20 {
-  height: 48px;
+  height: 47px;
 }
 .schedule-axl .div-25 {
-  height: 60.5px;
+  height: 60px;
 }
 .schedule-axl .div-30 {
   height: 73px;
 }
 .schedule-axl .div-35 {
-  height: 85.5px;
+  height: 85px;
 }
 .schedule-axl .div-40 {
   height: 98px;
 }
 .schedule-axl .div-45 {
-  height: 110.5px;
+  height: 110px;
 }
 .schedule-axl .div-50 {
   height: 123px;
 }
 .schedule-axl .div-55 {
-  height: 135.5px;
+  height: 135px;
 }
 .schedule-axl .div-60 {
   height: 148px;
+  height: 149px;
 }
-/* percent in .segment-pre() == minutes */
 .schedule-axl .pre-5 {
-  margin-top: 12.5px;
+  margin-top: 13px;
 }
 .schedule-axl .pre-10 {
   margin-top: 25px;
 }
 .schedule-axl .pre-15 {
-  margin-top: 37.5px;
+  margin-top: 38px;
 }
 .schedule-axl .pre-20 {
   margin-top: 50px;
 }
 .schedule-axl .pre-25 {
-  margin-top: 62.5px;
+  margin-top: 63px;
 }
 .schedule-axl .pre-30 {
-  margin-top: 75px;
+  margin-top: 76px;
 }
 .schedule-axl .pre-35 {
-  margin-top: 87.5px;
+  margin-top: 88px;
 }
 .schedule-axl .pre-40 {
-  margin-top: 100px;
+  margin-top: 101px;
 }
 .schedule-axl .pre-45 {
-  margin-top: 112.5px;
+  margin-top: 113px;
 }
 .schedule-axl .pre-50 {
-  margin-top: 125px;
+  margin-top: 126px;
 }
 .schedule-axl .pre-55 {
-  margin-top: 137.5px;
+  margin-top: 138px;
 }
 .schedule-axl .pre-60 {
-  margin-top: 1512.5px;
+  margin-top: 1523px;
 }
 .schedule {
   text-align: left;
@@ -6296,7 +6296,7 @@ ul.list-of-organizers {
 }
 /* axl */
 .schedule-axl {
-  border-width: 0 1px 1px;
+  border-width: 1px 1px 0;
   border-color: #acacac;
   border-style: solid;
   position: relative;
@@ -6309,8 +6309,8 @@ ul.list-of-organizers {
   right: 0;
   /*width:16px;*/
 
-  height: 1px;
-  background-color: #2d2d2d;
+  height: 0;
+  border-bottom: 1px dashed #2d2d2d;
   top: 0;
   position: absolute;
   display: none;
@@ -6395,10 +6395,10 @@ ul.list-of-organizers {
   list-style: none;
 }
 .schedule-axl .caption {
-  border-width: 1px 0 0;
+  border-width: 0 0 1px;
   border-style: solid;
   border-color: #acacac;
-  height: 150px;
+  height: 151px;
   position: relative;
   margin: 0;
   padding: 0;
@@ -6410,13 +6410,15 @@ ul.list-of-organizers {
   position: absolute;
   height: 1px;
   left: 0;
-  top: 50%;
   width: 100%;
-  margin-top: -1px;
   background-color: #acacac;
 }
+.schedule-axl .caption:after {
+  top: 50%;
+  margin-top: 0;
+}
 .schedule-axl .caption .text {
-  top: -11px;
+  top: -12px;
   left: -55px;
   position: absolute;
 }
