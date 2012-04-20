@@ -1,6 +1,6 @@
 <dl>
 {% for item in items %}
-    <dt>{{ item.title }}</dt>
-    <dd>{{ item.description }}</dd>
+    <dt>{{ item.title|safe }}</dt>
+    <dd>{{ item.description|safe }}</dd>
 {% endfor %}
 </dl>

@@ -7,7 +7,7 @@
 {% block content %}
     {% for paper in papers %}
         <div class="paper">
-            <h2><a href="./{{ paper.id }}">{{ paper.title }}</a></h2>
+            <h2><a href="./{{ paper.id }}">{{ paper.title|safe }}</a></h2>
             <p>{% for speaker in paper.speaker.all %}
                 {{ speaker.person.first_name }} {{ speaker.person.last_name }}
             {% endfor %}</p>

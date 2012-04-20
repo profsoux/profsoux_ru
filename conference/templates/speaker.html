@@ -14,7 +14,7 @@
                 <hgroup class="page-header">
                     <h2>{{ speaker.first_name }} {{ speaker.last_name }}</h2>
                     {% for lecture in speaker.lectures %}
-                        <h3><a href="/papers/{{ lecture.id }}">«{{ lecture.title }}»</a></h3>
+                        <h3><a href="/papers/{{ lecture.id }}">«{{ lecture.title|safe }}»</a></h3>
                     {% endfor %}
                 </hgroup>
                 <div class="row">
@@ -42,7 +42,7 @@
                         </p>
                         {% endif %}
 
-                        <h4>{{speaker.organization.name}}</h4>
+                        <h4>{{ speaker.organization.name|safe }}</h4>
 
                         {% if speaker.organization.site or speaker.organization.facebook %}
                         <p>

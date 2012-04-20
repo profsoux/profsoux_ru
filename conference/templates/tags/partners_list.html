@@ -8,17 +8,17 @@
             {% if organization.organization.site %}
             <a href="{{ organization.organization.site }}">
                 {% if organization.organization.logo %}
-                    <img src="{{ organization.organization.logo|thumbnail:"80x80" }}" alt="{{ organization.organization.name }}">
+                    <img src="{{ organization.organization.logo|thumbnail:"80x80" }}" alt="{{ organization.organization.name|safe }}">
                 {% else %}
-                    <img src="http://placehold.it/80x40" alt="{{ organization.organization.name }}">    
+                    <img src="http://placehold.it/80x40" alt="{{ organization.organization.name|safe }}">    
                 {% endif %}    
             </a>
             {% else %}
             <span>
                 {% if organization.organization.logo %}
-                    <img src="{{ organization.organization.logo|thumbnail:"80x80" }}" alt="{{ organization.organization.name }}">
+                    <img src="{{ organization.organization.logo|thumbnail:"80x80" }}" alt="{{ organization.organization.name|safe }}">
                 {% else %}
-                    <img src="http://placehold.it/80x40" alt="{{ organization.organization.name }}">    
+                    <img src="http://placehold.it/80x40" alt="{{ organization.organization.name|safe }}">    
                 {% endif %}
             </span>
             {% endif %}
@@ -33,9 +33,9 @@
     {% for organization in items.partners %}
         <li><a href="/partners/">
             {% if organization.organization.logo %}
-                <img src="{{ organization.organization.logo|thumbnail:"80x80" }}" alt="{{ organization.organization.name }}">
+                <img src="{{ organization.organization.logo|thumbnail:"80x80" }}" alt="{{ organization.organization.name|safe}}">
             {% else %}
-                <img src="http://placehold.it/80x40" alt="{{ organization.organization.name }}">    
+                <img src="http://placehold.it/80x40" alt="{{ organization.organization.name|safe }}">    
             {% endif %}
         </a></li>
     {% endfor %}

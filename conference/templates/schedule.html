@@ -62,13 +62,13 @@
                                     <span class="description">
                                         <time class="time">{{ item.section.start_time|time:"H:i" }}</time>
                                         {% if item.section.title %}
-                                            {{ item.section.title }}
+                                            {{ item.section.title|safe }}
                                         {% endif %}
                                         {% if item.section.lecture %}
                                             {% for speaker in item.section.lecture.speaker.all %}
                                                 {{ speaker }}{% if forloop.last %}{% else %}, {% endif %}
                                             {% endfor %} 
-                                            <em>«{{ item.section.lecture.title }}»</em>
+                                            <em>«{{ item.section.lecture.title|safe }}»</em>
                                         {% endif %}
                                     </span>
                                 {% if item.section.lecture %}
