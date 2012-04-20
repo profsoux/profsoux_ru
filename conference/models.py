@@ -139,6 +139,7 @@ class Participant(models.Model):
     class Meta:
         verbose_name = 'Участник'
         verbose_name_plural = 'Участники'
+        unique_together = ("first_name", "last_name", "email")
 
     def __unicode__(self):
         return u"%2s %2s" % (self.first_name, self.last_name)
