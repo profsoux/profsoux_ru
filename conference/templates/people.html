@@ -29,7 +29,11 @@
                                 {% else %}
                                     <span>{{ letter|upper }}</span>
                                 {% endif %}
-                                </li>    
+                                </li>
+                                {% if letter|upper == "Z" %}
+                                    </ul>
+                                    <ul class="letters-list unstyled"      
+                                {% endif %}    
                             {% endfor %}
                         {% endfor %}
                     </ul>
