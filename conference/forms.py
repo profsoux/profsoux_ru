@@ -5,8 +5,9 @@ from conference.models import Participant, Contacts
 
 
 class ParticipantForm(forms.ModelForm):
-    first_name = forms.CharField(
+    first_name = forms.RegexField(
         label="Имя",
+        regex=u'^([А-яЁё \-]|\s)+$',
         widget=forms.TextInput(
             attrs={
             'class': 'span4',
@@ -14,8 +15,9 @@ class ParticipantForm(forms.ModelForm):
             'maxlength': 64,
             'placeholder': 'Введите ваше имя'})
         )
-    last_name = forms.CharField(
+    last_name = forms.RegexField(
         label="Фамилия",
+        regex=u'^([А-яЁё \-]|\s)+$',
         widget=forms.TextInput(
             attrs={
             'class': 'span4',
@@ -23,8 +25,9 @@ class ParticipantForm(forms.ModelForm):
             'maxlength': 64,
             'placeholder': 'Введите вашу фамилию'})
         )
-    phone = forms.CharField(
+    phone = forms.RegexField(
         label="Контактный телефон",
+        regex=u'^(([0-9]|\+[0-9])[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$',
         widget=forms.TextInput(
             attrs={
             'class': 'span4',
