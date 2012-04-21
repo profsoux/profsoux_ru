@@ -2599,6 +2599,7 @@ table .span24 {
 }
 .close {
   float: right;
+  border: none;
   font-size: 20px;
   font-weight: bold;
   line-height: 24px;
@@ -2610,6 +2611,7 @@ table .span24 {
   filter: alpha(opacity=20);
 }
 .close:hover {
+  border: none;
   color: #000000;
   text-decoration: none;
   opacity: 0.4;

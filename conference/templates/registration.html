@@ -16,26 +16,28 @@
                 </div>
             </div>
             <div class="row">
-                {% if state == 'thanks' %}
-                    <div class="alert alert-block alert-success">
-                      <a class="close" data-dismiss="alert">×</a>
-                      <h4 class="alert-heading">Спасибо!</h4>
-                      Ваша заявка на участие принята, до встречи на конференции!
-                    </div>
-                {% endif %}
-                {% if form.errors %}
-                    <div class="alert alert-block alert-error">
-                      <a class="close" data-dismiss="alert">×</a>
-                      <h4 class="alert-heading">Произошла ошибка</h4>
-                      Проверьте правильность заполнения полей формы
-                      
-                      {% if form.non_field_errors %}
-                        {{ form.non_field_errors }}  
-                      {% endif %}
-                      
-                    </div>
-                {% endif %}
+                
                 <form action="/registration/" id="signup-form" class="span6 offset2" method="POST">{% csrf_token %}
+                    {% if state == 'thanks' %}
+                        <div class="alert alert-block alert-success">
+                          <a class="close" data-dismiss="alert">×</a>
+                          <h4 class="alert-heading">Спасибо!</h4>
+                          Ваша заявка на участие принята, до встречи на конференции!
+                        </div>
+                    {% endif %}
+                    {% if form.errors %}
+                        <div class="alert alert-block alert-error">
+                          <a class="close" data-dismiss="alert">×</a>
+                          <h4 class="alert-heading">Произошла ошибка</h4>
+                          Проверьте правильность заполнения полей формы
+                          
+                          {% if form.non_field_errors %}
+                            {{ form.non_field_errors }}  
+                          {% endif %}
+                          
+                        </div>
+                    {% endif %}
+                    
                     <div class="control-group {% if form.first_name.errors %}error{% endif %}">
                         <label class="control-label" for="id_first_name">{{ form.first_name.label }} <em>*</em></label>
                         {{ form.first_name }}

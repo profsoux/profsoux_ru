@@ -16,21 +16,22 @@
                 </div>
             </div>
             <div class="row">
-                {% if state == 'thanks' %}
-                    <div class="alert alert-block alert-success">
-                      <a class="close" data-dismiss="alert">×</a>
-                      <h4 class="alert-heading">Спасибо!</h4>
-                      Ваше сообщение отправлено
-                    </div>
-                {% endif %}
-                {% if form.errors %}
-                    <div class="alert alert-block alert-error">
-                      <a class="close" data-dismiss="alert">×</a>
-                      <h4 class="alert-heading">Произошла ошибка</h4>
-                      Проверьте правильность заполнения полей формы
-                    </div>
-                {% endif %}
                 <form action="/contacts/" id="contact-form" class="span6 offset2" method="POST">{% csrf_token %}
+                    {% if state == 'thanks' %}
+                        <div class="alert alert-block alert-success">
+                          <a class="close" data-dismiss="alert">×</a>
+                          <h4 class="alert-heading">Спасибо!</h4>
+                          Ваше сообщение отправлено
+                        </div>
+                    {% endif %}
+                    {% if form.errors %}
+                        <div class="alert alert-block alert-error">
+                          <a class="close" data-dismiss="alert">×</a>
+                          <h4 class="alert-heading">Произошла ошибка</h4>
+                          Проверьте правильность заполнения полей формы
+                        </div>
+                    {% endif %}
+
                     <p>Вы можете позвонить нам по телефону <a href="tel:+79213369344">+7 (921) 336 93 44</a> или написать письмо.</p>
 
                     <div class="control-group {% if form.name.errors %}error{% endif %}">
