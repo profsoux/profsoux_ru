@@ -1,11 +1,6 @@
 # -*- coding: utf8 -*-
 from django.db import models
 
-PARTNER_TYPE_CHOISES = (
-    (0, 'Организаторы'),
-    (1, 'Партнёры')
-    )
-
 
 class Menu(models.Model):
     name = models.CharField("Имя", max_length=64)
@@ -55,7 +50,7 @@ class Organization(models.Model):
 
 class Partner(models.Model):
     organization = models.ForeignKey('Organization', verbose_name='Название')
-    partner_type = models.IntegerField('Категория партнёрства', choices=PARTNER_TYPE_CHOISES)
+    partner_type = models.ForeignKey('PartnerStatus', verbose_name='Категория партнёрства')
 
     class Meta:
         verbose_name = 'Партнёр'
@@ -63,6 +58,20 @@ class Partner(models.Model):
 
     def __unicode__(self):
         return self.organization.name
+
+
+class PartnerStatus(models.Model):
+    title = models.CharField('Тип партнёрства', max_length=255)
+    title_plural = models.CharField('Тип партнёрства (множ. число)', max_length=255)
+    weight = models.IntegerField('«Вес» партнёрства')
+    show_on_index = models.BooleanField('Показывать на главной')
+
+    class Meta:
+        verbose_name = 'Тип партнёрства'
+        verbose_name_plural = 'Типы партнёрства'
+
+    def __unicode__(self):
+        return self.title
 
 
 class Lecture(models.Model):
