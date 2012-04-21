@@ -10,7 +10,7 @@
                 {% if organization.organization.logo %}
                     <img src="{{ organization.organization.logo|thumbnail:"80x80" }}" alt="{{ organization.organization.name|safe }}">
                 {% else %}
-                    <img src="http://placehold.it/80x40" alt="{{ organization.organization.name|safe }}">    
+                    <img src="http://placehold.it/80x80" alt="{{ organization.organization.name|safe }}">    
                 {% endif %}    
             </a>
             {% else %}
@@ -18,7 +18,7 @@
                 {% if organization.organization.logo %}
                     <img src="{{ organization.organization.logo|thumbnail:"80x80" }}" alt="{{ organization.organization.name|safe }}">
                 {% else %}
-                    <img src="http://placehold.it/80x40" alt="{{ organization.organization.name|safe }}">    
+                    <img src="http://placehold.it/80x80" alt="{{ organization.organization.name|safe }}">    
                 {% endif %}
             </span>
             {% endif %}
@@ -35,7 +35,7 @@
             {% if organization.organization.logo %}
                 <img src="{{ organization.organization.logo|thumbnail:"80x80" }}" alt="{{ organization.organization.name|safe}}">
             {% else %}
-                <img src="http://placehold.it/80x40" alt="{{ organization.organization.name|safe }}">    
+                <img src="http://placehold.it/80x80" alt="{{ organization.organization.name|safe }}">    
             {% endif %}
         </a></li>
     {% endfor %}
