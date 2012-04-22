@@ -88,6 +88,58 @@ ui.schedule = {
         }
     }
 };
+ui.getTweets = function(q) {
+    var list = $("#confTweets"),
+        tweets = [],
+        url = 'http://search.twitter.com/search.json?q=%23' + q + '&rpp=20&callback=?';
+
+    if (list.length == 0) {
+        return false;
+    }
+
+    $.getJSON( url, function( data ) {
+        $.each( data.results, function( i, item )
+        {
+            var tweet = {},
+                now = new Date(),
+                user = item.from_user,
+                image = item.profile_image_url,
+                text = item.text,
+                date = null,
+                created_at = Date.parse(item.created_at);
+
+            text = text.replace(
+                /(^|\s)(?:#([\d\w_]+)|@([\d\w_]{1,15}))|(https?:\/\/[^\s"]+[\d\w_\-\/])|([^\s:@"]+@[^\s:@"]*)/gi,
+                function( all, space, hashtag, username, link, email ) {
+                    var res = '<a href="mailto:' + email + '">' + email + "</a>";
+                    hashtag && (res = space + '<a href="http://search.twitter.com/search?q=%23' + hashtag + '">#' + hashtag + "</a>");
+                    username && (res = space + '<a href="http://twitter.com/' + username + '">@' + username + "</a>");
+                    link && (res = '<a href="' + encodeURI(decodeURI(link.replace(/<[^>]*>/g, ""))) + '">' + link + "</a>");
+                    return res;
+                }
+            );
+
+            tweet.user = user;
+            tweet.image = image;
+            tweet.text = text;
+
+            if (created_at != NaN) {
+                tweet.date = now.setTime(created_at);
+            }
+
+            //list.push(tweet);
+            list.append(
+                '<li class="span4"><a href="http://twitter.com/' +
+                    user + '" title="' +
+                    user + '"><img src="' +
+                    image + '"></a><p>' +
+                    text + '</p></li>'
+            );
+        });
+    });
+    return tweets;
+};
+
 
 $(function(){
     $('.btn-share').click(function(){
