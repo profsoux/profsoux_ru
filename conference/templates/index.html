@@ -6,21 +6,7 @@
 
     {% main_menu %}
 
-    <header id="header">
-        <div class="container">
-            <div id="branding">
-                <div id="logo">
-                    <span><img src="{{ STATIC_URL }}img/branding/logo.png" alt="" /></span>
-                </div>
-                
-                <hgroup>
-                    <h1><a href="/">ПрофсоUX</a></h1>
-                    <h2>Конференция UX-специалистов</h2>
-                    <p><time>19 мая 2012</time>, Санкт-Петербург, ИТМО</p>
-                </hgroup>
-            </div>
-        </div>
-    </header>
+    {% include "inc/header.inc" %}
         
     <div id="content-container" class="container">
         <div class="row">
