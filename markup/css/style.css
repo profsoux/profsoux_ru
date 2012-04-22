@@ -5941,13 +5941,12 @@ a.thumbnail:hover {
   margin: 0 0 20px;
   min-width: 100px;
   min-height: 100px;
-  text-align: center;
 }
 #organizers li {
   width: 50%;
 }
 #partners li {
-  width: 33%;
+  width: 25%;
 }
 #organizers a,
 #partners a {
@@ -6182,81 +6181,6 @@ ul.list-of-organizers {
   margin: 3px 0 0;
 }
 /* schedule */
-/* axl division */
-/* percent in .segment-height() == minutes */
-.schedule-axl .div-5 {
-  height: 10px;
-}
-.schedule-axl .div-10 {
-  height: 22px;
-}
-.schedule-axl .div-15 {
-  height: 35px;
-}
-.schedule-axl .div-20 {
-  height: 47px;
-}
-.schedule-axl .div-25 {
-  height: 60px;
-}
-.schedule-axl .div-30 {
-  height: 73px;
-}
-.schedule-axl .div-35 {
-  height: 85px;
-}
-.schedule-axl .div-40 {
-  height: 98px;
-}
-.schedule-axl .div-45 {
-  height: 110px;
-}
-.schedule-axl .div-50 {
-  height: 123px;
-}
-.schedule-axl .div-55 {
-  height: 135px;
-}
-.schedule-axl .div-60 {
-  height: 148px;
-  height: 149px;
-}
-.schedule-axl .pre-5 {
-  margin-top: 13px;
-}
-.schedule-axl .pre-10 {
-  margin-top: 25px;
-}
-.schedule-axl .pre-15 {
-  margin-top: 38px;
-}
-.schedule-axl .pre-20 {
-  margin-top: 50px;
-}
-.schedule-axl .pre-25 {
-  margin-top: 63px;
-}
-.schedule-axl .pre-30 {
-  margin-top: 76px;
-}
-.schedule-axl .pre-35 {
-  margin-top: 88px;
-}
-.schedule-axl .pre-40 {
-  margin-top: 101px;
-}
-.schedule-axl .pre-45 {
-  margin-top: 113px;
-}
-.schedule-axl .pre-50 {
-  margin-top: 126px;
-}
-.schedule-axl .pre-55 {
-  margin-top: 138px;
-}
-.schedule-axl .pre-60 {
-  margin-top: 1523px;
-}
 .schedule {
   text-align: left;
   padding-left: 55px;
@@ -6434,6 +6358,81 @@ ul.list-of-organizers {
 }
 .schedule .legend-implementation {
   background-image: url("../img/schedule/legend-implementation.png");
+}
+/* axl division */
+/* percent in .segment-height() == minutes */
+.schedule-axl .div-5 {
+  height: 10px;
+}
+.schedule-axl .div-10 {
+  height: 22px;
+}
+.schedule-axl .div-15 {
+  height: 35px;
+}
+.schedule-axl .div-20 {
+  height: 47px;
+}
+.schedule-axl .div-25 {
+  height: 60px;
+}
+.schedule-axl .div-30 {
+  height: 73px;
+}
+.schedule-axl .div-35 {
+  height: 85px;
+}
+.schedule-axl .div-40 {
+  height: 98px;
+}
+.schedule-axl .div-45 {
+  height: 110px;
+}
+.schedule-axl .div-50 {
+  height: 123px;
+}
+.schedule-axl .div-55 {
+  height: 135px;
+}
+.schedule-axl .div-60 {
+  height: 148px;
+  height: 149px;
+}
+.schedule-axl .pre-5 {
+  margin-top: 10px;
+}
+.schedule-axl .pre-10 {
+  margin-top: 22px;
+}
+.schedule-axl .pre-15 {
+  margin-top: 35px;
+}
+.schedule-axl .pre-20 {
+  margin-top: 47px;
+}
+.schedule-axl .pre-25 {
+  margin-top: 60px;
+}
+.schedule-axl .pre-30 {
+  margin-top: 73px;
+}
+.schedule-axl .pre-35 {
+  margin-top: 85px;
+}
+.schedule-axl .pre-40 {
+  margin-top: 98px;
+}
+.schedule-axl .pre-45 {
+  margin-top: 110px;
+}
+.schedule-axl .pre-50 {
+  margin-top: 123px;
+}
+.schedule-axl .pre-55 {
+  margin-top: 135px;
+}
+.schedule-axl .pre-60 {
+  margin-top: 1520px;
 }
 /* Members */
 .members .row {
