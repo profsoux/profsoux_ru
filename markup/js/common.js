@@ -142,11 +142,5 @@ ui.getTweets = function(q) {
 
 
 $(function(){
-    $('.btn-share').click(function(){
-        $(this).parent().siblings('.yashare-auto-init').slideToggle();
-
-        return false;
-    });
-
     ui.schedule.init();
 });
