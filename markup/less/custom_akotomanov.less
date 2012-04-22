@@ -9,67 +9,37 @@
 /* Header */
 #header {
 	border-top:1px solid #ebeaea;
-	border-bottom:2px solid #f4f3f1;
+	border-bottom:1px solid #f4f3f1;
 	background:#ece8e2 url(../img/textures/bg_header.png) 0 0 repeat;
 	@shadow: inset 0 -5px 10px rgba(43, 28, 4, .1), inset 0 5px 10px rgba(43, 28, 4, .1);
 	.box-shadow(@shadow);
 	}
 	#branding {
-		padding:30px 0;
+		position:relative;
+		margin:0 0 0 -20px;
+		padding:20px 0;
 		}
-		#logo img {
-			float:right;
+	#site-title {margin:0;}
+		#site-title a {
+			position:absolute;
+			left:15px;
+			top:-65px;
+			display:block;
+			width:230px;
+    		height:200px;
+			border:none;
+			background:url(../img/branding/logo.png) 0 0 no-repeat;
+			.transition(all 0.1s ease-in-out);
 			}
-	#header h1,
-	#header h2 {
-		line-height:1.2;
-		}
-	#header h1 {
-		margin:25px 0 5px;
-		font-size:40px;
-		}
-	#header h2 {
-		margin: 0 0 5px;
-		font-size:24px;
-		}
-	#header a,
-	#header a:hover {
-		border:none;
-		text-decoration:none;
-		}
-	#header p {
-		margin:0;
-		font-size:14px;
-		}
-/* Homepage header */
-.page-home #header {
-	margin-bottom:230px;
-	height:120px;
-	text-align:center;
-	}
-	.page-home #branding {
-		padding:0;
-		}
-	.page-home #logo {
-		margin-top:20px;
-		width:200px;
-		height:167px;
-		.center-block();
-		}
-		.page-home #logo img {
-			float:none;
-			}
-	.page-home #header hgroup {
-		padding-bottom:30px;
-		border-bottom:1px solid #6d6d6d;
-		.box-shadow(0 1px 0 rgba(255, 255, 255, .75));
-		}
-	.page-home #header h1 {
-		margin:5px 0 15px;
-		}
-	.page-home #header h2 {
+			#site-title a:hover {top:-60px;}
+	#site-description {
 		margin:0 0 10px;
+		font-size:30px;
+		line-height:1.2;
+		color:#4d4d4d;
 		}
+	#header p {margin:0 0 5px;}
+
 	
 /* Footer */
 #footer {
@@ -111,7 +81,7 @@
 			}
 
 #content-container {
-	padding:60px 0;
+	padding:40px 0 60px;
 	}
 
 /* Aside */

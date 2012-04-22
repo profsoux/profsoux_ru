@@ -1,20 +1,21 @@
-<nav id="nav-main" class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-            <div class="nav-collapse">
-                <ul class="nav">
-                    {% for item in items %}
-                    <li {% if item.link == path %}
-                         class="active"
-                        {% endif %}><a href="{{ item.link }}">{{ item.name }}</a></li> 
-                    {% endfor %}                       
-                </ul>
-            </div><!--/.nav-collapse -->
+    <nav id="nav-main" class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand visible-phone visible-tablet hide-text" href="/">ПрофсоUX</a>
+                <div class="nav-collapse clearfix">
+                    <ul class="nav clearfix">
+                        {% for item in items %}
+                        <li {% if item.link == path %}
+                             class="active"
+                            {% endif %}><a href="{{ item.link }}">{{ item.name }}</a></li> 
+                        {% endfor %}
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
