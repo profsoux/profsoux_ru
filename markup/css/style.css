@@ -686,7 +686,7 @@ h6 {
 ul,
 ol {
   padding: 0;
-  margin: 0 0 12px 25px;
+  margin: 0 0 30px 25px;
 }
 ul ul,
 ul ol,
@@ -5838,7 +5838,7 @@ a.thumbnail:hover {
   border-bottom: 1px solid #ffedae;
 }
 #content-container {
-  padding: 40px 0 60px;
+  padding: 40px 0;
 }
 /* Aside */
 #content-sup h3 {
@@ -5982,7 +5982,7 @@ ul.list-of-speakers {
   border-bottom-color: #999;
 }
 .list-of-speakers p {
-  margin: 0 0 5px 115px;
+  margin: 0 0 50px 115px;
   line-height: 20px;
   font-size: 14px;
 }
@@ -6056,6 +6056,9 @@ ul.list-of-organizers {
 }
 .members .people-list li {
   margin: 0 0 5px;
+}
+#share-block {
+  margin: 0 0 30px;
 }
 #share-block h3 {
   margin: 0 0 10px;
