@@ -5858,9 +5858,6 @@ a.thumbnail:hover {
   margin: 0 0 5px;
   list-style: none;
 }
-#content-sup .yashare-auto-init {
-  display: none;
-}
 #intro,
 #programm,
 #speakers {
@@ -6053,6 +6050,12 @@ ul.list-of-organizers {
 }
 .members .people-list li {
   margin: 0 0 5px;
+}
+#share h3 {
+  margin: 0 0 10px;
+  font-size: 24px;
+  line-height: 1.2;
+  color: #4D4D4D;
 }
 /* Selection */
 ::-moz-selection {
@@ -6432,7 +6435,8 @@ ul.list-of-organizers {
   margin-top: 135px;
 }
 .schedule-axl .pre-60 {
-  margin-top: 1520px;
+  margin-top: 148px;
+  height: 149px;
 }
 /* Members */
 .members .row {
