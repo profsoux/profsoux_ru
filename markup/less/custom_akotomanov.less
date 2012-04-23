@@ -9,67 +9,36 @@
 /* Header */
 #header {
 	border-top:1px solid #ebeaea;
-	border-bottom:2px solid #f4f3f1;
+	border-bottom:1px solid #f4f3f1;
 	background:#ece8e2 url(../img/textures/bg_header.png) 0 0 repeat;
 	@shadow: inset 0 -5px 10px rgba(43, 28, 4, .1), inset 0 5px 10px rgba(43, 28, 4, .1);
 	.box-shadow(@shadow);
 	}
 	#branding {
+		position:relative;
+		margin:0 0 0 -20px;
 		padding:30px 0;
 		}
-		#logo img {
-			float:right;
+	#site-title {margin:0;}
+		#site-title a {
+			position:absolute;
+			left:15px;
+			top:-65px;
+			display:block;
+			width:230px;
+    		height:200px;
+			border:none;
+			background:url(../img/branding/logo.png) 0 0 no-repeat;
+			.transition(all 0.1s ease-in-out);
 			}
-	#header h1,
-	#header h2 {
+			#site-title a:hover {top:-60px;}
+	#site-description {
+		margin:0 0 10px;
+		font-size:30px;
 		line-height:1.2;
 		}
-	#header h1 {
-		margin:25px 0 5px;
-		font-size:40px;
-		}
-	#header h2 {
-		margin: 0 0 5px;
-		font-size:24px;
-		}
-	#header a,
-	#header a:hover {
-		border:none;
-		text-decoration:none;
-		}
-	#header p {
-		margin:0;
-		font-size:14px;
-		}
-/* Homepage header */
-.page-home #header {
-	margin-bottom:230px;
-	height:120px;
-	text-align:center;
-	}
-	.page-home #branding {
-		padding:0;
-		}
-	.page-home #logo {
-		margin-top:20px;
-		width:200px;
-		height:167px;
-		.center-block();
-		}
-		.page-home #logo img {
-			float:none;
-			}
-	.page-home #header hgroup {
-		padding-bottom:30px;
-		border-bottom:1px solid #6d6d6d;
-		.box-shadow(0 1px 0 rgba(255, 255, 255, .75));
-		}
-	.page-home #header h1 {
-		margin:5px 0 15px;
-		}
-	.page-home #header h2 {
-		margin:0 0 10px;
-		}
+	#header p {margin:0 0 5px;}
+
 	
 /* Footer */
 #footer {
@@ -111,7 +80,7 @@
 			}
 
 #content-container {
-	padding:60px 0;
+	padding:40px 0;
 	}
 
 /* Aside */
@@ -131,16 +100,12 @@
 		margin:0 0 5px;
 		list-style:none;
 		}
-#content-sup .yashare-auto-init {
-	display:none;
-	}
-
 
 
 #intro,
 #programm, 
 #speakers {
-	margin-bottom:30px;
+	margin-bottom:50px;
 	}
 	#programm h2, 
 	#speakers h2,
@@ -170,6 +135,9 @@
 		.box-sizing(border-box);
 		line-height:28px;
 		}
+	#intro .small {
+		font-size:14px;
+		}
 
 	#programm dt {
 		margin:0 0 5px;
@@ -185,7 +153,7 @@
 
 	#organizers ul,
 	#partners ul {
-		margin:0 0 10px;
+		margin:0;
 		list-style:none;
 		}
 		#organizers li,
@@ -195,13 +163,12 @@
 			margin:0 0 20px;
 			min-width:100px;
 			min-height:100px;
-			text-align:center;
 			}
 		#organizers li {
 			width:50%;
 			}
 		#partners li {
-			width:33%;
+			width:25%;
 			}
 		#organizers a,
 		#partners a {
@@ -242,16 +209,20 @@ ul.list-of-speakers {
 				border-bottom-color:#999;
 				}
 	.list-of-speakers p {
-		margin:0 0 10px 115px;
+		margin:0 0 5px 115px;
 		line-height:20px;
 		font-size:14px;
 		}
 
 /* Map and Location page */
 .page-location #content-main h3 {
-	margin-bottom:30px;
+	margin-bottom:10px;
 	font-size:30px;
 	line-height:1.4;
+	}
+.page-location #content-main h4 {
+	font-size:21px;
+	color:#666;
 	}
 .page-location dd {
 	margin:0 0 10px;
@@ -316,6 +287,21 @@ ul.list-of-organizers {
 .members .people-list li {
 	margin:0 0 5px;
 	}
+
+#share-block {
+	margin:0 0 30px;
+	}
+	#share-block h3 {
+		margin:0 0 10px;
+		font-size:24px;
+		line-height:1.2;
+		color:#4D4D4D;
+		}
+	#share-block a {
+		margin-right:3px;
+		border:none;
+		}
+		#share-block a:hover {border:none;}
 
 /* Selection */
 ::-moz-selection { background:rgba(255,222,0,.5); color:#000; text-shadow:none !important; }

@@ -140,10 +140,14 @@
   body {
     padding:0 20px;
   }
+  .navbar,
   .navbar-fixed-top {
     margin-left: -20px;
     margin-right: -20px;
   }
+  .navbar-inner {
+    padding:0 20px;
+    }
   #header,
   #footer {
     margin-left: -20px;
@@ -235,16 +239,6 @@
   }
   .navbar-fixed-top .navbar-inner {
     padding: 5px;
-  }
-  .navbar .container {
-    width: auto;
-    padding: 0;
-  }
-  // Account for brand name
-  .navbar .brand {
-    padding-left: 10px;
-    padding-right: 10px;
-    margin: 0 0 0 -5px;
   }
   // Nav collapse clears brand
   .navbar .nav-collapse {
@@ -343,6 +337,12 @@
     overflow: hidden;
     height: 0;
   }
+
+  #branding,
+  #branding .offset4 {
+    margin:0;
+    text-align:center;
+  }
 }
 
 
@@ -379,6 +379,14 @@
   }
   .thumbnails > li {
     margin-left: 30px;
+  }
+
+  #branding {
+    margin-left:-30px;
+  }
+
+  #site-title a {
+    left:25px;
   }
 
 }

@@ -6,33 +6,18 @@
 
     {% main_menu %}
 
-    <header id="header">
-        <div class="container">
-            <div id="branding">
-                <div id="logo">
-                    <span><img src="{{ STATIC_URL }}img/branding/logo.png" alt="" /></span>
-                </div>
-                
-                <hgroup>
-                    <h1><a href="/">ПрофсоUX</a></h1>
-                    <h2>Конференция UX-специалистов</h2>
-                    <p><time>19 мая 2012</time>, Санкт-Петербург, ИТМО</p>
-                </hgroup>
-            </div>
-        </div>
-    </header>
+    {% include "inc/header.inc" %}
         
     <div id="content-container" class="container">
         <div class="row">
             <section id="intro" class="span4">
                 <p><strong>ПрофсоUX</strong>&nbsp;&mdash; главная питерская конференция о&nbsp;юзабилити, UX&nbsp;и&nbsp;создании цифровых продуктов, ориентированных на&nbsp;человека.</p>
 
-                <p>Впервые в&nbsp;Санкт-Петербурге пройдет конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия. Доклады и&nbsp;дискуссии посвящены основным ступеням UX-процесса. Если вам интересны эти темы, то&nbsp;эта конференция для вас!</p>
-
-                <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a></p>
-
-                <p><small>Участие бесплатное.<br />
+                <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
+                <small>Участие бесплатное.<br />
                 Торопитесь! Количество мест ограничено.</small></p>
+
+                <p class="small">Впервые в&nbsp;Санкт-Петербурге пройдет конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия. Доклады и&nbsp;дискуссии посвящены основным ступеням UX-процесса. Если вам интересны эти темы, то&nbsp;эта конференция для вас!</p>
 
                 <p>Уже идут: {{ people_count }}. <a href="/people/">Кто идёт? »</a></p>
 
