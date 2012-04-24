@@ -13,4 +13,6 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <link href="{{ STATIC_URL }}favicon.ico" rel="shortcut icon" type="image/x-icon">
 </head>
