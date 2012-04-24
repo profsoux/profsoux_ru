@@ -220,8 +220,8 @@ def people(request):
             'people': people,
             'count': total['first_name__count'],
             'anonimous': total['first_name__count'] - len(people_q),
-            'block_1_end': block_1_end,
-            'block_2_end': block_2_end
+            'block_1_end': (block_1_end + 1),
+            'block_2_end': (block_2_end + 1)
         })
 
 
