@@ -1,7 +1,9 @@
 import os
 import Image
+import re
 
 from django import template
+from django.utils.safestring import mark_safe
 
 from conference.models import *
 from conference.views import get_speakers_lectures
@@ -92,3 +94,15 @@ def thumbnail(file, size='104x104'):
 @register.filter
 def multiply(value, arg):
     return int(value) * int(arg)
+
+
+@register.filter
+def pretty_url(url):
+    pattern = re.compile(u'^https?://(.*[^/])/?$')
+    try:
+        name = re.findall(pattern, url)[0]
+    except:
+        name = url
+
+    return mark_safe(u'<a href="%s" rel="nofollow" target="_blank">%s</a>' % (url, name))
+#pretty_url.needs_autoescape = True

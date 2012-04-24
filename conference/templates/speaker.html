@@ -33,7 +33,7 @@
                         {% if speaker.site or speaker.twitter %}
                         <p>
                             {% if speaker.site %}
-                                <a href="{{speaker.site}}">{{speaker.site}}</a><br />
+                                {{ speaker.site|pretty_url }}<br />
                             {% endif %}
 
                             {% if speaker.twitter %}
@@ -47,7 +47,7 @@
                         {% if speaker.organization.site or speaker.organization.facebook %}
                         <p>
                             {% if speaker.organization.site %}
-                            <a href="{{speaker.organization.site}}">{{speaker.organization.site}}</a><br />
+                            {{ speaker.organization.site|pretty_url }}<br />
                             {% endif %}
 
                             {% if speaker.organization.facebook %}

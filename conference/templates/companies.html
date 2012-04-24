@@ -53,7 +53,7 @@
                                     <h3>{{ partner.organization.name|safe }}</h3>
                                     
                                     {% if partner.organization.site %}
-                                    <address><a href="{{ partner.organization.site }}" target="_blank">{{ partner.organization.site }}</a></address>
+                                    <address>{{ partner.organization.site|pretty_url }}</address>
                                     {% endif %}
                                     
                                     {% if partner.organization.description %}
