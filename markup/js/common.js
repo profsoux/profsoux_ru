@@ -19,7 +19,7 @@ ui.schedule = {
         }
 
         this.$schedule = $schedule;
-        this.initTooltips();
+        //this.initTooltips();
 
         if (ui.CONF_DATE.getFullYear() == markerPlacementDate.getFullYear() &&
             ui.CONF_DATE.getMonth() == markerPlacementDate.getMonth() &&

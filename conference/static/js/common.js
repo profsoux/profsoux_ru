@@ -1,5 +1,5 @@
 var ui = {};
-ui.CONF_DATE = new Date(2012, 5-1, 19);
+ui.CONF_DATE = new Date(2012, 4-1, 24);
 ui.schedule = {
     $schedule: null,
 
@@ -19,7 +19,7 @@ ui.schedule = {
         }
 
         this.$schedule = $schedule;
-        this.initTooltips();
+        //this.initTooltips();
 
         if (ui.CONF_DATE.getFullYear() == markerPlacementDate.getFullYear() &&
             ui.CONF_DATE.getMonth() == markerPlacementDate.getMonth() &&
