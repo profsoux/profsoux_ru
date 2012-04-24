@@ -24,6 +24,18 @@
                     <div class="span8">
                         {{ paper.description|safe }}
 
+                        {% if paper.category or paper.timing %}
+                        <ul>
+                            {% if paper.category %}
+                                <li>Секция доклада: <em>{{ paper.category }}</em></li>
+                            {% endif %}
+
+                            {% if paper.timing %}
+                                <li>Длительность доклада: <em>{{ paper.timing }} минут</em></li>
+                            {% endif %}
+                        </ul>
+                        {% endif %}
+
                         {% if paper.presentation %}
                             <p><a href="{{ paper.presentation }}">Скачать презентацию</a></p>
                         {% endif %}
@@ -40,7 +52,7 @@
                 <nav>
                     <ul>
                         <li><a href="/schedule/">Список докладов »</a></li>
-                        <li><a href="/speakers/">Список докладчиков</a></li>
+                        <li><a href="/speakers/">Список докладчиков »</a></li>
                     </ul>
                 </nav>
             </aside>
