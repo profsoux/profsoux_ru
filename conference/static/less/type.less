@@ -35,11 +35,9 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
     color: @grayLight;
   }
-  a {
-    text-decoration: none;
-  }
+  a,
   a:hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
 }
 h1 {
@@ -93,13 +91,21 @@ h6 {
   margin:0 0 30px;
   .title-border-bottom();
   }
-.page-header h1 {
-  line-height: 1;
-  }
-.page-header h2 {
-  margin-bottom:0;
-  }
-
+  .page-header h2 {
+    display:inline-block;
+    margin-right:20px;
+    margin-bottom:10px;
+    line-height: 1;
+    }
+  .page-header h3 {
+    margin:0;
+    line-height:1.4;
+    font-size:24px;
+    }
+  .page-header .btn {
+    position:relative;
+    top:-5px; 
+    }
 
 
 // LISTS
@@ -108,7 +114,7 @@ h6 {
 // Unordered and Ordered lists
 ul, ol {
   padding: 0;
-  margin: 0 0 @baseLineHeight / 2 25px;
+  margin: 0 0 30px 25px;
 }
 ul ul,
 ul ol,
