@@ -4,7 +4,9 @@
 {% for speaker in items %}
     <li class="speaker">
         <h3><a href="/speakers/{{ speaker.person.id }}">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a></h3>
-        <p>{{ speaker.person.organization }}</p>
+        {% if speaker.person.organization  %}
+        <p>{{ speaker.person.organization }}</p>    
+        {% endif %}
         {% for lecture in speaker.lectures %}
             <p><a href="/papers/{{ lecture.id }}">«{{ lecture.title|safe }}»</a></p>
         {% empty %}
