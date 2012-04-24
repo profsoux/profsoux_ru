@@ -39,8 +39,8 @@ def speakers(request):
 
 
 def partners(request):
-    orgs = Partner.objects.filter(partner_type=0)
-    partners = Partner.objects.filter(partner_type=1)
+    orgs = Partner.objects.filter(partner_type=1)
+    partners = Partner.objects.filter(partner_type__gt=1).order_by('partner_type__weight', 'weight')
     return render(request,
         'partners.html',
         {'orgs': orgs,

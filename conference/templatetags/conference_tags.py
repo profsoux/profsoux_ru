@@ -23,10 +23,13 @@ def speakers_list():
     return {'items': speakers}
 
 
-@register.inclusion_tag('tags/partners_list.html')
-def partners_list():
-    orgs = Partner.objects.filter(partner_type=0)
-    partners = Partner.objects.filter(partner_type=1)
+@register.inclusion_tag('tags/partners_list.html', takes_context=True)
+def partners_list(context):
+    if context['request'].path == '/':
+        partners = Partner.objects.filter(partner_type__gt=1).order_by('partner_type__weight', 'weight')
+    else:
+        partners = Partner.objects.filter(partner_type__gt=1, partner_type__show_always=True).order_by('partner_type__weight', 'weight')
+    orgs = Partner.objects.filter(partner_type=1).order_by('weight')
     return {
         'items': {
             'orgs': orgs,

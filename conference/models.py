@@ -65,7 +65,7 @@ class PartnerStatus(models.Model):
     title = models.CharField('Тип партнёрства', max_length=255)
     title_plural = models.CharField('Тип партнёрства (множ. число)', max_length=255)
     weight = models.IntegerField('«Вес» партнёрства')
-    show_allways = models.BooleanField('Показывать на всех страницах')
+    show_always = models.BooleanField('Показывать на всех страницах')
 
     class Meta:
         verbose_name = 'Тип партнёрства'

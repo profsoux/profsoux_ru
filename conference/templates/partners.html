@@ -17,10 +17,15 @@
                 </div>
 
                 <div class="clearfix">
-                    <ul class="list-of-partners span8">
-                
-                        {% for partner in partners %}
+                    
+                {% regroup partners by partner_type as partners_list %}
 
+                {% for partner_group in partners_list %}
+                    {% if not forloop.first %}
+                        <h3>{{ partner_group.grouper.title_plural }}</h3>
+                    {% endif %}
+                    <ul class="list-of-partners span8">
+                    {% for partner in partner_group.list %}
                         <li class="partner">
                             <article class="row">
                                 <div class="span2">
@@ -57,9 +62,9 @@
                                 </div>
                             </article>
                         </li>
-                        
-                        {% endfor %}
-                    </ul>
+                    {% endfor %}
+                     </ul>
+                {% endfor %}
                 </div>
             </div>
             <aside id="content-sup" class="span3">
@@ -67,6 +72,9 @@
             </aside>
         </div>
 
+        <div class="row">
+            {% partners_list %}
+        </div>
     </div><!-- /container -->
     
 {% include "inc/footer.inc" %}
