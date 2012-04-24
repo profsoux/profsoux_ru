@@ -29,7 +29,7 @@ def index(request):
 
 
 def speakers(request):
-    speakers = list(Speaker.objects.all())
+    speakers = list(Speaker.objects.order_by('person__last_name'))
     for speaker in speakers:
         speaker.lectures = get_speakers_lectures(speaker)
     return render(request,
