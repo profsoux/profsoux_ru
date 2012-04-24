@@ -51,6 +51,7 @@ class Organization(models.Model):
 class Partner(models.Model):
     organization = models.ForeignKey('Organization', verbose_name='Название')
     partner_type = models.ForeignKey('PartnerStatus', verbose_name='Категория партнёрства')
+    weight = models.IntegerField('Порядок вывода', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Партнёр'
@@ -64,7 +65,7 @@ class PartnerStatus(models.Model):
     title = models.CharField('Тип партнёрства', max_length=255)
     title_plural = models.CharField('Тип партнёрства (множ. число)', max_length=255)
     weight = models.IntegerField('«Вес» партнёрства')
-    show_on_index = models.BooleanField('Показывать на главной')
+    show_allways = models.BooleanField('Показывать на всех страницах')
 
     class Meta:
         verbose_name = 'Тип партнёрства'
