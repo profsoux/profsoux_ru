@@ -104,6 +104,18 @@ class Speaker(models.Model):
         verbose_name = 'Докладчик'
         verbose_name_plural = 'Докладчики'
 
+    def get_lectures_dict(self):
+        try:
+            lectures = Lecture.objects.filter(speaker=self.id)
+        except:
+            lectures = {}
+        return lectures
+
+    def get_speaker(self):
+        result = self.person
+        result.lectures = self.get_lectures_dict()
+        return result
+
     def __unicode__(self):
         return self.person.__unicode__()
 

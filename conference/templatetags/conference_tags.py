@@ -6,7 +6,6 @@ from django import template
 from django.utils.safestring import mark_safe
 
 from conference.models import *
-from conference.views import get_speakers_lectures
 
 register = template.Library()
 
@@ -20,8 +19,9 @@ def category_list():
 @register.inclusion_tag('tags/speakers_list.html')
 def speakers_list():
     speakers = Speaker.objects.order_by('?')[:3]
-    for speaker in speakers:
-        speaker.lectures = get_speakers_lectures(speaker)
+    speakers = [i.get_speaker() for i in speakers]
+    # for speaker in speakers:
+    #     speaker.lectures = get_speakers_lectures(speaker)
     return {'items': speakers}
 
 

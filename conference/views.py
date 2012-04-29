@@ -32,8 +32,8 @@ def index(request):
 
 def speakers(request):
     speakers = list(Speaker.objects.order_by('person__last_name'))
-    for speaker in speakers:
-        speaker.lectures = get_speakers_lectures(speaker)
+
+    speakers = [i.get_speaker() for i in speakers]
     return render(request,
         'speakers.html',
         {'speakers': speakers}
@@ -61,19 +61,10 @@ def organizers(request):
 
 
 def speaker(request, speaker_id):
-    speaker = Speaker.objects.get(id=speaker_id).person
-    speaker.lectures = get_speakers_lectures(speaker)
+    speaker = Speaker.objects.get(id=speaker_id).get_speaker()
     return render(request,
         'speaker.html',
         {'speaker': speaker})
-
-
-def get_speakers_lectures(speaker):
-    try:
-        lectures = Lecture.objects.filter(speaker=speaker.id)
-    except:
-        lectures = {}
-    return lectures
 
 
 def schedule(request):

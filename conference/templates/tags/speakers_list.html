@@ -3,9 +3,9 @@
 <ul class="list-of-speakers">
 {% for speaker in items %}
     <li class="speaker">
-        <h3><a href="/speakers/{{ speaker.person.id }}">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a></h3>
-        {% if speaker.person.organization  %}
-        <p>{{ speaker.person.organization }}</p>    
+        <h3><a href="/speakers/{{ speaker.id }}">{{ speaker.first_name }} {{ speaker.last_name }}</a></h3>
+        {% if speaker.organization  %}
+        <p>{{ speaker.organization }}</p>    
         {% endif %}
         {% for lecture in speaker.lectures %}
             <p><a href="/papers/{{ lecture.id }}">«{{ lecture.title|safe }}»</a></p>
@@ -13,11 +13,11 @@
             <p>Тема доклада уточняется</p>
         {% endfor %}
 
-        <a href="/speakers/{{ speaker.person.id }}" class="thumbnail">
-            {% if speaker.person.photo %}
-                <img src="{{ speaker.person.photo|thumbnail:"80x80" }}" alt="{{ speaker.person.first_name }} {{ speaker.person.last_name }}">   
+        <a href="/speakers/{{ speaker.id }}" class="thumbnail">
+            {% if speaker.photo %}
+                <img src="{{ speaker.photo|thumbnail:"80x80" }}" alt="{{ speaker.first_name }} {{ speaker.last_name }}">   
             {% else %}
-                <img src="http://placehold.it/80x80" alt="{{ speaker.person.first_name }} {{ speaker.person.last_name }}">
+                <img src="http://placehold.it/80x80" alt="{{ speaker.first_name }} {{ speaker.last_name }}">
             {% endif %}
         </a>
     </li>
