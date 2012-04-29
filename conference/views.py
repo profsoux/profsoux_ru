@@ -2,11 +2,13 @@
 # Create your views here.
 
 import datetime
+from icalendar import Calendar, Event
 
 from django.shortcuts import render
 from django.core.context_processors import csrf
 from django.views.generic import ListView
 from django.db.models import Count
+from django.http import HttpResponse
 
 from conference.models import *
 from conference.forms import ParticipantForm, ContactsForm
@@ -88,6 +90,32 @@ def schedule(request):
     return render(request,
         'schedule.html',
         {'items': items})
+
+
+def ical(request):
+    events = ScheduleSection.objects.all()
+
+    cal = Calendar()
+    cal.add('prodid', u'-//Расписание конференции Profsoux//profsoux.ru//')
+    cal.add('version', '2.0')
+
+    for event in events:
+        ical_event = Event()
+        title = event.title or u""
+
+        if event.lecture:
+            speakers = ", ".join([unicode(i) for i in list(event.lecture.speaker.all())])
+
+            ical_event.add('summary', u"%s%s «%s»" % (title, speakers, event.lecture.title))
+        ical_event.add('dtstart', datetime.datetime.strptime('19.05.2012 %s' % str(event.start_time), '%d.%m.%Y %H:%M:%S'))
+        ical_event.add('duration', datetime.timedelta(minutes=event.duration))
+
+        cal.add_component(ical_event)
+
+    response = HttpResponse(cal.to_ical(), mimetype="text/calendar")
+    response['Content-Disposition'] = 'attachment; filename=%s.ics' % 'profsoux'
+
+    return response
 
 
 def paper(request, paper_id):
