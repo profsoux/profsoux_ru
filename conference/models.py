@@ -89,6 +89,10 @@ class Lecture(models.Model):
         verbose_name = 'Доклад'
         verbose_name_plural = 'Доклады'
 
+    def get_speakers(self):
+        result = ", ".join([unicode(i) for i in list(self.speaker.all())])
+        return result
+
     def __unicode__(self):
         return u"%2s" % (self.title)
 

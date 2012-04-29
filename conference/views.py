@@ -104,7 +104,7 @@ def ical(request):
         title = event.title or u""
 
         if event.lecture:
-            speakers = ", ".join([unicode(i) for i in list(event.lecture.speaker.all())])
+            speakers = event.lecture.get_speakers()
 
             ical_event.add('summary', u"%s%s «%s»" % (title, speakers, event.lecture.title))
         ical_event.add('dtstart', datetime.datetime.strptime('19.05.2012 %s' % str(event.start_time), '%d.%m.%Y %H:%M:%S'))
