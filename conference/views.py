@@ -7,13 +7,11 @@ from icalendar import Calendar, Event
 from django.shortcuts import render
 from django.core.context_processors import csrf
 from django.views.generic import ListView
-from django.db.models import Count
+from django.db.models import Count, Min, Max
 from django.http import HttpResponse
 
 from conference.models import *
 from conference.forms import ParticipantForm, ContactsForm
-
-conf_start = datetime.datetime(2012, 5, 29, 10, 00)
 
 
 class Papers(ListView):
@@ -69,6 +67,14 @@ def speaker(request, speaker_id):
 
 def schedule(request):
     sections = ScheduleSection.objects.order_by('start_time')
+    conf_start = datetime.datetime(2012, 5, 19, sections[0].start_time.hour)
+    last_section_start = sections.order_by('-start_time')[0].start_time
+    last_section = datetime.datetime(2012, 5, 19, last_section_start.hour, last_section_start.minute)
+    conf_end = (last_section + datetime.timedelta(minutes=sections.order_by('-start_time')[0].duration))
+    if conf_end.minute:
+        captions = range(conf_start.hour, conf_end.hour + 2)
+    else:
+        captions = range(conf_start.hour, conf_end.hour + 1)
     items = []
     for item in sections:
         start_dt = datetime.datetime(2012, 5, 19,
@@ -80,7 +86,8 @@ def schedule(request):
             })
     return render(request,
         'schedule.html',
-        {'items': items})
+        {'items': items,
+        'captions': captions})
 
 
 def ical(request):
@@ -96,15 +103,15 @@ def ical(request):
 
         if event.lecture:
             speakers = event.lecture.get_speakers()
-
             ical_event.add('summary', u"%s%s «%s»" % (title, speakers, event.lecture.title))
+
         ical_event.add('dtstart', datetime.datetime.strptime('19.05.2012 %s' % str(event.start_time), '%d.%m.%Y %H:%M:%S'))
         ical_event.add('duration', datetime.timedelta(minutes=event.duration))
 
         cal.add_component(ical_event)
 
-    response = HttpResponse(cal.to_ical(), mimetype="text/calendar")
-    response['Content-Disposition'] = 'attachment; filename=%s.ics' % 'profsoux'
+    response = HttpResponse(cal.to_ical(), mimetype="text/plain")
+    # response['Content-Disposition'] = 'attachment; filename=%s.ics' % 'profsoux'
 
     return response
 
