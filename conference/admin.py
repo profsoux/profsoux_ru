@@ -16,11 +16,19 @@ class PartnerAdmin(admin.ModelAdmin):
     list_editable = ('partner_type', 'weight')
 
 
+class ScheduleAdmin(admin.ModelAdmin):
+    list_display = ('start_time', 'duration', 'title', 'lecture', 'category')
+    list_display_links = ('title', 'lecture')
+    list_filter = ('category',)
+    list_editable = ('start_time', 'duration', 'category')
+    ordering = ['start_time']
+
+
 admin.site.register(Person)
 admin.site.register(Lecture)
 admin.site.register(Organization)
 admin.site.register(Category)
-admin.site.register(ScheduleSection)
+admin.site.register(ScheduleSection, ScheduleAdmin)
 admin.site.register(Speaker)
 admin.site.register(Partner, PartnerAdmin)
 admin.site.register(Participant, ParticipantAdmin)
