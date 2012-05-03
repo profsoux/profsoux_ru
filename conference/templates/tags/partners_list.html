@@ -1,5 +1,7 @@
 {% load conference_tags %}
 
+
+
 <section id="organizers" class="span4">
     <h2><a href="/organizers/">Организаторы</a></h2>
     <ul class="clearfix">
@@ -27,17 +29,24 @@
     </ul>
 </section>
 
+{% regroup items.partners by partner_type as partners_list %}
+
 <section id="partners" class="span8">
     <h2><a href="/partners/">Партнёры</a></h2>
-    <ul class="clearfix">
-    {% for organization in items.partners %}
-        <li><a href="/partners/">
-            {% if organization.organization.logo %}
-                <img src="{{ organization.organization.logo|thumbnail:"80x80" }}" alt="{{ organization.organization.name|safe}}">
-            {% else %}
-                <img src="http://placehold.it/80x80" alt="{{ organization.organization.name|safe }}">    
-            {% endif %}
-        </a></li>
+    {% for partner_group in partners_list %}
+        {% if not forloop.first %}
+            <h3>{{ partner_group.grouper.title_plural }}</h3>
+        {% endif %}
+        <ul class="clearfix">
+        {% for organization in partner_group.list %}
+            <li><a href="/partners/">
+                {% if organization.organization.logo %}
+                    <img src="{{ organization.organization.logo|thumbnail:"80x80" }}" alt="{{ organization.organization.name|safe}}">
+                {% else %}
+                    <img src="http://placehold.it/80x80" alt="{{ organization.organization.name|safe }}">    
+                {% endif %}
+            </a></li>
+        {% endfor %}
+        </ul>
     {% endfor %}
-    </ul>
 </section>
