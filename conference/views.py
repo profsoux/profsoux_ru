@@ -204,10 +204,10 @@ def contacts(request):
 
 
 def people(request):
-    total = Participant.objects.all().aggregate(Count('first_name'))
-    people_q = Participant.objects.filter(is_public=True).order_by('first_name')
+    total = Participant.objects.all().aggregate(Count('last_name'))
+    people_q = Participant.objects.filter(is_public=True).order_by('last_name')
 
-    if ord(people_q[0].first_name.lower()[0]) < 1072:
+    if ord(people_q[0].last_name.lower()[0]) < 1072:
         abc = [
             unichr(ord(u'a') + i) for i in xrange(0, 26)] + [
             unichr(ord(u'а') + i) for i in xrange(0, 6)] + [u'ё'] + [
@@ -226,17 +226,17 @@ def people(request):
 
     for person in people_q:
         try:
-            persons[person.first_name.lower()[0]].append(person)
+            persons[person.last_name.lower()[0]].append(person)
         except:
             try:
-                persons_en[person.first_name.lower()[0]].append(person)
+                persons_en[person.last_name.lower()[0]].append(person)
             except:
                 pass
 
     people = [{i: persons[i]} for i in abc]
 
-    block_1_end_letter = people_q[len(people_q) / 3].first_name.lower()[0]
-    block_2_end_letter = people_q[len(people_q) / 3 * 2].first_name.lower()[0]
+    block_1_end_letter = people_q[len(people_q) / 3].last_name.lower()[0]
+    block_2_end_letter = people_q[len(people_q) / 3 * 2].last_name.lower()[0]
 
     block_1_end = abc.index(block_1_end_letter)
     block_2_end = abc.index(block_2_end_letter)
@@ -244,9 +244,9 @@ def people(request):
     return render(request, 'people.html', {
             'abc': abc,
             'people': people,
-            'count': total['first_name__count'],
-            'anonimous': total['first_name__count'] - len(people_q),
-            'block_1_end': (block_1_end + 1),
+            'count': total['last_name__count'],
+            'anonimous': total['last_name__count'] - len(people_q),
+            'block_1_end': (block_1_end),
             'block_2_end': (block_2_end + 1)
         })
 
