@@ -2,6 +2,8 @@
 # Create your views here.
 
 import datetime
+
+import xlwt
 from icalendar import Calendar, Event
 
 from django.shortcuts import render
@@ -12,6 +14,7 @@ from django.http import HttpResponse
 
 from conference.models import *
 from conference.forms import ParticipantForm, ContactsForm
+from settings import MEDIA_ROOT
 
 
 class Papers(ListView):
@@ -229,7 +232,7 @@ def people(request):
             persons[person.last_name.lower()[0]].append(person)
         except:
             try:
-                persons_en[person.last_name.lower()[0]].append(person)
+                persons[person.last_name.lower()[0]].append(person)
             except:
                 pass
 
@@ -249,7 +252,54 @@ def people(request):
             'block_1_end': (block_1_end),
             'block_2_end': (block_2_end + 1)
         })
+    
 
+def people_to_xls(request):
+    font0 = xlwt.Font()
+    font0.name = 'Arial'
+    font0.colour_index = 0
+    font0.bold = True
+    
+    font1 = xlwt.Font()
+    font0.name = 'Arial'
+    
+    title_style = xlwt.XFStyle()
+    title_style.font = font0
+    
+    data_style = xlwt.XFStyle()
+    data_style.font = font1
+    
+    wb = xlwt.Workbook()
+    ws = wb.add_sheet('Persons')
+    
+    ws.write(0, 0, 'Имя', title_style)
+    ws.write(0, 1, 'Фамилия', title_style)
+    ws.write(0, 2, 'Телефон', title_style)
+    ws.write(0, 3, 'Email', title_style)
+    ws.write(0, 4, 'Компания', title_style)
+    ws.write(0, 5, 'Должность', title_style)
+    ws.write(0, 6, 'Комментарии', title_style)
+    
+    people = Participant.objects.order_by('id')
+    
+    i=1
+    for person in people:
+        ws.write(i, 0, person.first_name, data_style)
+        ws.write(i, 1, person.last_name, data_style)
+        ws.write(i, 2, person.phone, data_style)
+        ws.write(i, 3, person.email, data_style)
+        ws.write(i, 4, person.company_name, data_style)
+        ws.write(i, 5, person.position, data_style)
+        ws.write(i, 6, person.comment, data_style)
+        i = i + 1
+    
+    filename = MEDIA_ROOT + '/persons.xls'
+    wb.save(filename)
+    
+    response = HttpResponse('wb', mimetype="application/octet-stream")
+    
+    return response
+    
 
 def map(request):
     return render(request, 'map.html', {})
