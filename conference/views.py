@@ -10,11 +10,11 @@ from django.shortcuts import render
 from django.core.context_processors import csrf
 from django.views.generic import ListView
 from django.db.models import Count, Min, Max
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from conference.models import *
 from conference.forms import ParticipantForm, ContactsForm
-from settings import MEDIA_ROOT
+from settings import MEDIA_ROOT, STATIC_ROOT, MEDIA_URL
 
 
 class Papers(ListView):
@@ -107,6 +107,8 @@ def ical(request):
         if event.lecture:
             speakers = event.lecture.get_speakers()
             ical_event.add('summary', u"%s%s «%s»" % (title, speakers, event.lecture.title))
+        else:
+            ical_event.add('summary', title)
 
         ical_event.add('dtstart', datetime.datetime.strptime('19.05.2012 %s' % str(event.start_time), '%d.%m.%Y %H:%M:%S'))
         ical_event.add('duration', datetime.timedelta(minutes=event.duration))
@@ -115,6 +117,59 @@ def ical(request):
 
     response = HttpResponse(cal.to_ical(), mimetype="text/plain")
     # response['Content-Disposition'] = 'attachment; filename=%s.ics' % 'profsoux'
+
+    return response
+
+
+def pdf(request):
+    from reportlab.lib.styles import getSampleStyleSheet
+    from reportlab.lib.units import mm
+    from reportlab.platypus import Paragraph, Table, TableStyle, SimpleDocTemplate, Image
+    from reportlab.pdfbase import pdfmetrics
+    from reportlab.pdfbase.ttfonts import TTFont
+
+    events = ScheduleSection.objects.all()
+
+    data = []
+
+    for event in events:
+        title = event.title or u""
+        if event.lecture:
+            speakers = event.lecture.get_speakers()
+            title = u"%s%s «%s»" % (title, speakers, event.lecture.title)
+
+        data.append([unicode(event.start_time), title])
+
+    table = Table(data)
+
+    pdfmetrics.registerFont(TTFont('font', 'font.ttf'))
+
+    styleSheet = getSampleStyleSheet()
+    style = styleSheet['BodyText']
+    style.fontName = 'font'
+    style.spaceAfter = 10 * mm
+
+    logo = Image(STATIC_ROOT + '/img/branding/logo.png')
+
+    logo.drawHeight = 40 * mm * logo.drawHeight / logo.drawWidth
+    logo.drawWidth = 40 * mm
+
+    P = Paragraph('Конференция ProfsoUX', style)
+    table.setStyle(TableStyle([('FONTNAME', (0, 0), (-1, -1), 'font')]))
+
+    lst = []
+    lst.append(logo)
+    lst.append(P)
+    lst.append(table)
+
+    saved_file = MEDIA_ROOT + '/schedule.pdf'
+
+    SimpleDocTemplate(saved_file, showBoundary=0).build(lst)
+
+    f = open(saved_file)
+
+    response = HttpResponse(f, mimetype='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=ProfsoUX-2012-schedule.pdf'
 
     return response
 
@@ -252,26 +307,26 @@ def people(request):
             'block_1_end': (block_1_end),
             'block_2_end': (block_2_end + 1)
         })
-    
+
 
 def people_to_xls(request):
     font0 = xlwt.Font()
     font0.name = 'Arial'
     font0.colour_index = 0
     font0.bold = True
-    
+
     font1 = xlwt.Font()
     font0.name = 'Arial'
-    
+
     title_style = xlwt.XFStyle()
     title_style.font = font0
-    
+
     data_style = xlwt.XFStyle()
     data_style.font = font1
-    
+
     wb = xlwt.Workbook()
     ws = wb.add_sheet('Persons')
-    
+
     ws.write(0, 0, 'Имя', title_style)
     ws.write(0, 1, 'Фамилия', title_style)
     ws.write(0, 2, 'Телефон', title_style)
@@ -279,10 +334,10 @@ def people_to_xls(request):
     ws.write(0, 4, 'Компания', title_style)
     ws.write(0, 5, 'Должность', title_style)
     ws.write(0, 6, 'Комментарии', title_style)
-    
+
     people = Participant.objects.order_by('id')
-    
-    i=1
+
+    i = 1
     for person in people:
         ws.write(i, 0, person.first_name, data_style)
         ws.write(i, 1, person.last_name, data_style)
@@ -292,14 +347,14 @@ def people_to_xls(request):
         ws.write(i, 5, person.position, data_style)
         ws.write(i, 6, person.comment, data_style)
         i = i + 1
-    
+
     filename = MEDIA_ROOT + '/persons.xls'
     wb.save(filename)
-    
+
     response = HttpResponse('wb', mimetype="application/octet-stream")
-    
+
     return response
-    
+
 
 def map(request):
     return render(request, 'map.html', {})
