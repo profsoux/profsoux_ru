@@ -14,7 +14,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from conference.models import *
 from conference.forms import ParticipantForm, ContactsForm
-from settings import MEDIA_ROOT, STATIC_ROOT, MEDIA_URL
+from settings import MEDIA_ROOT, STATIC_ROOT, PROJECT_ROOT
 
 
 class Papers(ListView):
@@ -142,7 +142,7 @@ def pdf(request):
 
     table = Table(data)
 
-    pdfmetrics.registerFont(TTFont('font', 'font.ttf'))
+    pdfmetrics.registerFont(TTFont('font', PROJECT_ROOT + '/font.ttf'))
 
     styleSheet = getSampleStyleSheet()
     style = styleSheet['BodyText']
