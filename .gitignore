@@ -2,11 +2,13 @@
 data.db
 *.sublime-*
 uploads
+static
 
 # Idea projects files & folders
 .idea
 *.ipr
 *.iws
+.*project
 
 # OS stuff
 .DS_Store
