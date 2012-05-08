@@ -4,8 +4,8 @@ from conference.models import *
 
 
 class ParticipantAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email', 'phone', 'is_public', 'allow_news')
-    list_filter = ('is_public', 'allow_news')
+    list_display = ('first_name', 'last_name', 'email', 'phone', 'is_public', 'allow_news', 'confirmed')
+    list_filter = ('is_public', 'allow_news', 'confirmed')
     list_display_links = ('first_name', 'last_name')
     ordering = ['last_name', 'first_name']
 

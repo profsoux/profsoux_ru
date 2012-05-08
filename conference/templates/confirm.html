@@ -1,0 +1,49 @@
+{% load conference_tags %}
+
+{% include "inc/html-head.inc" %}
+
+<body class="page-signup">
+
+    {% main_menu %}
+
+    {% include "inc/header.inc" %}
+
+    <div id="content-container" class="container">
+        <article id="content-main">
+            <div class="row">
+                <div class="page-header clearfix">
+                    <h2 class="span6 offset2">Подтверждение участия</h2>
+                </div>
+            </div>
+            <div class="row">
+                
+                <form action="/registration/confirm/" id="signup-form" class="span6 offset2" method="POST">{% csrf_token %}
+                    {% if state == 'thanks' %}
+                        <div class="alert alert-block alert-success">
+                          <a class="close" data-dismiss="alert">×</a>
+                          <h4 class="alert-heading">Спасибо!</h4>
+                          Мы вас записали
+                        </div>
+                    {% else %}
+                        {% if state == 'attack' %}
+                            <div class="alert alert-block alert-error">
+                              <h4 class="alert-heading">Ошибка!</h4>
+                              Секретная ссылка указана неверно
+                            </div>
+                        {% else %}
+                            <p>{{ person.first_name }} {{ person.last_name }}, просим вас даже непонятно что просим
+                            {{ form.as_p }}
+                            {% if action == 'yes' %}
+                                <p><button type="submit" id="submit-button" name="yes" class="btn btn-primary btn-large">Я пойду</button>
+                            {% else %}
+                                <p><button type="submit" id="submit-button" name="no" class="btn btn-primary btn-large">Не смогу пойти</button>
+                            {% endif %}
+                        {% endif %} 
+                    {% endif %}
+                </form>
+            </div>
+
+        </article>
+    </div><!-- /container -->
+    
+{% include "inc/footer.inc" %}

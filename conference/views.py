@@ -2,6 +2,7 @@
 # Create your views here.
 
 import datetime
+from hashlib import md5
 
 import xlwt
 from icalendar import Calendar, Event
@@ -10,10 +11,10 @@ from django.shortcuts import render
 from django.core.context_processors import csrf
 from django.views.generic import ListView
 from django.db.models import Count, Min, Max
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 
 from conference.models import *
-from conference.forms import ParticipantForm, ContactsForm
+from conference.forms import ParticipantForm, ContactsForm, ConfirmForm
 from settings import MEDIA_ROOT, STATIC_ROOT, PROJECT_ROOT
 
 
@@ -220,6 +221,60 @@ def registration(request):
         c)
 
 
+def confirm(request):
+    def check_participant(d):
+        participant_id = d['id']
+        participant = Participant.objects.get(id=participant_id)
+
+        m = md5()
+        m.update(participant.email)
+        code = m.hexdigest()
+        if code == d['code']:
+            return participant
+        else:
+            return false
+
+    if request.method == 'POST':
+        participant = check_participant(request.POST)
+        if participant:
+            Participant.objects.filter(id=request.POST['id']).update(confirmed=request.POST['action'])
+            c = {
+                'state': 'thanks'
+            }
+        else:
+            c = {
+                'state': 'attack'
+            }
+
+    else:
+        participant = check_participant(request.GET)
+
+        if participant:
+            try:
+                action = request.GET['action'] or None
+            except:
+                action = None
+            form = ConfirmForm({
+                'id': participant.id,
+                'code': request.GET['code'],
+                'action': action
+                })
+            c = {
+                'action': action,
+                'form': form,
+                'person': participant
+            }
+        else:
+            c = {
+                'state': 'attack'
+            }
+
+    c.update(csrf(request))
+    return render(request,
+        'confirm.html',
+        c)
+
+
 def contacts(request):
     if request.method == 'POST':
         form = ContactsForm(request.POST)
@@ -334,6 +389,7 @@ def people_to_xls(request):
     ws.write(0, 4, 'Компания', title_style)
     ws.write(0, 5, 'Должность', title_style)
     ws.write(0, 6, 'Комментарии', title_style)
+    ws.write(0, 7, 'Подтверждение участия', title_style)
 
     people = Participant.objects.order_by('id')
 
@@ -346,6 +402,7 @@ def people_to_xls(request):
         ws.write(i, 4, person.company_name, data_style)
         ws.write(i, 5, person.position, data_style)
         ws.write(i, 6, person.comment, data_style)
+        ws.write(i, 7, person.confirmed, data_style)
         i = i + 1
 
     filename = MEDIA_ROOT + '/persons.xls'

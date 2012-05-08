@@ -115,3 +115,15 @@ class ContactsForm(forms.ModelForm):
 
     class Meta:
         model = Contacts
+
+
+class ConfirmForm(forms.Form):
+    id = forms.IntegerField(
+        widget=forms.HiddenInput()
+        )
+    code = forms.CharField(
+        widget=forms.HiddenInput()
+        )
+    action = forms.CharField(
+        widget=forms.HiddenInput()
+        )

@@ -3,8 +3,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.conf import settings
 
-from conference.views import Papers
-
 # from filebrowser.sites import site
 
 # Uncomment the next two lines to enable the admin:
@@ -38,6 +36,7 @@ urlpatterns = patterns('',
     url(r'^schedule/ical/$', 'conference.views.ical'),
     url(r'^schedule/pdf/$', 'conference.views.pdf'),
     url(r'^registration/$', 'conference.views.registration'),
+    url(r'^registration/confirm/$', 'conference.views.confirm'),
     url(r'^contacts/$', 'conference.views.contacts'),
     url(r'^partners/$', 'conference.views.partners'),
     url(r'^organizers/$', 'conference.views.organizers'),
