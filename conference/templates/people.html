@@ -15,6 +15,9 @@
                 <div class="page-header clearfix">
                     <h2>Участники</h2>
                     <a href="/registration/" class="btn">Принять участие</a>
+                    {% if user.is_staff %}
+                        <p><a href="/people/export/">Скачать в Excel</a></p>
+                    {% endif %}
                 </div>
 
                 <div class="members">

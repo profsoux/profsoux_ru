@@ -12,6 +12,7 @@ from django.core.context_processors import csrf
 from django.views.generic import ListView
 from django.db.models import Count, Min, Max
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
 from conference.models import *
 from conference.forms import ParticipantForm, ContactsForm, ConfirmForm
@@ -364,6 +365,7 @@ def people(request):
         })
 
 
+@login_required
 def people_to_xls(request):
     font0 = xlwt.Font()
     font0.name = 'Arial'
@@ -379,7 +381,7 @@ def people_to_xls(request):
     data_style = xlwt.XFStyle()
     data_style.font = font1
 
-    wb = xlwt.Workbook()
+    wb = xlwt.Workbook(encoding='utf8')
     ws = wb.add_sheet('Persons')
 
     ws.write(0, 0, 'Имя', title_style)
@@ -408,7 +410,10 @@ def people_to_xls(request):
     filename = MEDIA_ROOT + '/persons.xls'
     wb.save(filename)
 
-    response = HttpResponse('wb', mimetype="application/octet-stream")
+    f = open(filename)
+
+    response = HttpResponse(f, mimetype='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=ProfsoUX-2012.xls'
 
     return response
 
