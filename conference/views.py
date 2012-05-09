@@ -122,7 +122,7 @@ def ical(request):
         cal.add_component(ical_event)
 
     response = HttpResponse(cal.to_ical(), mimetype="text/calendar")
-    # response['Content-Disposition'] = 'attachment; filename=%s.ics' % 'profsoux'
+    response['Content-Disposition'] = 'attachment; filename=%s.ics' % 'profsoux'
 
     return response
 
