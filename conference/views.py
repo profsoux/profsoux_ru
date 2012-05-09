@@ -102,8 +102,10 @@ def ical(request):
 
     cal = Calendar()
     cal.add('prodid', u'-//%s//%s//RU' % (CALENDAR_NAME, CALENDAR_SHORT_NAME))
-    # cal.add('VTIMEZONE').tzinfo =
-    # cal.add('version', '2.0')
+    cal.add('version', '2.0')
+    cal.add('calscale', 'GREGORIAN')
+    cal.add('X-ORIGINAL-URL', CALENDAR_SHORT_NAME)
+    cal.add('method', 'PUBLISH')
 
     for event in events:
         ical_event = Event()
