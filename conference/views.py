@@ -96,12 +96,12 @@ def schedule(request):
 
 
 def ical(request):
-    CALENDAR_NAME = u'Конференция ProfsoUX'
+    CALENDAR_NAME = u'profsoux'
     CALENDAR_SHORT_NAME = u'profsoux.ru'
     events = ScheduleSection.objects.all()
 
     cal = Calendar()
-    cal.add('prodid', u'-//%s//%s//RU' % (CALENDAR_NAME, CALENDAR_SHORT_NAME))
+    cal.add('prodid', u'-//%s//%s//EN' % (CALENDAR_NAME, CALENDAR_SHORT_NAME))
     cal.add('version', '2.0')
     cal.add('calscale', 'GREGORIAN')
     cal.add('X-ORIGINAL-URL', CALENDAR_SHORT_NAME)
@@ -127,7 +127,7 @@ def ical(request):
         cal.add_component(ical_event)
 
     response = HttpResponse(cal.to_ical(), mimetype="text/calendar")
-    response['Content-Disposition'] = 'attachment; filename=%s.ics' % 'profsoux'
+    response['Content-Disposition'] = 'attachment; filename=%s.ics' % 'ical'
 
     return response
 
