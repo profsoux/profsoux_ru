@@ -5,7 +5,7 @@ import datetime
 from hashlib import md5
 
 import xlwt
-from icalendar import Calendar, Event
+from icalendar import Calendar, Event, UTC
 
 from django.shortcuts import render
 from django.core.context_processors import csrf
@@ -101,7 +101,7 @@ def ical(request):
     events = ScheduleSection.objects.all()
 
     cal = Calendar()
-    cal.add('prodid', u'-//%s//%s//EN' % (CALENDAR_NAME, CALENDAR_SHORT_NAME))
+    cal.add('prodid', u'-//%s//%s//' % (CALENDAR_NAME, CALENDAR_SHORT_NAME))
     cal.add('version', '2.0')
     cal.add('calscale', 'GREGORIAN')
     cal.add('X-ORIGINAL-URL', CALENDAR_SHORT_NAME)
