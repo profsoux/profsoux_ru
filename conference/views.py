@@ -2,6 +2,7 @@
 # Create your views here.
 
 import datetime
+import dateutil
 from hashlib import md5
 
 import xlwt
@@ -96,14 +97,18 @@ def schedule(request):
 
 
 def ical(request):
+    CALENDAR_NAME = u'Конференция ProfsoUX'
+    CALENDAR_SHORT_NAME = u'profsoux.ru'
     events = ScheduleSection.objects.all()
 
     cal = Calendar()
-    cal.add('prodid', u'-//Расписание конференции Profsoux//profsoux.ru//')
-    cal.add('version', '2.0')
+    cal.add('prodid', u'-//%s//%s//RU' % (CALENDAR_NAME, CALENDAR_SHORT_NAME))
+    # cal.add('VTIMEZONE').tzinfo =
+    # cal.add('version', '2.0')
 
     for event in events:
         ical_event = Event()
+        ical_event.add('uid', str(event.id) + '@' + CALENDAR_SHORT_NAME)
         title = event.title or u""
 
         if event.lecture:
@@ -117,7 +122,7 @@ def ical(request):
 
         cal.add_component(ical_event)
 
-    response = HttpResponse(cal.to_ical(), mimetype="text/plain")
+    response = HttpResponse(cal.to_ical(), mimetype="text/calendar")
     # response['Content-Disposition'] = 'attachment; filename=%s.ics' % 'profsoux'
 
     return response
