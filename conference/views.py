@@ -118,11 +118,14 @@ def ical(request):
         else:
             ical_event.add('summary', title)
 
-        dtstart = datetime.datetime.strptime('19.05.2012 %s' % str(event.start_time), '%d.%m.%Y %H:%M:%S')
-        duration = datetime.timedelta(minutes=event.duration)
-        dtend = dtstart + duration
+        # dtstart = datetime.datetime.strptime('19.05.2012 %s' % str(event.start_time), '%d.%m.%Y %H:%M:%S')
+        # duration = datetime.timedelta(minutes=event.duration)
+        # dtend = dtstart + duration
+        dtstart = datetime(2005, 4, 4, 8, 0, 0, tzinfo=UTC)
+        dtend = datetime(2005, 4, 4, 10, 0, 0, tzinfo=UTC)
         ical_event.add('dtstart', dtstart)
         ical_event.add('dtend', dtend)
+        ical_event.add('dtstamp', dtstart)
 
         cal.add_component(ical_event)
 
