@@ -7,6 +7,7 @@ from hashlib import md5
 import xlwt
 from icalendar import Calendar, Event
 import pytz
+import vobject
 
 from django.shortcuts import render
 from django.core.context_processors import csrf
@@ -132,6 +133,48 @@ def ical(request):
 
     response = HttpResponse(cal.to_ical(), mimetype="text/calendar")
     response['Content-Disposition'] = 'attachment; filename=%s.ics' % 'ical'
+
+    return response
+
+
+def ical2(request):
+    CALENDAR_NAME = u'profsoux'
+    CALENDAR_SHORT_NAME = u'profsoux.ru'
+    events = ScheduleSection.objects.all()
+
+    cal = vobject.iCalendar()
+    cal.add('prodid').value = u'-//%s//%s//' % (CALENDAR_NAME, CALENDAR_SHORT_NAME)
+    cal.add('method').value = 'PUBLISH'
+    cal.add('version').value = '2.0'
+    # cal.add('calscale', 'GREGORIAN')
+    # cal.add('X-ORIGINAL-URL', CALENDAR_SHORT_NAME)
+
+    for event in events:
+        ical_event = cal.add('vevent')
+        ical_event.add('uid').value = str(event.id) + '@' + CALENDAR_SHORT_NAME
+        title = event.title or u""
+
+        if event.lecture:
+            speakers = event.lecture.get_speakers()
+            ical_event.add('summary').value = u"%s%s «%s»" % (title, speakers, event.lecture.title)
+        else:
+            ical_event.add('summary').value = title
+
+        # dtstart = datetime.datetime.strptime('19.05.2012 %s' % str(event.start_time), '%d.%m.%Y %H:%M:%S')
+        # duration = datetime.timedelta(minutes=event.duration)
+        # dtend = dtstart + duration
+        dtstart = datetime.datetime(2005, 4, 4, 8, 0, 0, tzinfo=pytz.utc)
+        dtend = datetime.datetime(2005, 4, 4, 10, 0, 0, tzinfo=pytz.utc)
+        ical_event.add('dtstart').value = dtstart
+        ical_event.add('dtend').value = dtend
+        ical_event.add('dtstamp').value = dtstart
+
+        # cal.add_component(ical_event)
+
+    icalstream = cal.serialize()
+
+    response = HttpResponse(icalstream, mimetype="text/plain")
+    # response['Content-Disposition'] = 'attachment; filename=%s.ics' % 'ical'
 
     return response
 
