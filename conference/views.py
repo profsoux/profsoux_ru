@@ -171,8 +171,8 @@ def ical2(request):
 
     icalstream = cal.serialize()
 
-    response = HttpResponse(icalstream, mimetype="text/calendar")
-    response['Content-Disposition'] = 'attachment; filename=%s.ics' % 'ical'
+    response = HttpResponse(icalstream, mimetype="text/plain")
+    # response['Content-Disposition'] = 'attachment; filename=%s.ics' % 'ical'
 
     return response
 
