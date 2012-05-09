@@ -2,7 +2,6 @@
 # Create your views here.
 
 import datetime
-import dateutil
 from hashlib import md5
 
 import xlwt
