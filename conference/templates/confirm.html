@@ -22,7 +22,7 @@
                         <div class="alert alert-block alert-success">
                           <a class="close" data-dismiss="alert">×</a>
                           <h4 class="alert-heading">Спасибо!</h4>
-                          Мы вас записали
+                          Ваше подтверждение принято
                         </div>
                     {% else %}
                         {% if state == 'attack' %}
@@ -31,7 +31,7 @@
                               Секретная ссылка указана неверно
                             </div>
                         {% else %}
-                            <p>{{ person.first_name }} {{ person.last_name }}, просим вас даже непонятно что просим
+                            <p>{{ person.first_name }} {{ person.last_name }}, подтвердите, пожалуйста, свое участие в конференции ProfsoUX.
                             {{ form.as_p }}
                             {% if action == 'yes' %}
                                 <p><button type="submit" id="submit-button" name="yes" class="btn btn-primary btn-large">Я пойду</button>

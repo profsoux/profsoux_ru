@@ -284,7 +284,7 @@ def confirm(request):
         if code == d['code']:
             return participant
         else:
-            return false
+            return False
 
     if request.method == 'POST':
         participant = check_participant(request.POST)
