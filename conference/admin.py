@@ -1,6 +1,51 @@
 #-*- coding: utf8 -*-
+from hashlib import md5
+
 from django.contrib import admin
 from conference.models import *
+
+
+def send_mail(modeladmin, request, queryset):
+    from django.core.mail import send_mail
+
+    subject = u'Подтвердите участие в конференции ПрофсоЮкс 2012'
+    sender = 'robot@profsoux.ru'
+    text = u"""Здравствуйте, %s %s!
+
+Вы зарегистрировались на конференцию ПрофсоЮкс 2012.
+
+Нам необходимо уточнить количество участников, которые придут на
+мероприятие лично.
+(Онлайн трансляция будет доступна всем).
+
+Пожалуйста, пройдите по ссылке для подтверждения участия:
+http://uxspb.h404.ru/registration/confirm/?id=%s&code=%s&action=yes
+
+Если вы передумали идти, огромная просьба также сообщить об этом:
+http://uxspb.h404.ru/registration/confirm/?id=%s&code=%s&action=no
+----------
+Конференция по юзабилити
+и проектированию взаимодействия «ProfsoUX»
+
+Email: contact@ux-spb.ru
+Телефон: +7 (812) 336 93 44
+"""
+    for participant in queryset:
+        m = md5()
+        m.update(participant.email)
+        code = m.hexdigest()
+        recipients = [participant.email]
+
+        message = text % (participant.first_name,
+            participant.last_name,
+            participant.id,
+            code,
+            participant.id,
+            code
+            )
+        send_mail(subject, message, sender, recipients)
+
+send_mail.short_description = u"Разослать письмо с подтверждением"
 
 
 class ParticipantAdmin(admin.ModelAdmin):
@@ -8,6 +53,7 @@ class ParticipantAdmin(admin.ModelAdmin):
     list_filter = ('is_public', 'allow_news', 'confirmed')
     list_display_links = ('first_name', 'last_name')
     ordering = ['last_name', 'first_name']
+    actions = [send_mail]
 
 
 class PartnerAdmin(admin.ModelAdmin):
