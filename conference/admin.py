@@ -5,12 +5,19 @@ from django.contrib import admin
 from conference.models import *
 
 
-def send_mail(modeladmin, request, queryset):
-    from django.core.mail import send_mail
+class ParticipantAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'email', 'phone', 'is_public', 'allow_news', 'confirmed')
+    list_filter = ('is_public', 'allow_news', 'confirmed')
+    list_display_links = ('first_name', 'last_name')
+    ordering = ['last_name', 'first_name']
+    actions = ['send_mail']
 
-    subject = u'Подтвердите участие в конференции ПрофсоЮкс 2012'
-    sender = 'robot@profsoux.ru'
-    text = u"""Здравствуйте, %s %s!
+    def send_mail(self, request, queryset):
+        from django.core.mail import send_mail
+
+        subject = u'Подтвердите участие в конференции ПрофсоЮкс 2012'
+        sender = 'robot@profsoux.ru'
+        text = u"""Здравствуйте, %s %s!
 
 Вы зарегистрировались на конференцию ПрофсоЮкс 2012.
 
@@ -30,30 +37,29 @@ http://uxspb.h404.ru/registration/confirm/?id=%s&code=%s&action=no
 Email: contact@ux-spb.ru
 Телефон: +7 (812) 336 93 44
 """
-    for participant in queryset:
-        m = md5()
-        m.update(participant.email)
-        code = m.hexdigest()
-        recipients = [participant.email]
+        total_emails = len(queryset)
+        sent_emails = total_emails
+        for participant in queryset:
+            m = md5()
+            m.update(participant.email)
+            code = m.hexdigest()
+            recipients = [participant.email]
 
-        message = text % (participant.first_name,
-            participant.last_name,
-            participant.id,
-            code,
-            participant.id,
-            code
-            )
-        send_mail(subject, message, sender, recipients)
+            message = text % (participant.first_name,
+                participant.last_name,
+                participant.id,
+                code,
+                participant.id,
+                code
+                )
+            try:
+                send_mail(subject, message, sender, recipients)
+            except:
+                sent_emails = sent_emails - 1
 
-send_mail.short_description = u"Разослать письмо с подтверждением"
+        self.message_user(request, "Разослано %s из %s писем" % (sent_emails, total_emails))
 
-
-class ParticipantAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email', 'phone', 'is_public', 'allow_news', 'confirmed')
-    list_filter = ('is_public', 'allow_news', 'confirmed')
-    list_display_links = ('first_name', 'last_name')
-    ordering = ['last_name', 'first_name']
-    actions = [send_mail]
+    send_mail.short_description = u"Разослать письмо с подтверждением"
 
 
 class PartnerAdmin(admin.ModelAdmin):
