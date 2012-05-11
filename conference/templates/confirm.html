@@ -12,7 +12,7 @@
         <article id="content-main">
             <div class="row">
                 <div class="page-header clearfix">
-                    <h2 class="span6 offset2">Подтверждение участия</h2>
+                    <h2 class="span6 offset2">Подтверждение</h2>
                 </div>
             </div>
             <div class="row">
@@ -31,12 +31,18 @@
                               Секретная ссылка указана неверно
                             </div>
                         {% else %}
+                            {% if action == 'yes' %}
                             <p>{{ person.first_name }} {{ person.last_name }}, подтвердите, пожалуйста, свое участие в конференции ProfsoUX.
+                            {% else %}
+                            <p>{{ person.first_name }} {{ person.last_name }}, подтвердите, что не сможете участвовать в конференции ProfsoUX.
+                            {% endif %}
+
                             {{ form.as_p }}
+                            
                             {% if action == 'yes' %}
                                 <p><button type="submit" id="submit-button" name="yes" class="btn btn-primary btn-large">Я пойду</button>
                             {% else %}
-                                <p><button type="submit" id="submit-button" name="no" class="btn btn-primary btn-large">Не смогу пойти</button>
+                                <p><button type="submit" id="submit-button" name="no" class="btn btn-primary btn-large">Я не пойду</button>
                             {% endif %}
                         {% endif %} 
                     {% endif %}
