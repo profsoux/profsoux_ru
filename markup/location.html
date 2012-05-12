@@ -63,15 +63,22 @@
 							<div id="map_canvas"></div>
 							<p><a id="large-map-link" href="google-map.html" target="_blank">Открыть карту на весь экран</a></p>
 						</div>
+
+						<div class="thumbnail">
+							<img src="http://maps.googleapis.com/maps/api/streetview?size=640x640&location=59.957604,30.307904&fov=65&heading=158&pitch=8&sensor=true" alt="Вход в ИТМО" />
+						</div>
 					</div>
 					<div class="span4">
-						<h3>Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики (ИТМО)</h3>
+						<hgroup>
+							<h3>ИТМО</h3>
+							<h4>Санкт-Петербургский государственный университет информационных технологий, механики и оптики</h4>
+						</hgroup>
 						<dl>
 							<dt>Адрес:</dt>
-							<dd>Санкт-Петербург, пр. Кронверкский, д.49</dd>
+							<dd>Санкт-Петербург, пр. Кронверкский, д.49 (вход с&nbsp;ул. Сытнинской)</dd>
 
 							<dt>Координаты:</dt>
-							<dd>59.956557, 30.309863</dd>
+							<dd>59.957604, 30.307904</dd>
 
 							<dt>Метро:</dt>
 							<dd>ст. Горьковская (10 минут пешком),<br />
@@ -157,7 +164,7 @@
 
     <script type="text/javascript">
 	$(document).ready(function() {
-		var latlng = new google.maps.LatLng(59.956557,30.309863);
+		var latlng = new google.maps.LatLng(59.957604,30.307904);
 
 		var myOptions = {
 			zoom: 14,
@@ -172,7 +179,6 @@
 			map: map,
 			title:"ИТМО"
 		});
-
 	});
 	</script>
 </body>
