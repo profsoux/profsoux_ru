@@ -4096,6 +4096,7 @@ input[type="submit"].btn.btn-mini {
   *position: relative;
   *z-index: 2;
   overflow: visible;
+  background: #555b3f url(../img/textures/bg_footer.png) 0 0 repeat;
   background: url(../img/textures/brd_nav.png) 0 0 repeat-x, #555b3f url(../img/textures/bg_footer.png) 0 0 repeat;
 }
 .navbar-inner {
