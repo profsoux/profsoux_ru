@@ -11,12 +11,12 @@
 #dsq-account-dropdown {margin-top:17px;}
 .dsq-comment-meta a, .dsq-comment-actions a {border-bottom:0;}
 
-
+.conf-tweets-block {}
 .conf-tweets {font-size:0;}
 .conf-tweets li {
     display:inline-block;
     float:none;
-    /*min-height:87px;*/
+    min-height:60px;
     vertical-align:top;
     margin-bottom:20px;
     position:relative;
