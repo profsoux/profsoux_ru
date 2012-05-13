@@ -236,6 +236,6 @@ $(function(){
     // video stream init
     ui.videoStream.init({
         $playerContainer: $('#confVideoStream'),
-        stream_profile: 'profsoux'
+        stream_profile: 'alxmkv'
     });
 });
