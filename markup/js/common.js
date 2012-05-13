@@ -106,6 +106,7 @@ ui.getTweets = function(q) {
                 image = item.profile_image_url,
                 text = item.text,
                 date = null,
+                str = '',
                 created_at = Date.parse(item.created_at);
 
             text = text.replace(
@@ -127,15 +128,13 @@ ui.getTweets = function(q) {
                 tweet.date = now.setTime(created_at);
             }
 
-            //list.push(tweet);
-            list.append(
-                '<li class="span4"><a href="http://twitter.com/' +
-                    user + '" title="' +
-                    user + '"><img src="' +
-                    image + '"></a><p>' +
-                    text + '</p></li>'
-            );
+            tweets.push('<li class="span4"><a href="http://twitter.com/' +
+                user + '" title="@' +
+                user + '"><img src="' +
+                image + '"></a><p>' +
+                text + '</p></li>');
         });
+        list.append(tweets.join(''));
     });
     return tweets;
 };

@@ -15,12 +15,14 @@
 .conf-tweets {font-size:0;}
 .conf-tweets li {
     display:inline-block;
-    min-height:87px;
-    padding-bottom:15px;
+    float:none;
+    /*min-height:87px;*/
+    vertical-align:top;
+    margin-bottom:20px;
     position:relative;
 }
 .conf-tweets img {
-    top:0;
+    top:5px;
     left:0;
     width:48px;
     height:48px;
@@ -29,6 +31,6 @@
 .conf-tweets li p {
     font-size:16px;
     line-height:24px;
-    margin-left:58px;
+    margin-left:60px;
     margin-bottom:0;
 }
