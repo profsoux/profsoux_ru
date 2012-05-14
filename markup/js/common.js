@@ -172,13 +172,9 @@ ui.videoStream = {
         '</div>',
 
     $playerContainer: null,
-
     width: 640,
-
     height: 385,
-
     stream_profile: 'profsoux',
-
     autoplay: false,
 
     init: function(options) {
@@ -193,7 +189,7 @@ ui.videoStream = {
             }
         }
 
-        if (that.$playerContainer == null) {
+        if (that.$playerContainer === null) {   
             return false;
         }
 
@@ -234,8 +230,10 @@ $(function(){
     });
 
     // video stream init
-    ui.videoStream.init({
-        $playerContainer: $('#confVideoStream'),
-        stream_profile: 'alxmkv'
-    });
+    if($playerContainer.length) {
+        ui.videoStream.init({
+            $playerContainer: $('#confVideoStream'),
+            stream_profile: 'alxmkv'
+        });
+    }
 });

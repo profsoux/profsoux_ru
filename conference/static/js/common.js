@@ -1,5 +1,13 @@
-var ui = {};
-ui.CONF_DATE = new Date(2012, 4-1, 24);
+var ui = new Object();
+
+/**
+ * Constants
+ */
+ui.CONF_DATE = new Date(2012, 5-1, 19);
+
+/**
+ * Schedule
+ */
 ui.schedule = {
     $schedule: null,
 
@@ -88,59 +96,146 @@ ui.schedule = {
         }
     }
 };
-ui.getTweets = function(q) {
-    var list = $("#confTweets"),
-        tweets = [],
-        url = 'http://search.twitter.com/search.json?q=%23' + q + '&rpp=20&callback=?';
 
-    if (list.length == 0) {
-        return false;
-    }
+/**
+ * Tweets stream
+  */
+ui.tweetsStream = {
 
-    $.getJSON( url, function( data ) {
-        $.each( data.results, function( i, item )
-        {
-            var tweet = {},
-                now = new Date(),
-                user = item.from_user,
-                image = item.profile_image_url,
-                text = item.text,
-                date = null,
-                created_at = Date.parse(item.created_at);
+    init: function(options) {
+        var that = this;
 
-            text = text.replace(
-                /(^|\s)(?:#([\d\w_]+)|@([\d\w_]{1,15}))|(https?:\/\/[^\s"]+[\d\w_\-\/])|([^\s:@"]+@[^\s:@"]*)/gi,
-                function( all, space, hashtag, username, link, email ) {
-                    var res = '<a href="mailto:' + email + '">' + email + "</a>";
-                    hashtag && (res = space + '<a href="http://search.twitter.com/search?q=%23' + hashtag + '">#' + hashtag + "</a>");
-                    username && (res = space + '<a href="http://twitter.com/' + username + '">@' + username + "</a>");
-                    link && (res = '<a href="' + encodeURI(decodeURI(link.replace(/<[^>]*>/g, ""))) + '">' + link + "</a>");
-                    return res;
+        that.renderTweets(options.searchQuery);
+    },
+
+    renderTweets: function(q) {
+        var list = $("#confTweets"),
+            tweets = [],
+            url = 'http://search.twitter.com/search.json?q=' + escape(q) + '&rpp=20&callback=?';
+
+        if (list.length == 0) {
+            return false;
+        }
+
+        $.getJSON( url, function( data ) {
+            $.each( data.results, function( i, item )
+            {
+                var tweet = {},
+                    now = new Date(),
+                    user = item.from_user,
+                    image = item.profile_image_url,
+                    text = item.text,
+                    date = null,
+                    str = '',
+                    created_at = Date.parse(item.created_at);
+
+                text = text.replace(
+                    /(^|\s)(?:#([\d\w_]+)|@([\d\w_]{1,15}))|(https?:\/\/[^\s"]+[\d\w_\-\/])|([^\s:@"]+@[^\s:@"]*)/gi,
+                    function( all, space, hashtag, username, link, email ) {
+                        var res = '<a href="mailto:' + email + '">' + email + "</a>";
+                        hashtag && (res = space + '<a href="http://search.twitter.com/search?q=%23' + hashtag + '">#' + hashtag + "</a>");
+                        username && (res = space + '<a href="http://twitter.com/' + username + '">@' + username + "</a>");
+                        link && (res = '<a href="' + encodeURI(decodeURI(link.replace(/<[^>]*>/g, ""))) + '">' + link + "</a>");
+                        return res;
+                    }
+                );
+
+                tweet.user = user;
+                tweet.image = image;
+                tweet.text = text;
+
+                if (created_at != NaN) {
+                    tweet.date = now.setTime(created_at);
                 }
-            );
 
-            tweet.user = user;
-            tweet.image = image;
-            tweet.text = text;
-
-            if (created_at != NaN) {
-                tweet.date = now.setTime(created_at);
-            }
-
-            //list.push(tweet);
-            list.append(
-                '<li class="span4"><a href="http://twitter.com/' +
-                    user + '" title="' +
+                tweets.push('<li class="span4"><a href="http://twitter.com/' +
+                    user + '" title="@' +
                     user + '"><img src="' +
                     image + '"></a><p>' +
-                    text + '</p></li>'
-            );
+                    text + '</p></li>');
+            });
+            list.append(tweets.join(''));
         });
-    });
-    return tweets;
+        return tweets;
+    }
+};
+
+/**
+ * Livestream
+ */
+ui.videoStream = {
+    playerTemplate:
+        '<iframe width="{width}" height="{height}" src="http://cdn.livestream.com/embed/{stream_profile}?layout=4&amp;height={height}&amp;width={width}&amp;autoplay={autoplay}" style="border:0;outline:0" frameborder="0" scrolling="no"></iframe>' +
+        '<div style="font-size:11px; padding-top:10px; text-align:center;">Watch ' +
+        '<a href="http://www.livestream.com/?utm_source=lsplayer&amp;utm_medium=embed&amp;utm_campaign=footerlinks" title="live streaming video">live streaming video</a> from ' +
+        '<a href="http://www.livestream.com/{stream_profile}?utm_source=lsplayer&amp;utm_medium=embed&amp;utm_campaign=footerlinks" title="Watch ProfsoUX at livestream.com">ProfsoUX Conference</a> at livestream.com' +
+        '</div>',
+
+    $playerContainer: null,
+    width: 640,
+    height: 385,
+    stream_profile: 'profsoux',
+    autoplay: false,
+
+    init: function(options) {
+        var that = this,
+            option;
+
+        if (typeof options === 'object') {
+            for (option in options) {
+                if (option in that) {
+                    that[option] = options[option];
+                }
+            }
+        }
+
+        if (that.$playerContainer === null) {
+            return false;
+        }
+
+        that.showPreloader();
+        that.renderPlayer();
+    },
+
+    showPreloader: function() {
+        var that = this;
+        that.$playerContainer.html('Loading...');
+    },
+
+    renderPlayer: function() {
+        var that = this,
+            playerTemplate = that.playerTemplate,
+            width, height,
+            playerStr = '';
+
+        width = that.$playerContainer.get(0).offsetWidth;
+        height = Math.round(width * 0.75); // 4/3
+
+        playerStr = playerTemplate.replace(/\{width\}/g, width)
+            .replace(/\{height\}/g, height)
+            .replace(/\{stream_profile\}/g, that.stream_profile)
+            .replace(/\{autoplay\}/g, that.autoplay);
+
+        that.$playerContainer.html(playerStr);
+    }
 };
 
 
 $(function(){
+    $playerContainer = $('#confVideoStream');
+
     ui.schedule.init();
+
+    // tweets stream
+    ui.tweetsStream.init({
+        searchQuery: '#profsoux'
+    });
+
+    // video stream init
+    if($playerContainer.length) {
+        ui.videoStream.init({
+            $playerContainer: $('#confVideoStream'),
+            stream_profile: 'alxmkv'
+        });
+    }
 });
