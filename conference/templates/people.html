@@ -49,7 +49,7 @@
                                         <h4 class="people-list-header" id="letter-{{ forloop.parentloop.counter }}">{{ letter|upper }}</h4>
                                         <ul class="people-list">
                                         {% for person in persons %}
-                                            <li>{{ person}}</li>
+                                            <li>{{ person.last_name }} {{ person.first_name }}</li>
                                         {% endfor %}
                                         </ul>  
                                     {% endif %}
