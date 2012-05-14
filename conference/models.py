@@ -161,7 +161,9 @@ class Participant(models.Model):
     comment = models.TextField("Ваши предложения и пожелания", blank=True, null=True)
     allow_news = models.BooleanField("Новости конференции", default=True)
     is_public = models.BooleanField("Публикация профиля", default=True)
-    confirmed = models.CharField("Подтверждение участия", max_length=3, choices=(('yes', 'Пойду'), ('no', 'Не пойду')), blank=True, null=True)
+    confirmed = models.CharField("Подтверждение участия", max_length=3,
+        choices=(('yes', 'Пойду'), ('no', 'Не пойду'), ('u', 'Неизвестно')),
+        blank=True, default='u')
 
     class Meta:
         verbose_name = 'Участник'

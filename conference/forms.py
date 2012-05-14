@@ -71,6 +71,10 @@ class ParticipantForm(forms.ModelForm):
             'maxlength': 512,
             'rows': 5})
         )
+    confirmed = forms.CharField(
+        initial='u',
+        widget=forms.HiddenInput()
+        )
 
     class Meta:
         model = Participant

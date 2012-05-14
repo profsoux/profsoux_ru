@@ -181,7 +181,7 @@ TINYMCE_DEFAULT_CONFIG = {
 # Filebrowser Settings
 FILEBROWSER_DIRECTORY = MEDIA_ROOT
 
-#EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-#EMAIL_FILE_PATH = '/tmp/app-messages'   # change this to a proper location
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = '/tmp/app-messages'   # change this to a proper location
 
 LOGIN_URL = '/admin/'
