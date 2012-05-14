@@ -189,7 +189,7 @@ ui.videoStream = {
             }
         }
 
-        if (that.$playerContainer === null) {   
+        if (that.$playerContainer === null) {
             return false;
         }
 
