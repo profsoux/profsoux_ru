@@ -222,6 +222,8 @@ ui.videoStream = {
 
 
 $(function(){
+    $playerContainer = $('#confVideoStream');
+
     ui.schedule.init();
 
     // tweets stream
