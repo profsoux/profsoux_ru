@@ -13,31 +13,37 @@ class ParticipantAdmin(admin.ModelAdmin):
     actions = ['send_mail']
 
     def send_mail(self, request, queryset):
-        from django.core.mail import send_mail
+        from django.core import mail
 
-        subject = u'Подтвердите участие в конференции ПрофсоЮкс 2012'
-        sender = 'robot@profsoux.ru'
-        text = u"""Здравствуйте, %s %s!
+        emails = []
 
-Вы зарегистрировались на конференцию ПрофсоЮкс 2012.
+        subject = u'Осталось 4 дня до конференции ПрофсоUX (СПб, 19 мая 2012, суббота)'
+        sender = u'Оргкомитет конференции ПрофсоUX <contact@profsoux.ru>'
+        reply = 'no-reply@profsoux.ru'
+        text = u"""Здравствуйте, %s!
 
-Нам необходимо уточнить количество участников, которые придут на мероприятие лично 19 мая, в субботу (начало регистрации в 11.00).
-Онлайн трансляция будет доступна всем.
+Хочу уточнить, придете ли вы на конференцию ПрофсоЮкс 19 мая, в субботу, 12.00, НИУ ИТМО (http://profsoux.ru/location).
+Нам хотелось бы понять, сколько нужно программок, сувениров и кофе с печеньками.
 
-Пожалуйста, пройдите по ссылке для подтверждения участия:
+Если вы придете, нажмите "Я пойду" вот здесь:
 http://profsoux.ru/registration/confirm/?id=%s&code=%s&action=yes
 
-Если вы передумали идти, огромная просьба также сообщить об этом:
+Если не сможете прийти, нажмите "Не пойду" здесь:
 http://profsoux.ru/registration/confirm/?id=%s&code=%s&action=no
-----------
-Конференция по юзабилити
-и проектированию взаимодействия «ProfsoUX»
+(У вас будет шанс посмотреть онлайн трансляцию конференции на www.ProfsoUX.ru).
+
+
+Если у вас есть вопросы или вы не доверяете длинным ссылкам, пишите, звоните, мои контакты ниже.
+
+С уважением,
+
+Юлия Крючкова,
+Председатель оргкомитета www.ProfsoUX.ru
 
 Email: contact@ux-spb.ru
-Телефон: +7 (812) 336 93 44
+Тел. офис: +7 (812) 336 93 44, моб.: +7 (921) 741 48 23
+Skype: julvk70
 """
-        total_emails = len(queryset)
-        sent_emails = total_emails
         for participant in queryset:
             m = md5()
             m.update(participant.email)
@@ -45,18 +51,23 @@ Email: contact@ux-spb.ru
             recipients = [participant.email]
 
             message = text % (participant.first_name,
-                participant.last_name,
                 participant.id,
                 code,
                 participant.id,
                 code
                 )
-            try:
-                send_mail(subject, message, sender, recipients)
-            except:
-                sent_emails = sent_emails - 1
 
-        self.message_user(request, "Разослано %s из %s писем" % (sent_emails, total_emails))
+            emails.append(
+                mail.EmailMessage(subject, message, sender, recipients,
+                    headers={'Reply-To': reply})
+                )
+
+        connection = mail.get_connection()
+        connection.open()
+
+        connection.send_messages(emails)
+
+        connection.close()
 
     send_mail.short_description = u"Разослать письмо с подтверждением"
 
