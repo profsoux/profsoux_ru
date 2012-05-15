@@ -275,15 +275,18 @@ def registration(request):
 
 def confirm(request):
     def check_participant(d):
-        participant_id = d['id']
-        participant = Participant.objects.get(id=participant_id)
+        try:
+            participant_id = d['id']
+            participant = Participant.objects.get(id=participant_id)
 
-        m = md5()
-        m.update(participant.email)
-        code = m.hexdigest()
-        if code == d['code']:
-            return participant
-        else:
+            m = md5()
+            m.update(participant.email)
+            code = m.hexdigest()
+            if code == d['code']:
+                return participant
+            else:
+                return False
+        except:
             return False
 
     if request.method == 'POST':
@@ -297,7 +300,6 @@ def confirm(request):
             c = {
                 'state': 'attack'
             }
-
     else:
         participant = check_participant(request.GET)
 
