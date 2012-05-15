@@ -114,6 +114,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
 
     'django.core.context_processors.request',
+    'utils.context_processors.site_globals',
 )
 
 ROOT_URLCONF = 'uxspb_site.urls'

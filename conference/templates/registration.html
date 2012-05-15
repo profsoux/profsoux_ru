@@ -10,6 +10,9 @@
 
     <div id="content-container" class="container">
         <article id="content-main">
+
+            {% if states.registration_is_active %}
+
             <div class="row">
                 <div class="page-header clearfix">
                     <h2 class="span6 offset2">Регистрация</h2>
@@ -100,6 +103,22 @@
                     <button type="submit" id="submit-button" class="btn btn-primary btn-large">Зарегистрироваться</button>
                 </form>
             </div>
+
+            {% else %}
+
+            <div class="row">
+                <div class="page-header clearfix">
+                    <h2 class="span6 offset2">Регистрация окончена</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6 offset2">
+                    <p>К сожалению, мы не можем принять вашу заявку на участие в конференции «ПрофсоUX»,
+                        но на нашем сайте во время проведения конференции будет организована онлайн-трансляция.</p>
+                </div>
+            </div>
+
+            {% endif %}
 
         </article>
     </div><!-- /container -->

@@ -14,7 +14,9 @@
 
                 <div class="page-header clearfix">
                     <h2>Участники</h2>
-                    <a href="/registration/" class="btn">Принять участие</a>
+                    {% if states.registration_is_active %}
+                        <a href="/registration/" class="btn">Принять участие</a>
+                    {% endif %}
                     {% if user.is_staff %}
                         <p><a href="/people/export/">Скачать в Excel</a></p>
                     {% endif %}
