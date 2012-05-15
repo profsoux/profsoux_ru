@@ -55,38 +55,41 @@ def thumbnail(file, size='104x104'):
     # defining the size
     x, y = [int(x) for x in size.split('x')]
     # defining the filename and the miniature filename
-    filehead, filetail = os.path.split(file.path)
-    basename, format = os.path.splitext(filetail)
-    miniature = basename + '_' + size + format
-    filename = file.path
-    miniature_filename = os.path.join(filehead, miniature)
-    filehead, filetail = os.path.split(file.url)
-    miniature_url = filehead + '/' + miniature
-    if os.path.exists(miniature_filename) and os.path.getmtime(filename) > os.path.getmtime(miniature_filename):
-        os.unlink(miniature_filename)
-    # if the image wasn't already resized, resize it
-    if not os.path.exists(miniature_filename):
-        image = Image.open(filename)
-        format = image.format
-        size = image.size
-        if format == 'GIF':
-            transparency = image.info['transparency']
+    if os.path.exists(file.path):
+        filehead, filetail = os.path.split(file.path)
+        basename, format = os.path.splitext(filetail)
+        miniature = basename + '_' + size + format
+        filename = file.path
+        miniature_filename = os.path.join(filehead, miniature)
+        filehead, filetail = os.path.split(file.url)
+        miniature_url = filehead + '/' + miniature
+        if os.path.exists(miniature_filename) and os.path.getmtime(filename) > os.path.getmtime(miniature_filename):
+            os.unlink(miniature_filename)
+        # if the image wasn't already resized, resize it
+        if not os.path.exists(miniature_filename):
+            image = Image.open(filename)
+            format = image.format
+            size = image.size
+            if format == 'GIF':
+                transparency = image.info['transparency']
 
-        if size[0] > x and size[1] > y:
-            image.thumbnail([x, y], Image.ANTIALIAS)
-        else:
-            delta_x = (x - size[0]) / 2
-            delta_y = (y - size[1]) / 2
+            if size[0] > x and size[1] > y:
+                image.thumbnail([x, y], Image.ANTIALIAS)
+            else:
+                delta_x = (x - size[0]) / 2
+                delta_y = (y - size[1]) / 2
 
-            image = image.crop((-delta_x, -delta_y, size[0] + delta_x, size[1] + delta_y))
-            image.thumbnail([x, y], Image.ANTIALIAS)
+                image = image.crop((-delta_x, -delta_y, size[0] + delta_x, size[1] + delta_y))
+                image.thumbnail([x, y], Image.ANTIALIAS)
 
-        if format == 'GIF':
-            image.save(miniature_filename, format, transparency=transparency)
-        if format == 'PNG':
-            image.save(miniature_filename, format, optimize=1)
-        if format == 'JPEG':
-            image.save(miniature_filename, format, quality=90)
+            if format == 'GIF':
+                image.save(miniature_filename, format, transparency=transparency)
+            if format == 'PNG':
+                image.save(miniature_filename, format, optimize=1)
+            if format == 'JPEG':
+                image.save(miniature_filename, format, quality=90)
+    else:
+        miniature_url = 'http://placehold.it/%s' % size
 
     return miniature_url
 
