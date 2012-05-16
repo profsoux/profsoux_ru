@@ -1,12 +1,17 @@
 #dsq-content .dsq-pagination {padding:0;}
 #dsq-content h3 {margin-bottom:10px !important; display:none;}
 #dsq-content #dsq-reply h3 {display:block;}
+.dsq-comment:hover .dsq-collapse-toggle {border-bottom:0;}
+#dsq-content .dsq-post-tools li.dsq-attach-media {display:none;}
+.dsq-is-liked .dsq-like-thumb {position:relative; top:-6px;}
 
     #dsq-pagination,
     #dsq-sort-by,
     #dsq-content #dsq-global-toolbar,
     #dsq-content #dsq-comments-title,
     #dsq-content .dsq-options {display:none;}
+
+
 
 #dsq-account-dropdown {margin-top:17px;}
 .dsq-comment-meta a, .dsq-comment-actions a {border-bottom:0;}
