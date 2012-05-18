@@ -16,8 +16,8 @@
 #dsq-account-dropdown {margin-top:17px;}
 .dsq-comment-meta a, .dsq-comment-actions a {border-bottom:0;}
 
-.conf-tweets-block {}
-.conf-tweets {font-size:0;}
+.conf-tweets-block {overflow:hidden;}
+.conf-tweets {font-size:0; width:9000px;}
 .conf-tweets li {
     display:inline-block;
     float:none;
@@ -26,16 +26,34 @@
     margin-bottom:20px;
     position:relative;
 }
+.conf-tweets .twitter-user {
+    color:#000;
+    border-bottom-color:#000;
+}
 .conf-tweets img {
     top:5px;
     left:0;
     width:48px;
     height:48px;
     position:absolute;
+
+    position:relative;
+    float:left;
+    margin-right:12px;
 }
-.conf-tweets li p {
+.conf-tweets p {
     font-size:16px;
     line-height:24px;
     margin-left:60px;
     margin-bottom:0;
+
+    overflow:hidden;
+    margin-left:0;
 }
+.twee-test-node {position:absolute; top:-9000px; left:-9000px;}
+
+
+/*
+.row {margin-left:0;}
+[class*="span"] {margin-left:0; padding-right:30px;}
+*/
