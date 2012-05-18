@@ -93,13 +93,13 @@
 
     <div class="row conf-tweets-block" id="confTweetsBlock">
         <h2 class="span12">Twitter <a href="http://twitter.com/search?q=#profsoux" target="_blank">#ProfsoUX</a></h2>
+        <div class="clearfix"></div>
         <ul id="confTweets" class="conf-tweets unstyled"></ul>
     </div>
 
     <div class="row">
         <section id="organizers" class="span4">
             <h2>Организаторы</h2>
-
             <ul class="clearfix">
                 <li><a href="#"><img src="img/partners/ux_spb.png" alt="UX Spb"></a></li>
                 <li><a href="#"><img src="img/partners/i_help.png" alt="i-Help"></a></li>
@@ -164,5 +164,19 @@
 
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    // tweets stream
+    ui.twee.init({
+        mode: 'normal',
+        searchQuery: '#profsoux since:2012-05-18 -filter:retweets'
+    });
+
+    return;
+    ui.videoStream.init({
+        streamProfile: 'profsoux'
+    });
+});
+</script>
 </body>
 </html>

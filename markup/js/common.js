@@ -527,16 +527,4 @@ ui.videoStream = {
 $(function(){
     // schedule
     ui.schedule.init();
-
-    // tweets stream
-    /*
-    ui.twee.init({
-        mode: 'normal',
-        searchQuery: '#profsoux'
-    });*/
-
-    // video stream
-    ui.videoStream.init({
-        streamProfile: 'profsoux'
-    });
 });
