@@ -66,7 +66,7 @@ def organizers(request):
 
 
 def speaker(request, speaker_id):
-    speaker = Speaker.objects.get(id=speaker_id).get_speaker()
+    speaker = Speaker.objects.get(person__id=speaker_id).get_speaker()
     return render(request,
         'speaker.html',
         {'speaker': speaker})
