@@ -10,7 +10,7 @@ class ParticipantAdmin(admin.ModelAdmin):
     list_filter = ('is_public', 'allow_news', 'confirmed')
     list_display_links = ('first_name', 'last_name')
     ordering = ['last_name', 'first_name']
-    actions = ['send_mail']
+    actions = ['send_mail', 'send_another_mail']
 
     def send_mail(self, request, queryset):
         from django.core import mail
@@ -115,7 +115,7 @@ www.profsoUX.ru
 
         connection.close()
 
-    send_mail.short_description = u"Разослать письмо о трансляции"
+    send_another_mail.short_description = u"Разослать письмо о трансляции"
 
 
 class PartnerAdmin(admin.ModelAdmin):
