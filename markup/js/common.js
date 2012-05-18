@@ -101,6 +101,21 @@ ui.schedule = {
  * Tweets stream
   */
 ui.twee = {
+    __months: {
+        0: 'января',
+        1: 'февраля',
+        2: 'марта',
+        3: 'апреля',
+        4: 'мая',
+        5: 'июня',
+        6: 'июля',
+        7: 'августа',
+        8: 'сентября',
+        9: 'ноября',
+        10: 'октября',
+        11: 'декабря'
+    },
+
     // tweets list
     $list: null,
 
@@ -114,16 +129,17 @@ ui.twee = {
     isDataUpdated: false,
 
     // data update interval
-    dataUpdateInterval: 10000,
+    updateDataInterval: 10000,
 
     // tweets list update interval
-    listUpdateInterval: 3000,
+    updateListInterval: 3500,
 
     // animation duration
     updateAnimationDuration: 700,
 
     // tweets storage
-    tweets: [],
+    // when initialized tweets == []
+    tweets: null,
 
     // visible tweets quantity
     tweetsToShow: 3,
@@ -134,14 +150,16 @@ ui.twee = {
     // test node
     testNode: null,
 
-    // orientation
-    orientation: 'x',
+    // mode
+    mode: 'normal',
 
     queryParams: {
         rpp: 20,
         result_type: 'recent',
         since_id: 0
     },
+
+    maxTweetsNodesInStack: 10,
 
     // current state
     state: 'paused',
@@ -158,41 +176,64 @@ ui.twee = {
             return false;
         }
 
+        if (typeof options === 'object') {
+            for (option in options) {
+                that[option] = options[option];
+            }
+        }
+        that.$list.addClass('mode-'+ that.mode);
+        $(document.body).addClass('twitter-widget-mode-'+ that.mode);
+
         // create test node
         testNode = document.createElement('ul');
-        testNode.className = 'twee-test-node';
+        testNode.className = 'conf-tweets unstyled mode-'+ that.mode +' twee-test-node';
         document.body.appendChild(testNode);
         that.testNode = testNode;
 
+
+        // sets normal state
+        that.state = 'normal';
+
+
         // initial tweets render
         that.getTweets(options.searchQuery);
-        // observe for updates
         that.__t = setInterval(function()
         {
+            // observe for updates
             var from = that.tweetsToShow - 1,
                 to = 0;
 
             if (that.isDataUpdated === true) {
-                that.renderTweets(from, to);
-                that.currentPosition = from;
+                if (that.mode === 'projection') {
+                    that.currentPosition = -1;
+                    that.spinUp();
+                } else if (that.mode === 'normal') {
+                    that.renderTweets(from, to);
+                    that.currentPosition = from;
+                }
                 that.isDataUpdated = false;
                 clearInterval(that.__t);
             }
         }, 50);
 
-        if (that.state == 'paused') {
-            that.state = 'normal';
-        }
-        // set roll interval
-        setInterval(function()
-        {
+
+        // set spin up interval
+        setInterval(function() {
             that.spinUp();
-        }, that.listUpdateInterval);
+        }, that.updateListInterval);
+
 
         // set data update
+        setInterval(function() {
+            that.getTweets(options.searchQuery);
+        }, that.updateDataInterval);
     },
 
     getTweets: function(q) {
+        if (this.state === 'paused') {
+            return false;
+        }
+
         var that = this,
             tweets = [],
             url = 'http://search.twitter.com/search.json?q='+ escape(q) + '&callback=?';
@@ -209,10 +250,12 @@ ui.twee = {
                     var tweet = {};
                     //if (item.text.indexOf("RT ") != 0) {
                     tweet.id = item.id;
+                    tweet.id_str = item.id_str;
                     tweet.user = item.from_user;
                     tweet.avatar = item.profile_image_url;
                     tweet.text = item.text;
-                    tweet.created_at = Date.parse(item.created_at);
+                    tweet.created_at_timestamp = Date.parse(item.created_at);
+                    tweet.created_at = new Date(tweet.created_at_timestamp);
                     tweets.push(tweet);
                 });
             }
@@ -226,7 +269,8 @@ ui.twee = {
             }
 
             // initial call
-            if (that.tweets.length == 0) {
+            if (that.tweets === null) {
+                that.tweets = [];
                 // reverse array
                 i = tweets.length;
                 while (i > 0) {
@@ -251,29 +295,63 @@ ui.twee = {
     renderTweet: function(tweet) {
         var that = this,
             tweetTextReplacePattern = that.tweetTextReplacePattern,
-            tweetTextFormatted, tweetBody;
+            tweetTextFormatted, tweetBody,
+            tweetYear = tweet.created_at.getFullYear(),
+            tweetMonthName = that.__months[ tweet.created_at.getMonth() ],
+            tweetDay = tweet.created_at.getDate(),
+            tweetHours = tweet.created_at.getHours(),
+            tweetMinutes = tweet.created_at.getMinutes(),
+            tweetLink = 'http://twitter.com/#!/'+ tweet.user +'/status/'+ tweet.id_str;
+
+        if (tweetMinutes < 10) {
+            tweetMinutes = '0'+ tweetMinutes;
+        }
 
         tweetTextFormatted = tweet.text.replace(
             tweetTextReplacePattern,
             function(all, space, hashtag, username, link, email) {
                 var res = '<a href="mailto:' + email + '">' + email + "</a>";
-                hashtag && (res = space + '<a href="http://search.twitter.com/search?q=%23' + hashtag + '">#' + hashtag + "</a>");
-                username && (res = space + '<a href="http://twitter.com/' + username + '">@' + username + "</a>");
-                link && (res = '<a href="' + encodeURI(decodeURI(link.replace(/<[^>]*>/g, ""))) + '">' + link + "</a>");
+                hashtag && (res = space + '<a href="http://search.twitter.com/search?q=%23' + hashtag + '" class="hashtag">#' + hashtag + "</a>");
+                username && (res = space + '<a href="http://twitter.com/' + username + '" class="username">@' + username + "</a>");
+                link && (res = '<a href="' + encodeURI(decodeURI(link.replace(/<[^>]*>/g, ""))) + '" class="link">' + link + "</a>");
                 return res;
             }
         );
-        tweetBody = '<div class="tweet span4"><a href="http://twitter.com/' +
+        tweetBody = '<a href="http://twitter.com/' +
             tweet.user + '" title="@' +
             tweet.user + '"><img src="' +
             tweet.avatar + '"></a><p>' +
-            '<a href="http://twitter.com/'+ tweet.user +'" class="twitter-user">'+ tweet.user +'</a>&nbsp;' +
-            tweetTextFormatted +'</p></div>';
+            '<a href="http://twitter.com/'+ tweet.user +'" class="tweet-author">'+ tweet.user +'</a>';
 
+        if (that.mode === 'projection') {
+            tweetBody += ' <span class="date">в ' + tweetHours +':'+ tweetMinutes +'</span><br>';
+        } else if (that.mode === 'normal') {
+            tweetBody += ': ';
+        }
+        tweetBody += tweetTextFormatted;
+
+        // date
+
+        if (that.mode === 'normal') {
+            tweetBody += '<span class="date"><a href="'+ tweetLink+'" class="text">';
+            tweetBody += [tweetHours, ':', tweetMinutes, ', ', tweetDay, ' ', tweetMonthName, ' ', tweetYear].join('');
+            tweetBody += '</a></span>';
+        }
+        tweetBody += '</p>';
+
+        if (that.mode == 'normal') {
+            tweetBody = '<div class="tweet span4">'+ tweetBody +'</div>';
+        } else if (that.mode == 'projection') {
+            tweetBody = '<div class="tweet">'+ tweetBody +'</div>';
+        }
         return tweetBody;
     },
 
     renderTweets: function(from, to) {
+        if (this.tweets.length == 0) {
+            return false;
+        }
+
         var that = this,
             $list = that.$list,
             tweets = that.tweets,
@@ -307,7 +385,7 @@ ui.twee = {
             testNode = that.testNode,
             tweetRendered, $tweetNode,
             li, liTest,
-            tweetWidth;
+            tweetWidth, tweetHeight;
 
         tweetRendered = that.renderTweet(tweet);
 
@@ -316,21 +394,63 @@ ui.twee = {
         liTest.innerHTML = tweetRendered;
         testNode.appendChild(liTest);
         tweetWidth = liTest.offsetWidth;
+        tweetHeight = liTest.offsetHeight;
         testNode.removeChild(liTest);
 
         // prepend tweet
         li = document.createElement('li');
         li.innerHTML = tweetRendered;
-        li.style.width = '0';
+
+        if (that.mode === 'normal') {
+            li.style.width = '0';
+        } else if (that.mode === 'projection') {
+            li.style.height = '0';
+        }
 
         $tweetNode = $(li).find('.tweet');
         $tweetNode.css('display', 'none');
+        if (that.width) {
+            //$tweetNode.css('width', that.width);
+        }
         $list.prepend(li);
 
-        $(li).animate({width: tweetWidth+'px'}, that.updateAnimationDuration, function() {
-            $tweetNode.fadeIn();
-            li.style.width = 'auto';
-        });
+        if (that.mode === 'normal') {
+            $(li).animate({width: tweetWidth+'px'}, that.updateAnimationDuration, function() {
+                $tweetNode.fadeIn();
+                li.style.width = 'auto';
+            });
+        } else if (that.mode === 'projection') {
+            $(li).animate({height: tweetHeight+'px'}, that.updateAnimationDuration, function() {
+                $tweetNode.fadeIn();
+                li.style.height = 'auto';
+            });
+        }
+    },
+
+    spinUp: function() {
+        if (this.state === 'paused' || this.tweets.length === 0) {
+            return false;
+        }
+
+        var that = this,
+            $list = that.$list,
+            tweets = that.tweets,
+            targetTweet,
+            tweetsNodes,
+            nextTweet, newPosition;
+
+        newPosition = that.currentPosition + 1;
+        if (newPosition < that.tweets.length) {
+            targetTweet = tweets[newPosition];
+            that.addTweet(targetTweet);
+            that.currentPosition = newPosition;
+
+            // garbage cleaner
+            tweetsNodes = $list.find('li');
+            if (tweetsNodes.length >= that.maxTweetsNodesInStack) {
+                $(tweetsNodes[tweetsNodes.length-1]).remove();
+            }
+        }
     },
 
     pause: function() {
@@ -339,23 +459,6 @@ ui.twee = {
 
     resume: function() {
         this.state = 'normal';
-    },
-
-    spinUp: function() {
-        if (this.state == 'paused') {
-            return false;
-        }
-
-        var that = this,
-            $list = that.$list,
-            tweets = that.tweets,
-            nextTweet, newPosition;
-
-        newPosition = that.currentPosition + 1;
-        if (newPosition < that.tweets.length) {
-            that.addTweet(tweets[newPosition]);
-            that.currentPosition = newPosition;
-        }
     }
 };
 
@@ -426,9 +529,11 @@ $(function(){
     ui.schedule.init();
 
     // tweets stream
+    /*
     ui.twee.init({
+        mode: 'normal',
         searchQuery: '#profsoux'
-    });
+    });*/
 
     // video stream
     ui.videoStream.init({
