@@ -41,15 +41,10 @@ www.profsoUX.ru
         for participant in queryset:
             m = md5()
             m.update(participant.email)
-            code = m.hexdigest()
+            # code = m.hexdigest()
             recipients = [participant.email]
 
-            message = text % (participant.first_name,
-                participant.id,
-                code,
-                participant.id,
-                code
-                )
+            message = text % (participant.first_name)
 
             emails.append(
                 mail.EmailMessage(subject, message, sender, recipients,
@@ -93,15 +88,10 @@ www.profsoUX.ru
         for participant in queryset:
             m = md5()
             m.update(participant.email)
-            code = m.hexdigest()
+            # code = m.hexdigest()
             recipients = [participant.email]
 
-            message = text % (participant.first_name,
-                participant.id,
-                code,
-                participant.id,
-                code
-                )
+            message = text % (participant.first_name)
 
             emails.append(
                 mail.EmailMessage(subject, message, sender, recipients,
