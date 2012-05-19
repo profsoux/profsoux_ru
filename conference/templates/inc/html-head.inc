@@ -8,7 +8,7 @@
     <meta name="author" content="">
 
     <!-- <link href="{{ STATIC_URL }}less/style.less" rel="stylesheet/less"> -->
-    <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/style.css?dt=20120519" rel="stylesheet">
     
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
