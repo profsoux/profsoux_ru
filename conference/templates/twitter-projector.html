@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ПрофсоUX – Первая UX-конференция в Санкт-Петербурге</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/custom-kurilov.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+
+</head>
+<body class="page-home">
+
+<ul id="confTweets" class="conf-tweets unstyled"></ul>
+
+
+<script src="{{ STATIC_URL }}js/jquery.js"></script>
+<script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/common.js"></script>
+
+<script type="text/javascript">
+$(function() {
+    var rawParamsStr, tmp, rawParams;
+    var settings = {
+        width: 'auto',
+        searchQuery: '#profsoux OR "profsoux.ru" since:2012-05-19'
+    };
+
+    if (window.location.hash.length > 1) {
+        rawParamsStr = window.location.hash.substr(1).split('&');
+        for (var i = 0, length = rawParamsStr.length; i < length; i++) {
+            tmp = rawParamsStr[i].split('=');
+            if (tmp[0] in settings) {
+                settings[tmp[0]] = tmp[1];
+            }
+        }
+    }
+    settings.searchQuery += ' -filter:retweets';
+
+    ui.twee.init({
+        width: settings.width,
+        mode: 'projection',
+        searchQuery: settings.searchQuery
+    });
+});
+</script>
+</body>
+</html>

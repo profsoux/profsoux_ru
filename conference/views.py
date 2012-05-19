@@ -477,3 +477,7 @@ def people_to_xls(request):
 
 def map(request):
     return render(request, 'map.html', {})
+
+
+def twitter(request):
+    return render(request, 'twitter-projector.html', {})

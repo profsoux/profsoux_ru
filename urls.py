@@ -41,6 +41,7 @@ urlpatterns = patterns('',
     url(r'^partners/$', 'conference.views.partners'),
     url(r'^organizers/$', 'conference.views.organizers'),
     url(r'^map/$', 'conference.views.map'),
+    url(r'^twitter/$', 'conference.views.twitter'),
 )
 
 urlpatterns += staticfiles_urlpatterns()
