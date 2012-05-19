@@ -2,7 +2,7 @@
 data.db
 *.sublime-*
 uploads
-static
+/static
 
 # Idea projects files & folders
 .idea
