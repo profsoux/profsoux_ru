@@ -29,8 +29,12 @@ class Papers(ListView):
 
 def index(request):
     people_count = Participant.objects.count()
+    if datetime.date.today() == datetime.date(2012, 5, 19):
+        template_name = 'index-hot.html'
+    else:
+        template_name = 'index.html'
     return render(request,
-        'index.html',
+        template_name,
         {'people_count': people_count}
         )
 

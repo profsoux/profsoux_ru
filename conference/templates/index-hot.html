@@ -1,0 +1,94 @@
+{% load conference_tags %}
+
+{% include "inc/html-head.inc" %}
+
+</head>
+<body class="page-home">
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/common.js"></script>
+
+    {% main_menu %}
+
+    {% include "inc/header.inc" %}
+
+<div id="content-container" class="container">
+    <div class="row">
+        <div class="livestream span8" id="confVideoStream">&nbsp;</div>
+
+        <section id="speakers" class="span4">
+            <p><strong>ПрофсоUX</strong> – главная питерская конференция о юзабилити, UX и создании цифровых продуктов, ориентированных на человека.</p>
+            <h2>Докладчики</h2>
+            <ul class="list-of-speakers">
+                <li class="speaker">
+                    <h3>Ольга Павлова</h3>
+                    <p>UsabilityLab</p>
+                    <p><a href="#">«Откуда брать требования, и как с ними работать.»</a></p>
+                    <a href="#" class="thumbnail">
+                        <img src="http://placehold.it/80x80" alt="">
+                    </a>
+                </li>
+                <li class="speaker">
+                    <h3>Светлана Цикоза</h3>
+                    <p>Experiemint</p>
+                    <p><a href="#">«Откуда брать требования, и как с ними работать.»</a></p>
+                    <a href="#" class="thumbnail">
+                        <img src="http://placehold.it/80x80" alt="">
+                    </a>
+                </li>
+                <li class="speaker">
+                    <h3>Мария Антропова</h3>
+                    <p>Аналитик, фрилансер</p>
+                    <p><a href="#">«Откуда брать требования, и как с ними работать.»</a></p>
+                    <a href="#" class="thumbnail">
+                        <img src="http://placehold.it/80x80" alt="">
+                    </a>
+                </li>
+            </ul>
+            <p><a href="#">Все докладчики »</a></p>
+        </section>
+    </div>
+
+    <div class="row conf-tweets-block" id="confTweetsBlock">
+        <h2 class="span12">Twitter <a href="http://twitter.com/search?q=#profsoux" target="_blank">#ProfsoUX</a></h2>
+        <div class="clearfix"></div>
+        <ul id="confTweets" class="conf-tweets unstyled"></ul>
+    </div>
+
+    <div class="row">
+        <section id="organizers" class="span4">
+            <h2>Организаторы</h2>
+            <ul class="clearfix">
+                <li><a href="#"><img src="img/partners/ux_spb.png" alt="UX Spb"></a></li>
+                <li><a href="#"><img src="img/partners/i_help.png" alt="i-Help"></a></li>
+            </ul>
+        </section>
+        <section id="partners" class="span8">
+            <h2>Партнёры</h2>
+
+            <ul class="clearfix">
+                <li><a href="#"><img src="img/partners/itmo.png" alt="ИТМО"></a></li>
+                <li><a href="#"><img src="img/partners/usabilitylab.png" alt="UsabilityLab"></a></li>
+                <li><a href="#"><img src="img/partners/orange_page.png" alt="Orange Page"></a></li>
+                <li><a href="#"><img src="img/partners/usabilitylab.png" alt="UsabilityLab"></a></li>
+                <li><a href="#"><img src="img/partners/orange_page.png" alt="Orange Page"></a></li>
+            </ul>
+        </section>
+    </div>
+
+</div> <!-- /container -->
+
+<script type="text/javascript">
+$(document).ready(function() {
+    // tweets stream
+    ui.twee.init({
+        mode: 'normal',
+        searchQuery: '#profsoux since:2012-05-18 -filter:retweets'
+    });
+    ui.videoStream.init({
+        streamProfile: 'profsoux'
+    });
+});
+</script>
+
+{% include "inc/footer.inc" %}
