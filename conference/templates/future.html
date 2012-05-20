@@ -1,0 +1,78 @@
+{% load conference_tags %}
+
+{% include "inc/html-head.inc" %}
+
+<body class="page-signup">
+
+    {% main_menu %}
+
+    {% include "inc/header.inc" %}
+
+    <div id="content-container" class="container">
+        <article id="content-main">
+
+            <div class="row">
+                <div class="page-header clearfix">
+                    <h2 class="span6 offset2">Заявка на ProfsoUX 2013</h2>
+                </div>
+            </div>
+            <div class="row">
+                
+                <form action="/registration/future/" id="signup-form" class="span6 offset2" method="POST">{% csrf_token %}
+                    {% if state == 'thanks' %}
+                        <div class="alert alert-block alert-success">
+                          <a class="close" data-dismiss="alert">×</a>
+                          <h4 class="alert-heading">Спасибо!</h4>
+                          Ваша заявка на участие принята, до встречи на ProfsoUX 2013!
+                        </div>
+                    {% endif %}
+                    {% if form.errors %}
+                        <div class="alert alert-block alert-error">
+                          <a class="close" data-dismiss="alert">×</a>
+                          <h4 class="alert-heading">Произошла ошибка</h4>
+                          Проверьте правильность заполнения полей формы
+                          
+                          {% if form.non_field_errors %}
+                            {{ form.non_field_errors }}  
+                          {% endif %}
+                          
+                        </div>
+                    {% endif %}
+                    
+                    <div class="control-group {% if form.first_name.errors %}error{% endif %}">
+                        <label class="control-label" for="id_first_name">{{ form.first_name.label }} <em>*</em></label>
+                        {{ form.first_name }}
+                    </div>
+
+                    <div class="control-group {% if form.last_name.errors %}error{% endif %}">
+                        <label class="control-label" for="id_last_name">{{ form.last_name.label }} <em>*</em></label>
+                        {{ form.last_name }}
+                    </div>
+
+                    <div class="control-group {% if form.email.errors %}error{% endif %}">
+                        <label class="control-label" for="id_email">{{ form.email.label }} <em>*</em></label>
+                        {{ form.email }}
+                    </div>
+
+                    <div class="control-group {% if form.company_name.errors %}error{% endif %}">
+                        <label class="control-label" for="id_company">{{ form.company_name.label }}</label>
+                        {{ form.company_name }}
+                    </div>
+
+                    <div class="control-group {% if form.position.errors %}error{% endif %}">
+                        <label class="control-label" for="id_position">{{ form.position.label }}</label>
+                        <div class="controls">
+                            {{ form.position }}
+                        </div>
+                    </div>
+
+                    <p><small><em>*</em> Обязательные поля</small></p>
+                    
+                    <button type="submit" id="submit-button" class="btn btn-primary btn-large">Зарегистрироваться</button>
+                </form>
+            </div>
+
+        </article>
+    </div><!-- /container -->
+    
+{% include "inc/footer.inc" %}

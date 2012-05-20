@@ -10,17 +10,8 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'uxspb_site.views.home', name='home'),
-    # url(r'^uxspb_site/', include('uxspb_site.foo.urls')),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
     url(r'^grappelli/', include('grappelli.urls')),
-#    url(r'^admin/filebrowser/', include(site.urls)),
-    #url(r'^admin/filebrowser/', include('filebrowser.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^media/(?P<path>.*)', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
@@ -36,6 +27,7 @@ urlpatterns = patterns('',
     url(r'^schedule/ical.ics$', 'conference.views.ical2'),
     url(r'^schedule/pdf/$', 'conference.views.pdf'),
     url(r'^registration/$', 'conference.views.registration'),
+    url(r'^registration/future/$', 'conference.views.registration_future'),
     url(r'^registration/confirm/$', 'conference.views.confirm'),
     url(r'^contacts/$', 'conference.views.contacts'),
     url(r'^partners/$', 'conference.views.partners'),

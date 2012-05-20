@@ -17,7 +17,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
 from conference.models import *
-from conference.forms import ParticipantForm, ContactsForm, ConfirmForm
+from conference.forms import ParticipantForm, ContactsForm, ConfirmForm, FutureForm
 from settings import MEDIA_ROOT, STATIC_ROOT, PROJECT_ROOT
 
 
@@ -274,6 +274,33 @@ def registration(request):
     c.update(csrf(request))
     return render(request,
         'registration.html',
+        c)
+
+
+def registration_future(request):
+    if request.method == 'POST':
+        form = FutureForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            c = {
+                'state': 'thanks',
+                'form': ParticipantForm()
+                }
+        else:
+            c = {
+            'state': 'default',
+            'form': form
+            }
+    else:
+        form = ParticipantForm()
+        c = {
+            'state': 'default',
+            'form': form
+            }
+    c.update(csrf(request))
+    return render(request,
+        'future.html',
         c)
 
 

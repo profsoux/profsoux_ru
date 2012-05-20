@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 from django import forms
 
-from conference.models import Participant, Contacts
+from conference.models import Participant, ParticipantFuture, Contacts
 
 
 class ParticipantForm(forms.ModelForm):
@@ -78,6 +78,59 @@ class ParticipantForm(forms.ModelForm):
 
     class Meta:
         model = Participant
+
+
+class FutureForm(forms.ModelForm):
+    first_name = forms.RegexField(
+        label="Имя",
+        regex=u'^([А-яЁё \-]|\s)+$',
+        widget=forms.TextInput(
+            attrs={
+            'class': 'span4',
+            'required': 'required',
+            'maxlength': 64,
+            'placeholder': 'Введите ваше имя'})
+        )
+    last_name = forms.RegexField(
+        label="Фамилия",
+        regex=u'^([А-яЁё \-]|\s)+$',
+        widget=forms.TextInput(
+            attrs={
+            'class': 'span4',
+            'required': 'required',
+            'maxlength': 64,
+            'placeholder': 'Введите вашу фамилию'})
+        )
+    email = forms.CharField(
+        label="Email",
+        widget=forms.TextInput(
+            attrs={
+            'class': 'span4',
+            'required': 'required',
+            'maxlength': 64,
+            'placeholder': 'Введите ваш  email'})
+        )
+    company_name = forms.CharField(
+        label="Компания",
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+            'class': 'span4',
+            'maxlength': 64,
+            'placeholder': 'Место работы или учёбы'})
+        )
+    position = forms.CharField(
+        label="Должность",
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+            'class': 'span4',
+            'maxlength': 64,
+            'placeholder': 'Чем вы занимаетесь'})
+        )
+
+    class Meta:
+        model = ParticipantFuture
 
 
 class ContactsForm(forms.ModelForm):

@@ -174,6 +174,22 @@ class Participant(models.Model):
         return u"%2s %2s" % (self.first_name, self.last_name)
 
 
+class ParticipantFuture(models.Model):
+    first_name = models.CharField("Имя", max_length=64)
+    last_name = models.CharField("Фамилия", max_length=64)
+    email = models.EmailField("Email")
+    company_name = models.CharField("Компания", max_length=128, blank=True, null=True)
+    position = models.CharField("Должность", max_length=64, blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Заявка'
+        verbose_name_plural = 'Заявки на будущее'
+        unique_together = ("first_name", "last_name", "email")
+
+    def __unicode__(self):
+        return u"%2s %2s" % (self.first_name, self.last_name)
+
+
 class Contacts(models.Model):
     name = models.CharField("Имя", max_length=64)
     email = models.EmailField("Email")
