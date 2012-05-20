@@ -15,6 +15,7 @@ def site_globals(request):
             'conference_day': conference_day
         },
         'states': {
-            'registration_is_active': registration_end > now
+            'registration_is_active': registration_end > now,
+            'conference_ended': conference_day < now,
         }
     }
