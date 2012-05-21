@@ -39,7 +39,7 @@
         {% endif %}
         <ul class="clearfix">
         {% for organization in partner_group.list %}
-            <li><a href="/partners/">
+            <li><a href="{{ organization.organization.site }}">
                 {% if organization.organization.logo %}
                     <img src="{{ organization.organization.logo|thumbnail:"80x80" }}" alt="{{ organization.organization.name|safe}}">
                 {% else %}
