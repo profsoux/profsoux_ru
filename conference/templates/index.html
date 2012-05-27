@@ -11,17 +11,19 @@
     <div id="content-container" class="container">
         <div class="row">
             <section id="intro" class="span4">
-                <p><strong>ПрофсоUX</strong>&nbsp;&mdash; главная питерская конференция о&nbsp;юзабилити, UX&nbsp;и&nbsp;создании цифровых продуктов, ориентированных на&nbsp;человека.</p>
-
                 {% if states.conference_ended %}
 
-                    <p class="small">19 мая в&nbsp;Санкт-Петербурге прошла конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия.</p>
+                    <p>19 мая в&nbsp;Санкт-Петербурге прошла конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия.</p>
 
-                    <p>Уже опубликованы презентации докладов, а так же  <a href="http://www.facebook.com/media/set/?set=oa.344384208963349&type=1">фотографии с конференции</a>. В ближайшее время будут опубликованы видеозаписи докладов.</p>
+                    <p>Уже опубликованы презентации докладов, а так же  <a href="http://www.facebook.com/media/set/?set=oa.344384208963349&type=1" target="_blank">фотографии с конференции</a>. Видеозаписи докладов вы можете посмотреть на <a href="http://www.livestream.com/profsoux" target="_blank">нашем канале</a>.</p>
+
+                    <p>Спасибо всем, кто <a href="http://profsoux.ru/organizers/">сделал эту конференцию</a>!</p>
 
                     <p><a href="/registration/future/" class="btn btn-signup btn-primary btn-large">Хочу принять участие в&nbsp;ProfsoUX 2013</a>
 
                 {% else %}
+
+                    <p><strong>ПрофсоUX</strong>&nbsp;&mdash; главная питерская конференция о&nbsp;юзабилити, UX&nbsp;и&nbsp;создании цифровых продуктов, ориентированных на&nbsp;человека.</p>
                 
                     {% if states.registration_is_active %}
 
@@ -66,8 +68,25 @@
         </div>
 
         <div class="row">
+            <section id="confTweetsBlock" class="conf-tweets-block span12">
+                <h2>Twitter <a href="http://profsoux.ru/twitter/" target="_blank">#ProfsoUX</a></h2>
+                <ul id="confTweets" class="conf-tweets unstyled"></ul>
+            </section>
+        </div>
+
+        <div class="row">
             {% partners_list %}
         </div>
     </div><!-- /container -->
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        // tweets stream
+        ui.twee.init({
+            mode: 'normal',
+            searchQuery: '#profsoux since:2012-05-18 -filter:retweets'
+        });
+    });
+    </script>
     
 {% include "inc/footer.inc" %}

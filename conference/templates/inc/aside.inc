@@ -1,8 +1,12 @@
 {% if states.conference_ended %}
 
-    <p><small>19 мая в&nbsp;Санкт-Петербурге прошла конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия.</small></p>
+    <p class="small">19 мая в&nbsp;Санкт-Петербурге прошла конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия.</p>
 
-    <p><small>Уже опубликованы презентации докладов, а так же  <a href="http://www.facebook.com/media/set/?set=oa.344384208963349&type=1">фотографии с конференции</a>. В ближайшее время будут опубликованы видеозаписи докладов.</small></p>
+    <p class="small">Уже опубликованы презентации докладов, а так же  <a href="http://www.facebook.com/media/set/?set=oa.344384208963349&type=1" target="_blank">фотографии с конференции</a>. Видеозаписи докладов вы можете посмотреть на <a href="http://www.livestream.com/profsoux" target="_blank">нашем канале</a>.</p>
+
+    <p class="small">Спасибо всем, кто <a href="http://profsoux.ru/organizers/">сделал эту конференцию</a>!</p>
+
+    <p><a href="/registration/future/" class="btn btn-signup btn-primary btn-large">Хочу принять участие в&nbsp;ProfsoUX 2013</a>
 
 {% else %}
 
