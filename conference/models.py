@@ -85,16 +85,16 @@ class Lecture(models.Model):
     presentation = models.FileField("Презентация", upload_to='presentations/%Y', blank=True)
     slideshare_link = models.TextField("Ссылка на Slideshare", blank=True)
 
-    class Meta:
-        verbose_name = 'Доклад'
-        verbose_name_plural = 'Доклады'
-
     def get_speakers(self):
         result = ", ".join([unicode(i) for i in list(self.speaker.all())])
         return result
 
     def __unicode__(self):
         return u"%2s" % (self.title)
+
+    class Meta:
+        verbose_name = 'Доклад'
+        verbose_name_plural = 'Доклады'
 
 
 class Speaker(models.Model):
@@ -173,6 +173,9 @@ class Participant(models.Model):
     def __unicode__(self):
         return u"%2s %2s" % (self.first_name, self.last_name)
 
+    def filled_result(self):
+        return Result.objects.get(participant=self.id)
+
 
 class ParticipantFuture(models.Model):
     first_name = models.CharField("Имя", max_length=64)
@@ -200,5 +203,51 @@ class Contacts(models.Model):
         verbose_name = 'Сообщение в форме'
         verbose_name_plural = 'Сообщения в форме'
 
-    def __unicods__(self):
+    def __unicode__(self):
         return u"%s (%s)" % (self.name, self.email)
+
+
+class Result(models.Model):
+    participant = models.ForeignKey('Participant', unique=True)
+    email = models.EmailField('Email', null=True, blank=True)
+    company_size = models.CharField('Размер организации', max_length=3,
+        choices=(
+            ('1', '1-10'), ('2', '11-50'), ('3', '51-100'), ('4', '101-500'), ('5', 'более 500')
+        ), null=True, blank=True)
+    position = models.CharField('Должность', max_length=3,
+        choices=(
+            ('1', u'UX/юзабилити специалист'),
+            ('2', u'Дизайнер'),
+            ('3', u'Руководитель проекта/группы'),
+            ('4', u'Директор/владелец бизнеса'),
+            ('5', u'Тестировщик/специалист по качеству'),
+            ('6', u'Аналитик'),
+            ('7', u'Программист'),
+            ('8', u'Маркетолог'),
+            ('9', u'Студент')
+        ), null=True, blank=True)
+    position_custom = models.CharField('Другое', max_length=32, null=True, blank=True)
+    site = models.CharField('Адрес сайта', max_length=64, null=True, blank=True)
+    conf_rate_1 = models.CharField('Уровень конференции в целом', max_length=2, null=True, blank=True)
+    conf_rate_2 = models.CharField('Количество новой полезной информации', max_length=2, null=True, blank=True)
+    conf_rate_3 = models.CharField('Качество организации', max_length=2, null=True, blank=True)
+    conf_rate_4 = models.CharField('Уровень докладов', max_length=2, null=True, blank=True)
+    resume_1 = models.TextField('Общее впечатление', null=True, blank=True)
+    resume_2 = models.TextField('Можно улучшить', null=True, blank=True)
+    is_public = models.BooleanField("Согласен на публикацию на сайте", default=False)
+    allow_partners = models.BooleanField("Разрешаю передачу партнёрам", default=False)
+
+    class Meta:
+        verbose_name = 'Итоги конференции'
+        verbose_name_plural = 'Итоги конференции'
+
+    def __unicode__(self):
+        return u"%s" % self.participant
+
+
+class LectureRate(models.Model):
+    participant = models.ForeignKey('Result')
+    lecture = models.ForeignKey('Lecture')
+    theme_rate = models.CharField('Тема доклада', max_length=2, null=True, blank=True)
+    total_rate = models.CharField('Общее впечатление', max_length=2, null=True, blank=True)
+    favorite = models.BooleanField("Понравился", default=False)

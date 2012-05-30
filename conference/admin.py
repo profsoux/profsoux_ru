@@ -10,7 +10,7 @@ class ParticipantAdmin(admin.ModelAdmin):
     list_filter = ('is_public', 'allow_news', 'confirmed')
     list_display_links = ('first_name', 'last_name')
     ordering = ['last_name', 'first_name']
-    actions = ['send_mail', 'send_another_mail']
+    actions = ['send_mail', 'send_another_mail', 'to_results']
 
     def send_mail(self, request, queryset):
         from django.core import mail
@@ -107,6 +107,11 @@ www.profsoUX.ru
 
     send_another_mail.short_description = u"Разослать письмо о трансляции"
 
+    def to_results(self, request, queryset):
+        for participant in queryset:
+            result = Result(participant=participant)
+            result.save()
+
 
 class PartnerAdmin(admin.ModelAdmin):
     list_display = ('organization', 'partner_type', 'weight')
@@ -122,6 +127,39 @@ class ScheduleAdmin(admin.ModelAdmin):
     ordering = ['start_time']
 
 
+from conference.forms import ResultForm, LectureRateForm
+
+
+class LectureRateIline(admin.TabularInline):
+    extra = 16
+    form = LectureRateForm
+    model = LectureRate
+    verbose_name = 'Оценка доклада'
+    verbose_name_plural = 'Оценки докладов'
+
+
+class ResultAdmin(admin.ModelAdmin):
+    form = ResultForm
+    inlines = [
+        LectureRateIline,
+    ]
+
+    def first_name(self):
+        return self.participant.first_name
+
+    def last_name(self):
+        return self.participant.last_name
+
+    def confirmed(self):
+        return self.participant.confirmed
+
+    list_display = [last_name, first_name, confirmed]
+    list_display_links = [first_name, last_name]
+    # list_filter = [confirmed]
+    ordering = ['-participant__confirmed', 'participant__first_name']
+    search_fields = ['participant__first_name', 'participant__last_name']
+
+
 admin.site.register(Person)
 admin.site.register(Lecture)
 admin.site.register(Organization)
@@ -132,3 +170,5 @@ admin.site.register(Partner, PartnerAdmin)
 admin.site.register(Participant, ParticipantAdmin)
 admin.site.register(Menu)
 admin.site.register(PartnerStatus)
+admin.site.register(Result, ResultAdmin)
+admin.site.register(LectureRate)
