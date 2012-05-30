@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 from django import forms
 
-from conference.models import Participant, ParticipantFuture, Contacts
+from conference.models import Participant, ParticipantFuture, Contacts, Result, LectureRate, Lecture
 
 
 class ParticipantForm(forms.ModelForm):
@@ -172,6 +172,36 @@ class ContactsForm(forms.ModelForm):
 
     class Meta:
         model = Contacts
+
+
+def rate_field(label):
+    return forms.ChoiceField(
+        label=label,
+        choices=[('', '-----')] + [(x, x) for x in range(5, 0, -1)],
+        required=False,
+        widget=forms.Select(
+            attrs={
+            'class': 'rate'
+            })
+        )
+
+
+class ResultForm(forms.ModelForm):
+    conf_rate_1 = rate_field('Уровень конференции в целом')
+    conf_rate_2 = rate_field('Количество новой полезной информации')
+    conf_rate_3 = rate_field('Качество организации')
+    conf_rate_4 = rate_field('Уровень докладов')
+
+    class Meta:
+        model = Result
+
+
+class LectureRateForm(forms.ModelForm):
+    theme_rate = rate_field('Тема доклада')
+    total_rate = rate_field('Общее впечатление')
+
+    class Meta:
+        model = LectureRate
 
 
 class ConfirmForm(forms.Form):
