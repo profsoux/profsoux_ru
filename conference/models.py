@@ -212,7 +212,7 @@ class Result(models.Model):
     email = models.EmailField('Email', null=True, blank=True)
     company_size = models.CharField('Размер организации', max_length=3,
         choices=(
-            ('1', '1-10'), ('2', '11-50'), ('3', '51-100'), ('4', '101-500'), ('5', 'более 500')
+            ('1', '1-10'), ('2', '11-50'), ('3', '51-200'), ('4', '201-500'), ('5', 'более 500')
         ), null=True, blank=True)
     position = models.CharField('Должность', max_length=3,
         choices=(
