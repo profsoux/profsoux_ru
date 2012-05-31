@@ -275,7 +275,7 @@ class AddressBook(models.Model):
     no_invite = models.BooleanField('Не приглашать на следующую конференцию', blank=True)
 
     def __unicode__(self):
-        return self.participant
+        return u"%s" % self.participant
 
 
 class LectureRate(models.Model):
