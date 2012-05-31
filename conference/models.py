@@ -245,6 +245,39 @@ class Result(models.Model):
         return u"%s" % self.participant
 
 
+class AddressBook(models.Model):
+    participant = models.ForeignKey('Result')
+    moikrug = models.CharField('Мой круг', max_length=64, null=True, blank=True)
+    twitter = models.CharField('Твиттер', max_length=64, null=True, blank=True)
+    fb = models.CharField('Facebook', max_length=64, null=True, blank=True)
+    vk = models.CharField('ВКонтакте', max_length=64, null=True, blank=True)
+    habr = models.CharField('Хабр', max_length=64, null=True, blank=True)
+    site = models.CharField('Личный сайт', max_length=64, null=True, blank=True)
+
+    know_design = models.BooleanField('Проектировать интерфейсы', blank=True)
+    know_research = models.BooleanField('Исследовать пользователей', blank=True)
+    know_testing = models.BooleanField('Юзабилти-тестирование', blank=True)
+
+    work_pm = models.BooleanField('Веду проекты', blank=True)
+    work_programmer = models.BooleanField('Программирую', blank=True)
+    work_clientside = models.BooleanField('Верстаю', blank=True)
+    work_manager = models.BooleanField('Рулю командой', blank=True)
+    work_director = models.BooleanField('Управляю бизнесом', blank=True)
+    work_sale = models.BooleanField('Продаю', blank=True)
+    work_tester = models.BooleanField('Тестирую', blank=True)
+    work_teacher = models.BooleanField('Преподаю', blank=True)
+    work_writer = models.BooleanField('Пишу тексты', blank=True)
+    work_student = models.BooleanField('Учусь (студент)', blank=True)
+    work_designer = models.BooleanField('Рисую картинки', blank=True)
+
+    no_book = models.BooleanField('Не включать в адресную книгу', blank=True)
+    no_group = models.BooleanField('Не добавлять в UX.SPb', blank=True)
+    no_invite = models.BooleanField('Не приглашать на следующую конференцию', blank=True)
+
+    def __unicode__(self):
+        return self.participant
+
+
 class LectureRate(models.Model):
     participant = models.ForeignKey('Result')
     lecture = models.ForeignKey('Lecture')

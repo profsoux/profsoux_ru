@@ -108,9 +108,17 @@ www.profsoUX.ru
     send_another_mail.short_description = u"Разослать письмо о трансляции"
 
     def to_results(self, request, queryset):
+        lectures_list = [1, 6, 5, 7, 18, 8, 11, 9, 4, 13, 14, 12, 16, 15, 3, 17]
         for participant in queryset:
-            result = Result(participant=participant)
+            Result.objects.filter(participant=participant.id).delete()
+            result = Result(participant=participant,
+                email=participant.email)
             result.save()
+            for lecture_id in lectures_list:
+                lecture = Lecture.objects.get(id=lecture_id)
+                rate = LectureRate(participant=result,
+                    lecture=lecture)
+                rate.save()
 
 
 class PartnerAdmin(admin.ModelAdmin):
@@ -131,16 +139,65 @@ from conference.forms import ResultForm, LectureRateForm
 
 
 class LectureRateIline(admin.TabularInline):
-    extra = 16
+    extra = 0
     form = LectureRateForm
     model = LectureRate
     verbose_name = 'Оценка доклада'
     verbose_name_plural = 'Оценки докладов'
 
 
+class AddressBookInline(admin.StackedInline):
+    extra = 1
+    max_num = 1
+    model = AddressBook
+
+    fieldsets = (
+        (u'Контакты', {
+            'fields': (
+                'moikrug',
+                'twitter',
+                'fb',
+                'vk',
+                'habr',
+                'site')
+        }),
+        ('Я умею', {
+            'fields': (
+                'know_design',
+                'know_research',
+                'know_testing')
+        }),
+        ('На работе я', {
+            'fields': (
+                'work_pm',
+                'work_programmer',
+                'work_clientside',
+                'work_manager',
+                'work_director',
+                'work_sale',
+                'work_tester',
+                'work_teacher',
+                'work_writer',
+                'work_student',
+                'work_designer',
+                )
+        }),
+        ('Я параноик?', {
+            'fields': (
+                'no_book',
+                'no_group',
+                'no_invite')
+        }),
+    )
+
+    verbose_name = 'Карточка ProfsoUX'
+    verbose_name_plural = 'Адресная книга'
+
+
 class ResultAdmin(admin.ModelAdmin):
     form = ResultForm
     inlines = [
+        AddressBookInline,
         LectureRateIline,
     ]
 
@@ -172,3 +229,4 @@ admin.site.register(Menu)
 admin.site.register(PartnerStatus)
 admin.site.register(Result, ResultAdmin)
 admin.site.register(LectureRate)
+admin.site.register(AddressBook)
