@@ -1,0 +1,52 @@
+{% load conference_tags %}
+{% load url from future %}
+
+{% include "inc/html-head.inc" %}
+
+<body class="page-signup">
+
+    {% main_menu %}
+
+    {% include "inc/header.inc" %}
+
+    <div id="content-container" class="container">
+        <article id="content-main">
+
+            <div class="row">
+                <div class="page-header clearfix">
+                    <h2 class="span6 offset4">Вход на сайт</h2>
+                </div>
+
+                <form method="post" class="span6 offset4" action="{% url 'django.contrib.auth.views.login' %}">
+
+                {% if form.errors %}
+                    <div class="alert alert-block alert-error">
+                        Неправильные имя пользователя или пароль.
+                    </div>
+                {% endif %}
+
+                {% csrf_token %}
+
+                <div class="control-group {% if form.first_name.errors %}error{% endif %}">
+                    <label class="control-label" for="id_first_name">{{ form.username.label }} <em>*</em></label>
+                    {{ form.username }}
+                </div>
+
+                <div class="control-group {% if form.last_name.errors %}error{% endif %}">
+                    <label class="control-label" for="id_last_name">{{ form.password.label }} <em>*</em></label>
+                    {{ form.password }}
+                </div>
+
+                <input type="submit" class="btn btn-primary btn-large" value="Войти" />
+                <input type="hidden" name="next" value="{{ next }}" />
+                </form>
+
+            </div>
+            <div class="row">
+                
+            </div>
+
+        </article>
+    </div><!-- /container -->
+    
+{% include "inc/footer.inc" %}

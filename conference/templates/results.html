@@ -1,0 +1,118 @@
+{% load conference_tags %}
+
+{% include "inc/html-head.inc" %}
+
+<body class="page-signup">
+
+    <style type="text/css">
+        .result-form {
+
+        }
+        .result-form p {
+            margin: 0;
+        }
+        .result-form ul {
+            list-style: none;
+            margin: 0;
+        }
+        .result-form li {
+            display: inline-block;
+            margin-right: 1ex;
+        }
+        .result-form input[type="checkbox"],
+        .result-form ul input {
+            display: inline-block;
+            vertical-align: top;
+        }
+        .data {
+            margin-bottom: 40px;
+        }
+        .data tr:nth-child(even) {
+            background: #CCC;
+        }
+        .data td {
+            padding: 0 10px;
+        }
+        .data th {
+            text-align: left;
+            padding-left: 10px;
+            padding-right: 30px;
+        }
+
+    </style>
+
+    {% main_menu %}
+
+    {% include "inc/header.inc" %}
+
+    <div id="content-container" class="container">
+        <div class="row">
+        <article id="content-main" class="span9">
+
+            <div class="page-header clearfix">
+                <h2>Итоги ProfsoUX 2012</h2>
+            </div>
+            <div class="row">
+                <p>Обработано анкет: {{ records }}.</p>
+                <ul>
+                    <li>Уровень конференции в целом: {{ rates.conf_rate_1__avg }}</li>
+                    <li>Количество новой полезной информации: {{ rates.conf_rate_2__avg }}</li>
+                    <li>Качество организации: {{ rates.conf_rate_3__avg }}</li>
+                    <li>Уровень докладов: {{ rates.conf_rate_4__avg }}</li>
+                </ul>
+
+                <table class="data">
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>Тема доклада</th>
+                        <th>Общая оценка</th>
+                        <th>Понравился</th>
+                    </tr>
+                {% for lecture in lectures %}
+                    <tr>
+                        <th>
+                            {{ lecture.lecture|safe }}
+                        </th>
+                        <td>
+                            {{ lecture.data.theme_rate__avg|floatformat:3 }}
+                        </td>
+                        <td>
+                            {{ lecture.data.total_rate__avg|floatformat:3 }}
+                        </td>
+                        <td>
+                            {{ lecture.data.favorite__sum|floatformat }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+
+        </article>
+        <aside id="content-sup" class="span3">
+            <h3>Размер компании</h3>
+            <table class="data">
+            {% for data in company_size %}
+            <tr>
+                <th>{{ data.title }}</th>
+                <td>{{ data.count }}</td>
+                <td>{{ data.part }}%</td>
+            </tr>
+            {% endfor %}
+            </table>
+
+
+            <h3>Должности</h3>
+            <table class="data">
+            {% for data in positions %}
+            <tr>
+                <th>{{ data.title }}</th>
+                <td>{{ data.count }}</td>
+                <td>{{ data.part }}%</td>
+            </tr>
+            {% endfor %}
+            </table>
+        </aside>
+        </div>
+    </div><!-- /container -->
+    
+{% include "inc/footer.inc" %}

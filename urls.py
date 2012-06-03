@@ -13,6 +13,7 @@ urlpatterns = patterns('',
 
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
 
     url(r'^media/(?P<path>.*)', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 
@@ -34,6 +35,7 @@ urlpatterns = patterns('',
     url(r'^organizers/$', 'conference.views.organizers'),
     url(r'^map/$', 'conference.views.map'),
     url(r'^twitter/$', 'conference.views.twitter'),
+    url(r'^results/$', 'conference.views.results'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

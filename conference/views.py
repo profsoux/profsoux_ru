@@ -9,15 +9,16 @@ from icalendar import Calendar, Event
 import pytz
 import vobject
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.context_processors import csrf
 from django.views.generic import ListView
-from django.db.models import Count, Min, Max
+from django.db.models import Count, Min, Max, Avg, Sum
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.forms.formsets import formset_factory
 
 from conference.models import *
-from conference.forms import ParticipantForm, ContactsForm, ConfirmForm, FutureForm
+from conference.forms import ParticipantForm, ContactsForm, ConfirmForm, FutureForm, ResultForm, LectureRateForm
 from settings import MEDIA_ROOT, STATIC_ROOT, PROJECT_ROOT
 
 
@@ -508,3 +509,88 @@ def map(request):
 
 def twitter(request):
     return render(request, 'twitter-projector.html', {})
+
+
+def results(request):
+    if not request.user.is_authenticated():
+        return redirect('/login/?next=%s' % request.path)
+    if not request.user.is_staff:
+        for group in request.user.groups.values_list():
+            if (u'profsoux' in group):
+                break
+        else:
+            return render(request, 'denied.html', {})
+
+    results = Result.objects.exclude(conf_rate_1__exact=None)
+
+    records = results.count()
+
+    positions = (
+        'UX/юзабилити специалист',
+        'Дизайнер',
+        'Руководитель проекта/группы',
+        'Директор/владелец бизнеса',
+        'Тестировщик/специалист по качеству',
+        'Аналитик',
+        'Программист',
+        'Маркетолог',
+        'Студент')
+
+    company_size = (
+        '1-10',
+        '11-150',
+        '51-200',
+        '201-500'
+        )
+
+    positions_data = []
+    company_size_data = []
+
+    for i in xrange(1, 10):
+        qs_count = results.filter(position=i).count()
+        d = {
+            'title': positions[i - 1],
+            'count': qs_count,
+            'part': float(qs_count) / float(records) * 100
+            }
+        positions_data.append(d)
+
+    for i in xrange(1, 5):
+        qs_count = results.filter(company_size=i).count()
+        d = {
+            'title': company_size[i - 1],
+            'count': qs_count,
+            'part': float(qs_count) / float(records) * 100
+        }
+        company_size_data.append(d)
+
+    rates = results.aggregate(
+        Avg('conf_rate_1'),
+        Avg('conf_rate_2'),
+        Avg('conf_rate_3'),
+        Avg('conf_rate_4'))
+
+    lectures = Lecture.objects.all()
+
+    lectures_data = []
+
+    for lecture in lectures:
+        qs = LectureRate.objects.filter(lecture=lecture).aggregate(
+            Avg('theme_rate'),
+            Avg('total_rate'),
+            Sum('favorite')
+            )
+        lectures_data.append({
+            'lecture': lecture,
+            'data': qs
+            })
+
+    c = {
+        'records': records,
+        'rates': rates,
+        'positions': positions_data,
+        'company_size': company_size_data,
+        'lectures': lectures_data
+    }
+
+    return render(request, 'results.html', c)
