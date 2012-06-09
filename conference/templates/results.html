@@ -51,6 +51,10 @@
 
             <div class="page-header clearfix">
                 <h2>Итоги ProfsoUX 2012</h2>
+                    {% if user.is_staff %}
+                        <p><a href="/results/export/">Скачать в Excel (для партнёров)</a><br>
+                        <a href="/results/export/all/">Скачать в Excel (полный)</a></p>
+                    {% endif %}
             </div>
             <div class="row">
                 <p>Обработано анкет: {{ records }}.</p>

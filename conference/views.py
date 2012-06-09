@@ -540,7 +540,8 @@ def results(request):
         '1-10',
         '11-150',
         '51-200',
-        '201-500'
+        '201-500',
+        'более 500'
         )
 
     positions_data = []
@@ -594,3 +595,93 @@ def results(request):
     }
 
     return render(request, 'results.html', c)
+
+
+@login_required
+def results_to_xls(request, depht=None):
+    
+    positions = (
+        'UX/юзабилити специалист',
+        'Дизайнер',
+        'Руководитель проекта/группы',
+        'Директор/владелец бизнеса',
+        'Тестировщик/специалист по качеству',
+        'Аналитик',
+        'Программист',
+        'Маркетолог',
+        'Студент')
+
+    company_size = (
+        '1-10',
+        '11-150',
+        '51-200',
+        '201-500',
+        'более 500'
+        )
+    
+    font0 = xlwt.Font()
+    font0.name = 'Arial'
+    font0.colour_index = 0
+    font0.bold = True
+
+    font1 = xlwt.Font()
+    font0.name = 'Arial'
+
+    title_style = xlwt.XFStyle()
+    title_style.font = font0
+
+    data_style = xlwt.XFStyle()
+    data_style.font = font1
+
+    wb = xlwt.Workbook(encoding='utf8')
+    ws = wb.add_sheet('Persons')
+
+    ws.write(0, 0, 'Имя', title_style)
+    ws.write(0, 1, 'Фамилия', title_style)
+    ws.write(0, 2, 'Телефон', title_style)
+    ws.write(0, 3, 'Email', title_style)
+    ws.write(0, 4, 'Размер компании', title_style)
+    ws.write(0, 5, 'Должность', title_style)
+    ws.write(0, 6, 'Адрес сайта', title_style)
+    ws.write(0, 7, 'Уровень конференции в целом', title_style)
+    ws.write(0, 8, 'Количество новой полезной информации', title_style)
+    ws.write(0, 9, 'Качество организации', title_style)
+    ws.write(0, 10, 'Уровень докладов', title_style)
+    ws.write(0, 11, 'Общее впечатление', title_style)
+    ws.write(0, 12, 'Что можно улучшить', title_style)
+    ws.write(0, 13, 'Публикация разрешена', title_style)
+    
+    results = Result.objects.all()
+    if depht is None:
+        results = results.filter(allow_partners=True)
+    
+    i = 1
+    for result in results:
+        ws.write(i, 0, result.participant.first_name, data_style)
+        ws.write(i, 1, result.participant.last_name, data_style)
+        ws.write(i, 2, result.participant.phone, data_style)
+        ws.write(i, 3, result.email, data_style)
+        if result.company_size:
+            ws.write(i, 4, company_size[int(result.company_size) - 1], data_style)
+        if result.position:
+            ws.write(i, 5, positions[int(result.position) - 1], data_style)
+        ws.write(i, 6, result.site, data_style)
+        ws.write(i, 7, result.conf_rate_1, data_style)
+        ws.write(i, 8, result.conf_rate_2, data_style)
+        ws.write(i, 9, result.conf_rate_3, data_style)
+        ws.write(i, 10, result.conf_rate_4, data_style)
+        ws.write(i, 11, result.resume_1, data_style)
+        ws.write(i, 12, result.resume_2, data_style)
+        ws.write(i, 13, result.allow_partners, data_style)
+        i = i + 1
+
+    
+    filename = MEDIA_ROOT + '/results.xls'
+    wb.save(filename)
+    
+    f = open(filename)
+    
+    response = HttpResponse(f, mimetype='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=ProfsoUX-2012-results.xls'
+
+    return response

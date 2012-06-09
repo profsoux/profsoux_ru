@@ -36,6 +36,7 @@ urlpatterns = patterns('',
     url(r'^map/$', 'conference.views.map'),
     url(r'^twitter/$', 'conference.views.twitter'),
     url(r'^results/$', 'conference.views.results'),
+    url(r'^results/export/((?P<depht>all)/)?$', 'conference.views.results_to_xls'),
 )
 
 urlpatterns += staticfiles_urlpatterns()
