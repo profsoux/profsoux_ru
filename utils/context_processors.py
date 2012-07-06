@@ -1,10 +1,11 @@
 #-*- coding: utf8 -*-
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 def site_globals(request):
     registration_end = datetime(2012, 5, 16, 23, 59)
     conference_day = datetime(2012, 5, 19)
+    two_weeks = timedelta(weeks=2)
     now = datetime.now()
 
     return {
@@ -17,5 +18,6 @@ def site_globals(request):
         'states': {
             'registration_is_active': registration_end > now,
             'conference_ended': conference_day < now,
+            'show_tweets': (conference_day + two_weeks) > now,
         }
     }

@@ -69,13 +69,14 @@
                 <p><a href="/speakers/">Все докладчики »</a></p>
             </section>
         </div>
-
+        {% if states.show_tweets %}
         <div class="row">
             <section id="confTweetsBlock" class="conf-tweets-block span12">
                 <h2>Twitter <a href="http://profsoux.ru/twitter/" target="_blank">#ProfsoUX</a></h2>
                 <ul id="confTweets" class="conf-tweets unstyled"></ul>
             </section>
         </div>
+        {% endif %}
 
         <div class="row">
             {% partners_list %}
