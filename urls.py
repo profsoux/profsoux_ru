@@ -9,6 +9,8 @@ from django.conf import settings
 from django.contrib import admin
 admin.autodiscover()
 
+from conference.views import Papers
+
 urlpatterns = patterns('',
 
     url(r'^grappelli/', include('grappelli.urls')),
@@ -23,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^schedule/ical/$', 'conference.views.ical'),
     url(r'^speakers/$', 'conference.views.speakers'),
     url(r'^speakers/(?P<speaker_id>[0-9]+)/$', 'conference.views.speaker'),
+    url(r'^papers/$', Papers.as_view()),
     url(r'^papers/(?P<paper_id>[0-9]+)/$', 'conference.views.paper'),
     url(r'^schedule/$', 'conference.views.schedule'),
     url(r'^schedule/ical.ics$', 'conference.views.ical2'),
