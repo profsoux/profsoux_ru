@@ -84,6 +84,8 @@ class Lecture(models.Model):
     thesises = models.TextField("Тезисы доклада", blank=True)
     presentation = models.FileField("Презентация", upload_to='presentations/%Y', blank=True)
     slideshare_link = models.TextField("Ссылка на Slideshare", blank=True)
+    vimeo_id = models.CharField("ID ролика на Vimeo", max_length=64, blank=True, null=True,
+        help_text="Последовательность символов в URL после https://vimeo.com/")
 
     def get_speakers(self):
         result = ", ".join([unicode(i) for i in list(self.speaker.all())])
