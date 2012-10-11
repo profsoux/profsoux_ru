@@ -94,6 +94,9 @@ class Lecture(models.Model):
     def __unicode__(self):
         return u"%2s" % (self.title)
 
+    def get_absolute_url(self):
+        return '/papers/%s/' % self.id
+
     class Meta:
         verbose_name = 'Доклад'
         verbose_name_plural = 'Доклады'
@@ -120,6 +123,9 @@ class Speaker(models.Model):
 
     def __unicode__(self):
         return self.person.__unicode__()
+
+    def get_absolute_url(self):
+        return '/speakers/%s/' % self.person.id
 
 
 class Category(models.Model):
