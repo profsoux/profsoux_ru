@@ -28,7 +28,7 @@
                 <hgroup class="page-header">
                     <h2>{{ paper.title|safe }}</h2>
                     <h3>{% for speaker in paper.speaker.all %}
-                        <a href="/speakers/{{ speaker.person.id }}">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a>
+                        <a href="{{ speaker.get_absolute_url }}">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a>
                         {% if not forloop.last %}
                             <br />
                         {% endif %}
@@ -36,6 +36,12 @@
                 </hgroup>
                 <div class="row">
                     <div class="span8">
+                        {% if paper.vimeo_id %}
+                        <iframe src="http://player.vimeo.com/video/{{ paper.vimeo_id }}"
+                                width="700" height="394"
+                                frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                        {% endif %}
+
                         {{ paper.description|safe }}
 
                         {% if paper.category or paper.timing %}

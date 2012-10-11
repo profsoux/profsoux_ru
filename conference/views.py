@@ -41,12 +41,14 @@ def index(request):
 
 
 def speakers(request):
-    speakers = list(Speaker.objects.order_by('person__last_name'))
+    speakers = Speaker.objects.order_by('person__last_name')
 
-    speakers = [i.get_speaker() for i in speakers]
+    for i in speakers:
+        i.lectures = i.get_lectures_dict()
     return render(request,
         'speakers.html',
-        {'speakers': speakers}
+        {
+            'speakers': speakers}
         )
 
 
@@ -71,7 +73,7 @@ def organizers(request):
 
 
 def speaker(request, speaker_id):
-    speaker = Speaker.objects.get(person__id=speaker_id).get_speaker()
+    speaker = Speaker.objects.get(person__id=speaker_id)
     return render(request,
         'speaker.html',
         {'speaker': speaker})

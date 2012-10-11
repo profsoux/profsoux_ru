@@ -39,7 +39,7 @@
                         {% for item in items %}
                             <li style="position:absolute; top: {{ item.offset|multiply:"38" }}px; width: 100%;">
                                 {% if item.section.lecture %}
-                                    <a href="/papers/{{ item.section.lecture.id }}/" class="event div-{{ item.section.duration }} 
+                                    <a href="{{ item.section.lecture.get_absolute_url }}" class="event div-{{ item.section.duration }}
                                     {% if item.section.category %}
                                         legend-{{ item.section.lecture.category.class_name }}
                                     {% endif %}
