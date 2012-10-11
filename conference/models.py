@@ -32,6 +32,9 @@ class Person(models.Model):
     def __unicode__(self):
         return u"%2s %2s" % (self.first_name, self.last_name)
 
+    def get_absolute_url(self):
+        return '/persons/%s/' % self.id
+
 
 class Organization(models.Model):
     name = models.CharField("Название", max_length=255)
@@ -94,6 +97,9 @@ class Lecture(models.Model):
     def __unicode__(self):
         return u"%2s" % (self.title)
 
+    def get_absolute_url(self):
+        return '/papers/%s/' % self.id
+
     class Meta:
         verbose_name = 'Доклад'
         verbose_name_plural = 'Доклады'
@@ -113,13 +119,11 @@ class Speaker(models.Model):
             lectures = {}
         return lectures
 
-    def get_speaker(self):
-        result = self.person
-        result.lectures = self.get_lectures_dict()
-        return result
-
     def __unicode__(self):
         return self.person.__unicode__()
+
+    def get_absolute_url(self):
+        return '/speakers/%s/' % self.person.id
 
 
 class Category(models.Model):

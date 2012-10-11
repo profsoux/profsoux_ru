@@ -19,9 +19,8 @@ def category_list():
 @register.inclusion_tag('tags/speakers_list.html')
 def speakers_list():
     speakers = Speaker.objects.order_by('?')[:3]
-    speakers = [i.get_speaker() for i in speakers]
-    # for speaker in speakers:
-    #     speaker.lectures = get_speakers_lectures(speaker)
+    for speaker in speakers:
+        speaker.lectures = speaker.get_lectures_dict()
     return {'items': speakers}
 
 
