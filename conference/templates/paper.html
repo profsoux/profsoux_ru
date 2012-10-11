@@ -36,6 +36,12 @@
                 </hgroup>
                 <div class="row">
                     <div class="span8">
+                        {% if paper.vimeo_id %}
+                        <iframe src="http://player.vimeo.com/video/{{ paper.vimeo_id }}"
+                                width="700" height="394"
+                                frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                        {% endif %}
+
                         {{ paper.description|safe }}
 
                         {% if paper.category or paper.timing %}
