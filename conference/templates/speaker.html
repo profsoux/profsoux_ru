@@ -12,45 +12,45 @@
         <div class="row">
             <article id="content-main" class="span9">
                 <hgroup class="page-header">
-                    <h2>{{ speaker.first_name }} {{ speaker.last_name }}</h2>
-                    {% for lecture in speaker.lectures %}
-                        <h3><a href="/papers/{{ lecture.id }}">«{{ lecture.title|safe }}»</a></h3>
+                    <h2>{{ speaker.person.first_name }} {{ speaker.person.last_name }}</h2>
+                    {% for lecture in speaker.get_lectures_dict %}
+                        <h3><a href="{{ lecture.get_absolute_url }}">«{{ lecture.title|safe }}»</a></h3>
                     {% endfor %}
                 </hgroup>
                 <div class="row">
                     <div class="span2">
                         <figure class="thumbnail">
-                            {% if speaker.photo %}
-                                <img src="{{ speaker.photo|thumbnail:"140x140" }}" alt="{{ speaker.person.first_name }} {{ speaker.person.last_name }}">
+                            {% if speaker.person.photo %}
+                                <img src="{{ speaker.person.photo|thumbnail:"140x140" }}" alt="{{ speaker.person.first_name }} {{ speaker.person.last_name }}">
                             {% else %}
                                 <img src="http://placehold.it/132x132" alt="">
                             {% endif %}
                         </figure>
                     </div>
                     <div class="span6">
-                        {{ speaker.about|safe }}
+                        {{ speaker.person.about|safe }}
 
-                        {% if speaker.site or speaker.twitter %}
+                        {% if speaker.person.site or speaker.person.twitter %}
                         <p>
-                            {% if speaker.site %}
-                                {{ speaker.site|pretty_url }}<br />
+                            {% if speaker.person.site %}
+                                {{ speaker.person.site|pretty_url }}<br />
                             {% endif %}
 
-                            {% if speaker.twitter %}
-                                <a href="http://www.twitter.com/{{speaker.twitter}}">@{{speaker.twitter}}</a>
+                            {% if speaker.person.twitter %}
+                                <a href="http://www.twitter.com/{{speaker.twitter}}">@{{speaker.person.twitter}}</a>
                             {% endif %}
                         </p>
                         {% endif %}
 
-                        <h4>{{ speaker.organization.name|safe }}</h4>
+                        <h4>{{ speaker.person.organization.name|safe }}</h4>
 
-                        {% if speaker.organization.site or speaker.organization.facebook %}
+                        {% if speaker.person.organization.site or speaker.person.organization.facebook %}
                         <p>
-                            {% if speaker.organization.site %}
-                            {{ speaker.organization.site|pretty_url }}<br />
+                            {% if speaker.person.organization.site %}
+                            {{ speaker.person.organization.site|pretty_url }}<br />
                             {% endif %}
 
-                            {% if speaker.organization.facebook %}
+                            {% if speaker.person.organization.facebook %}
                             <a href="{{speaker.organization.facebook}}">{{speaker.organization.facebook}}</a>
                             {% endif %}
                         </p>
