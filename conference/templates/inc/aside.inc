@@ -2,7 +2,7 @@
 
     <p class="small">19 мая в&nbsp;Санкт-Петербурге прошла конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия.</p>
 
-    <p class="small">Уже опубликованы презентации докладов, а так же  <a href="http://www.facebook.com/media/set/?set=oa.344384208963349&type=1" target="_blank">фотографии с конференции</a>. Видеозаписи докладов вы можете посмотреть на <a href="http://www.livestream.com/profsoux" target="_blank">нашем канале</a>.</p>
+    <p class="small">Уже опубликованы презентации докладов, а так же  <a href="http://www.facebook.com/media/set/?set=oa.344384208963349&type=1" target="_blank">фотографии с конференции</a>. Видеозаписи докладов вы можете посмотреть на <a href="https://vimeo.com/channels/profsoux2012" target="_blank">нашем канале</a>.</p>
 
     <p class="small">Спасибо всем, кто <a href="http://profsoux.ru/organizers/">сделал эту конференцию</a>!</p>
 
