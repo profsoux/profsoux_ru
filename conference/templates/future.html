@@ -23,7 +23,13 @@
                         <div class="alert alert-block alert-success">
                           <a class="close" data-dismiss="alert">×</a>
                           <h4 class="alert-heading">Спасибо!</h4>
-                          Ваша заявка на участие принята, до встречи на ProfsoUX 2013!
+                          Ваша заявка на участие принята, до встречи на <a href="http://profsoux.ru/">ProfsoUX 2013</a>!
+
+                          <script>
+                            setTimeout(function() {
+                                window.location = "http://profsoux.ru/";
+                            }, 3000);
+                          </script>
                         </div>
                     {% endif %}
                     {% if form.errors %}
