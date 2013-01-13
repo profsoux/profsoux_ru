@@ -15,6 +15,26 @@ class Menu(models.Model):
         return u'%s (%s)' % (self.name, self.link)
 
 
+class Event(models.Model):
+    domain = models.URLField('Доменное имя')
+    default = models.BooleanField('Активная конферениция', default=False)
+    title = models.CharField('Название', max_length=256)
+    description = models.TextField('Описание', null=True, blank=True)
+    date = models.DateField('Дата проведения')
+    city = models.CharField('Город проведения', max_length=64)
+    place = models.CharField('Место проведения', max_length=64, null=True, blank=True)
+    address = models.TextField('Адрес места проведения', null=True, blank=True)
+    coordinates = models.CharField('Координтаты места проведения', max_length=24, null=True, blank=True)
+    place_note = models.TextField('Дополнительная информация о месте проведения', null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Событие'
+        verbose_name_plural = 'События'
+
+    def __unicode__(self):
+        return self.domain
+
+
 class Person(models.Model):
     first_name = models.CharField("Имя", max_length=64)
     last_name = models.CharField("Фамилия", max_length=64)
@@ -55,6 +75,7 @@ class Partner(models.Model):
     organization = models.ForeignKey('Organization', verbose_name='Название')
     partner_type = models.ForeignKey('PartnerStatus', verbose_name='Категория партнёрства')
     weight = models.IntegerField('Порядок вывода', blank=True, null=True)
+    event = models.ForeignKey(Event)
 
     class Meta:
         verbose_name = 'Партнёр'
@@ -89,6 +110,7 @@ class Lecture(models.Model):
     slideshare_link = models.TextField("Ссылка на Slideshare", blank=True)
     vimeo_id = models.CharField("ID ролика на Vimeo", max_length=64, blank=True, null=True,
         help_text="Последовательность символов в URL после https://vimeo.com/")
+    event = models.ForeignKey(Event)
 
     def get_speakers(self):
         result = ", ".join([unicode(i) for i in list(self.speaker.all())])
@@ -145,6 +167,7 @@ class ScheduleSection(models.Model):
     title = models.CharField('Название', max_length=64, blank=True)
     category = models.ForeignKey('Category', verbose_name='Категория', blank=True, null=True)
     lecture = models.ForeignKey('Lecture', verbose_name='Доклад', blank=True, null=True)
+    event = models.ForeignKey(Event)
 
     class Meta:
         verbose_name = 'Секция расписания'
@@ -170,6 +193,7 @@ class Participant(models.Model):
     confirmed = models.CharField("Подтверждение участия", max_length=3,
         choices=(('yes', 'Пойду'), ('no', 'Не пойду'), ('u', 'Неизвестно')),
         blank=True, default='u')
+    event = models.ForeignKey(Event)
 
     class Meta:
         verbose_name = 'Участник'
@@ -189,6 +213,7 @@ class ParticipantFuture(models.Model):
     email = models.EmailField("Email")
     company_name = models.CharField("Компания", max_length=128, blank=True, null=True)
     position = models.CharField("Должность", max_length=64, blank=True, null=True)
+    event = models.ForeignKey(Event)
 
     class Meta:
         verbose_name = 'Заявка'
