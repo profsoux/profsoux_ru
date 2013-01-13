@@ -1,8 +1,8 @@
 # -*- coding: utf8 -*-
-# Django settings for uxspb_site project.
+# Django settings for profsoux project.
 import os
 
-PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -118,7 +118,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'utils.context_processors.site_globals',
 )
 
-ROOT_URLCONF = 'profsoux_ru.urls'
+ROOT_URLCONF = 'profsoux.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".

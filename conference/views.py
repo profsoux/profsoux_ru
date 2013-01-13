@@ -12,14 +12,13 @@ import vobject
 from django.shortcuts import render, redirect
 from django.core.context_processors import csrf
 from django.views.generic import ListView
-from django.db.models import Count, Min, Max, Avg, Sum
+from django.db.models import Count, Avg, Sum
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.forms.formsets import formset_factory
 
 from conference.models import *
-from conference.forms import ParticipantForm, ContactsForm, ConfirmForm, FutureForm, ResultForm, LectureRateForm
-from settings import MEDIA_ROOT, STATIC_ROOT, PROJECT_ROOT
+from conference.forms import ParticipantForm, ContactsForm, ConfirmForm, FutureForm
+from profsoux.settings import MEDIA_ROOT, STATIC_ROOT, PROJECT_ROOT
 
 
 class Papers(ListView):
