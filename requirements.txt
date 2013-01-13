@@ -1,0 +1,12 @@
+Django==1.4.3
+PIL==1.1.7
+South==0.7.6
+django-filebrowser==3.5.1
+django-grappelli==2.4.3
+icalendar==3.2
+python-dateutil==2.1
+pytz==2012j
+six==1.2.0
+vobject==0.8.1c
+wsgiref==0.1.2
+xlwt==0.7.4
