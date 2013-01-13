@@ -66,7 +66,8 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'markup')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = 'http://static.profsoux.ru/'
+STATIC_URL = '/markup/'
+#STATIC_URL = 'http://static.profsoux.ru/'
 
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
@@ -118,7 +119,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'utils.context_processors.site_globals',
 )
 
-ROOT_URLCONF = 'profsoux_ru.urls'
+ROOT_URLCONF = 'uxspb_site.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
