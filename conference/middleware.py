@@ -2,7 +2,14 @@
 
 from django.db.models import Q
 from conference.models import Event
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
-class SiteMiddleware():
+
+class EventMiddleware():
     def process_request(self, request):
-        request.domain = Event.objects.get(Q(domain=request.META['HTTP_HOST']) | Q(default=True))
+        try:
+            request.event = Event.objects.get(Q(domain=request.META['HTTP_HOST']) | Q(default=True))
+        except ObjectDoesNotExist:
+            request.event = Event.objects.all()[0]
+        except MultipleObjectsReturned:
+            request.event = Event.objects.all()[0]

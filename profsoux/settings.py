@@ -106,7 +106,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    'conference.middleware.SiteMiddleware',
+    'conference.middleware.EventMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

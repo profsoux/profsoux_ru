@@ -22,7 +22,8 @@ from profsoux.settings import MEDIA_ROOT, STATIC_ROOT, PROJECT_ROOT
 
 
 def get_template(name, request):
-    return ['%s/%s' % (request.domain, name), name]
+    print request.event
+    return ['%s/%s' % (request.event.domain, name), name]
 
 
 class Papers(ListView):
