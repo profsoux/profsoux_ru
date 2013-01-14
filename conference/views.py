@@ -50,37 +50,39 @@ def speakers(request):
     for i in speakers:
         i.lectures = i.get_lectures_dict()
     return render(request,
-        'speakers.html',
-        {
-            'speakers': speakers}
-        )
+                  get_template('speakers.html', request),
+                  {
+                      'speakers': speakers
+                  })
 
 
 def partners(request):
     partners = Partner.objects.filter(partner_type__gt=1).order_by('partner_type__weight', 'weight')
     return render(request,
-        'companies.html',
-        {
-        'title': 'Партнёры',
-        'companies': partners
-        })
+                  get_template('companies.html', request),
+                  {
+                      'title': 'Партнёры',
+                      'companies': partners
+                  })
 
 
 def organizers(request):
     orgs = Partner.objects.filter(partner_type=1).order_by('weight')
     return render(request,
-        'companies.html',
-        {
-        'title': 'Организаторы',
-        'companies': orgs
-        })
+                  get_template('companies.html', request),
+                  {
+                      'title': 'Организаторы',
+                      'companies': orgs
+                  })
 
 
 def speaker(request, speaker_id):
     speaker = Speaker.objects.get(person__id=speaker_id)
     return render(request,
-        'speaker.html',
-        {'speaker': speaker})
+                  get_template('speaker.html', request),
+                  {
+                      'speaker': speaker
+                  })
 
 
 def schedule(request):
@@ -103,9 +105,11 @@ def schedule(request):
             'offset': (start_dt - conf_start).seconds / 60 / 15
             })
     return render(request,
-        'schedule.html',
-        {'items': items,
-        'captions': captions})
+                  get_template('schedule.html', request),
+                  {
+                      'items': items,
+                      'captions': captions
+                  })
 
 
 def ical(request):
@@ -266,22 +270,22 @@ def registration(request):
             c = {
                 'state': 'thanks',
                 'form': ParticipantForm()
-                }
+            }
         else:
             c = {
-            'state': 'default',
-            'form': form
+                'state': 'default',
+                'form': form
             }
     else:
         form = ParticipantForm()
         c = {
             'state': 'default',
             'form': form
-            }
+        }
     c.update(csrf(request))
     return render(request,
-        'registration.html',
-        c)
+                  get_template('registration.html', request),
+                  c)
 
 
 def registration_future(request):
@@ -293,22 +297,22 @@ def registration_future(request):
             c = {
                 'state': 'thanks',
                 'form': ParticipantForm()
-                }
+            }
         else:
             c = {
-            'state': 'default',
-            'form': form
+                'state': 'default',
+                'form': form
             }
     else:
         form = ParticipantForm()
         c = {
             'state': 'default',
             'form': form
-            }
+        }
     c.update(csrf(request))
     return render(request,
-        'future.html',
-        c)
+                  get_template('future.html', request),
+                  c)
 
 
 def confirm(request):
@@ -350,7 +354,7 @@ def confirm(request):
                 'id': participant.id,
                 'code': request.GET['code'],
                 'action': action
-                })
+            })
             c = {
                 'action': action,
                 'form': form,
@@ -363,8 +367,8 @@ def confirm(request):
 
     c.update(csrf(request))
     return render(request,
-        'confirm.html',
-        c)
+                  get_template('confirm.html', request),
+                  c)
 
 
 def contacts(request):
@@ -390,22 +394,22 @@ def contacts(request):
             c = {
                 'state': 'thanks',
                 'form': ContactsForm()
-                }
+            }
         else:
             c = {
-            'state': 'default',
-            'form': form
+                'state': 'default',
+                'form': form
             }
     else:
         form = ContactsForm()
         c = {
             'state': 'default',
             'form': form
-            }
+        }
     c.update(csrf(request))
     return render(request,
-        'contacts.html',
-        c)
+                  get_template('contacts.html', request),
+                  c)
 
 
 def people(request):
@@ -446,14 +450,16 @@ def people(request):
     block_1_end = abc.index(block_1_end_letter)
     block_2_end = abc.index(block_2_end_letter)
 
-    return render(request, 'people.html', {
-            'abc': abc,
-            'people': people,
-            'count': total['last_name__count'],
-            'anonimous': total['last_name__count'] - len(people_q),
-            'block_1_end': (block_1_end),
-            'block_2_end': (block_2_end + 1)
-        })
+    return render(request,
+                  get_template('people.html', request),
+                  {
+                      'abc': abc,
+                      'people': people,
+                      'count': total['last_name__count'],
+                      'anonimous': total['last_name__count'] - len(people_q),
+                      'block_1_end': (block_1_end),
+                      'block_2_end': (block_2_end + 1)
+                  })
 
 
 @login_required
@@ -510,11 +516,17 @@ def people_to_xls(request):
 
 
 def map(request):
-    return render(request, 'map.html', {})
+    return render(
+        request,
+        get_template('map.html', request)
+    )
 
 
 def twitter(request):
-    return render(request, 'twitter-projector.html', {})
+    return render(
+        request,
+        get_template('twitter-projector.html', request)
+    )
 
 
 def results(request):
@@ -525,7 +537,10 @@ def results(request):
             if (u'profsoux' in group):
                 break
         else:
-            return render(request, 'denied.html', {})
+            return render(
+                request,
+                'denied.html'
+            )
 
     results = Result.objects.exclude(conf_rate_1__exact=None)
 
@@ -600,7 +615,10 @@ def results(request):
         'lectures': lectures_data
     }
 
-    return render(request, 'results.html', c)
+    return render(
+        request,
+        get_template('results.html', request),
+        c)
 
 
 @login_required
