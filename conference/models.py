@@ -16,7 +16,7 @@ class Menu(models.Model):
 
 
 class Event(models.Model):
-    domain = models.URLField('Доменное имя')
+    domain = models.CharField('Доменное имя', max_length=64)
     default = models.BooleanField('Активная конферениция', default=False)
     title = models.CharField('Название', max_length=256)
     description = models.TextField('Описание', null=True, blank=True)
