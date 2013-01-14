@@ -21,6 +21,10 @@ from conference.forms import ParticipantForm, ContactsForm, ConfirmForm, FutureF
 from profsoux.settings import MEDIA_ROOT, STATIC_ROOT, PROJECT_ROOT
 
 
+def get_template(name, request):
+    return ['%s/%s' % (request.domain, name), name]
+
+
 class Papers(ListView):
     model = Lecture
     context_object_name = 'papers'
@@ -30,13 +34,14 @@ class Papers(ListView):
 def index(request):
     people_count = Participant.objects.count()
     if datetime.date.today() == datetime.date(2012, 5, 19):
-        template_name = 'index-hot.html'
+        template_name = get_template('index-hot.html', request)
     else:
-        template_name = 'index.html'
+        template_name = get_template('index.html', request)
     return render(request,
-        template_name,
-        {'people_count': people_count}
-        )
+                  template_name,
+                  {
+                      'people_count': people_count
+                  })
 
 
 def speakers(request):
