@@ -22,6 +22,8 @@ class Event(models.Model):
     title = models.CharField('Название', max_length=256)
     description = models.TextField('Описание', null=True, blank=True)
     date = models.DateField('Дата проведения')
+    registration_start = models.DateField('Дата начала приёма заявок', null=True, blank=True)
+    registration_end = models.DateField('Дата окончания приёма заявок', null=True, blank=True)
     city = models.CharField('Город проведения', max_length=64)
     place = models.CharField('Место проведения', max_length=64, null=True, blank=True)
     address = models.TextField('Адрес места проведения', null=True, blank=True)
