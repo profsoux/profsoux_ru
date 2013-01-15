@@ -3,21 +3,21 @@ from datetime import datetime, timedelta
 
 
 def site_globals(request):
-    registration_end = datetime(2012, 5, 16, 23, 59)
-    conference_day = datetime(2012, 5, 19)
+    event = request.event
     two_weeks = timedelta(weeks=2)
-    now = datetime.now()
+    now = datetime.now().date()
 
     return {
+        'event': event,
         'site_title': u"ПрофсоUX",
-        'site_name': u"Конференция по юзабилити и проектированию взаимодействия",
+        'site_name': event.description,
         'dates': {
-            'registration_end': registration_end,
-            'conference_day': conference_day
+            'registration_end': event.registration_end,
+            'conference_day': event.date
         },
         'states': {
-            'registration_is_active': registration_end > now,
-            'conference_ended': conference_day < now,
-            'show_tweets': (conference_day + two_weeks) > now,
+            'registration_is_active': event.registration_end > now if event.registration_end else None,
+            'conference_ended': event.date < now,
+            'show_tweets': (event.date + two_weeks) > now,
         }
     }
