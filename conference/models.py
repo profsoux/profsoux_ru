@@ -6,6 +6,7 @@ class Menu(models.Model):
     name = models.CharField("Имя", max_length=64)
     link = models.CharField("Ссылка", max_length=64)
     weight = models.IntegerField('Порядок вывода')
+    event = models.ForeignKey('Event')
 
     class Meta:
         verbose_name = 'Пункт меню'
