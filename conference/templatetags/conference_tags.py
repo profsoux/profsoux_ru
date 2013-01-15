@@ -41,8 +41,7 @@ def partners_list(context):
 
 @register.inclusion_tag('tags/nav.html', takes_context=True)
 def main_menu(context):
-    items = Menu.objects.order_by('weight')
-    print dir(context)
+    items = Menu.objects.filter(event=context['request'].event).order_by('weight')
     path = context['request'].path
     return {
         'items': items,
