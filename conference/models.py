@@ -133,6 +133,7 @@ class Lecture(models.Model):
 
 class Speaker(models.Model):
     person = models.ForeignKey('Person', verbose_name='Личность')
+    event = models.ForeignKey(Event)
 
     class Meta:
         verbose_name = 'Докладчик'
