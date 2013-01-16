@@ -45,7 +45,11 @@
                 {% else %}
                     <img src="http://placehold.it/80x80" alt="{{ organization.organization.name|safe }}">    
                 {% endif %}
-            </a></li>
+            </a>
+            {% if organization.status %}
+                <br>{{ organization.status }}
+            {% endif %}
+            </li>
         {% endfor %}
         </ul>
     {% endfor %}

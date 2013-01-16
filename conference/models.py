@@ -77,6 +77,7 @@ class Organization(models.Model):
 class Partner(models.Model):
     organization = models.ForeignKey('Organization', verbose_name='Название')
     partner_type = models.ForeignKey('PartnerStatus', verbose_name='Категория партнёрства')
+    status = models.CharField('Статус партнёра', max_length=32, blank=True, null=True)
     weight = models.IntegerField('Порядок вывода', blank=True, null=True)
     event = models.ForeignKey(Event)
 
