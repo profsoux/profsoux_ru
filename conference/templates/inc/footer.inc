@@ -2,20 +2,32 @@
         <nav class="container">
             <div class="row">
                 <div class="span3">
+                {% if counts.lectures %}
                     <h3>Что будет?</h3>
                     <p><a href="/schedule/">Программа конференции</a></p>
+                {% else %}
+                    &nbsp;
+                {% endif %}
                 </div>
                 <div class="span3">
+                {% if counts.speakers or counts.participants %}
                     <h3>Кто пойдёт?</h3>
                     <ul>
+                        {% if counts.speakers %}
                         <li><a href="/speakers/">Докладчики</a></li>
+                        {% endif %}
+                        {% if counts.participants %}
                         <li><a href="/people/">Участники</a></li>
+                        {% endif %}
                     </ul>
+                {% else %}
+                    &nbsp;
+                {% endif %}
                 </div>
                 <div class="span3">
                     <h3>Где и когда?</h3>
-                    <p>19 мая 2012,
-                    <br />Санкт-Петербург, ИТМО</p>
+                    <p>{{ event.date|date:"d M Y" }},
+                    <br />{{ event.city|safe }}, {{ event.place|safe }}</p>
                     <p><a href="/location/">Схема проезда</a></p>
                 </div>
                 <div class="span3">
