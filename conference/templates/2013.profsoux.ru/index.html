@@ -19,7 +19,9 @@
             {%if not states.conference_ended %}
 
                 {% if states.registration = "waiting" %}
-                    <p>Wait</p>
+                    {% if event.registration_start %}
+                    <p>Приём заявок на участие в конференции «ProfsoUX» откроется <nobr>{{ event.registration_start }}</nobr></p>
+                    {% endif %}
                 {% elif states.registration = "active" %}
                     <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
 
