@@ -14,53 +14,57 @@
 <div id="content-container" class="container">
     <div class="row">
         <section id="intro" class="span4">
-            {% if states.conference_ended %}
-
-            <p><strong>ПрофсоUX</strong> – главная питерская конференция о юзабилити, UX и создании цифровых продуктов, ориентированных на человека.</p>
-
-            {% else %}
-
             <p><strong>ПрофсоUX</strong>&nbsp;&mdash; главная питерская конференция о&nbsp;юзабилити, UX&nbsp;и&nbsp;создании цифровых продуктов, ориентированных на&nbsp;человека.</p>
 
-            {% if states.registration_is_active %}
+            {%if not states.conference_ended %}
 
-            <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
+                {% if states.registration = "waiting" %}
+                    <p>Wait</p>
+                {% elif states.registration = "active" %}
+                    <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
 
-                <small>Участие бесплатное.<br />
-                    Торопитесь! Количество мест ограничено.</small>
-                Приём заявок прекращается<br />
-                {{ dates.registration_end|date:"d.m в H:i" }}
-            </p>
+                        <small>Торопитесь! Количество мест ограничено.</small><br />
+                        Приём заявок прекращается
+                        {{ event.registration_end|date:"d.m в 23:55" }}
+                    </p>
+                {% else %}
+                    <p><small>Приём заявок на участие в конференции завершён<br />
+                        Вы сможете присоединиться к онлайн-трансляции. Трансляция начнётся в 12:30 на нашем сайте.</small></p>
+                {% endif %}
+
+                {% if counts.participants %}
+                    <p>Уже идут: {{ counts.participants }}. <a href="/people/">Кто идёт? »</a></p>
+                {% endif %}
 
             {% else %}
 
-            <p><small>Приём заявок на участие в конференции завершён<br />
-                Вы сможете присоединиться к онлайн-трансляции. Трансляция начнётся в 12:30 на нашем сайте.</small></p>
-
-            {% endif %}
-
-            <p class="small">Впервые в&nbsp;Санкт-Петербурге пройдет конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия. Доклады и&nbsp;дискуссии посвящены основным ступеням UX-процесса. Если вам интересны эти темы, то&nbsp;эта конференция для вас!</p>
-
-            <p>Уже идут: {{ people_count }}. <a href="/people/">Кто идёт? »</a></p>
+                <p class="small">{{ event.date|date:"d.m.Y г." }} &nbsp;Санкт-Петербурге прошла конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия. Доклады и&nbsp;дискуссии посвящены основным ступеням UX-процесса.</p>
 
             {% endif %}
 
             {% include "inc/btn-share.inc" %}
         </section>
+
         <section id="programm" class="span4">
             <h2>В программе</h2>
 
-            {% category_list %}
+            <p>Тема конференции&nbsp;&mdash; юзабилити и UX во всех проявлениях.</p>
 
+            <p>Помимо традиционных докладов планируются блиц-презентации в формате «Печа-куча», Open Space, а также ряд мастер-классов.</p>
+
+            {% if counts.lectures %}
             <p><a href="/schedule/">Подробная программа »</a></p>
+            {% endif %}
         </section>
 
         <section id="speakers" class="span4">
-            <h2>Докладчики</h2>
+            <h2>Докладчикам</h2>
 
-            {% speakers_list %}
+            <p>Тезисы докладов принимаются <nobr>до 1 апреля 2013 года</nobr> по&nbsp;адресу: <a href="mailto:pc-chairs@ux-spb.ru">pc-chairs@ux-spb.ru</a>.</p>
 
+            {% if counts.speakers %}
             <p><a href="/speakers/">Все докладчики »</a></p>
+            {% endif %}
         </section>
     </div>
     {% if states.show_tweets %}
@@ -77,6 +81,7 @@
     </div>
 </div><!-- /container -->
 
+{% if states.show_tweets %}
 <script type="text/javascript">
     $(document).ready(function() {
         ui.twee.init({
@@ -85,5 +90,6 @@
         });
     });
 </script>
+{% endif %}
 
 {% include "inc/footer.inc" %}

@@ -11,6 +11,12 @@ def site_globals(request):
     speakers = Speaker.objects.filter(event=event)
     participants = Participant.objects.filter(event=event)
     lectures = Lecture.objects.filter(event=event)
+    registration_state = "waiting"
+    if event.registration_end and event.registration_start:
+        if now > event.registration_end:
+            registration_state = "closed"
+        if event.registration_start <= now <= event.registration_end:
+            registration_state = "active"
 
     return {
         'event': event,
@@ -21,9 +27,9 @@ def site_globals(request):
             'conference_day': event.date
         },
         'states': {
-            'registration_is_active': event.registration_end > now if event.registration_end else None,
+            'registration': registration_state,
             'conference_ended': event.date < now,
-            'show_tweets': (event.date + two_weeks) > now,
+            'show_tweets': (event.date + two_weeks) > now >= event.date,
         },
         'counts': {
             'speakers': len(speakers),
