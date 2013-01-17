@@ -21,13 +21,21 @@
                             <div id="map_canvas"></div>
                             <p><a id="large-map-link" href="/map/" target="_blank">Открыть карту на весь экран</a></p>
                         </div>
-
-                        <div class="thumbnail">
-                            <img src="http://maps.googleapis.com/maps/api/streetview?size=640x640&location=59.957604,30.307904&fov=65&heading=158&pitch=8&sensor=true" alt="Вход в ИТМО" />
-                        </div>
                     </div>
                     <div class="span4">
-                        {{ flatpage.content|safe }}
+                        <hgroup>
+                            <h3>{{ event.place}}</h3>
+                        </hgroup>
+
+                        <dl>
+                            <dt>Адрес:</dt>
+                            <dd>{{ event.city }}, {{ event.address }}</dd>
+
+                            <dt>Координаты:</dt>
+                            <dd>{{ event.coordinates }}</dd>
+
+                            {{ event.place_note }}
+                        </dl>
                     </div>
                 </div>
             </div>
@@ -53,7 +61,7 @@
 
 function init_map() {
     $(document).ready(function() {
-        var latlng = new google.maps.LatLng(59.957604,30.307904);
+        var latlng = new google.maps.LatLng({{event.coordinates}});
 
         var myOptions = {
             zoom: 14,
@@ -66,7 +74,7 @@ function init_map() {
         var marker = new google.maps.Marker({
             position: latlng,
             map: map,
-            title:"ИТМО"
+            title:"{{event.place}}"
         });
 
     });

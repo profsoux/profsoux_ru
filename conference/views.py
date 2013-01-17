@@ -523,6 +523,13 @@ def map(request):
     )
 
 
+def location(request):
+    return render(
+        request,
+        get_template('location.html', request)
+    )
+
+
 def twitter(request):
     return render(
         request,
