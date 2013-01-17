@@ -32,8 +32,8 @@ class Papers(ListView):
 
 
 def index(request):
-    people_count = Participant.objects.count()
-    if datetime.date.today() == datetime.date(2012, 5, 19):
+    people_count = Participant.objects.filter(event=request.event).count()
+    if datetime.date.today() == request.event.date:
         template_name = get_template('index-hot.html', request)
     else:
         template_name = get_template('index.html', request)
@@ -45,7 +45,7 @@ def index(request):
 
 
 def speakers(request):
-    speakers = Speaker.objects.order_by('person__last_name')
+    speakers = Speaker.objects.filter(event=request.event).order_by('person__last_name')
 
     for i in speakers:
         i.lectures = i.get_lectures_dict()
@@ -87,7 +87,11 @@ def speaker(request, speaker_id):
 
 
 def schedule(request):
-    sections = ScheduleSection.objects.order_by('start_time')
+    '''
+    TODO: это точно нужно всё переписать
+    '''
+
+    sections = ScheduleSection.objects.filter(event=request.event).order_by('start_time')
     conf_start = datetime.datetime(2012, 5, 19, sections[0].start_time.hour)
     last_section_start = sections.order_by('-start_time')[0].start_time
     last_section = datetime.datetime(2012, 5, 19, last_section_start.hour, last_section_start.minute)
@@ -414,8 +418,8 @@ def contacts(request):
 
 
 def people(request):
-    total = Participant.objects.all().aggregate(Count('last_name'))
-    people_q = Participant.objects.filter(is_public=True).order_by('last_name')
+    total = Participant.objects.filter(event=request.event).aggregate(Count('last_name'))
+    people_q = Participant.objects.filter(event=request.event, is_public=True).order_by('last_name')
 
     if ord(people_q[0].last_name.lower()[0]) < 1072:
         abc = [
@@ -491,7 +495,7 @@ def people_to_xls(request):
     ws.write(0, 6, 'Комментарии', title_style)
     ws.write(0, 7, 'Подтверждение участия', title_style)
 
-    people = Participant.objects.order_by('id')
+    people = Participant.objects.filter(event=request.event).order_by('id')
 
     i = 1
     for person in people:
