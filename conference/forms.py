@@ -42,7 +42,7 @@ class ParticipantForm(forms.ModelForm):
             'class': 'span4',
             'required': 'required',
             'maxlength': 64,
-            'placeholder': 'Введите ваш  email'})
+            'placeholder': 'Введите ваш email'})
         )
     company_name = forms.CharField(
         label="Компания",
@@ -108,7 +108,7 @@ class FutureForm(forms.ModelForm):
             'class': 'span4',
             'required': 'required',
             'maxlength': 64,
-            'placeholder': 'Введите ваш  email'})
+            'placeholder': 'Введите ваш email'})
         )
     company_name = forms.CharField(
         label="Компания",
@@ -150,7 +150,7 @@ class ContactsForm(forms.ModelForm):
             'class': 'span4',
             'required': 'required',
             'maxlength': 64,
-            'placeholder': 'Введите ваш  email'})
+            'placeholder': 'Введите ваш email'})
         )
     site = forms.CharField(
         label="Сайт",

@@ -10,20 +10,25 @@
 
 {% else %}
 
-    {% if states.registration_is_active %}
+    {% if states.registration = "waiting" %}
+        {% if event.registration_start %}
+            <p>Приём заявок на участие в конференции «ProfsoUX» откроется <nobr>{{ event.registration_start|date:"d.m.Y г." }}</nobr></p>
+        {% endif %}
 
+    {% elif states.registration = "active" %}
         <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
 
-        <small>Участие бесплатное.<br />
-        Количество мест ограничено.</small>
-        Приём заявок прекращается {{ dates.registration_end|date:"d.m в H:i" }}
+            <small>Торопитесь! Количество мест ограничено.</small><br />
+            Приём заявок прекращается
+            {{ event.registration_end|date:"d.m в 23:55" }}
         </p>
-        
     {% else %}
-
         <p><small>Приём заявок на участие в конференции завершён<br />
-        Вы сможете присоединиться к онлайн-трансляции. Трансляция начнётся в 12:30 на нашем сайте.</small></p>
+            Вы сможете присоединиться к онлайн-трансляции. Трансляция начнётся в 12:30 на нашем сайте.</small></p>
+    {% endif %}
 
+    {% if counts.participants %}
+        <p>Уже идут: {{ counts.participants }}. <a href="/people/">Кто идёт? »</a></p>
     {% endif %}
 
 {% endif %}

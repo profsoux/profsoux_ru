@@ -31,9 +31,12 @@
                             </div>
                         {% endif %}
 
-                        <p>Вы можете позвонить нам по телефону <a href="tel:+78123369344">+7 (812) 336 93 44</a> или написать письмо.</p>
+                        <p>Вы можете позвонить нам по телефону <a href="tel:+78123369344">+7 (812) 336 93 44</a>
+                            или написать письмо. Так же вы можете позвонить по телефону
+                            <a href="tel:+79217414823">+7 921 741 48 23</a></p>
 
-                        <p>Для оперативной связи с организаторами во время конференции используйте <a href="http://twitter.com/search?q=#profsoux" target="_blank">#profsoux</a> в Твиттере.</p>
+                        <p>Для оперативной связи с организаторами во время конференции используйте
+                            <a href="http://twitter.com/search?q=#profsoux" target="_blank">#profsoux</a> в Твиттере.</p>
 
                         <div class="control-group {% if form.name.errors %}error{% endif %}">
                             <label class="control-label" for="id_name">{{ form.name.label }} <em>*</em></label>
@@ -77,14 +80,7 @@
             </article>
 
             <aside id="content-sup" class="span3">
-                <h3>Реквизиты</h3>
-
-                <p>ООО «Интернет Хелп»<br>
-                197101, Санкт-Петербург, ул. Б.Монетная, д.16, корп.1, лит. Б, В<br>
-                Тел.: + 7 812 336 93 44<br>
-                ИНН 7801150233 / КПП 781301001<br>
-                ОГРН 1027800557806<br>
-                ОКПО 54184380</p>
+                {% include "inc/aside.inc" %}
             </aside>
 
             <div class="row">
