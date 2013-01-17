@@ -12,7 +12,7 @@
 
     {% if states.registration = "waiting" %}
         {% if event.registration_start %}
-            <p>Приём заявок на участие в конференции «ProfsoUX» откроется <nobr>{{ event.registration_start|date:"d.m.Y г." }}</nobr></p>
+            <p>Приём заявок на участие в конференции «ProfsoUX» откроется <nobr>{{ event.registration_start }}</nobr></p>
         {% endif %}
 
     {% elif states.registration = "active" %}
@@ -20,7 +20,7 @@
 
             <small>Торопитесь! Количество мест ограничено.</small><br />
             Приём заявок прекращается
-            {{ event.registration_end|date:"d.m в 23:55" }}
+            {{ event.registration_end }}
         </p>
     {% else %}
         <p><small>Приём заявок на участие в конференции завершён<br />

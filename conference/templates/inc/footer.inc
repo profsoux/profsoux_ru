@@ -26,7 +26,7 @@
                 </div>
                 <div class="span3">
                     <h3>Где и когда?</h3>
-                    <p>{{ event.date|date:"d M Y" }},
+                    <p>{{ event.date }},
                     <br />{{ event.city|safe }}, {{ event.place|safe }}</p>
                     <p><a href="/location/">Схема проезда</a></p>
                 </div>
