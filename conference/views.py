@@ -301,7 +301,7 @@ def registration_future(request):
 
             c = {
                 'state': 'thanks',
-                'form': ParticipantForm()
+                'form': FutureForm()
             }
         else:
             c = {
@@ -309,7 +309,7 @@ def registration_future(request):
                 'form': form
             }
     else:
-        form = ParticipantForm()
+        form = FutureForm()
         c = {
             'state': 'default',
             'form': form

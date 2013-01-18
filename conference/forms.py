@@ -8,6 +8,9 @@ class ParticipantForm(forms.ModelForm):
     first_name = forms.RegexField(
         label="Имя",
         regex=u'^([А-яЁё \-]|\s)+$',
+        error_messages={
+            "invalid": "В имени могут быть только русские буквы"
+        },
         widget=forms.TextInput(
             attrs={
             'class': 'span4',
@@ -18,6 +21,9 @@ class ParticipantForm(forms.ModelForm):
     last_name = forms.RegexField(
         label="Фамилия",
         regex=u'^([А-яЁё \-]|\s)+$',
+        error_messages={
+            "invalid": "В фамилии могут быть только русские буквы"
+        },
         widget=forms.TextInput(
             attrs={
             'class': 'span4',
@@ -84,6 +90,9 @@ class FutureForm(forms.ModelForm):
     first_name = forms.RegexField(
         label="Имя",
         regex=u'^([А-яЁё \-]|\s)+$',
+        error_messages={
+            "invalid": "В имени могут быть только русские буквы"
+        },
         widget=forms.TextInput(
             attrs={
             'class': 'span4',
@@ -94,6 +103,9 @@ class FutureForm(forms.ModelForm):
     last_name = forms.RegexField(
         label="Фамилия",
         regex=u'^([А-яЁё \-]|\s)+$',
+        error_messages={
+            "invalid": "В фамилии могут быть только русские буквы"
+        },
         widget=forms.TextInput(
             attrs={
             'class': 'span4',
@@ -103,6 +115,9 @@ class FutureForm(forms.ModelForm):
         )
     email = forms.CharField(
         label="Email",
+        error_messages={
+            "invalid": "Введите адрес электронной почты"
+        },
         widget=forms.TextInput(
             attrs={
             'class': 'span4',

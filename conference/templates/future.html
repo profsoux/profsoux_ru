@@ -38,10 +38,13 @@
                           <h4 class="alert-heading">Произошла ошибка</h4>
                           Проверьте правильность заполнения полей формы
                           
-                          {% if form.non_field_errors %}
-                            {{ form.non_field_errors }}  
-                          {% endif %}
-                          
+                            {% if form.non_field_errors %}
+                                {{ form.non_field_errors }}
+                            {% endif %}
+
+                            {% for field, message in form.errors.items %}
+                                {{ message }}
+                            {% endfor %}ы
                         </div>
                     {% endif %}
 
