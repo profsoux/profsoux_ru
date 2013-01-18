@@ -44,6 +44,8 @@
                           
                         </div>
                     {% endif %}
+
+                    <input type="hidden" name="event" value="{{ event.id }}" />
                     
                     <div class="control-group {% if form.first_name.errors %}error{% endif %}">
                         <label class="control-label" for="id_first_name">{{ form.first_name.label }} <em>*</em></label>
