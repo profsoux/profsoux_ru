@@ -1,0 +1,104 @@
+{% load conference_tags %}
+
+{% include "inc/html-head.inc" %}
+
+<body class="page-signup">
+
+    {% main_menu %}
+
+    {% include "inc/header.inc" %}
+
+    <div id="content-container" class="container">
+        <div class="row">
+        <article id="content-main" class="span9">
+
+            {% if states.registration = "active" %}
+
+            <div class="row">
+                <div class="page-header clearfix">
+                    <h2 class="span6 offset2">Регистрация</h2>
+                </div>
+            </div>
+            <div class="row">
+                <h3>Стоимость участия</h3>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Дата регистрации:</th>
+                        <th>январь</th>
+                        <th>февраль</th>
+                        <th>март</th>
+                        <th>апрель</th>
+                        <th>май</th>
+                    </tr>
+                    <tr>
+                        <th>Обычный участник</th>
+                        <td>2500</td>
+                        <td>2500</td>
+                        <td>3500</td>
+                        <td>4500</td>
+                        <td>5500</td>
+                    </tr>
+                    <tr>
+                        <th>Студент</th>
+                        <td>1000</td>
+                        <td>1000</td>
+                        <td>1500</td>
+                        <td>2000</td>
+                        <td>2500</td>
+                    </tr>
+                    <tr>
+                        <th>Мастер-класс «User Experience Design»</th>
+                        <td>12000</td>
+                        <td>12000</td>
+                        <td>13000</td>
+                        <td>14000</td>
+                        <td>15000</td>
+                    </tr>
+                    <tr>
+                        <th>Мастер-класс + конференция</th>
+                        <td>14000</td>
+                        <td>14000</td>
+                        <td>16000</td>
+                        <td>18000</td>
+                        <td>20000</td>
+                    </tr>
+                </table>
+
+                <h3>Подать заявку</h3>
+                <script src="https://profsoux.ticketforevent.com/ru/widget/?h=0.5&s=0.04"></script>
+            </div>
+
+            {% else %}
+
+            <div class="row">
+                <div class="page-header clearfix">
+                    <h2 class="span6 offset2">Регистрация окончена</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6 offset2">
+                    <p>К сожалению, мы не можем принять вашу заявку на участие в конференции «ПрофсоUX»,
+                        но на нашем сайте во время проведения конференции будет организована онлайн-трансляция.</p>
+                </div>
+            </div>
+
+            {% endif %}
+
+        </article>
+
+        <aside id="content-sup" class="span3">
+            <h4>Способы оплаты</h4>
+
+            <ol>
+                <li>По карте</li>
+                <li>Банковским переводом (при необходимости предоставляется договор и все необходимые документы)</li>
+                <li>Робокасса</li>
+                <li>QIWI Кошелек</li>
+            </ol>
+
+            <p><a href="/registation/return-policy/">Политика возврата</a></p>
+        </aside>
+        </div>
+    </div><!-- /container -->
+    
+{% include "inc/footer.inc" %}
