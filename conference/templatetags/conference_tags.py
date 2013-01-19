@@ -74,14 +74,13 @@ def thumbnail(file, size='104x104'):
             if format == 'GIF':
                 transparency = image.info['transparency']
 
-            if size[0] > x and size[1] > y:
-                image.thumbnail([x, y], Image.ANTIALIAS)
-            else:
-                delta_x = (x - size[0]) / 2
-                delta_y = (y - size[1]) / 2
+            if size[0] < x and size[1] < y:
+                delta_x = (x - size[0]) / 2 if size[0] <= x else x / 2
+                delta_y = (y - size[1]) / 2 if size[1] <= y else y / 2
 
                 image = image.crop((-delta_x, -delta_y, size[0] + delta_x, size[1] + delta_y))
-                image.thumbnail([x, y], Image.ANTIALIAS)
+
+            image.thumbnail([x, y], Image.ANTIALIAS)
 
             if format == 'GIF':
                 image.save(miniature_filename, format, transparency=transparency)
