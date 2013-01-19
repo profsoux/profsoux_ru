@@ -19,6 +19,7 @@ def site_globals(request):
             registration_state = "active"
 
     return {
+        'now': now,
         'event': event,
         'site_title': u"ПрофсоUX",
         'site_name': event.description,
