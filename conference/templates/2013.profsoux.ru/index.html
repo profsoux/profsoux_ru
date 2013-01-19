@@ -26,8 +26,10 @@
                     <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
 
                         <small>Торопитесь! Количество мест ограничено.</small><br />
+                        {% if event.registration_end %}
                         Приём заявок прекращается
-                        {{ event.registration_end }} в 23:55
+                        {{ event.registration_end }}
+                        {% endif %}
                     </p>
                 {% else %}
                     <p><small>Приём заявок на участие в конференции завершён<br />

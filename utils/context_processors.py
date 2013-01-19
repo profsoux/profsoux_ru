@@ -12,11 +12,14 @@ def site_globals(request):
     participants = Participant.objects.filter(event=event)
     lectures = Lecture.objects.filter(event=event)
     registration_state = "waiting"
-    if event.registration_end and event.registration_start:
-        if now > event.registration_end:
+    registration_end = event.registration_end if event.registration_end else event.date
+    if event.registration_start:
+        if now > registration_end:
             registration_state = "closed"
-        if event.registration_start <= now <= event.registration_end:
+        if event.registration_start <= now <= registration_end:
             registration_state = "active"
+
+    print registration_state
 
     return {
         'now': now,
