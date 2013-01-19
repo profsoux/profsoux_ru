@@ -150,7 +150,7 @@ class Speaker(models.Model):
         return self.person.__unicode__()
 
     def get_absolute_url(self):
-        return '/speakers/%s/' % self.person.id
+        return '/speakers/%s/' % self.id
 
 
 class Category(models.Model):

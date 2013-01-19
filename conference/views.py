@@ -47,8 +47,8 @@ def index(request):
 def speakers(request):
     speakers = Speaker.objects.filter(event=request.event).order_by('person__last_name')
 
-    for i in speakers:
-        i.lectures = i.get_lectures_dict()
+    for speaker in speakers:
+        speaker.lectures = speaker.get_lectures_dict()
     return render(request,
                   get_template('speakers.html', request),
                   {
@@ -78,7 +78,7 @@ def organizers(request):
 
 
 def speaker(request, speaker_id):
-    speaker = Speaker.objects.get(person__id=speaker_id)
+    speaker = Speaker.objects.get(id=speaker_id)
     return render(request,
                   get_template('speaker.html', request),
                   {
