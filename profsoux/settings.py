@@ -48,10 +48,28 @@ USE_I18N = True
 # calendars according to the current locale
 USE_L10N = False
 
+USE_THOUSAND_SEPARATOR = True
+
+NUMBER_GROUPING = 3
+
+THOUSAND_SEPARATOR = " "
+
 LANGUAGE_CODE = 'ru-RU'
 
 DATE_FORMAT = 'd E Y'
 
+DATE_INPUT_FORMATS = ('%d.%m.%Y', '%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y',
+                      '%b %d %Y', '%b %d, %Y', '%d %b %Y', '%d %b, %Y',
+                      '%B %d %Y', '%B %d, %Y', '%d %B %Y', '%d %B, %Y')
+
+DATETIME_FORMAT = 'd E Y H:i'
+
+DATETIME_INPUT_FORMATS = ('%d.%m.%Y %H:%M', '%d.%m.%Y %H:%M:%S',
+                          '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M', '%Y-%m-%d',
+                          '%m/%d/%Y %H:%M:%S', '%m/%d/%Y %H:%M', '%m/%d/%Y',
+                          '%m/%d/%y %H:%M:%S', '%m/%d/%y %H:%M', '%m/%d/%y')
+
+TIME_FORMAT = 'H:i'
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
