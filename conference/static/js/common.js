@@ -3,7 +3,7 @@ var ui = new Object();
 /**
  * Constants
  */
-ui.CONF_DATE = new Date(2012, 5-1, 19);
+ui.CONF_DATE = new Date(2013, 5-1, 18);
 
 /**
  * Schedule
@@ -527,4 +527,8 @@ ui.videoStream = {
 $(function(){
     // schedule
     ui.schedule.init();
+
+    var $paygate = $('#paygate');
+
+    $paygate.find('link').remove();
 });

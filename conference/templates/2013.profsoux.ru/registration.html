@@ -65,7 +65,9 @@
                 </table>
 
                 <h3>Подать заявку</h3>
-                <script src="https://profsoux.ticketforevent.com/ru/widget/?h=0.5&s=0.04"></script>
+                <div id="paygate">
+                    <script src="https://profsoux.ticketforevent.com/ru/widget/?h=0.5&s=0.04" id="paygateScript"></script>
+                </div>
             </div>
 
             {% else %}
@@ -100,5 +102,4 @@
         </aside>
         </div>
     </div><!-- /container -->
-    
 {% include "inc/footer.inc" %}

@@ -207,3 +207,113 @@
     .members .people-list {margin-right:30px;}
     .people-list li {}
     .people-list-header {}
+
+
+/* Paygate */
+
+.epts-buyTicketsWidget {}
+.epts-widget-hint {
+  margin-bottom: 1em;
+}
+.epts-header {display: none;}
+.epts-magic-table {
+  float: none;
+  width: 100%;
+
+  th, td {
+    padding: 8px;
+    line-height: 24px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
+  }
+  tr:nth-child(odd) th,
+  tr:nth-child(odd) td {
+    background: #f9f9f9;
+  }
+}
+.epts-table-header {
+  text-align: left;
+
+  th {
+    border-bottom: solid 2px #C9C9C9;
+  }
+  .epts-th-price,
+  .epts-th-sum {
+    text-align: center;
+  }
+}
+.epts-td-quantity {
+  width: 4em;
+}
+  select {
+    width: 100%;
+  }
+.epts-price,
+.epts-sum {
+  text-align: right;
+  width: 6em;
+}
+.epts-td-type {
+  font-weight: bold;
+}
+.epts-type-description {
+  font-size: 0.8em;
+  font-weight: normal;
+}
+.epts-totalRow {
+  font-weight: bold;
+}
+.epts-widget-actions {
+  th, td {
+    background: none !important;
+  }
+}
+.epts-goToFormButton {
+  float: right;
+  padding-top: 1.3em;
+}
+.cool-button,
+.cool-button:hover,
+.cool-button:active {
+  border-width:5px;
+  .border-image(url(../img/textures/brd_btn.png), 5, repeat);
+  background:@navbarLinkBackgroundActive url(../img/textures/bg_nav_active.png) 0 0 repeat;
+}
+
+.cool-button {
+  padding: 0 8px 2px;
+
+  @shadow:inset 0 20px 20px rgba(255,255,255,.25), 0 1px 2px rgba(0,0,0,.25);
+  .box-shadow(@shadow);
+
+  color: @navbarLinkColorActive;
+  text-shadow:0 -1px 0 fadeout(#4a1809, 10%);
+
+  &:hover{
+    @shadow:inset 0 20px 20px rgba(255,255,255,.15), 0 1px 2px rgba(0,0,0,.3);
+    .box-shadow(@shadow);
+    text-shadow: 0 -1px 0 rgba(0,0,0,.75);
+  }
+  &:active {
+    @shadow:0 10px 5px rgba(0,0,0, 0.1) inset,0 -10px 5px rgba(255, 255, 255, 0.1) inset, 0 1px 2px rgba(0, 0, 0, 0.3);
+    .box-shadow(@shadow);
+    text-shadow: 0 -1px 0 rgba(0,0,0,.75);
+  }
+  &:disabled {
+    visibility: hidden;
+    color: @navbarLinkColorDisabled;
+  }
+
+  &.btn-large {
+    padding: 3px 10px 5px;
+  }
+
+  &.btn-small {
+    padding: 0 6px;
+  }
+
+  &.btn-mini {
+    border:1px solid darken(@navbarLinkBackgroundActive, 5%);
+  }
+}
