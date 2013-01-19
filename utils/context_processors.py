@@ -19,8 +19,6 @@ def site_globals(request):
         if event.registration_start <= now <= registration_end:
             registration_state = "active"
 
-    print registration_state
-
     return {
         'now': now,
         'event': event,

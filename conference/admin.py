@@ -5,7 +5,26 @@ from django.contrib import admin
 from conference.models import *
 
 
-class ParticipantAdmin(admin.ModelAdmin):
+class EventMixin(admin.ModelAdmin):
+    def changelist_view(self, request, extra_context=None):
+        ref = request.META.get('HTTP_REFERER', '')
+        path = request.META.get('PATH_INFO', '')
+
+        if not ref.split(path)[-1].startswith('?'):
+            q = request.GET.copy()
+            q['event__id__exact'] = request.event.id
+            request.GET = q
+            request.META['QUERY_STRING'] = request.GET.urlencode()
+
+        return super(EventMixin, self).changelist_view(request, extra_context=extra_context)
+
+    def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
+        if db_field.name == "event":
+            kwargs['initial'] = request.event
+        return super(EventMixin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+
+class ParticipantAdmin(EventMixin, admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email', 'phone', 'is_public', 'allow_news', 'confirmed')
     list_filter = ('is_public', 'allow_news', 'confirmed')
     list_display_links = ('first_name', 'last_name')
@@ -121,13 +140,13 @@ www.profsoUX.ru
                 rate.save()
 
 
-class PartnerAdmin(admin.ModelAdmin):
+class PartnerAdmin(EventMixin, admin.ModelAdmin):
     list_display = ('organization', 'partner_type', 'weight')
     list_filter = ('partner_type',)
     list_editable = ('partner_type', 'weight')
 
 
-class ScheduleAdmin(admin.ModelAdmin):
+class ScheduleAdmin(EventMixin, admin.ModelAdmin):
     list_display = ('start_time', 'duration', 'title', 'lecture', 'category')
     list_display_links = ('title', 'lecture')
     list_filter = ('category',)
@@ -217,15 +236,19 @@ class ResultAdmin(admin.ModelAdmin):
     search_fields = ['participant__first_name', 'participant__last_name']
 
 
+class MenuAdmin(EventMixin, admin.ModelAdmin):
+    list_display = ["name", "link"]
+
+
 admin.site.register(Person)
-admin.site.register(Lecture)
+admin.site.register(Lecture, EventMixin)
 admin.site.register(Organization)
 admin.site.register(Category)
 admin.site.register(ScheduleSection, ScheduleAdmin)
-admin.site.register(Speaker)
+admin.site.register(Speaker, EventMixin)
 admin.site.register(Partner, PartnerAdmin)
 admin.site.register(Participant, ParticipantAdmin)
-admin.site.register(Menu)
+admin.site.register(Menu, MenuAdmin)
 admin.site.register(PartnerStatus)
 admin.site.register(Result, ResultAdmin)
 admin.site.register(LectureRate)
