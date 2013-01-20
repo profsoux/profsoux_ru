@@ -34,7 +34,7 @@
                             <dt>Координаты:</dt>
                             <dd>{{ event.coordinates }}</dd>
 
-                            {{ event.place_note }}
+                            {{ event.place_note|safe }}
                         </dl>
                     </div>
                 </div>
@@ -76,7 +76,6 @@ function init_map() {
             map: map,
             title:"{{event.place}}"
         });
-
     });
 }
 </script>

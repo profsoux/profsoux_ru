@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var map;
       function initialize() {
-        var latlng = new google.maps.LatLng(59.957604,30.307904);
+        var latlng = new google.maps.LatLng({{event.coordinates}});
 
         var myOptions = {
           zoom: 14,
@@ -31,10 +31,9 @@
         var contentString = '<div id="content">'+
           '<div id="siteNotice">'+
           '</div>'+
-          '<h2 id="firstHeading" class="firstHeading">ИТМО</h2>'+
-          '<h3>Санкт-Петербургский государственный университет информационных технологий, механики и оптики</h3>'+
+          '<h2 id="firstHeading" class="firstHeading">{{event.place}}</h2>'+
           '<div id="bodyContent">'+
-          '<p><strong>Адрес:</strong> Санкт-Петербург, пр. Кронверкский, д.49</p>'+
+          '<p><strong>Адрес:</strong> {{event.city}}, {{event.address}}</p>'+
           '</div>'+
           '</div>';
 
@@ -45,7 +44,7 @@
         var marker = new google.maps.Marker({
           position: latlng,
           map: map,
-          title:"ИТМО"
+          title:"{{event.place}}"
         });
 
         google.maps.event.addListener(marker, 'click', function() {
