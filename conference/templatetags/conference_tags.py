@@ -58,9 +58,9 @@ def thumbnail(file, size='104x104'):
     # defining the filename and the miniature filename
     if os.path.exists(file.path):
         filehead, filetail = os.path.split(file.path)
-        basename, format = os.path.splitext(filetail)
-        format = format if format.lower() != '.gif' else '.png'
-        miniature = basename + '_' + size + format
+        basename, ext = os.path.splitext(filetail)
+        ext = ext if ext.lower() != '.gif' else '.png'
+        miniature = basename + '_' + size + ext
         filename = file.path
         miniature_filename = os.path.join(filehead, miniature)
         filehead, filetail = os.path.split(file.url)
