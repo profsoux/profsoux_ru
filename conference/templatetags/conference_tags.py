@@ -59,6 +59,7 @@ def thumbnail(file, size='104x104'):
     if os.path.exists(file.path):
         filehead, filetail = os.path.split(file.path)
         basename, format = os.path.splitext(filetail)
+        format = format if format.lower() != '.gif' else '.png'
         miniature = basename + '_' + size + format
         filename = file.path
         miniature_filename = os.path.join(filehead, miniature)
@@ -70,9 +71,11 @@ def thumbnail(file, size='104x104'):
         if not os.path.exists(miniature_filename):
             image = Image.open(filename)
             format = image.format
-            size = image.size
             if format == 'GIF':
-                transparency = image.info['transparency']
+                image = image.convert('RGBA')
+                format = 'PNG'
+
+            size = image.size
 
             if size[0] < x or size[1] < y:
                 _x = x if x > size[1] else size[1]
@@ -84,8 +87,6 @@ def thumbnail(file, size='104x104'):
 
             image.thumbnail([x, y], Image.ANTIALIAS)
 
-            if format == 'GIF':
-                image.save(miniature_filename, format, transparency=transparency)
             if format == 'PNG':
                 image.save(miniature_filename, format, optimize=1)
             if format == 'JPEG':
