@@ -9,7 +9,7 @@ from icalendar import Calendar, Event
 import pytz
 import vobject
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_list_or_404
 from django.core.context_processors import csrf
 from django.views.generic import ListView
 from django.db.models import Count, Avg, Sum
@@ -88,11 +88,12 @@ def speaker(request, speaker_id):
 
 def schedule(request):
     event = request.event
-    sections = ScheduleSection.objects.filter(event=request.event).order_by('start_time')
+    sections = get_list_or_404(ScheduleSection, event=request.event)
+    sections.sort(key=lambda x: x.start_time)
     conf_start = datetime.combine(event.date, time(sections[0].start_time.hour))
-    last_section_start = sections.order_by('-start_time')[0].start_time
+    last_section_start = sections[-1].start_time
     last_section = datetime.combine(event.date, time(last_section_start.hour, last_section_start.minute))
-    conf_end = last_section + timedelta(minutes=sections.order_by('-start_time')[0].duration)
+    conf_end = last_section + timedelta(minutes=sections[-1].duration)
     if conf_end.minute:
         captions = range(conf_start.hour, conf_end.hour + 2)
     else:
@@ -416,7 +417,7 @@ def contacts(request):
 
 def people(request):
     total = Participant.objects.filter(event=request.event).aggregate(Count('last_name'))
-    people_q = Participant.objects.filter(event=request.event, is_public=True).order_by('last_name')
+    people_q = get_list_or_404(Participant, event=request.event, is_public=True).order_by('last_name')
 
     if ord(people_q[0].last_name.lower()[0]) < 1072:
         abc = [
