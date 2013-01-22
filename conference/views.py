@@ -418,7 +418,7 @@ def contacts(request):
 def people(request):
     total = Participant.objects.filter(event=request.event).aggregate(Count('last_name'))
     people_q = get_list_or_404(Participant, event=request.event, is_public=True)
-    people_q.sort(lambda x: x.last_name)
+    people_q.sort(key=lambda x: x.last_name)
 
     if ord(people_q[0].last_name.lower()[0]) < 1072:
         abc = [
