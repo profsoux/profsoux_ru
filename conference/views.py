@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 # Create your views here.
 
-import datetime
+from datetime import datetime, timedelta, time
 from hashlib import md5
 
 import xlwt
@@ -87,28 +87,25 @@ def speaker(request, speaker_id):
 
 
 def schedule(request):
-    '''
-    TODO: это точно нужно всё переписать
-    '''
-
+    event = request.event
     sections = ScheduleSection.objects.filter(event=request.event).order_by('start_time')
-    conf_start = datetime.datetime(2012, 5, 19, sections[0].start_time.hour)
+    conf_start = datetime.combine(event.date, time(sections[0].start_time.hour))
     last_section_start = sections.order_by('-start_time')[0].start_time
-    last_section = datetime.datetime(2012, 5, 19, last_section_start.hour, last_section_start.minute)
-    conf_end = (last_section + datetime.timedelta(minutes=sections.order_by('-start_time')[0].duration))
+    last_section = datetime.combine(event.date, time(last_section_start.hour, last_section_start.minute))
+    conf_end = last_section + timedelta(minutes=sections.order_by('-start_time')[0].duration)
     if conf_end.minute:
         captions = range(conf_start.hour, conf_end.hour + 2)
     else:
         captions = range(conf_start.hour, conf_end.hour + 1)
     items = []
     for item in sections:
-        start_dt = datetime.datetime(2012, 5, 19,
-            item.start_time.hour,
-            item.start_time.minute)
+        start_dt = datetime.combine(event.date,
+            time(item.start_time.hour, item.start_time.minute)
+        )
         items.append({
             'section': item,
             'offset': (start_dt - conf_start).seconds / 60 / 15
-            })
+        })
     return render(request,
                   get_template('schedule.html', request),
                   {
