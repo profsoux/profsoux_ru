@@ -10,7 +10,7 @@ from conference.models import *
 register = template.Library()
 
 
-@register.inclusion_tag('tags/category_list.html', takes_context=True)
+@register.inclusion_tag('tags/category_list.html')
 def category_list():
     categories = Category.objects.all()
     return {'items': categories}
