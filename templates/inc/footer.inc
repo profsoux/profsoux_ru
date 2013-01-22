@@ -1,16 +1,14 @@
     <footer id="footer">
         <nav class="container">
             <div class="row">
-                <div class="span3">
                 {% if counts.lectures %}
+                <div class="span3">
                     <h3>Что будет?</h3>
                     <p><a href="/schedule/">Программа конференции</a></p>
-                {% else %}
-                    &nbsp;
-                {% endif %}
                 </div>
-                <div class="span3">
+                {% endif %}
                 {% if counts.speakers or counts.participants %}
+                <div class="span3">
                     <h3>Кто пойдёт?</h3>
                     <ul>
                         {% if counts.speakers %}
@@ -20,10 +18,8 @@
                         <li><a href="/people/">Участники</a></li>
                         {% endif %}
                     </ul>
-                {% else %}
-                    &nbsp;
-                {% endif %}
                 </div>
+                {% endif %}
                 <div class="span3">
                     <h3>Где и когда?</h3>
                     <p>{{ event.date }},
