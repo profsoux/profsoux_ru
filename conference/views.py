@@ -33,7 +33,7 @@ class Papers(ListView):
 
 def index(request):
     people_count = Participant.objects.filter(event=request.event).count()
-    if datetime.date.today() == request.event.date:
+    if datetime.now().date() == request.event.date:
         template_name = get_template('index-hot.html', request)
     else:
         template_name = get_template('index.html', request)

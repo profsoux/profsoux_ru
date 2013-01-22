@@ -6,7 +6,7 @@
 
     <p class="small">Спасибо всем, кто <a href="http://profsoux.ru/organizers/">сделал эту конференцию</a>!</p>
 
-    <p><a href="/registration/future/" class="btn btn-signup btn-primary btn-large">Хочу принять участие в&nbsp;ProfsoUX 2013</a>
+    <p><a href="{{ registration_url }}" class="btn btn-signup btn-primary btn-large">Хочу принять участие в&nbsp;ProfsoUX 2013</a>
 
 {% else %}
 

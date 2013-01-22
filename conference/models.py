@@ -1,4 +1,6 @@
 # -*- coding: utf8 -*-
+from datetime import datetime
+
 from django.db import models
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
@@ -35,6 +37,15 @@ class EventManager(models.Manager):
             event = self.filter(default=True)[0]
         return event
 
+    def get_registration_url(self, request):
+        event = self.get_default_event()
+        domain = event.domain if event != self.get_current_event(request) else None
+        if event.get_registration_state() != 'waiting':
+            path = '/registration/'
+        else:
+            path = '/registration/future/'
+        return 'http://%s%s' % (domain, path) if domain else path
+
 
 class Event(models.Model):
     objects = EventManager()
@@ -54,6 +65,20 @@ class Event(models.Model):
     class Meta:
         verbose_name = 'Событие'
         verbose_name_plural = 'События'
+
+    def get_registration_state(self):
+        now = datetime.now().date()
+        state = 'waiting'
+        registration_end = self.registration_end if self.registration_end else self.date
+        if self.registration_start:
+            if now > registration_end:
+                state = "closed"
+            if self.registration_start <= now <= registration_end:
+                state = "active"
+        return state
+
+    def is_ended(self):
+        return self.date < datetime.now().date()
 
     def __unicode__(self):
         return self.domain

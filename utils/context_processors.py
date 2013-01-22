@@ -1,7 +1,7 @@
 #-*- coding: utf8 -*-
 from datetime import datetime, timedelta
 
-from conference.models import Speaker, Participant, Lecture
+from conference.models import Speaker, Participant, Lecture, Event
 
 
 def site_globals(request):
@@ -11,17 +11,11 @@ def site_globals(request):
     speakers = Speaker.objects.filter(event=event)
     participants = Participant.objects.filter(event=event)
     lectures = Lecture.objects.filter(event=event)
-    registration_state = "waiting"
-    registration_end = event.registration_end if event.registration_end else event.date
-    if event.registration_start:
-        if now > registration_end:
-            registration_state = "closed"
-        if event.registration_start <= now <= registration_end:
-            registration_state = "active"
 
     return {
         'now': now,
         'event': event,
+        'registration_url': Event.objects.get_registration_url(request),
         'site_title': u"ПрофсоUX",
         'site_name': event.description,
         'dates': {
@@ -29,7 +23,7 @@ def site_globals(request):
             'conference_day': event.date
         },
         'states': {
-            'registration': registration_state,
+            'registration': event.get_registration_state(),
             'conference_ended': event.date < now,
             'show_tweets': (event.date + two_weeks) > now >= event.date,
         },
