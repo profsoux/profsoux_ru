@@ -16,8 +16,8 @@ def category_list():
     return {'items': categories}
 
 
-@register.inclusion_tag('tags/speakers_list.html')
-def speakers_list():
+@register.inclusion_tag('tags/speakers_list.html', takes_context=True)
+def speakers_list(context):
     speakers = Speaker.objects.filter(event=context['request'].event).order_by('?')[:3]
     for speaker in speakers:
         speaker.lectures = speaker.get_lectures_dict()
