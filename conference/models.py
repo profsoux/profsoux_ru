@@ -21,11 +21,18 @@ class Menu(models.Model):
 class EventManager(models.Manager):
     def get_current_event(self, request):
         try:
-            event = self.get(Q(domain=request.META['HTTP_HOST']) | Q(default=True))
+            event = self.get(domain=request.META['HTTP_HOST'])
         except ObjectDoesNotExist:
-            event = Event.objects.all()[0]
+            event = self.get_default_event()
+        return event
+
+    def get_default_event(self):
+        try:
+            event = self.get(default=True)
+        except ObjectDoesNotExist:
+            event = self.order_by(date)[0]
         except MultipleObjectsReturned:
-            event = Event.objects.all()[0]
+            event = self.filter(default=True)[0]
         return event
 
 
