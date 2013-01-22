@@ -59,12 +59,17 @@
             {% if counts.lectures %}
             <p><a href="/schedule/">Подробная программа »</a></p>
             {% endif %}
+
+            <h2>Есть что рассказать?</h2>
+
+            <p>Тезисы докладов принимаются <nobr>до 1 апреля 2013 года</nobr> по&nbsp;адресу:
+                <nobr><a href="mailto:pc-chairs@ux-spb.ru">pc-chairs@ux-spb.ru</a></nobr>.</p>
         </section>
 
         <section id="speakers" class="span4">
-            <h2>Докладчикам</h2>
+            <h2>Докладчики</h2>
 
-            <p>Тезисы докладов принимаются <nobr>до 1 апреля 2013 года</nobr> по&nbsp;адресу: <a href="mailto:pc-chairs@ux-spb.ru">pc-chairs@ux-spb.ru</a>.</p>
+            {% speakers_list %}
 
             {% if counts.speakers %}
             <p><a href="/speakers/">Все докладчики »</a></p>
