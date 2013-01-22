@@ -1,5 +1,7 @@
 # -*- coding: utf8 -*-
 from django.db import models
+from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
 
 class Menu(models.Model):
@@ -16,7 +18,19 @@ class Menu(models.Model):
         return u'%s (%s)' % (self.name, self.link)
 
 
+class EventManager(models.Manager):
+    def get_current_event(self, request):
+        try:
+            event = self.get(Q(domain=request.META['HTTP_HOST']) | Q(default=True))
+        except ObjectDoesNotExist:
+            event = Event.objects.all()[0]
+        except MultipleObjectsReturned:
+            event = Event.objects.all()[0]
+        return event
+
+
 class Event(models.Model):
+    objects = EventManager()
     domain = models.CharField('Доменное имя', max_length=64)
     default = models.BooleanField('Активная конферениция', default=False)
     title = models.CharField('Название', max_length=256)
