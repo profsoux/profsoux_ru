@@ -292,6 +292,10 @@ def registration(request):
 
 
 def registration_future(request):
+    default_event = Event.objects.get_default_event()
+    if request.event != default_event and default_event.get_registration_state() != 'waiting':
+        return redirect("http://%s/registration/".format(default_event.domain))
+
     if request.method == 'POST':
         form = FutureForm(request.POST)
         if form.is_valid():
