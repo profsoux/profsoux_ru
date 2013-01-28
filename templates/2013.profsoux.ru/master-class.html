@@ -1,0 +1,44 @@
+{% load conference_tags %}
+
+{% include "inc/html-head.inc" %}
+
+<body class="page-home">
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/common.js"></script>
+
+{% include "inc/header-short.inc" %}
+
+<div id="content-container" class="container">
+    <div class="row">
+        <div id="content-main" class="span9">
+            <div class="page-header clearfix">
+                <h2>{{ flatpage.title }}</h2>
+            </div>
+
+            <div class="row">
+                <div class="span8">
+                    {{ flatpage.content|safe }}
+                </div>
+            </div>
+        </div>
+        <aside id="content-sup" class="span3">
+            {% include "inc/aside.inc" %}
+        </aside>
+    </div>
+</div><!-- /container -->
+
+<script src="{{ STATIC_URL }}js/jquery.js"></script>
+<!-- <script src="{{ STATIC_URL }}js/less.js"></script> -->
+<script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+<script src="{{ STATIC_URL }}js/common.js?dt=20120519"></script>
+<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+
+<script>
+    var _gaq=[['_setAccount','UA-5272530-10'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+</body>
+</html>
