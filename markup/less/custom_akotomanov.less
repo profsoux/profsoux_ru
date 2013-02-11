@@ -19,22 +19,29 @@
 		margin:0 0 0 -20px;
 		padding:30px 0;
 		}
-	#site-title {margin:0;}
+	#logo {
+		position:absolute;
+		left:15px;
+		top:-105px;
+		display:block;
+		width:230px;
+		height:240px;
+		border:none;
+		/*background:url(../img/branding/logo_profsoux_2013.png) 0 0 no-repeat;*/
+		.transition(all 0.1s ease-in-out);
+		}
+		#logo:hover {top:-100px;}
+	#site-title {
+		margin:0 0 3px;
+		font-size:36px;
+		line-height:48px;
+		}
 		#site-title a {
-			position:absolute;
-			left:15px;
-			top:-65px;
-			display:block;
-			width:230px;
-    		height:200px;
 			border:none;
-			background:url(../img/branding/logo.png) 0 0 no-repeat;
-			.transition(all 0.1s ease-in-out);
 			}
-			#site-title a:hover {top:-60px;}
 	#site-description {
 		margin:0 0 10px;
-		font-size:30px;
+		font-size:24px;
 		line-height:1.2;
 		}
 	#header p {margin:0 0 5px;}
