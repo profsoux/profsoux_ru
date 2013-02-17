@@ -3525,6 +3525,7 @@ input[type="submit"].btn.btn-mini {
   display: block;
   float: left;
   width: 20%;
+  white-space: nowrap;
 }
 .navbar .nav.pull-right,
 .navbar .nav > li.pull-right {
@@ -3650,12 +3651,11 @@ input[type="submit"].btn.btn-mini {
 }
 #nav-years li {
   width: auto;
-  padding: 8px 0 8px 0;
+  padding: 3px 20px;
 }
 #nav-years a {
   display: inline;
-  /**/
-
+  padding: 0;
   text-decoration: underline;
   font: 14px normal Arial, "Helvetica Neue", Helvetica, sans-serif;
   color: #dcdcdc;
@@ -4604,13 +4604,10 @@ a.thumbnail:hover {
 #logo {
   position: absolute;
   left: 15px;
-  top: -105px;
-  display: block;
+  top: -115px;
   width: 230px;
   height: 240px;
   border: none;
-  /*background:url(../img/branding/logo_profsoux_2013.png) 0 0 no-repeat;*/
-
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -ms-transition: all 0.1s ease-in-out;
@@ -4618,7 +4615,7 @@ a.thumbnail:hover {
   transition: all 0.1s ease-in-out;
 }
 #logo:hover {
-  top: -100px;
+  top: -110px;
 }
 #site-title {
   margin: 0 0 3px;

@@ -209,7 +209,8 @@
 .navbar .nav > li {
   display: block;
   float: left;
-  width: 20%; //wtf?
+  width: 20%;
+  white-space:nowrap;
 }
 .navbar .nav.pull-right,
 .navbar .nav > li.pull-right {
@@ -360,10 +361,11 @@
     }
   #nav-years li {
     width:auto;
-    padding:3px 20px 3px 0;
+    padding:3px 20px;
     }
   #nav-years a {
     display:inline;
+    padding:0;
     text-decoration:underline;
     font:14px normal Arial, "Helvetica Neue", Helvetica, sans-serif;
     color:#dcdcdc;
