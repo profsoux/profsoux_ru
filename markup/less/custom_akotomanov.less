@@ -19,22 +19,37 @@
 		margin:0 0 0 -20px;
 		padding:30px 0;
 		}
-	#site-title {margin:0;}
-		#site-title a {
+	#logo {
+		position:absolute;
+		left:15px;
+		top:-115px;
+		width:230px;
+		height:250px;
+		border:none;
+		.transition(all 0.1s ease-in-out);
+		}
+		#logo:hover {top:-110px;}
+		#logo .year {
 			position:absolute;
-			left:15px;
-			top:-65px;
+			top:197px;
 			display:block;
-			width:230px;
-    		height:200px;
-			border:none;
-			background:url(../img/branding/logo.png) 0 0 no-repeat;
-			.transition(all 0.1s ease-in-out);
+			width:100%;
+			text-align:center;
+			font:16px bold Arial, "Helvetica Neue", Helvetica, sans-serif;
+			color:#eeeae5;
+			text-shadow:0 -1px 1px rgba(0,0,0,.5);
 			}
-			#site-title a:hover {top:-60px;}
+	#site-title {
+		margin:0 0 3px;
+		font-size:36px;
+		line-height:48px;
+		}
+		#site-title a {
+			border:none;
+			}
 	#site-description {
 		margin:0 0 10px;
-		font-size:30px;
+		font-size:24px;
 		line-height:1.2;
 		}
 	#header p {margin:0 0 5px;}

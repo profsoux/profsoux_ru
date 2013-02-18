@@ -206,13 +206,15 @@
 .navbar .nav {
   margin: 0 0 0 240px;
 }
-.navbar .nav.pull-right {
-  float: right; // redeclare due to specificity
-}
 .navbar .nav > li {
   display: block;
   float: left;
   width: 20%;
+  white-space:nowrap;
+}
+.navbar .nav.pull-right,
+.navbar .nav > li.pull-right {
+  float: right; // redeclare due to specificity
 }
 
 // Links
@@ -346,3 +348,33 @@
 	right: 13px;
   }
 }
+
+
+//Navbar Years
+#nav-years {
+  background:#4e4e4c url(../img/textures/bg_nav_years.png) 0 0 repeat;
+  }
+  #nav-years .navbar-inner {
+    min-height:32px;
+    @shadow:inset 0 3px 5px rgba(0, 0, 0, .5), inset 0 -1px 3px rgba(0, 0, 0, .5);
+    .box-shadow(@shadow);
+    }
+  #nav-years li {
+    width:auto;
+    padding:3px 20px;
+    }
+  #nav-years a {
+    display:inline;
+    padding:0;
+    text-decoration:underline;
+    font:14px normal Arial, "Helvetica Neue", Helvetica, sans-serif;
+    color:#dcdcdc;
+    }
+    #nav-years a:hover,
+    #nav-years a:active,
+    #nav-years .active a {
+      background:none;
+      .box-shadow(none);
+      text-decoration:none;
+      color:#fff;
+      };
