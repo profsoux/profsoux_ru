@@ -32,7 +32,7 @@ class EventManager(models.Manager):
         try:
             event = self.get(default=True)
         except ObjectDoesNotExist:
-            event = self.order_by(date)[0]
+            event = self.order_by('date')[0]
         except MultipleObjectsReturned:
             event = self.filter(default=True)[0]
         return event
@@ -50,6 +50,7 @@ class EventManager(models.Manager):
 class Event(models.Model):
     objects = EventManager()
     domain = models.CharField('Доменное имя', max_length=64)
+    short_name = models.CharField('Краткое назание', max_length=8)
     default = models.BooleanField('Активная конферениция', default=False)
     title = models.CharField('Название', max_length=256)
     description = models.TextField('Описание', null=True, blank=True)
