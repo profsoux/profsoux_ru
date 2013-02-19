@@ -2,10 +2,12 @@
     <div class="navbar-inner">
         <div class="container">
             <ul class="nav clearfix">
-                <li><a href="#">2012</a></li>
-                <li class="active"><a href="#">2013</a></li>
+                {% for event in events %}
+                <li class="{% if event.is_active %}active{% endif %}"><a href="http://{{ event.domain }}">{{ event.short_name }}</a></li>
+                {% endfor %}
                 <li class="pull-right"><a href="/en/">English</a></li>
             </ul>
         </div>
     </div>
     </nav>
+
