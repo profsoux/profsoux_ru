@@ -5,7 +5,9 @@
                 {% for event in events %}
                 <li class="{% if event.is_active %}active{% endif %}"><a href="http://{{ event.domain }}">{{ event.short_name }}</a></li>
                 {% endfor %}
+                {% if path != '/en/' %}
                 <li class="pull-right"><a href="/en/">English</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>

@@ -54,12 +54,14 @@ def main_menu(context):
 @register.inclusion_tag('tags/years.html', takes_context=True)
 def years_menu(context):
     events = Event.objects.order_by('date')
+    path = context['request'].path
 
     for event in events:
         event.is_active = event == context['event']
 
     return {
-        'events': events
+        'events': events,
+        'path': path
     }
 
 
