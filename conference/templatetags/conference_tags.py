@@ -51,6 +51,13 @@ def main_menu(context):
     }
 
 
+@register.inclusion_tag('tags/years.html', takes_context=True)
+def years_menu(context):
+    return {
+
+    }
+
+
 @register.filter
 def thumbnail(file, size='104x104'):
     # defining the size
