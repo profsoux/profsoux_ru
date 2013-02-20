@@ -3,7 +3,7 @@ var ui = new Object();
 /**
  * Constants
  */
-ui.CONF_DATE = new Date(2012, 5-1, 19);
+ui.CONF_DATE = new Date(2013, 5-1, 18);
 
 /**
  * Schedule
@@ -16,11 +16,11 @@ ui.schedule = {
             markerPlacementDate = new Date();
 
         /*
-        markerPlacementDate = new Date(
-            ui.CONF_DATE.getFullYear(),
-            ui.CONF_DATE.getMonth(),
-            ui.CONF_DATE.getDate(), 12, 15);
-        */
+         markerPlacementDate = new Date(
+         ui.CONF_DATE.getFullYear(),
+         ui.CONF_DATE.getMonth(),
+         ui.CONF_DATE.getDate(), 12, 15);
+         */
 
         if ($schedule.length == 0) {
             return false;
@@ -99,7 +99,7 @@ ui.schedule = {
 
 /**
  * Tweets stream
-  */
+ */
 ui.twee = {
     __months: {
         0: 'января',
@@ -468,10 +468,10 @@ ui.twee = {
 ui.videoStream = {
     playerTemplate:
         '<iframe width="{width}" height="{height}" src="http://cdn.livestream.com/embed/{streamProfile}?layout=4&amp;height={height}&amp;width={width}&amp;autoplay={autoplay}" style="border:0;outline:0" frameborder="0" scrolling="no"></iframe>' +
-        '<div style="font-size:11px; padding-top:10px; text-align:center;">Watch ' +
-        '<a href="http://www.livestream.com/?utm_source=lsplayer&amp;utm_medium=embed&amp;utm_campaign=footerlinks" title="live streaming video">live streaming video</a> from ' +
-        '<a href="http://www.livestream.com/{streamProfile}?utm_source=lsplayer&amp;utm_medium=embed&amp;utm_campaign=footerlinks" title="Watch ProfsoUX at livestream.com">ProfsoUX Conference</a> at livestream.com' +
-        '</div>',
+            '<div style="font-size:11px; padding-top:10px; text-align:center;">Watch ' +
+            '<a href="http://www.livestream.com/?utm_source=lsplayer&amp;utm_medium=embed&amp;utm_campaign=footerlinks" title="live streaming video">live streaming video</a> from ' +
+            '<a href="http://www.livestream.com/{streamProfile}?utm_source=lsplayer&amp;utm_medium=embed&amp;utm_campaign=footerlinks" title="Watch ProfsoUX at livestream.com">ProfsoUX Conference</a> at livestream.com' +
+            '</div>',
 
     $playerContainer: null,
     width: 640,
@@ -527,4 +527,8 @@ ui.videoStream = {
 $(function(){
     // schedule
     ui.schedule.init();
+
+    var $paygate = $('#paygate');
+
+    $paygate.find('link').remove();
 });
