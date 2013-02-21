@@ -1,0 +1,33 @@
+{% load conference_tags %}
+
+{% include "inc/html-head.inc" %}
+
+<body class="{% block body_className %}{% endblock %}">
+
+{% years_menu %}
+
+{% block menu %}
+{% main_menu %}
+{% endblock %}
+
+{% include "inc/header.inc" %}
+
+<div id="content-container" class="container">
+    <div class="row">
+    {% block content %}
+
+    {% endblock %}
+    </div>
+
+    {% block partners %}
+    <div class="row">
+        {% partners_list %}
+    </div>
+    {% endblock %}
+</div><!-- /container -->
+
+{% block extra_js %}{% endblock %}
+
+{% block footer %}
+{% include "inc/footer.inc" %}
+{% endblock %}

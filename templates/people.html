@@ -1,86 +1,71 @@
-{% load conference_tags %}
+{% extends "base.html" %}
 
-{% include "inc/html-head.inc" %}
+{% block body_className %}page-people{% endblock %}
 
-<body class="page-people">
+{% block content %}
+<article id="content-main" class="span9">
 
-{% years_menu %}
+    <div class="page-header clearfix">
+        <h2>Участники</h2>
+        {% if states.registration_is_active %}
+            <a href="/registration/" class="btn">Принять участие</a>
+        {% endif %}
+        {% if user.is_staff %}
+            <p><a href="/people/export/">Скачать в Excel</a></p>
+        {% endif %}
+    </div>
 
-{% main_menu %}
+    <div class="members">
+        <h3>Список людей, зарегистрировавшихся на конференцию. Нас&nbsp;уже&nbsp;{{ count }}</h3>
 
-    {% include "inc/header.inc" %}
+        <ul class="letters-list unstyled">
+            {% for l in people %}
+                {% for letter, persons in l.items %}
+                    <li>
+                    {% if persons %}
+                        <a href="#letter-{{ forloop.parentloop.counter }}">{{ letter|upper }}</a>
+                    {% else %}
+                        <span>{{ letter|upper }}</span>
+                    {% endif %}
+                    </li>
+                    {% if letter|upper == "Z" %}
+                        </ul>
+                        <ul class="letters-list unstyled">
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </ul>
 
-    <div id="content-container" class="container">
         <div class="row">
-            <article id="content-main" class="span9">
-
-                <div class="page-header clearfix">
-                    <h2>Участники</h2>
-                    {% if states.registration_is_active %}
-                        <a href="/registration/" class="btn">Принять участие</a>
-                    {% endif %}
-                    {% if user.is_staff %}
-                        <p><a href="/people/export/">Скачать в Excel</a></p>
-                    {% endif %}
-                </div>
-
-                <div class="members">
-                    <h3>Список людей, зарегистрировавшихся на конференцию. Нас&nbsp;уже&nbsp;{{ count }}</h3>
-
-                    <ul class="letters-list unstyled">
-                        {% for l in people %}
-                            {% for letter, persons in l.items %}
-                                <li>
-                                {% if persons %}
-                                    <a href="#letter-{{ forloop.parentloop.counter }}">{{ letter|upper }}</a>
-                                {% else %}
-                                    <span>{{ letter|upper }}</span>
-                                {% endif %}
-                                </li>
-                                {% if letter|upper == "Z" %}
-                                    </ul>
-                                    <ul class="letters-list unstyled">
-                                {% endif %}    
+            <div class="span4">
+                {% for l in people %}
+                    {% for letter, persons in l.items %}
+                        {% if persons %}
+                            <h4 class="people-list-header" id="letter-{{ forloop.parentloop.counter }}">{{ letter|upper }}</h4>
+                            <ul class="people-list">
+                            {% for person in persons %}
+                                <li>{{ person.last_name }} {{ person.first_name }}</li>
                             {% endfor %}
-                        {% endfor %}
-                    </ul>
-
-                    <div class="row">
-                        <div class="span4">
-                            {% for l in people %}
-                                {% for letter, persons in l.items %}
-                                    {% if persons %}
-                                        <h4 class="people-list-header" id="letter-{{ forloop.parentloop.counter }}">{{ letter|upper }}</h4>
-                                        <ul class="people-list">
-                                        {% for person in persons %}
-                                            <li>{{ person.last_name }} {{ person.first_name }}</li>
-                                        {% endfor %}
-                                        </ul>  
-                                    {% endif %}
-                                {% endfor %}
-                                {% if forloop.counter == block_1_end or forloop.counter == block_2_end %}
-                                   </div>
-                                   <div class="span4"> 
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="row">
-                        {% if anonimous %}
-                            <p>Пожелали остаться инкогнито: {{ anonimous }}.</p>
+                            </ul>
                         {% endif %}
-                    </div>
-
-                </div>
-                
-            </article>
-            <aside id="content-sup" class="span3">
-                {% include "inc/aside.inc" %}
-            </aside>
+                    {% endfor %}
+                    {% if forloop.counter == block_1_end or forloop.counter == block_2_end %}
+                       </div>
+                       <div class="span4">
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
         <div class="row">
-            {% partners_list %}
+            {% if anonimous %}
+                <p>Пожелали остаться инкогнито: {{ anonimous }}.</p>
+            {% endif %}
         </div>
-    </div><!-- /container -->
-    
-{% include "inc/footer.inc" %}
+
+    </div>
+
+</article>
+<aside id="content-sup" class="span3">
+    {% include "inc/aside.inc" %}
+</aside>
+{% endblock %}

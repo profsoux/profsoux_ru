@@ -1,85 +1,73 @@
+{% extends "base.html" %}
+
 {% load conference_tags %}
 
-{% include "inc/html-head.inc" %}
+{% block body_className %}page-signup{% endblock %}
 
-<body class="page-location">
+{% block content %}
+<div id="content-main" class="span9">
+    <div class="page-header clearfix">
+        <h2>Место проведения</h2>
+    </div>
 
-{% years_menu %}
-
-{% main_menu %}
-
-    {% include "inc/header.inc" %}
-
-    <div id="content-container" class="container">
-        <div class="row">
-            <div id="content-main" class="span9">
-                <div class="page-header clearfix">
-                    <h2>Место проведения</h2>
-                </div>
-
-                <div class="row">
-                    <div class="span4">
-                        <div class="thumbnail">
-                            <div id="map_canvas"></div>
-                            <p><a id="large-map-link" href="/map/" target="_blank">Открыть карту на весь экран</a></p>
-                        </div>
-                    </div>
-                    <div class="span4">
-                        <hgroup>
-                            <h3>{{ event.place}}</h3>
-                        </hgroup>
-
-                        <dl>
-                            <dt>Адрес:</dt>
-                            <dd>{{ event.city }}, {{ event.address }}</dd>
-
-                            <dt>Координаты:</dt>
-                            <dd>{{ event.coordinates }}</dd>
-
-                            {{ event.place_note|safe }}
-                        </dl>
-                    </div>
-                </div>
+    <div class="row">
+        <div class="span4">
+            <div class="thumbnail">
+                <div id="map_canvas"></div>
+                <p><a id="large-map-link" href="/map/" target="_blank">Открыть карту на весь экран</a></p>
             </div>
-            <aside id="content-sup" class="span3">
-                {% include "inc/aside.inc" %}
-            </aside>
         </div>
+        <div class="span4">
+            <hgroup>
+                <h3>{{ event.place}}</h3>
+            </hgroup>
 
-        <div class="row">
-            {% partners_list %}
+            <dl>
+                <dt>Адрес:</dt>
+                <dd>{{ event.city }}, {{ event.address }}</dd>
+
+                <dt>Координаты:</dt>
+                <dd>{{ event.coordinates }}</dd>
+
+                {{ event.place_note|safe }}
+            </dl>
         </div>
-    </div><!-- /container -->
+    </div>
+</div>
+<aside id="content-sup" class="span3">
+    {% include "inc/aside.inc" %}
+</aside>
+{% endblock %}
 
+{% block extra_js %}
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCsKlIpzWXPGSMR6Dgq7hwPuX1lf5voHZU&sensor=true"></script>
 <script type="text/javascript">
-(function () {
-    if(typeof $ === 'undefined') {
-        t = setTimeout(arguments.callee, 100)
-    } else {
-        init_map();
-    }
-})();
+    (function () {
+        if(typeof $ === 'undefined') {
+            t = setTimeout(arguments.callee, 100)
+        } else {
+            init_map();
+        }
+    })();
 
-function init_map() {
-    $(document).ready(function() {
-        var latlng = new google.maps.LatLng({{event.coordinates}});
+    function init_map() {
+        $(document).ready(function() {
+            var latlng = new google.maps.LatLng({{event.coordinates}});
 
-        var myOptions = {
-            zoom: 14,
-            center: latlng,
-            mapTypeControl: false,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+            var myOptions = {
+                zoom: 14,
+                center: latlng,
+                mapTypeControl: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
-        var marker = new google.maps.Marker({
-            position: latlng,
-            map: map,
-            title:"{{event.place}}"
+            var marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                title:"{{event.place}}"
+            });
         });
-    });
-}
+    }
 </script>
-
-{% include "inc/footer.inc" %}
+{% endblock %}

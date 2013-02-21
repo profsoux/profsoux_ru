@@ -1,93 +1,85 @@
+{% extends "base.html" %}
+
 {% load conference_tags %}
 
-{% include "inc/html-head.inc" %}
+{% load url from future %}
 
-<body class="page-paper">
+{% block body_className %}page-paper{% endblock %}
 
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_developer = 1; // developer mode is on
-        var disqus_shortname = 'profsoux'; // required: replace example with your forum shortname
+{% block content %}
+<article id="content-main" class="span9">
+    <hgroup class="page-header">
+        <h2>{{ paper.title|safe }}</h2>
+        <h3>{% for speaker in paper.speaker.all %}
+            <a href="{{ speaker.get_absolute_url }}">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a>
+            {% if not forloop.last %}
+                <br />
+            {% endif %}
+        {% endfor %}</h3>
+    </hgroup>
+    <div class="row">
+        <div class="span8">
+            {% if paper.vimeo_id %}
+            <iframe src="http://player.vimeo.com/video/{{ paper.vimeo_id }}"
+                    width="700" height="394"
+                    frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+            {% endif %}
 
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
+            {{ paper.description|safe }}
 
-    {% years_menu %}
+            {% if paper.category or paper.timing %}
+            <ul>
+                {% if paper.category %}
+                    <li>Секция доклада: <em>{{ paper.category }}</em></li>
+                {% endif %}
 
-    {% main_menu %}
+                {% if paper.timing %}
+                    <li>Длительность доклада: <em>{{ paper.timing }} минут</em></li>
+                {% endif %}
+            </ul>
+            {% endif %}
 
-    {% include "inc/header.inc" %}
+            {% if paper.presentation %}
+                <p><a href="{{ paper.presentation }}">Скачать презентацию</a></p>
+            {% endif %}
 
-    <div id="content-container" class="container">
-        <div class="row">
-            <article id="content-main" class="span9">
-                <hgroup class="page-header">
-                    <h2>{{ paper.title|safe }}</h2>
-                    <h3>{% for speaker in paper.speaker.all %}
-                        <a href="{{ speaker.get_absolute_url }}">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a>
-                        {% if not forloop.last %}
-                            <br />
-                        {% endif %}
-                    {% endfor %}</h3>
-                </hgroup>
-                <div class="row">
-                    <div class="span8">
-                        {% if paper.vimeo_id %}
-                        <iframe src="http://player.vimeo.com/video/{{ paper.vimeo_id }}"
-                                width="700" height="394"
-                                frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-                        {% endif %}
+            {% if paper.slideshare_link %}
+               {{ paper.slideshare_link|safe }}
+            {% endif %}
 
-                        {{ paper.description|safe }}
-
-                        {% if paper.category or paper.timing %}
-                        <ul>
-                            {% if paper.category %}
-                                <li>Секция доклада: <em>{{ paper.category }}</em></li>
-                            {% endif %}
-
-                            {% if paper.timing %}
-                                <li>Длительность доклада: <em>{{ paper.timing }} минут</em></li>
-                            {% endif %}
-                        </ul>
-                        {% endif %}
-
-                        {% if paper.presentation %}
-                            <p><a href="{{ paper.presentation }}">Скачать презентацию</a></p>
-                        {% endif %}
-
-                        {% if paper.slideshare_link %}
-                           {{ paper.slideshare_link|safe }}
-                        {% endif %}
-
-                        <!-- disqus -->
-                        <div id="disqus_thread"></div>
-                        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-                        <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
-                        <!--/ disqus -->
-                    </div>
-                </div>
-            </article>
-            <aside id="content-sup" class="span3">
-                {% include "inc/aside.inc" %}
-
-                <nav>
-                    <ul>
-                        <li><a href="/schedule/">Список докладов »</a></li>
-                        <li><a href="/speakers/">Список докладчиков »</a></li>
-                    </ul>
-                </nav>
-            </aside>
+            <!-- disqus -->
+            <div id="disqus_thread"></div>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+            <!--/ disqus -->
         </div>
-        <div class="row">
-            {% partners_list %}
-        </div>
-    </div><!-- /container -->
-    
-{% include "inc/footer.inc" %}
+    </div>
+</article>
+<aside id="content-sup" class="span3">
+    {% include "inc/aside.inc" %}
+
+    <nav>
+        <ul>
+            <li><a href="/schedule/">Список докладов »</a></li>
+            <li><a href="/speakers/">Список докладчиков »</a></li>
+        </ul>
+    </nav>
+</aside>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_developer = 1; // developer mode is on
+    var disqus_shortname = 'profsoux'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+{% endblock %}
+

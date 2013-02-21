@@ -1,65 +1,53 @@
+{% extends "base.html" %}
+
 {% load conference_tags %}
 
-{% include "inc/html-head.inc" %}
+{% load url from future %}
 
-<body class="page-speakers">
+{% block body_className %}page-speakers{% endblock %}
 
-{% years_menu %}
+{% block content %}
+<div id="content-main" class="span9">
+    <div class="page-header clearfix">
+        <h2>Докладчики</h2>
+    </div>
 
-{% main_menu %}
+    <div class="list-of-speakers">
 
-    {% include "inc/header.inc" %}
-     
+            {% for speaker in speakers %}
 
-    <div id="content-container" class="container">
-        <div class="row">
-            <div id="content-main" class="span9">
-                <div class="page-header clearfix">
-                    <h2>Докладчики</h2>
-                </div>
+            {% cycle '<div class="row">' '' %}
 
-                <div class="list-of-speakers">
-                
-                        {% for speaker in speakers %}
-
-                        {% cycle '<div class="row">' '' %}
-
-                        <div class="speaker span4">
-                            <h3><a href="{{ speaker.get_absolute_url }}">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a></h3>
-                            <p>{{ speaker.person.organization.name|safe }}</p>
-                            {% for lecture in speaker.lectures %}
-                                <p><a href="{{ lecture.get_absolute_url }}">{{ lecture.title|safe }}</a></p>
-                            {% empty %}
-                                <p>Тема доклада уточняется</p>
-                            {% endfor %}
-                            <a href="{{ speaker.get_absolute_url }}" class="thumbnail">
-                                {% if speaker.person.photo %}
-                                    <img src="{{ speaker.person.photo.url }}" width="80" alt="{{ speaker.person.first_name }} {{ speaker.person.last_name }}">
-                                {% else %}
-                                    <img src="http://placehold.it/80x80" alt="">
-                                {% endif %}
-                            </a>
-                        </div>
-
-                        {% cycle '' '</div>' %}
-
-                        {% if forloop.last %}
-                        {% if not forloop.counter|divisibleby:"2" %}
-                            </div>
-                        {% endif %}
-                        {% endif %}
-
-                        {% endfor %}
-                    
-                </div><!-- /.list-of-speakers -->
+            <div class="speaker span4">
+                <h3><a href="{{ speaker.get_absolute_url }}">{{ speaker.person.first_name }} {{ speaker.person.last_name }}</a></h3>
+                <p>{{ speaker.person.organization.name|safe }}</p>
+                {% for lecture in speaker.lectures %}
+                    <p><a href="{{ lecture.get_absolute_url }}">{{ lecture.title|safe }}</a></p>
+                {% empty %}
+                    <p>Тема доклада уточняется</p>
+                {% endfor %}
+                <a href="{{ speaker.get_absolute_url }}" class="thumbnail">
+                    {% if speaker.person.photo %}
+                        <img src="{{ speaker.person.photo.url }}" width="80" alt="{{ speaker.person.first_name }} {{ speaker.person.last_name }}">
+                    {% else %}
+                        <img src="http://placehold.it/80x80" alt="">
+                    {% endif %}
+                </a>
             </div>
-            <aside id="content-sup" class="span3">
-                {% include "inc/aside.inc" %}
-            </aside>
-        </div>
-        <div class="row">
-            {% partners_list %}
-        </div>
-    </div><!-- /container -->
-    
-{% include "inc/footer.inc" %}
+
+            {% cycle '' '</div>' %}
+
+            {% if forloop.last %}
+            {% if not forloop.counter|divisibleby:"2" %}
+                </div>
+            {% endif %}
+            {% endif %}
+
+            {% endfor %}
+
+    </div><!-- /.list-of-speakers -->
+</div>
+<aside id="content-sup" class="span3">
+    {% include "inc/aside.inc" %}
+</aside>
+{% endblock %}

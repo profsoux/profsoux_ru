@@ -1,81 +1,69 @@
+{% extends "base.html" %}
+
 {% load conference_tags %}
 
-{% include "inc/html-head.inc" %}
+{% block body_className %}page-people{% endblock %}
 
-<body class="page-partners">
+{% block content %}
+<div id="contant-main" class="span9">
+    <div class="page-header clearfix">
+        <h2>{{ title }}</h2>
 
-{% years_menu %}
+        <p>Приглашаем компании к сотрудничеству. Посмотреть <a href="http://media.profsoux.ru/docs/ProfsoUX13-Sponsorship.pdf" target="_blank">спонсорское предложение</a> (pdf, 900 кб)</p>
+    </div>
 
-{% main_menu %}
+    <div class="clearfix">
 
-    {% include "inc/header.inc" %}
-     
+    {% regroup companies by partner_type as partners_list %}
 
-<div id="content-container" class="container">
-        <div class="row">
-            <div id="contant-main" class="span9">
-                <div class="page-header clearfix">
-                    <h2>{{ title }}</h2>
-                    
-                    <p>Приглашаем компании к сотрудничеству. Посмотреть <a href="http://media.profsoux.ru/docs/ProfsoUX13-Sponsorship.pdf" target="_blank">спонсорское предложение</a> (pdf, 900 кб)</p>
-                </div>
+    {% for partner_group in partners_list %}
+        {% if not forloop.first %}
+            <h3>{{ partner_group.grouper.title_plural }}</h3>
+        {% endif %}
+        <ul class="list-of-partners span8">
+        {% for partner in partner_group.list %}
+            <li class="partner">
+                <article class="row">
+                    <div class="span2">
+                        <figure class="logo">
+                            {% if partner.organization.site %}
+                            <a href="{{ partner.organization.site }}" class="thumbnail" target="_blank" title="{{ partner.organization.name }}">
+                                {% if partner.organization.logo %}
+                                    <img src="{{ partner.organization.logo|thumbnail:"140x140" }}" alt="{{ partner.organization.name|safe }}">
+                                {% else %}
+                                    <img src="http://placehold.it/140x140" alt="{{ partner.organization.name|safe }}">
+                                {% endif %}
+                            </a>
+                            {% else %}
+                            <span class="thumbnail" title="{{ partner.organization.name|safe }}">
+                                {% if partner.organization.logo %}
+                                    <img src="{{ partner.organization.logo|thumbnail:"140x140" }}" width="140" alt="{{ partner.organization.name }}">
+                                {% else %}
+                                    <img src="http://placehold.it/140x140" alt="{{ partner.organization.name|safe }}">
+                                {% endif %}
+                            </span>
+                            {% endif %}
+                        </figure>
+                    </div>
+                    <div class="span6">
+                        <h3>{{ partner.organization.name|safe }}</h3>
 
-                <div class="clearfix">
-                    
-                {% regroup companies by partner_type as partners_list %}
+                        {% if partner.organization.site %}
+                        <address>{{ partner.organization.site|pretty_url }}</address>
+                        {% endif %}
 
-                {% for partner_group in partners_list %}
-                    {% if not forloop.first %}
-                        <h3>{{ partner_group.grouper.title_plural }}</h3>
-                    {% endif %}
-                    <ul class="list-of-partners span8">
-                    {% for partner in partner_group.list %}
-                        <li class="partner">
-                            <article class="row">
-                                <div class="span2">
-                                    <figure class="logo">
-                                        {% if partner.organization.site %}
-                                        <a href="{{ partner.organization.site }}" class="thumbnail" target="_blank" title="{{ partner.organization.name }}">
-                                            {% if partner.organization.logo %}
-                                                <img src="{{ partner.organization.logo|thumbnail:"140x140" }}" alt="{{ partner.organization.name|safe }}">
-                                            {% else %}
-                                                <img src="http://placehold.it/140x140" alt="{{ partner.organization.name|safe }}">
-                                            {% endif %}
-                                        </a>
-                                        {% else %}
-                                        <span class="thumbnail" title="{{ partner.organization.name|safe }}">
-                                            {% if partner.organization.logo %}
-                                                <img src="{{ partner.organization.logo|thumbnail:"140x140" }}" width="140" alt="{{ partner.organization.name }}">
-                                            {% else %}
-                                                <img src="http://placehold.it/140x140" alt="{{ partner.organization.name|safe }}">
-                                            {% endif %}
-                                        </span>
-                                        {% endif %}
-                                    </figure>   
-                                </div>
-                                <div class="span6">
-                                    <h3>{{ partner.organization.name|safe }}</h3>
-                                    
-                                    {% if partner.organization.site %}
-                                    <address>{{ partner.organization.site|pretty_url }}</address>
-                                    {% endif %}
-                                    
-                                    {% if partner.organization.description %}
-                                    {{ partner.organization.description|safe }}
-                                    {% endif %}
-                                </div>
-                            </article>
-                        </li>
-                    {% endfor %}
-                     </ul>
-                {% endfor %}
-                </div>
-            </div>
-            <aside id="content-sup" class="span3">
-                {% include "inc/aside.inc" %}
-            </aside>
-        </div>
-
-    </div><!-- /container -->
-    
-{% include "inc/footer.inc" %}
+                        {% if partner.organization.description %}
+                        {{ partner.organization.description|safe }}
+                        {% endif %}
+                    </div>
+                </article>
+            </li>
+        {% endfor %}
+         </ul>
+    {% endfor %}
+    </div>
+</div>
+<aside id="content-sup" class="span3">
+    {% include "inc/aside.inc" %}
+</aside>
+{% endblock %}
