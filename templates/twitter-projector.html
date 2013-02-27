@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% load staticfiles %}<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -7,8 +7,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/custom-kurilov.css" rel="stylesheet">
+    <link href="{% static "css/style.css" %}" rel="stylesheet">
+    <link href="{% static "css/custom-kurilov.css" %}" rel="stylesheet">
 
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -20,9 +20,9 @@
 
 <ul id="confTweets" class="conf-tweets unstyled"></ul>
 
-<script src="{{ STATIC_URL }}js/jquery.js"></script>
-<script src="{{ STATIC_URL }}js/bootstrap.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/common.js"></script>
+<script src="{% static "js/jquery.js" %}"></script>
+<script src="{% static "js/bootstrap.js" %}"></script>
+<script type="text/javascript" src="{% static "js/common.js" %}"></script>
 
 <script type="text/javascript">
 $(function() {
