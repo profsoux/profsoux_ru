@@ -1,20 +1,9 @@
-{% extends "base.html" %}
+{% extends "__two-column.html" %}
 
-{% load conference_tags %}
+{% block page-header %}
+<h2>{{ flatpage.title }}</h2>
+{% endblock %}
 
-{% block content %}
-<div id="content-main" class="span9">
-    <div class="page-header clearfix">
-        <h2>{{ flatpage.title }}</h2>
-    </div>
-
-    <div class="row">
-        <div class="span8">
-        {{ flatpage.content|safe }}
-        </div>
-    </div>
-</div>
-<aside id="content-sup" class="span3">
-    {% include "inc/aside.inc" %}
-</aside>
+{% block content-main %}
+{{ flatpage.content|safe }}
 {% endblock %}

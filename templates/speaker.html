@@ -1,66 +1,64 @@
-{% extends "base.html" %}
+{% extends "__two-column.html" %}
 
 {% load conference_tags %}
 
 {% block body_className %}page-speaker{% endblock %}
 
-{% block content %}
-<article id="content-main" class="span9">
-    <hgroup class="page-header">
-        <h2>{{ speaker.person.first_name }} {{ speaker.person.last_name }}</h2>
-        {% for lecture in speaker.get_lectures_dict %}
-            <h3><a href="{{ lecture.get_absolute_url }}">«{{ lecture.title|safe }}»</a></h3>
-        {% endfor %}
-    </hgroup>
-    <div class="row">
-        <div class="span2">
-            <figure class="thumbnail">
-                {% if speaker.person.photo %}
-                    <img src="{{ speaker.person.photo|thumbnail:"140x140" }}" alt="{{ speaker.person.first_name }} {{ speaker.person.last_name }}">
-                {% else %}
-                    <img src="http://placehold.it/132x132" alt="">
-                {% endif %}
-            </figure>
-        </div>
-        <div class="span6">
-            {{ speaker.person.about|safe }}
+{% block page-header %}
+    <h2>{{ speaker.person.first_name }} {{ speaker.person.last_name }}</h2>
+    {% for lecture in speaker.get_lectures_dict %}
+        <h3><a href="{{ lecture.get_absolute_url }}">«{{ lecture.title|safe }}»</a></h3>
+    {% endfor %}
+{% endblock %}
 
-            {% if speaker.person.site or speaker.person.twitter %}
-            <p>
-                {% if speaker.person.site %}
-                    {{ speaker.person.site|pretty_url }}<br />
-                {% endif %}
+{% block content-main %}
+<div class="span2">
+    <figure class="thumbnail">
+        {% if speaker.person.photo %}
+            <img src="{{ speaker.person.photo|thumbnail:"140x140" }}" alt="{{ speaker.person.first_name }} {{ speaker.person.last_name }}">
+        {% else %}
+            <img src="http://placehold.it/132x132" alt="">
+        {% endif %}
+    </figure>
+</div>
+<div class="span5">
+    {{ speaker.person.about|safe }}
 
-                {% if speaker.person.twitter %}
-                    <a href="http://www.twitter.com/{{speaker.person.twitter}}">@{{speaker.person.twitter}}</a>
-                {% endif %}
-            </p>
-            {% endif %}
+    {% if speaker.person.site or speaker.person.twitter %}
+    <p>
+        {% if speaker.person.site %}
+            {{ speaker.person.site|pretty_url }}<br />
+        {% endif %}
 
-            <h4>{{ speaker.person.organization.name|safe }}</h4>
+        {% if speaker.person.twitter %}
+            <a href="http://www.twitter.com/{{speaker.person.twitter}}">@{{speaker.person.twitter}}</a>
+        {% endif %}
+    </p>
+    {% endif %}
 
-            {% if speaker.person.organization.site or speaker.person.organization.facebook %}
-            <p>
-                {% if speaker.person.organization.site %}
-                {{ speaker.person.organization.site|pretty_url }}<br />
-                {% endif %}
+    <h4>{{ speaker.person.organization.name|safe }}</h4>
 
-                {% if speaker.person.organization.facebook %}
-                <a href="{{speaker.person.organization.facebook}}">{{speaker.person.organization.facebook}}</a>
-                {% endif %}
-            </p>
-            {% endif %}
-        </div>
-    </div>
-</article>
-<aside id="content-sup" class="span3">
-    {% include "inc/aside.inc" %}
+    {% if speaker.person.organization.site or speaker.person.organization.facebook %}
+    <p>
+        {% if speaker.person.organization.site %}
+        {{ speaker.person.organization.site|pretty_url }}<br />
+        {% endif %}
 
-    <nav>
-        <ul>
-            <li><a href="/speakers/">Другие докладчики »</a></li>
-            <li><a href="/schedule/">Список докладов »</a></li>
-        </ul>
-    </nav>
-</aside>
+        {% if speaker.person.organization.facebook %}
+        <a href="{{speaker.person.organization.facebook}}">{{speaker.person.organization.facebook}}</a>
+        {% endif %}
+    </p>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block aside %}
+{% include "inc/aside.inc" %}
+
+<nav>
+    <ul>
+        <li><a href="/speakers/">Другие докладчики »</a></li>
+        <li><a href="/schedule/">Список докладов »</a></li>
+    </ul>
+</nav>
 {% endblock %}

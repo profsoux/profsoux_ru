@@ -1,42 +1,33 @@
-{% extends "base.html" %}
-
-{% load conference_tags %}
+{% extends "__two-column.html" %}
 
 {% block body_className %}page-signup{% endblock %}
 
-{% block content %}
-<div id="content-main" class="span9">
-    <div class="page-header clearfix">
-        <h2>Место проведения</h2>
-    </div>
+{% block page-header %}
+<h2>Место проведения</h2>
+{% endblock %}
 
-    <div class="row">
-        <div class="span4">
-            <div class="thumbnail">
-                <div id="map_canvas"></div>
-                <p><a id="large-map-link" href="/map/" target="_blank">Открыть карту на весь экран</a></p>
-            </div>
-        </div>
-        <div class="span4">
-            <hgroup>
-                <h3>{{ event.place}}</h3>
-            </hgroup>
-
-            <dl>
-                <dt>Адрес:</dt>
-                <dd>{{ event.city }}, {{ event.address }}</dd>
-
-                <dt>Координаты:</dt>
-                <dd>{{ event.coordinates }}</dd>
-
-                {{ event.place_note|safe }}
-            </dl>
-        </div>
+{% block content-main %}
+<div class="span4">
+    <div class="thumbnail">
+        <div id="map_canvas"></div>
+        <p><a id="large-map-link" href="/map/" target="_blank">Открыть карту на весь экран</a></p>
     </div>
 </div>
-<aside id="content-sup" class="span3">
-    {% include "inc/aside.inc" %}
-</aside>
+<div class="span4">
+    <hgroup>
+        <h3>{{ event.place}}</h3>
+    </hgroup>
+
+    <dl>
+        <dt>Адрес:</dt>
+        <dd>{{ event.city }}, {{ event.address }}</dd>
+
+        <dt>Координаты:</dt>
+        <dd>{{ event.coordinates }}</dd>
+
+        {{ event.place_note|safe }}
+    </dl>
+</div>
 {% endblock %}
 
 {% block extra_js %}

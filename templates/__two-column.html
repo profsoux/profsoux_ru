@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <article id="content-main" class="span9">
+        {% block page-header-wrapper %}
+        <div class="page-header clearfix">
+        {% block page-header %}{% endblock %}
+        </div>
+        {% endblock %}
+
+        <div class="row">
+            <div class="span8">
+            {% block content-main %}{% endblock %}
+            </div>
+        </div>
+    </article>
+    <aside id="content-sup" class="span3">
+    {% block aside %}
+        {% include "inc/aside.inc" %}
+    {% endblock %}
+    </aside>
+{% endblock %}

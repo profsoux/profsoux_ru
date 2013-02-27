@@ -1,28 +1,21 @@
-{% extends "base.html" %}
-
-{% load conference_tags %}
+{% extends "__two-column.html" %}
 
 {% block body_className %}page-speakers{% endblock %}
 
-{% block content %}
-<div class="row">
-    <div id="content-main" class="span9">
-        <div class="page-header clearfix">
-            <h2>Список докладов конференции</h2>
-        </div>
-        <ol>
-        {% for paper in papers|dictsort:"title" %}
+{% block page-header %}
+<h2>Список докладов конференции</h2>
+{% endblock %}
 
-            <li><a href="{{ paper.get_absolute_url }}">{{ paper.title|safe }}</a><br>
-            {% for speaker in paper.speaker.all %}
-                {{ speaker.person.first_name }}&nbsp;{{ speaker.person.last_name }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-            </li>
+{% block content-main %}
+<ol>
+{% for paper in papers|dictsort:"title" %}
 
-        {% endfor %}
-        </ol>
-</div>
-<aside id="content-sup" class="span3">
-    {% include "inc/aside.inc" %}
-</aside>
+    <li><a href="{{ paper.get_absolute_url }}">{{ paper.title|safe }}</a><br>
+    {% for speaker in paper.speaker.all %}
+        {{ speaker.person.first_name }}&nbsp;{{ speaker.person.last_name }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    </li>
+
+{% endfor %}
+</ol>
 {% endblock %}

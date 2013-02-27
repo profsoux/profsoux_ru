@@ -1,12 +1,19 @@
-{% extends 'base.html' %}
+{% extends '__two-column.html' %}
 
 {% load conference_tags %}
 
 {% block body_className %}page-home{% endblock %}
 
-{% block content %}
-<article id="content-main" class="span9">
+{% block page-header %}
+<h2>Итоги ProfsoUX 2012</h2>
 
+{% if user.is_staff %}
+    <p><a href="/results/export/">Скачать в Excel (для партнёров)</a><br>
+        <a href="/results/export/all/">Скачать в Excel (полный)</a></p>
+{% endif %}
+{% endblock %}
+
+{% block content-main %}
     <style type="text/css">
         .result-form {
 
@@ -41,16 +48,8 @@
             padding-left: 10px;
             padding-right: 30px;
         }
-
     </style>
 
-    <div class="page-header clearfix">
-        <h2>Итоги ProfsoUX 2012</h2>
-            {% if user.is_staff %}
-                <p><a href="/results/export/">Скачать в Excel (для партнёров)</a><br>
-                <a href="/results/export/all/">Скачать в Excel (полный)</a></p>
-            {% endif %}
-    </div>
     <div class="row">
         <p>Обработано анкет: {{ records }}.</p>
         <ul>
@@ -85,30 +84,29 @@
         {% endfor %}
         </table>
     </div>
+{% endblock %}
 
-</article>
-<aside id="content-sup" class="span3">
-    <h3>Размер компании</h3>
-    <table class="data">
-    {% for data in company_size %}
+{% block aside %}
+<h3>Размер компании</h3>
+
+<table class="data">
+{% for data in company_size %}
     <tr>
         <th>{{ data.title }}</th>
         <td>{{ data.count }}</td>
         <td>{{ data.part }}%</td>
     </tr>
-    {% endfor %}
-    </table>
+{% endfor %}
+</table>
 
-
-    <h3>Должности</h3>
-    <table class="data">
-    {% for data in positions %}
+<h3>Должности</h3>
+<table class="data">
+{% for data in positions %}
     <tr>
         <th>{{ data.title }}</th>
         <td>{{ data.count }}</td>
         <td>{{ data.part }}%</td>
     </tr>
-    {% endfor %}
-    </table>
-</aside>
+{% endfor %}
+</table>
 {% endblock %}

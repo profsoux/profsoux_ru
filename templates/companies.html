@@ -1,17 +1,16 @@
-{% extends "base.html" %}
+{% extends "__two-column.html" %}
 
 {% load conference_tags %}
 
 {% block body_className %}page-people{% endblock %}
 
-{% block content %}
-<div id="contant-main" class="span9">
-    <div class="page-header clearfix">
-        <h2>{{ title }}</h2>
+{% block page-header %}
+    <h2>{{ title }}</h2>
 
-        <p>Приглашаем компании к сотрудничеству. Посмотреть <a href="http://media.profsoux.ru/docs/ProfsoUX13-Sponsorship.pdf" target="_blank">спонсорское предложение</a> (pdf, 900 кб)</p>
-    </div>
+    <p>Приглашаем компании к сотрудничеству. Посмотреть <a href="http://media.profsoux.ru/docs/ProfsoUX13-Sponsorship.pdf" target="_blank">спонсорское предложение</a> (pdf, 900 кб)</p>
+{% endblock %}
 
+{% block content-main %}
     <div class="clearfix">
 
     {% regroup companies by partner_type as partners_list %}
@@ -20,7 +19,7 @@
         {% if not forloop.first %}
             <h3>{{ partner_group.grouper.title_plural }}</h3>
         {% endif %}
-        <ul class="list-of-partners span8">
+        <ul class="list-of-partners">
         {% for partner in partner_group.list %}
             <li class="partner">
                 <article class="row">
@@ -59,11 +58,7 @@
                 </article>
             </li>
         {% endfor %}
-         </ul>
+        </ul>
     {% endfor %}
     </div>
-</div>
-<aside id="content-sup" class="span3">
-    {% include "inc/aside.inc" %}
-</aside>
 {% endblock %}
