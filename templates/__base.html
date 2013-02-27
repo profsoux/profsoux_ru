@@ -1,5 +1,5 @@
 {% load conference_tags %}
-
+{% load staticfiles %}
 <!DOCTYPE HTML>
 <html lang="ru-RU">
 <head>
@@ -9,13 +9,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href="{{ STATIC_URL }}css/style.css?dt=20120519" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
 
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <link href="{{ STATIC_URL }}favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="{% static 'favicon.ico' %}" rel="shortcut icon" type="image/x-icon">
 </head>
 
 <body class="{% block body_className %}{% endblock %}">
@@ -49,9 +49,9 @@
 {% include "inc/footer.inc" %}
 {% endblock %}
 
-<script src="{{ STATIC_URL }}js/jquery.js"></script>
-<script src="{{ STATIC_URL }}js/bootstrap.js"></script>
-<script src="{{ STATIC_URL }}js/common.js?dt=20120519"></script>
+<script src="{% static "js/jquery.js" %}"></script>
+<script src="{% static "js/bootstrap.js" %}"></script>
+<script src="{% static "js/common.js" %}"></script>
 <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
 
 {% block extra_js %}{% endblock %}
