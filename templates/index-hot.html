@@ -1,20 +1,10 @@
+{% extends 'base.html' %}
+
 {% load conference_tags %}
 
-{% include "inc/html-head.inc" %}
+{% block body_className %}page-home{% endblock %}
 
-</head>
-<body class="page-home">
-
-<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/common.js"></script>
-
-{% years_menu %}
-
-{% main_menu %}
-
-    {% include "inc/header.inc" %}
-
-<div id="content-container" class="container">
+{% block content %}
     <div class="row">
         <div class="livestream span8" id="confVideoStream">&nbsp;</div>
 
@@ -32,13 +22,9 @@
         <div class="clearfix"></div>
         <ul id="confTweets" class="conf-tweets unstyled"></ul>
     </div>
+{% endblock %}
 
-    <div class="row">
-        {% partners_list %}
-    </div>  
-
-</div> <!-- /container -->
-
+{% block extra_js %}
 <script type="text/javascript">
 $(document).ready(function() {
     // tweets stream
@@ -51,5 +37,4 @@ $(document).ready(function() {
     });
 });
 </script>
-
-{% include "inc/footer.inc" %}
+{% endblock %}

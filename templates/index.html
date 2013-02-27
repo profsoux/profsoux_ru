@@ -1,90 +1,79 @@
+{% extends 'base.html' %}
+
 {% load conference_tags %}
 
-{% include "inc/html-head.inc" %}
+{% block body_className %}page-home{% endblock %}
 
-<body class="page-home">
+{% block content %}
+    <div class="row">
+        <section id="intro" class="span4">
+            {% if states.conference_ended %}
 
-<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/common.js"></script>
+                <p>19 мая в&nbsp;Санкт-Петербурге прошла конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия.</p>
 
-    {% years_menu %}
+                <p>Уже опубликованы презентации докладов, а так же  <a href="http://www.facebook.com/media/set/?set=oa.344384208963349&amp;type=1" target="_blank">фотографии с конференции</a>. Видеозаписи докладов вы можете посмотреть на <a href="https://vimeo.com/channels/profsoux2012" target="_blank">нашем канале</a>.</p>
 
-    {% main_menu %}
+                <p>Спасибо всем, кто <a href="http://profsoux.ru/organizers/">сделал эту конференцию</a>!</p>
 
-    {% include "inc/header.inc" %}
-        
-    <div id="content-container" class="container">
-        <div class="row">
-            <section id="intro" class="span4">
-                {% if states.conference_ended %}
+                <p><a href="{{ registration_url }}" class="btn btn-signup btn-primary btn-large">Хочу принять участие в&nbsp;ProfsoUX 2013</a>
 
-                    <p>19 мая в&nbsp;Санкт-Петербурге прошла конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия.</p>
+            {% else %}
 
-                    <p>Уже опубликованы презентации докладов, а так же  <a href="http://www.facebook.com/media/set/?set=oa.344384208963349&amp;type=1" target="_blank">фотографии с конференции</a>. Видеозаписи докладов вы можете посмотреть на <a href="https://vimeo.com/channels/profsoux2012" target="_blank">нашем канале</a>.</p>
+                <p><strong>ПрофсоUX</strong>&nbsp;&mdash; главная питерская конференция о&nbsp;юзабилити, UX&nbsp;и&nbsp;создании цифровых продуктов, ориентированных на&nbsp;человека.</p>
 
-                    <p>Спасибо всем, кто <a href="http://profsoux.ru/organizers/">сделал эту конференцию</a>!</p>
+                {% if states.registration_is_active %}
 
-                    <p><a href="{{ registration_url }}" class="btn btn-signup btn-primary btn-large">Хочу принять участие в&nbsp;ProfsoUX 2013</a>
+                    <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
+
+                    <small>Участие бесплатное.<br />
+                    Торопитесь! Количество мест ограничено.</small>
+                    Приём заявок прекращается<br />
+                    {{ dates.registration_end }}
+                    </p>
 
                 {% else %}
 
-                    <p><strong>ПрофсоUX</strong>&nbsp;&mdash; главная питерская конференция о&nbsp;юзабилити, UX&nbsp;и&nbsp;создании цифровых продуктов, ориентированных на&nbsp;человека.</p>
-                
-                    {% if states.registration_is_active %}
-
-                        <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
-
-                        <small>Участие бесплатное.<br />
-                        Торопитесь! Количество мест ограничено.</small>
-                        Приём заявок прекращается<br />
-                        {{ dates.registration_end }}
-                        </p>
-                        
-                    {% else %}
-
-                        <p><small>Приём заявок на участие в конференции завершён<br />
-                        Вы сможете присоединиться к онлайн-трансляции. Трансляция начнётся в 12:30 на нашем сайте.</small></p>
-
-                    {% endif %}
-
-                    <p class="small">Впервые в&nbsp;Санкт-Петербурге пройдет конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия. Доклады и&nbsp;дискуссии посвящены основным ступеням UX-процесса. Если вам интересны эти темы, то&nbsp;эта конференция для вас!</p>
-
-                    <p>Уже идут: {{ people_count }}. <a href="/people/">Кто идёт? »</a></p>
+                    <p><small>Приём заявок на участие в конференции завершён<br />
+                    Вы сможете присоединиться к онлайн-трансляции. Трансляция начнётся в 12:30 на нашем сайте.</small></p>
 
                 {% endif %}
 
-                {% include "inc/btn-share.inc" %}
-            </section>
-            <section id="programm" class="span4">
-                <h2>В программе</h2>
+                <p class="small">Впервые в&nbsp;Санкт-Петербурге пройдет конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия. Доклады и&nbsp;дискуссии посвящены основным ступеням UX-процесса. Если вам интересны эти темы, то&nbsp;эта конференция для вас!</p>
 
-                {% category_list %}
-                
-                <p><a href="/schedule/">Подробная программа »</a></p>
-            </section>
+                <p>Уже идут: {{ people_count }}. <a href="/people/">Кто идёт? »</a></p>
 
-            <section id="speakers" class="span4">
-                <h2>Докладчики</h2>
+            {% endif %}
 
-                {% speakers_list %}
-                
-                <p><a href="/speakers/">Все докладчики »</a></p>
-            </section>
-        </div>
-        {% if states.show_tweets %}
-        <div class="row">
-            <section id="confTweetsBlock" class="conf-tweets-block span12">
-                <h2>Twitter <a href="http://profsoux.ru/twitter/" target="_blank">#ProfsoUX</a></h2>
-                <ul id="confTweets" class="conf-tweets unstyled"></ul>
-            </section>
-        </div>
-        {% endif %}
+            {% include "inc/btn-share.inc" %}
+        </section>
+        <section id="programm" class="span4">
+            <h2>В программе</h2>
 
-        <div class="row">
-            {% partners_list %}
-        </div>
-    </div><!-- /container -->
+            {% category_list %}
 
+            <p><a href="/schedule/">Подробная программа »</a></p>
+        </section>
+
+        <section id="speakers" class="span4">
+            <h2>Докладчики</h2>
+
+            {% speakers_list %}
+
+            <p><a href="/speakers/">Все докладчики »</a></p>
+        </section>
+    </div>
+    {% if states.show_tweets %}
+    <div class="row">
+        <section id="confTweetsBlock" class="conf-tweets-block span12">
+            <h2>Twitter <a href="http://profsoux.ru/twitter/" target="_blank">#ProfsoUX</a></h2>
+            <ul id="confTweets" class="conf-tweets unstyled"></ul>
+        </section>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+    {% if states.show_tweets %}
     <script type="text/javascript">
     $(document).ready(function() {
         ui.twee.init({
@@ -93,5 +82,5 @@
         });
     });
     </script>
-    
-{% include "inc/footer.inc" %}
+    {% endif %}
+{% endblock %}

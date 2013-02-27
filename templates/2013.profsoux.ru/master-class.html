@@ -1,40 +1,25 @@
+{% extends 'base.html' %}
+
 {% load conference_tags %}
 
-{% include "inc/html-head.inc" %}
+{% block body_className %}page-home{% endblock %}
 
-<body class="page-home">
-
+{% block header %}
 {% include "inc/header-short.inc" %}
+{% endblock %}
 
-<div id="content-container" class="container">
-    <div class="row">
-        <div id="content-main" class="span9">
-            <div class="row">
-                <div class="span8">
-                    {{ flatpage.content|safe }}
-                </div>
+{% block content %}
+    <div id="content-main" class="span9">
+        <div class="row">
+            <div class="span8">
+                {{ flatpage.content|safe }}
             </div>
         </div>
-        <aside id="content-sup" class="span3">
-            <p><a href="http://profsoux.ru/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
-
-            <small>Мастер-класс проводится в России впервые, количество мест ограничено 20-ю.</small>
-        </p>
-        </aside>
     </div>
-</div><!-- /container -->
+    <aside id="content-sup" class="span3">
+        <p><a href="http://profsoux.ru/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
 
-<script src="{{ STATIC_URL }}js/jquery.js"></script>
-<!-- <script src="{{ STATIC_URL }}js/less.js"></script> -->
-<script src="{{ STATIC_URL }}js/bootstrap.js"></script>
-<script src="{{ STATIC_URL }}js/common.js?dt=20120519"></script>
-<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-
-<script>
-    var _gaq=[['_setAccount','UA-5272530-10'],['_trackPageview']];
-    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g,s)}(document,'script'));
-</script>
-</body>
-</html>
+        <small>Мастер-класс проводится в России впервые, количество мест ограничено 20-ю.</small>
+    </p>
+    </aside>
+{% endblock %}

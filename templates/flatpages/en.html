@@ -1,40 +1,36 @@
+{% extends 'base.html' %}
+
 {% load conference_tags %}
 
-{% include "inc/html-head.inc" %}
+{% block menu %}
+<nav id="nav-main" class="navbar">
+    <div class="navbar-inner">
+        <div class="container"></div>
+    </div>
+</nav>
+{% endblock %}
 
-<body>
+{% block header %}
+{% include "inc/header-en.inc" %}
+{% endblock %}
 
-    {% years_menu %}
-
-    <nav id="nav-main" class="navbar">
-        <div class="navbar-inner">
-            <div class="container"></div>
+{% block content %}
+    <div id="content-main" class="span9">
+        <div class="page-header clearfix">
+            <h2>{{ flatpage.title }}</h2>
         </div>
-    </nav>
 
-    {% include "inc/header-en.inc" %}
-
-    <div id="content-container" class="container">
         <div class="row">
-            <div id="content-main" class="span9">
-                <div class="page-header clearfix">
-                    <h2>{{ flatpage.title }}</h2>
-                </div>
-
-                <div class="row">
-                    <div class="span8">
-                    {{ flatpage.content|safe }}
-                    </div>
-                </div>
+            <div class="span8">
+            {{ flatpage.content|safe }}
             </div>
-            <aside id="content-sup" class="span3">
-                {% include "inc/aside-en.inc" %}
-            </aside>
         </div>
+    </div>
+    <aside id="content-sup" class="span3">
+        {% include "inc/aside-en.inc" %}
+    </aside>
+{% endblock %}
 
-        <div class="row">
-            {% partners_list %}
-        </div>
-    </div><!-- /container -->
-
+{% block footer %}
 {% include "inc/footer-en.inc" %}
+{% endblock %}
