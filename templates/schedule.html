@@ -1,102 +1,72 @@
+{% extends "__two-column.html" %}
+
 {% load conference_tags %}
 
-{% include "inc/html-head.inc" %}
+{% block body_className %}page-schedule{% endblock %}
 
-<body class="page-schedule">
+{% block page-header %}
+<h2>Программа</h2>
+{% endblock %}
 
-{% years_menu %}
+{% block content-main %}
+<div id="schedule" class="schedule">
 
-{% main_menu %}
+    <ul class="schedule-legends unstyled">
+        <li><span class="legend-view legend-analytics"></span><span class="legend-name">Аналитика</span></li>
+        <li><span class="legend-view legend-ui"></span><span class="legend-name">Проектирование</span></li>
+        <li><span class="legend-view legend-testing"></span><span class="legend-name">Тестирование</span></li>
+        <li><span class="legend-view legend-implementation"></span><span class="legend-name">Внедрение</span></li>
+    </ul>
+    <div class="schedule-axl">
 
-    {% include "inc/header.inc" %}
+        <span class="current-time"></span>
 
-    <div id="content-container" class="container">
-        <div class="row">
-            <article id="content-main" class="span9 clearfix">
+        <ul class="captions">
+            {% for caption in captions %}
+                <li class="caption time_{{ caption }}-00"><span class="text">{{ caption }}:00</span></li>
+            {% endfor %}
+        </ul>
 
-                <div class="page-header clearfix">
-                    <h2>Программа</h2>
-                </div>
+        <ul class="events">
 
-                <div id="schedule" class="schedule span8">
+        {% for item in items %}
+            <li style="position:absolute; top: {{ item.offset|multiply:"38" }}px; width: 100%;">
+                {% if item.section.lecture %}
+                    <a href="{{ item.section.lecture.get_absolute_url }}" class="event div-{{ item.section.duration }}
+                    {% if item.section.category %}
+                        legend-{{ item.section.lecture.category.class_name }}
+                    {% endif %}
+                    ">
+                {% else %}
+                    <span class="event div-{{ item.section.duration }}
+                    {% if item.section.category %}
+                        legend-{{ item.section.category.class_name }}
+                    {% endif %}
+                    ">
+                {% endif %}
 
-                    <ul class="schedule-legends unstyled">
-                        <li><span class="legend-view legend-analytics"></span><span class="legend-name">Аналитика</span></li>
-                        <li><span class="legend-view legend-ui"></span><span class="legend-name">Проектирование</span></li>
-                        <li><span class="legend-view legend-testing"></span><span class="legend-name">Тестирование</span></li>
-                        <li><span class="legend-view legend-implementation"></span><span class="legend-name">Внедрение</span></li>
-                    </ul>
-                    <div class="schedule-axl">
-
-                        <span class="current-time"></span>
-
-                        <ul class="captions">
-                            {% for caption in captions %}
-                                <li class="caption time_{{ caption }}-00"><span class="text">{{ caption }}:00</span></li>
+                    <span class="description">
+                        <time class="time">{{ item.section.start_time|time:"H:i" }}</time>
+                        {% if item.section.title %}
+                            {{ item.section.title|safe }}
+                        {% endif %}
+                        {% if item.section.lecture %}
+                            {% for speaker in item.section.lecture.speaker.all %}
+                                {{ speaker }}{% if forloop.last %}{% else %}, {% endif %}
                             {% endfor %}
-                        </ul>
+                            <em>«{{ item.section.lecture.title|safe }}»</em>
+                        {% endif %}
+                    </span>
+                {% if item.section.lecture %}
+                    </a>
+                {% else %}
+                    </span>
+                {% endif %}
+            </li>
 
-                        <ul class="events">
+        {% endfor %}
+        </ul>
 
-                        {% for item in items %}
-                            <li style="position:absolute; top: {{ item.offset|multiply:"38" }}px; width: 100%;">
-                                {% if item.section.lecture %}
-                                    <a href="{{ item.section.lecture.get_absolute_url }}" class="event div-{{ item.section.duration }}
-                                    {% if item.section.category %}
-                                        legend-{{ item.section.lecture.category.class_name }}
-                                    {% endif %}
-                                    ">
-                                {% else %}
-                                    <span class="event div-{{ item.section.duration }} 
-                                    {% if item.section.category %}
-                                        legend-{{ item.section.category.class_name }}
-                                    {% endif %}
-                                    ">
-                                {% endif %}
-                                    
-                                    <span class="description">
-                                        <time class="time">{{ item.section.start_time|time:"H:i" }}</time>
-                                        {% if item.section.title %}
-                                            {{ item.section.title|safe }}
-                                        {% endif %}
-                                        {% if item.section.lecture %}
-                                            {% for speaker in item.section.lecture.speaker.all %}
-                                                {{ speaker }}{% if forloop.last %}{% else %}, {% endif %}
-                                            {% endfor %} 
-                                            <em>«{{ item.section.lecture.title|safe }}»</em>
-                                        {% endif %}
-                                    </span>
-                                {% if item.section.lecture %}
-                                    </a>
-                                {% else %}
-                                    </span>
-                                {% endif %}
-                            </li>
-                                
-                        {% endfor %}
-                        </ul>
-
-                    </div>
-                </div>
-                
-            </article>
-            <aside id="content-sup" class="span3">
-                {% include "inc/aside.inc" %}
-
-                {% comment %}
-                <nav>
-                    <ul>
-                        <li><a href="./pdf/">Скачать программу (PDF)</a></li>
-                        <li><a href="./ical/">Добавить в Google Calendar</a></li>
-                    </ul>
-                </nav>
-                {% endcomment %}
-            </aside>
-        </div>
-        <div class="row">
-            {% partners_list %}
-        </div>
-    </div><!-- /container -->
-
-    
-{% include "inc/footer.inc" %}
+    </div>
+</div>
+{% endblock %}

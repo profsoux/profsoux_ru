@@ -1,37 +1,91 @@
-{% load conference_tags %}
+<!DOCTYPE HTML>
+<html lang="ru-RU">
+<head>
+    <meta charset="utf-8">
+    <title>ПрофсоUX – Первая UX-конференция в Санкт-Петербурге</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-{% include "inc/html-head.inc" %}
+    <link href="http://static.profsoux.ru/css/style.css?dt=20120519" rel="stylesheet">
 
-<body class="page-signup">
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-{% years_menu %}
+    <link href="http://static.profsoux.ru/favicon.ico" rel="shortcut icon" type="image/x-icon">
+</head>
 
-{% main_menu %}
+<body class="">
 
-    {% include "inc/header.inc" %}
+<nav id="nav-years" class="navbar visible-desktop">
+    <div class="navbar-inner">
+        <div class="container">
+        </div>
+    </div>
+</nav>
 
-    <div id="content-container" class="container">
+<nav id="nav-main" class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+        </div>
+    </div>
+</nav>
+
+<header id="header">
+    <div class="container">
+        <hgroup id="branding">
+            <div class="offset4">
+                <a id="logo" class="visible-desktop" href="/" title="Перейти на главную">
+                    <img src="http://static.profsoux.ru/img/branding/logo_profsoux.png" alt="ПрофсоUX" />
+                </a>
+                <h2 id="site-description">Конференция по юзабилити и проектированию взаимодействия</h2>
+                <p>&nbsp;</p>
+            </div>
+        </hgroup>
+    </div>
+</header>
+
+<div id="content-container" class="container">
+    <div class="row">
+
         <article id="content-main">
             <div class="row">
                 <div class="page-header clearfix">
-                    <h2 class="span6 offset2">Хьюстон, у нас проблемы!</h2>
+                    <h2 class="span6 offset2">Проблемы на сервере</h2>
                 </div>
             </div>
             <div class="row">
-                
+
                 <div class="span6 offset2">
                     <p>Наш сервер трудится не покладаю рук круглые сутки. Но иногда
-                        он устаёт и что-то внутри него ломается. В такие минуты он 
+                        он устаёт и что-то внутри него ломается. В такие минуты он
                         показывает эту страницу.</p>
 
                     <p>Не беспокойтесь, на помощь серверу уже выехала команда
                         опытных специалистов.</p>
 
-
                 </div>
             </div>
 
         </article>
-    </div><!-- /container -->
-    
-{% include "inc/footer.inc" %}
+    </div>
+</div>
+
+<footer id="footer">
+    <nav class="container">
+        <div class="row">
+        </div>
+        <div id="social">
+            <ul class="clearfix">
+                <li class="facebook"><a class="ico hide-text" href="https://www.facebook.com/events/488277977870243/" title="Facebook" target="_blank">Facebook</a></li>
+                <li class="twitter"><a class="ico hide-text" href="https://twitter.com/profsoux" title="Twitter" target="_blank">Twitter</a></li>
+                <li class="linkedin"><a class="ico hide-text" href="http://www.linkedin.com/groups/ProfsoUX-4806057" title="LinkedIn" target="_blank">LinkedIn</a></li>
+                <li class="vkontakte"><a class="ico hide-text" href="http://vk.com/profsoux" title="ВКонтакте" target="_blank">ВКонтакте</a></li>
+                <li class="email"><a class="ico hide-text" href="mailto:contact@ux-spb.ru" title="Написать письмо">Написать письмо</a></li>
+            </ul>
+        </div>
+    </nav>
+</footer>
+</body>
+</html>

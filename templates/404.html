@@ -1,37 +1,25 @@
-{% load conference_tags %}
+{% extends "__base.html" %}
 
-{% include "inc/html-head.inc" %}
+{% block content %}
+<article id="content-main">
+    <div class="row">
+        <div class="page-header clearfix">
+            <h2 class="span6 offset2">Такой страницы у нас нет</h2>
+        </div>
+    </div>
+    <div class="row">
 
-<body class="page-signup">
+        <div class="span6 offset2">
+            <p>Страницы с таким адресом на нашем сайте не существует,
+                либо вам попалась неправильная ссылка, либо мы что-то
+                изменили на сайте.</p>
 
-{% years_menu %}
-
-{% main_menu %}
-
-    {% include "inc/header.inc" %}
-
-    <div id="content-container" class="container">
-        <article id="content-main">
-            <div class="row">
-                <div class="page-header clearfix">
-                    <h2 class="span6 offset2">Такой страницы у нас нет</h2>
-                </div>
-            </div>
-            <div class="row">
-                
-                <div class="span6 offset2">
-                    <p>Страницы с таким адресом на нашем сайте не существует,
-                        либо вам попалась неправильная ссылка, либо мы что-то 
-                        изменили на сайте.</p>
-
-                    <p>Как бы то ни было, попробуйте <a href="/">вернуться на главную
-                        страницу</a> сайта. Скорее всего, вы найдёте то, что ищете.</p>
+            <p>Как бы то ни было, попробуйте <a href="/">вернуться на главную
+                страницу</a> сайта. Скорее всего, вы найдёте то, что ищете.</p>
 
 
-                </div>
-            </div>
+        </div>
+    </div>
 
-        </article>
-    </div><!-- /container -->
-    
-{% include "inc/footer.inc" %}
+</article>
+{% endblock %}

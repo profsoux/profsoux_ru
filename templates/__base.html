@@ -1,0 +1,66 @@
+{% load conference_tags %}
+{% load staticfiles %}
+<!DOCTYPE HTML>
+<html lang="ru-RU">
+<head>
+    <meta charset="utf-8">
+    <title>ПрофсоUX – Первая UX-конференция в Санкт-Петербурге</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="{% static 'favicon.ico' %}" rel="shortcut icon" type="image/x-icon">
+</head>
+
+<body class="{% block body_className %}{% endblock %}">
+
+{% years_menu %}
+
+{% block menu %}
+{% main_menu %}
+{% endblock %}
+
+{% block header %}
+{% include "inc/header.inc" %}
+{% endblock %}
+
+<div id="content-container" class="container">
+    <div class="row">
+    {% block content %}
+
+    {% endblock %}
+    </div>
+
+    {% block partners %}
+    <div class="row">
+        {% partners_list %}
+    </div>
+    {% endblock %}
+</div><!-- /container -->
+
+
+{% block footer %}
+{% include "inc/footer.inc" %}
+{% endblock %}
+
+<script src="{% static "js/jquery.js" %}"></script>
+<script src="{% static "js/bootstrap.js" %}"></script>
+<script src="{% static "js/common.js" %}"></script>
+<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+
+{% block extra_js %}{% endblock %}
+
+<script>
+    var _gaq=[['_setAccount','UA-5272530-10'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+</body>
+</html>

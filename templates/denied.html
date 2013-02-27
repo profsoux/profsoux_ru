@@ -1,30 +1,18 @@
-{% load conference_tags %}
+{% extends "__base.html" %}
 
-{% include "inc/html-head.inc" %}
+{% block content %}
+<article id="content-main">
+    <div class="row">
+        <div class="page-header clearfix">
+            <h2 class="span6 offset2">Доступ закрыт</h2>
+        </div>
+    </div>
+    <div class="row">
 
-<body class="page-signup">
+        <div class="span6 offset2">
+            <p>Мы не можем пропустить вас на секретный уровень нашего сайта.</p>
+        </div>
+    </div>
 
-{% years_menu %}
-
-{% main_menu %}
-
-    {% include "inc/header.inc" %}
-
-    <div id="content-container" class="container">
-        <article id="content-main">
-            <div class="row">
-                <div class="page-header clearfix">
-                    <h2 class="span6 offset2">Доступ закрыт</h2>
-                </div>
-            </div>
-            <div class="row">
-                
-                <div class="span6 offset2">
-                    <p>Мы не можем пропустить вас на секретный уровень нашего сайта.</p>
-                </div>
-            </div>
-
-        </article>
-    </div><!-- /container -->
-    
-{% include "inc/footer.inc" %}
+</article>
+{% endblock %}

@@ -1,94 +1,78 @@
-{% load conference_tags %}
+{% extends "__two-column.html" %}
 
-{% include "inc/html-head.inc" %}
+{% block body_className %}page-contacts{% endblock %}
 
-<body class="page-contacts">
+{% block page-header %}
+<h2>Остались вопросы?</h2>
+{% endblock %}
 
-{% years_menu %}
-
-{% main_menu %}
-
-    {% include "inc/header.inc" %}
-
-    <div id="content-container" class="container">
-        <div class="row">
-            <article id="content-main" class="span9 clearfix">
-                <div class="page-header clearfix">
-                    <h2>Остались вопросы?</h2>
-                </div>
-                <div>
-                    <form action="/contacts/" id="contact-form"method="POST">{% csrf_token %}
-                        {% if state == 'thanks' %}
-                            <div class="alert alert-block alert-success">
-                              <a class="close" data-dismiss="alert">×</a>
-                              <h4 class="alert-heading">Спасибо!</h4>
-                              Ваше сообщение отправлено
-                            </div>
-                        {% endif %}
-                        {% if form.errors %}
-                            <div class="alert alert-block alert-error">
-                              <a class="close" data-dismiss="alert">×</a>
-                              <h4 class="alert-heading">Произошла ошибка</h4>
-                              Проверьте правильность заполнения полей формы
-                            </div>
-                        {% endif %}
-
-                        <p>Вы можете позвонить нам по телефону <a href="tel:+78123369344">+7 (812) 336 93 44</a>
-                            или написать письмо. Так же вы можете позвонить по телефону
-                            <a href="tel:+79217414823">+7 921 741 48 23</a></p>
-
-                        <p>Для оперативной связи с организаторами во время конференции используйте
-                            <a href="http://twitter.com/search?q=#profsoux" target="_blank">#profsoux</a> в Твиттере.</p>
-
-                        <div class="control-group {% if form.name.errors %}error{% endif %}">
-                            <label class="control-label" for="id_name">{{ form.name.label }} <em>*</em></label>
-                            {{ form.name }}
-                        </div>
-
-                        <div class="control-group {% if form.email.errors %}error{% endif %}">
-                            <label class="control-label" for="id_email">{{ form.email.label }} <em>*</em></label>
-                            {{ form.email }}
-                        </div>
-
-                        <div class="control-group {% if form.site.errors %}error{% endif %}">
-                            <label class="control-label" for="id_site">{{ form.site.label }}</label>
-                            {{ form.site }}
-                        </div>
-
-                        <div class="control-group {% if form.comment.errors %}error{% endif %}">
-                            <label class="control-label" for="id_comment">{{ form.comment.label }} <em>*</em></label>
-                            {{ form.comment }}
-                        </div>
-
-                        <p><small><em>*</em> Обязательные поля</small></p>
-                        
-                        <button type="submit" id="submit-button" class="btn btn-primary btn-large">Отправить</button>
-                    </form>
-                </div>
-
-
-                <div id="follow-us" class="clearfix">
-                    <h3>Следите за нами!</h3>
-                        <div id="social">
-                            <ul class="clearfix">
-                                <li class="facebook"><a class="ico hide-text" href="https://www.facebook.com/events/488277977870243/" title="Facebook" target="_blank">Facebook</a></li>
-                                <li class="twitter"><a class="ico hide-text" href="https://twitter.com/profsoux" title="Twitter" target="_blank">Twitter</a></li>
-                                <li class="linkedin"><a class="ico hide-text" href="http://www.linkedin.com/groups/ProfsoUX-4806057" title="LinkedIn" target="_blank">LinkedIn</a></li>
-                                <li class="vkontakte"><a class="ico hide-text" href="http://vk.com/profsoux" title="ВКонтакте" target="_blank">ВКонтакте</a></li>
-                                <li class="email"><a class="ico hide-text" href="mailto:contact@ux-spb.ru" title="Написать письмо">Написать письмо</a></li>
-                            </ul>
-                        </div>
-                </div>
-            </article>
-
-            <aside id="content-sup" class="span3">
-                {% include "inc/aside.inc" %}
-            </aside>
-
-            <div class="row">
+{% block content-main %}
+<div>
+    <form action="/contacts/" id="contact-form"method="POST">{% csrf_token %}
+        {% if state == 'thanks' %}
+            <div class="alert alert-block alert-success">
+                <a class="close" data-dismiss="alert">×</a>
+                <h4 class="alert-heading">Спасибо!</h4>
+                Ваше сообщение отправлено
             </div>
+        {% endif %}
+        {% if form.errors %}
+            <div class="alert alert-block alert-error">
+                <a class="close" data-dismiss="alert">×</a>
+                <h4 class="alert-heading">Произошла ошибка</h4>
+                Проверьте правильность заполнения полей формы
+            </div>
+        {% endif %}
 
+        <p>Вы можете позвонить нам по телефону <a href="tel:+78123369344">+7 (812) 336 93 44</a>
+            или написать письмо. Так же вы можете позвонить по телефону
+            <a href="tel:+79217414823">+7 921 741 48 23</a></p>
+
+        <p>Для оперативной связи с организаторами во время конференции используйте
+            <a href="http://twitter.com/search?q=#profsoux" target="_blank">#profsoux</a> в Твиттере.</p>
+
+        <div class="control-group {% if form.name.errors %}error{% endif %}">
+            <label class="control-label" for="id_name">{{ form.name.label }} <em>*</em></label>
+            {{ form.name }}
         </div>
-    </div><!-- /container -->
-    
+
+        <div class="control-group {% if form.email.errors %}error{% endif %}">
+            <label class="control-label" for="id_email">{{ form.email.label }} <em>*</em></label>
+            {{ form.email }}
+        </div>
+
+        <div class="control-group {% if form.site.errors %}error{% endif %}">
+            <label class="control-label" for="id_site">{{ form.site.label }}</label>
+            {{ form.site }}
+        </div>
+
+        <div class="control-group {% if form.comment.errors %}error{% endif %}">
+            <label class="control-label" for="id_comment">{{ form.comment.label }} <em>*</em></label>
+            {{ form.comment }}
+        </div>
+
+        <p><small><em>*</em> Обязательные поля</small></p>
+
+        <button type="submit" id="submit-button" class="btn btn-primary btn-large">Отправить</button>
+    </form>
+</div>
+
+<div id="follow-us" class="clearfix">
+    <h3>Следите за нами!</h3>
+    <div id="social">
+        <ul class="clearfix">
+            <li class="facebook"><a class="ico hide-text" href="https://www.facebook.com/events/488277977870243/" title="Facebook" target="_blank">Facebook</a></li>
+            <li class="twitter"><a class="ico hide-text" href="https://twitter.com/profsoux" title="Twitter" target="_blank">Twitter</a></li>
+            <li class="linkedin"><a class="ico hide-text" href="http://www.linkedin.com/groups/ProfsoUX-4806057" title="LinkedIn" target="_blank">LinkedIn</a></li>
+            <li class="vkontakte"><a class="ico hide-text" href="http://vk.com/profsoux" title="ВКонтакте" target="_blank">ВКонтакте</a></li>
+            <li class="email"><a class="ico hide-text" href="mailto:contact@ux-spb.ru" title="Написать письмо">Написать письмо</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block partners %} {% endblock %}
+
+{% block footer %}
 {% include "inc/footer.inc" with nosocial="True" %}
+{% endblock %}

@@ -1,29 +1,20 @@
+{% extends '__base.html' %}
+
 {% load conference_tags %}
 
-{% include "inc/html-head.inc" %}
+{% block body_className %}page-home{% endblock %}
 
-<body class="page-home">
-
-<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/common.js"></script>
-
-{% years_menu %}
-
-{% main_menu %}
-
-{% include "inc/header.inc" %}
-
-<div id="content-container" class="container">
+{% block content %}
     <div class="row">
         <section id="intro" class="span4">
             <p><strong>ПрофсоUX</strong>&nbsp;&mdash; главная питерская конференция о&nbsp;юзабилити, UX&nbsp;и&nbsp;создании цифровых продуктов, ориентированных на&nbsp;человека.</p>
             {%if not states.conference_ended %}
 
-                {% if states.registration = "waiting" %}
+                {% if states.registration == "waiting" %}
                     {% if event.registration_start %}
                     <p>Приём заявок на участие в конференции «ProfsoUX» откроется <nobr>{{ event.registration_start }}</nobr></p>
                     {% endif %}
-                {% elif states.registration = "active" %}
+                {% elif states.registration == "active" %}
                     <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
 
                         <small>Торопитесь! Количество мест ограничено.</small><br />
@@ -91,21 +82,17 @@
         </section>
     </div>
     {% endif %}
+{% endblock %}
 
-    <div class="row">
-        {% partners_list %}
-    </div>
-</div><!-- /container -->
-
-{% if states.show_tweets %}
-<script type="text/javascript">
-    $(document).ready(function() {
-        ui.twee.init({
-            mode: 'normal',
-            searchQuery: '#profsoux since:2012-05-18 -filter:retweets'
-        });
-    });
-</script>
-{% endif %}
-
-{% include "inc/footer.inc" %}
+{% block extra_js %}
+    {% if states.show_tweets %}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                ui.twee.init({
+                    mode: 'normal',
+                    searchQuery: '#profsoux since:2012-05-18 -filter:retweets'
+                });
+            });
+        </script>
+    {% endif %}
+{% endblock %}

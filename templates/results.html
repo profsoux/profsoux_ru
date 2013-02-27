@@ -1,9 +1,19 @@
+{% extends '__two-column.html' %}
+
 {% load conference_tags %}
 
-{% include "inc/html-head.inc" %}
+{% block body_className %}page-home{% endblock %}
 
-<body class="page-signup">
+{% block page-header %}
+<h2>Итоги ProfsoUX 2012</h2>
 
+{% if user.is_staff %}
+    <p><a href="/results/export/">Скачать в Excel (для партнёров)</a><br>
+        <a href="/results/export/all/">Скачать в Excel (полный)</a></p>
+{% endif %}
+{% endblock %}
+
+{% block content-main %}
     <style type="text/css">
         .result-form {
 
@@ -38,87 +48,65 @@
             padding-left: 10px;
             padding-right: 30px;
         }
-
     </style>
 
-    {% years_menu %}
+    <div class="row">
+        <p>Обработано анкет: {{ records }}.</p>
+        <ul>
+            <li>Уровень конференции в целом: {{ rates.conf_rate_1__avg }}</li>
+            <li>Количество новой полезной информации: {{ rates.conf_rate_2__avg }}</li>
+            <li>Качество организации: {{ rates.conf_rate_3__avg }}</li>
+            <li>Уровень докладов: {{ rates.conf_rate_4__avg }}</li>
+        </ul>
 
-    {% main_menu %}
-
-    {% include "inc/header.inc" %}
-
-    <div id="content-container" class="container">
-        <div class="row">
-        <article id="content-main" class="span9">
-
-            <div class="page-header clearfix">
-                <h2>Итоги ProfsoUX 2012</h2>
-                    {% if user.is_staff %}
-                        <p><a href="/results/export/">Скачать в Excel (для партнёров)</a><br>
-                        <a href="/results/export/all/">Скачать в Excel (полный)</a></p>
-                    {% endif %}
-            </div>
-            <div class="row">
-                <p>Обработано анкет: {{ records }}.</p>
-                <ul>
-                    <li>Уровень конференции в целом: {{ rates.conf_rate_1__avg }}</li>
-                    <li>Количество новой полезной информации: {{ rates.conf_rate_2__avg }}</li>
-                    <li>Качество организации: {{ rates.conf_rate_3__avg }}</li>
-                    <li>Уровень докладов: {{ rates.conf_rate_4__avg }}</li>
-                </ul>
-
-                <table class="data">
-                    <tr>
-                        <th>&nbsp;</th>
-                        <th>Тема доклада</th>
-                        <th>Общая оценка</th>
-                        <th>Понравился</th>
-                    </tr>
-                {% for lecture in lectures %}
-                    <tr>
-                        <th>
-                            {{ lecture.lecture|safe }}
-                        </th>
-                        <td>
-                            {{ lecture.data.theme_rate__avg|floatformat:3 }}
-                        </td>
-                        <td>
-                            {{ lecture.data.total_rate__avg|floatformat:3 }}
-                        </td>
-                        <td>
-                            {{ lecture.data.favorite__sum|floatformat }}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </table>
-            </div>
-
-        </article>
-        <aside id="content-sup" class="span3">
-            <h3>Размер компании</h3>
-            <table class="data">
-            {% for data in company_size %}
+        <table class="data">
             <tr>
-                <th>{{ data.title }}</th>
-                <td>{{ data.count }}</td>
-                <td>{{ data.part }}%</td>
+                <th>&nbsp;</th>
+                <th>Тема доклада</th>
+                <th>Общая оценка</th>
+                <th>Понравился</th>
             </tr>
-            {% endfor %}
-            </table>
-
-
-            <h3>Должности</h3>
-            <table class="data">
-            {% for data in positions %}
+        {% for lecture in lectures %}
             <tr>
-                <th>{{ data.title }}</th>
-                <td>{{ data.count }}</td>
-                <td>{{ data.part }}%</td>
+                <th>
+                    {{ lecture.lecture|safe }}
+                </th>
+                <td>
+                    {{ lecture.data.theme_rate__avg|floatformat:3 }}
+                </td>
+                <td>
+                    {{ lecture.data.total_rate__avg|floatformat:3 }}
+                </td>
+                <td>
+                    {{ lecture.data.favorite__sum|floatformat }}
+                </td>
             </tr>
-            {% endfor %}
-            </table>
-        </aside>
-        </div>
-    </div><!-- /container -->
-    
-{% include "inc/footer.inc" %}
+        {% endfor %}
+        </table>
+    </div>
+{% endblock %}
+
+{% block aside %}
+<h3>Размер компании</h3>
+
+<table class="data">
+{% for data in company_size %}
+    <tr>
+        <th>{{ data.title }}</th>
+        <td>{{ data.count }}</td>
+        <td>{{ data.part }}%</td>
+    </tr>
+{% endfor %}
+</table>
+
+<h3>Должности</h3>
+<table class="data">
+{% for data in positions %}
+    <tr>
+        <th>{{ data.title }}</th>
+        <td>{{ data.count }}</td>
+        <td>{{ data.part }}%</td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}

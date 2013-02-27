@@ -1,41 +1,21 @@
-{% load conference_tags %}
+{% extends "__two-column.html" %}
 
-{% include "inc/html-head.inc" %}
+{% block body_className %}page-speakers{% endblock %}
 
-<body class="page-speakers">
+{% block page-header %}
+<h2>Список докладов конференции</h2>
+{% endblock %}
 
-{% years_menu %}
+{% block content-main %}
+<ol>
+{% for paper in papers|dictsort:"title" %}
 
-{% main_menu %}
+    <li><a href="{{ paper.get_absolute_url }}">{{ paper.title|safe }}</a><br>
+    {% for speaker in paper.speaker.all %}
+        {{ speaker.person.first_name }}&nbsp;{{ speaker.person.last_name }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    </li>
 
-{% include "inc/header.inc" %}
-
-
-<div id="content-container" class="container">
-    <div class="row">
-        <div id="content-main" class="span9">
-            <div class="page-header clearfix">
-                <h2>Список докладов конференции</h2>
-            </div>
-            <ol>
-            {% for paper in papers|dictsort:"title" %}
-
-                <li><a href="{{ paper.get_absolute_url }}">{{ paper.title|safe }}</a><br>
-                {% for speaker in paper.speaker.all %}
-                    {{ speaker.person.first_name }}&nbsp;{{ speaker.person.last_name }}{% if not forloop.last %}, {% endif %}
-                {% endfor %}
-                </li>
-
-            {% endfor %}
-            </ol>
-    </div>
-    <aside id="content-sup" class="span3">
-        {% include "inc/aside.inc" %}
-    </aside>
-</div>
-<div class="row">
-    {% partners_list %}
-</div>
-</div><!-- /container -->
-
-{% include "inc/footer.inc" %}
+{% endfor %}
+</ol>
+{% endblock %}
