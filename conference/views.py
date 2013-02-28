@@ -9,7 +9,7 @@ from icalendar import Calendar, Event
 import pytz
 import vobject
 
-from django.shortcuts import render, redirect, get_list_or_404
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.core.context_processors import csrf
 from django.views.generic import ListView
 from django.db.models import Count, Avg, Sum
@@ -78,7 +78,7 @@ def organizers(request):
 
 
 def speaker(request, speaker_id):
-    speaker = Speaker.objects.get(id=speaker_id)
+    speaker = get_object_or_404(Speaker, id=speaker_id)
     return render(request,
                   get_template('speaker.html', request),
                   {
@@ -246,7 +246,7 @@ def pdf(request):
 
 
 def paper(request, paper_id):
-    paper = Lecture.objects.get(id=paper_id)
+    paper = get_object_or_404(Lecture, id=paper_id)
     return render(request,
         'paper.html',
         {'paper': paper})
