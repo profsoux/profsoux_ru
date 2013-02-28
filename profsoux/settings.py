@@ -56,6 +56,8 @@ THOUSAND_SEPARATOR = " "
 
 LANGUAGE_CODE = 'ru-RU'
 
+FIRST_DAY_OF_WEEK = 1
+
 DATE_FORMAT = 'd E Y'
 
 DATE_INPUT_FORMATS = ('%d.%m.%Y', '%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y',
@@ -98,9 +100,9 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+# Put strings here, like "/home/html/static" or "C:/www/django/static".
+# Always use forward slashes, even on Windows.
+# Don't forget to use absolute paths, not relative paths.
 )
 
 # List of finder classes that know how to find static files in
@@ -108,7 +110,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
@@ -120,7 +122,7 @@ SECRET_KEY = '0rda)md)mwiny^z!-v2b)t2m-6*j$=m=f)ql4_+s6!&e+#l-zo'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    #     'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -187,8 +189,8 @@ LOGGING = {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
-        },
-    }
+            },
+        }
 }
 
 # TinyMCE Settings
@@ -202,7 +204,7 @@ TINYMCE_DEFAULT_CONFIG = {
     #'theme_advanced_toolbar_location' : "top",
     #'theme_advanced_resizing' : True,
     'extended_valid_elements': "article[name|href|target|title|onclick],section",
-}
+    }
 
 
 # Filebrowser Settings
@@ -210,3 +212,9 @@ FILEBROWSER_DIRECTORY = MEDIA_ROOT
 
 #EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 #EMAIL_FILE_PATH = '/tmp/app-messages'   # change this to a proper location
+
+EMAIL_SUBJECT_PREFIX = "[Profsoux.ru] "
+
+SEND_BROKEN_LINK_EMAILS = True
+
+SERVER_EMAIL = 'server@profsoux.ru'
