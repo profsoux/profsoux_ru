@@ -235,8 +235,8 @@ class ScheduleSection(models.Model):
 class Participant(models.Model):
     first_name = models.CharField("Имя", max_length=64)
     last_name = models.CharField("Фамилия", max_length=64)
-    phone = models.CharField("Телефон", max_length=24, blank=True, null=True)
-    email = models.EmailField("Email", blank=True, null=True)
+    phone = models.CharField("Телефон", max_length=24, blank=True, null=True, default="")
+    email = models.EmailField("Email", blank=True, null=True, default="none@none.test")
     company_name = models.CharField("Компания", max_length=128, blank=True, null=True)
     position = models.CharField("Должность", max_length=64, blank=True, null=True)
     comment = models.TextField("Ваши предложения и пожелания", blank=True, null=True)
