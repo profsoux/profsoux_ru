@@ -4723,11 +4723,13 @@ a.thumbnail:hover {
 }
 #partners h2 a,
 #organizers h2 a {
+  display: inline;
   color: #000000;
+  border-bottom: solid 1px #d0cbc5;
 }
 #partners h2 a:hover,
 #organizers h2 a:hover {
-  text-decoration: underline;
+  border-color: #323232;
   color: #323232;
 }
 #organizers h3,

@@ -7,26 +7,28 @@
 {% endblock %}
 
 {% block content-main %}
-<div class="span4">
-    <div class="thumbnail">
-        <div id="map_canvas"></div>
-        <p><a id="large-map-link" href="/map/" target="_blank">Открыть карту на весь экран</a></p>
+<div class="row">
+    <div class="span4">
+        <div class="thumbnail">
+            <div id="map_canvas"></div>
+            <p><a id="large-map-link" href="/map/" target="_blank">Открыть карту на весь экран</a></p>
+        </div>
     </div>
-</div>
-<div class="span4">
-    <hgroup>
-        <h3>{{ event.place}}</h3>
-    </hgroup>
+    <div class="span4">
+        <hgroup>
+            <h3>{{ event.place}}</h3>
+        </hgroup>
 
-    <dl>
-        <dt>Адрес:</dt>
-        <dd>{{ event.city }}, {{ event.address }}</dd>
+        <dl>
+            <dt>Адрес:</dt>
+            <dd>{{ event.city }}, {{ event.address }}</dd>
 
-        <dt>Координаты:</dt>
-        <dd>{{ event.coordinates }}</dd>
+            <dt>Координаты:</dt>
+            <dd>{{ event.coordinates }}</dd>
 
-        {{ event.place_note|safe }}
-    </dl>
+            {{ event.place_note|safe }}
+        </dl>
+    </div>
 </div>
 {% endblock %}
 

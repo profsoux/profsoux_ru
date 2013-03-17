@@ -239,6 +239,9 @@ class ResultAdmin(admin.ModelAdmin):
 class MenuAdmin(EventMixin, admin.ModelAdmin):
     list_display = ["name", "link"]
 
+class EventAdmin(admin.ModelAdmin):
+    list_display = ['domain', 'default']
+
 
 admin.site.register(Person)
 admin.site.register(Lecture, EventMixin)
@@ -253,4 +256,4 @@ admin.site.register(PartnerStatus)
 admin.site.register(Result, ResultAdmin)
 admin.site.register(LectureRate)
 admin.site.register(AddressBook)
-admin.site.register(Event)
+admin.site.register(Event, EventAdmin)
