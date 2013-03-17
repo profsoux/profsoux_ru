@@ -29,7 +29,7 @@ $(function() {
     var rawParamsStr, tmp, rawParams;
     var settings = {
         width: 'auto',
-        searchQuery: '#profsoux OR "profsoux.ru" since:2012-05-19'
+        searchQuery: '#profsoux OR "profsoux.ru" since:{{ event.date|date:"Y-m-d" }}'
     };
 
     if (window.location.hash.length > 1) {
