@@ -90,7 +90,7 @@
             $(document).ready(function() {
                 ui.twee.init({
                     mode: 'normal',
-                    searchQuery: '#profsoux since:2012-05-18 -filter:retweets'
+                    searchQuery: '#profsoux since:{{ event.date|date:"Y-m-d" }} -filter:retweets'
                 });
             });
         </script>
