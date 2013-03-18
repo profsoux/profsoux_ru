@@ -30,6 +30,9 @@ class Papers(ListView):
     context_object_name = 'papers'
     template_name = 'papers.html'
 
+    def get_queryset(self):
+        return Lecture.objects.filter(event=self.request.event)
+
 
 def index(request):
     people_count = Participant.objects.filter(event=request.event).count()
