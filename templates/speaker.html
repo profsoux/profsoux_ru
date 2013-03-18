@@ -58,7 +58,9 @@
 <nav>
     <ul>
         <li><a href="/speakers/">Другие докладчики »</a></li>
+        {% if event.show_programm %}
         <li><a href="/schedule/">Список докладов »</a></li>
+        {% endif %}
     </ul>
 </nav>
 {% endblock %}
