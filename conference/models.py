@@ -52,6 +52,7 @@ class Event(models.Model):
     domain = models.CharField('Доменное имя', max_length=64)
     short_name = models.CharField('Краткое назание', max_length=8)
     default = models.BooleanField('Активная конферениция', default=False)
+    show_programm = models.BooleanField('Показывать программу', default=False)
     title = models.CharField('Название', max_length=256)
     description = models.TextField('Описание', null=True, blank=True)
     date = models.DateField('Дата проведения')
