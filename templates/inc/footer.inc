@@ -1,7 +1,7 @@
     <footer id="footer">
         <nav class="container">
             <div class="row">
-                {% if counts.lectures %}
+                {% if event.show_programm %}
                 <div class="span3">
                     <h3>Что будет?</h3>
                     <p><a href="/schedule/">Программа конференции</a></p>
