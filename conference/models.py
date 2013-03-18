@@ -153,7 +153,7 @@ class PartnerStatus(models.Model):
 class Lecture(models.Model):
     title = models.CharField("Название доклада", max_length=255)
     speaker = models.ManyToManyField('Speaker', verbose_name='Докладчик')
-    category = models.ForeignKey('Category', verbose_name='Категория доклада')
+    category = models.ForeignKey('Category', verbose_name='Категория доклада', blank=True, null=True)
     timing = models.IntegerField('Предполагаемая длительность, мин.', blank=True, null=True)
     description = models.TextField("Описание доклада", blank=True)
     thesises = models.TextField("Тезисы доклада", blank=True)
