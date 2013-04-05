@@ -24,10 +24,6 @@
             {{ event.registration_end }}
             {% endif %}
         </p>
-
-        <p>Speakers are encouraged to submit their proposals for presentations and workshops by 1st of April 2013.
-           Presentations and workshops can be delivered in English or Russian.
-           Please send your proposal to <a href="mailto:pc-chairs@ux-spb.ru"><nobr>pc-chairs@ux-spb.ru</nobr></a>.</p>
     {% else %}
         <p><small>Registration is closed <br />
         Watch us live. The live video stream will start at 11:30</small></p>
