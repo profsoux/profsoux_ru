@@ -47,23 +47,30 @@ body {
 .program-period {
     box-sizing: border-box;
     margin-right: 2px;
+    margin-right: -1px;
     padding: 6px 10px 0 0;
     height: $program-period-height;
-    border-bottom: 1px solid #ccc;
-    border-right: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+
     color: #999;
 }
 
 .program-flow {
+    &.first {
+        border-left: 1px solid #ccc;
+    }
+    &.first .program-item {
+        margin-left: 2px;
 
+    }
 }
 
 .program-flow-title {
+    padding: 0 10px;
     height: 25px;
     margin-top: -25px;
     font-size: 18px;
     font-weight: bold;
-
 }
 
 .program-item {
