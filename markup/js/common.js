@@ -97,6 +97,315 @@ ui.schedule = {
     }
 };
 
+ui.create = function(data, options) {
+    var mode,
+        parent = (options && 'parent' in options) ? options.parent : null,
+        retval,
+        result;
+
+    if (typeof data === 'string' || typeof data === 'number') {
+        mode = 'text';
+    } else if (data instanceof Array) {
+        mode = 'elem_set';
+    } else {
+        mode = 'elem';
+    }
+
+    switch (mode) {
+        case 'text':
+            result = document.createTextNode(data);
+            retval = result;
+            break;
+
+        case 'elem':
+            result = createElements( [data], options );
+            retval = (result.fragment.childNodes.length === 1) ? result.fragment.childNodes[0] : result.fragment.childNodes;
+            break;
+
+        case 'elem_set':
+            result = createElements( data, options );
+            retval = result;
+            break;
+    }
+
+    if (parent) {
+        parent.appendChild(result);
+    }
+
+    return retval;
+
+    function createElements(data, options, parent) {
+        var fragment,
+            set = [],
+            cache, contentCache,
+            item, i, j;
+
+        fragment = document.createDocumentFragment();
+
+        for (i = 0; i < data.length; i++) {
+            item = data[i];
+
+            if (typeof item === 'string') {
+                // TEXT NODE
+                fragment.appendChild(document.createTextNode(item));
+            } else {
+                // SINGLE NODE
+                if (!item.c || typeof item.c === 'string') {
+                    // single element
+                    cache = createElement(item, options, fragment);
+                    if (item.get) {
+                        set.push(cache);
+                    }
+                } else {
+                    // NODES TREE
+                    contentCache = item.c;
+
+                    if (item.get) {
+                        cache = createElement(item, options);
+                        set.push(cache);
+                    } else {
+                        cache = createElement(item, options);
+                    }
+
+                    var l = createElements(contentCache, options, cache);
+
+                    if (l.set.length > 0) {
+                        for (j = 0; j < l.set.length; j++) {
+                            set.push(l.set[j]);
+                        }
+                    }
+                    fragment.appendChild(cache);
+                }
+            }
+        }
+
+        if (parent) {
+            parent.appendChild(fragment);
+        }
+
+        return {
+            set: set,
+            fragment: fragment
+        };
+    }
+
+    function createElement(data, options, parent) {
+        var options = (typeof options !== 'undefined') ? options : {},
+            prefix = '',
+            className = '',
+            isTextNode = (typeof data === 'string'),
+            tagName = data.tag || 'div',
+            element;
+
+        if (typeof data.prefix !== 'undefined') {
+            prefix = data.prefix;
+        } else if (typeof options.prefix !== 'undefined') {
+            prefix = options.prefix;
+        }
+
+        className = (typeof data.e !== 'undefined') ? data.e : '';
+        className = prefix + className;
+
+        if (isTextNode) {
+            element = document.createTextNode(data);
+        } else {
+            element = document.createElement(tagName);
+
+            if (className !== '') {
+                element.className = className;
+            }
+
+            delete (data.e);
+            delete (data.tag);
+
+            if (data.c && typeof data.c === 'string') {
+                element.appendChild(document.createTextNode(data.c));
+                delete data.c;
+            }
+
+            if (data.style){
+                for (var p in data.style){
+                    element.style[p] = data.style[p];
+                }
+                delete data.style;
+            }
+
+            for (var p in data){
+                element[p] = data[p];
+            }
+        }
+
+        if (parent) {
+            parent.appendChild(element);
+        }
+
+        return element;
+    }
+};
+
+ui.program = {
+    timelineSegmentHeight: null,
+
+    data: null,
+
+    init: function(opts) {
+        var that = this,
+            data = opts.data,
+            table;
+
+        that.data = data;
+        that.timelineSegmentHeight = that._getTimelineSegmentHeight();
+
+        table = that.tpl.table(opts);
+
+        return table;
+    },
+
+    getItemsInFlow: function(id) {
+        var items = this.data.items,
+            f = [];
+
+        for (var i = 0, l = items.length; i < l; i++) {
+            if (items[i].flowId === id) {
+                f.push(items[i]);
+            }
+        }
+
+        return f;
+    },
+
+    _getTimelineSegmentHeight: function() {
+        var testNode, testTimelineSegment,
+            segmentHeight = 0;
+
+        testNode = ui.create({tag: 'div',
+            style: {width: 0, height: 0, visibility: 'hidden', overflow: 'hidden'}
+        });
+        testTimelineSegment = ui.create({e:'program-timeline', c: [{e:'segment'}]});
+        testNode.appendChild(testTimelineSegment);
+        document.body.appendChild(testNode);
+        segmentHeight = testTimelineSegment.offsetHeight;
+        document.body.removeChild(testNode)
+
+        return segmentHeight;
+    },
+
+    tpl: {
+        table: function(opts) {
+            var tpl = this,
+                data = opts.data,
+                table,
+                timeline, timelineCell,
+                flowCell, flowTitle, itemsInFlow,
+                flowItem,
+                i, j,
+                programRow;
+
+            table = ui.program.tpl.tableLayout(opts);
+
+            programRow = table.set[0];
+            timelineCell = table.set[1];
+
+            timeline = tpl.timeline(opts.from, opts.to, opts.segments);
+            timelineCell.appendChild(timeline);
+
+            for (i = 0, il = data.flows.length; i < il; i++) {
+                itemsInFlow = ui.program.getItemsInFlow(data.flows[i].id);
+                flowTitle = data.flows[i].title;
+                flowCell = tpl.flowCell(flowTitle, i === 0);
+
+                for (j = 0; j < itemsInFlow.length; j++) {
+                    flowItem = tpl.item(itemsInFlow[j]);
+                    flowCell.appendChild(flowItem);
+                }
+
+                programRow.appendChild(flowCell);
+            }
+
+            return table.fragment;
+        },
+        tableLayout: function() {
+            var table = ui.create([{
+                tag: 'table',
+                e: 'program program-flows-count_4',
+                c: [{
+                    tag: 'tr',
+                    e: 'program-row',
+                    c: [
+                       {tag: 'td', e: 'program-timeline', get: 1}
+                    ],
+                    get: 1
+                }]
+            }]);
+
+            return table;
+        },
+        flowCell: function(title, isFirst) {
+            return ui.create({
+                e: 'program-flow' + ((isFirst) ? ' first' : ''),
+                tag: 'td',
+                c: [
+                    {e: 'program-flow-title', c: [
+                        {e: 'title', c: title}
+                    ]}
+                ]}
+            );
+        },
+        item: function(item) {
+            return ui.create({
+                e: 'program-item duration_'+ item.duration,
+                c: [
+                    {e: 'time', c: item.startTime},
+                    {e: 'title', c: item.title},
+                    {e: 'person', c: item.person}
+                ]
+            });
+        },
+        timelineSegment: function(label, isLast) {
+            return ui.create({e: 'segment' + (isLast ? ' last' : ''), c: [
+                {e: 'segment-line', style: {width: '1000px'}},
+                {e: 'segment-label', c: label}
+            ]});
+        },
+        timelineSubsegment: function(label) {
+            return ui.create({e: 'subsegment', c: [{
+                e: 'subsegment-label', c: label
+            }]});
+        },
+        timeline: function(from, to, subsegments) {
+            var from = Number(from.split(':')[0]),
+                to = Number(to.split(':')[0]),
+                segmentHeight = ui.program.timelineSegmentHeight,
+                subsegments = (typeof subsegments !== 'undefined') ? subsegments : 2,
+                subsegmentDuration = (subsegments > 0) ? Math.round(60 / subsegments) : 0,
+                subsegmentPxStep = Math.round(segmentHeight / subsegments),
+                segment, subsegment, label, sublabel,
+                fragment = document.createDocumentFragment(),
+                i, j;
+
+            // Segments
+            for (i = from; i <= to; i++) {
+                label = i.toString() + ':00';
+                segment = ui.program.tpl.timelineSegment(label, i === to);
+
+                // Sub-segments
+                if (i < to) {
+                    for (j = 1; j < subsegments; j++) {
+                        sublabel = i.toString() + ':' + (j * subsegmentDuration).toString();
+                        subsegment = ui.program.tpl.timelineSubsegment(sublabel);
+                        subsegment.style.top = (subsegmentPxStep * j).toString() + 'px';
+                        segment.appendChild(subsegment);
+                    }
+                }
+
+                fragment.appendChild(segment);
+            }
+
+            return fragment;
+        }
+    }
+};
+
 /**
  * Tweets stream
  */
