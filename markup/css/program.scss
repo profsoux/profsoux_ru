@@ -1,5 +1,8 @@
-$program-period-height: 160px;
-$program-background-color: #F6F6F6;
+// TODO: отрефакторить стили
+
+$program-period-height: 200px;
+//$program-background-color: #F6F6F6;
+$program-background-color: #ccc;
 
 @mixin item-height($percent) {
     $extra-px: 0;
@@ -25,15 +28,8 @@ body {
 
 .program td {
     position: relative;
-    border: 0;
     padding: 0;
     vertical-align: top;
-}
-
-.program-flows-count_4 {
-    .program-flow {
-        width: 25%;
-    }
 }
 
 .program-row {
@@ -42,6 +38,7 @@ body {
 
 .program-timeline {
     width: 40px;
+    border-right: 1px solid #ccc;
 
     .segment {
         position: relative;
@@ -88,13 +85,12 @@ body {
 
 
 .program-flow {
-    &.first {
-        width: 50%;
-        border-left: 1px solid #ccc;
-    }
+    &.code_Z1 {width: 50%;}
+    &.code_Z2 {width: 25%;}
+    &.code_HALL {width: 25%;}
+
     &.first .program-item {
         margin-left: 2px;
-
     }
 }
 
@@ -121,10 +117,6 @@ body {
     border-bottom: 2px solid #fff;
     border-right: 2px solid #fff;
 
-    @for $i from 1 through 60 {
-        &.duration_#{$i} {@include item-height($i);}
-    }
-
     &.common {width: 400%;}
     &.section_testing {}
 
@@ -135,11 +127,12 @@ body {
     }
 
     .title {
-        display: inline-block;
+        display: inline;
+        padding-right: 5px;
         font-weight: bold;
     }
 
     .person {
-        display: block;
+        display: inline-block;
     }
 }
