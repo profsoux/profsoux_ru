@@ -1,9 +1,9 @@
 var programData = {};
 
 programData.flows = [
-    {id: 1, title: 'Зал 1', startTime: '10:00'},
-    {id: 2, title: 'Зал 2', startTime: '16:00'},
-    {id: 3, title: 'Холл', startTime: '9:00'}
+    {id: 1, title: 'Зал 1', code: 'Z1', startTime: '10:00'},
+    {id: 2, title: 'Зал 2', code: 'Z2', startTime: '16:00'},
+    {id: 3, title: 'Холл', code: 'HALL', startTime: '9:00'}
 ];
 
 programData.items = [
@@ -29,7 +29,7 @@ programData.items = [
 
     {
         title: 'Похождения одного благонамеренного', person: 'Иван Станюкевич',
-        flowId: 2, duration: 20, startTime: '10:30'
+        flowId: 2, duration: 20
     }, {
         title: 'Кристалл воображения', person: 'Владимир Казанцев',
         flowId: 2, duration: 15
@@ -43,7 +43,7 @@ programData.items = [
 
     {
         title: 'Секретная техника фабрики швабр', person: 'Сергей Шемякин',
-        flowId: 3, duration: 15, startTime: '9:00'
+        flowId: 3, duration: 15
     }, {
         title: 'Словарь морских терминов, встречающихся в рассказах', person: 'Андрей Паничев',
         flowId: 3, duration: 20
