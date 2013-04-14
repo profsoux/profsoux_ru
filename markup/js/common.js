@@ -1,4 +1,4 @@
-var ui = new Object();
+var ui = {};
 
 /**
  * Constants
@@ -248,7 +248,7 @@ ui.program = {
 
     data: null,
 
-    init: function(opts) {
+    generate: function(opts) {
         var that = this,
             data = opts.data,
             table;
@@ -261,7 +261,7 @@ ui.program = {
         return table;
     },
 
-    getItemsInFlow: function(id) {
+    getFlowItems: function(id) {
         var items = this.data.items,
             f = [];
 
@@ -272,6 +272,14 @@ ui.program = {
         }
 
         return f;
+    },
+
+    fromMinutesToPx: function(duration) {
+        var segmentHeight = this.timelineSegmentHeight,
+            px;
+
+        px = Math.round( (duration * segmentHeight) / 60 );
+        return px;
     },
 
     _getTimelineSegmentHeight: function() {
@@ -285,41 +293,67 @@ ui.program = {
         testNode.appendChild(testTimelineSegment);
         document.body.appendChild(testNode);
         segmentHeight = testTimelineSegment.offsetHeight;
-        document.body.removeChild(testNode)
+        document.body.removeChild(testNode);
 
         return segmentHeight;
     },
 
     tpl: {
         table: function(opts) {
-            var tpl = this,
+            var program = ui.program,
+                tpl = this,
                 data = opts.data,
                 table,
                 timeline, timelineCell,
-                flowCell, flowTitle, itemsInFlow,
-                flowItem,
-                i, j,
+                flowsCells = {},
+                flow, flowCell, flowTitle, currentFlow,
+                item, itemNode,
+                i, len,
                 programRow;
 
-            table = ui.program.tpl.tableLayout(opts);
+            table = tpl.tableLayout(opts);
+            timeline = tpl.timeline(opts.from, opts.to, opts.timelineSegments);
 
             programRow = table.set[0];
             timelineCell = table.set[1];
-
-            timeline = tpl.timeline(opts.from, opts.to, opts.segments);
             timelineCell.appendChild(timeline);
 
-            for (i = 0, il = data.flows.length; i < il; i++) {
-                itemsInFlow = ui.program.getItemsInFlow(data.flows[i].id);
-                flowTitle = data.flows[i].title;
-                flowCell = tpl.flowCell(flowTitle, i === 0);
-
-                for (j = 0; j < itemsInFlow.length; j++) {
-                    flowItem = tpl.item(itemsInFlow[j]);
-                    flowCell.appendChild(flowItem);
-                }
+            // Flows
+            for (i = 0, len = data.flows.length; i < len; i++) {
+                flow = data.flows[i];
+                flowTitle = flow.title;
+                flowCell = tpl.flowCell(flow, i === 0);
+                flowsCells[flow.id] = flowCell;
 
                 programRow.appendChild(flowCell);
+            }
+
+            // Items
+            for (i = 0, len = data.items.length; i < len; i++) {
+                item = data.items[i];
+                itemNode = tpl.item(item);
+                currentFlow = flowsCells[item.flowId];
+
+                // Invalid flowId in data
+                if (typeof item.flowId !== 'undefined' && !(item.flowId in flowsCells)) {
+                    continue;
+                }
+
+                // Item with no flow
+                if (typeof item.flowId === 'undefined') {
+                    var f, c = 0;
+                    for (f in flowsCells) {
+                        c++;
+                        if (c === 0) {
+                            flowsCells[f].appendChild(itemNode);
+                        } else {
+                            flowsCells[f].appendChild(tpl.item(item, 'empty'));
+                        }
+                    }
+
+                } else {
+                    flowsCells[item.flowId].appendChild(itemNode);
+                }
             }
 
             return table.fragment;
@@ -327,7 +361,7 @@ ui.program = {
         tableLayout: function() {
             var table = ui.create([{
                 tag: 'table',
-                e: 'program program-flows-count_4',
+                e: 'program',
                 c: [{
                     tag: 'tr',
                     e: 'program-row',
@@ -340,30 +374,48 @@ ui.program = {
 
             return table;
         },
-        flowCell: function(title, isFirst) {
+        flowCell: function(flow, isFirst) {
+            var mods = [];
+            mods.push('code_' + flow.code);
+
+            if (isFirst) {
+                mods.push('first');
+            }
+
             return ui.create({
-                e: 'program-flow' + ((isFirst) ? ' first' : ''),
+                e: 'program-flow ' + mods.join(' '),
                 tag: 'td',
                 c: [
                     {e: 'program-flow-title', c: [
-                        {e: 'title', c: title}
+                        {e: 'title', c: flow.title}
                     ]}
                 ]}
             );
         },
-        item: function(item) {
+        item: function(item, type) {
+            var mods = [],
+                duration = item.duration || 15,
+                height = ui.program.fromMinutesToPx(duration);
+
+            if (type) {
+                mods.push(type);
+            }
+
             return ui.create({
-                e: 'program-item duration_'+ item.duration,
+                e: 'program-item ' + mods.join(' '),
+                style: {
+                    height: height.toString() + 'px'
+                },
                 c: [
-                    {e: 'time', c: item.startTime},
-                    {e: 'title', c: item.title},
-                    {e: 'person', c: item.person}
+                    (item.startTime) ? {e: 'time', c: item.startTime} : '',
+                    (item.title) ? {e: 'title', c: item.title} : '',
+                    (item.person) ? {e: 'person', c: item.person} : ''
                 ]
             });
         },
         timelineSegment: function(label, isLast) {
             return ui.create({e: 'segment' + (isLast ? ' last' : ''), c: [
-                {e: 'segment-line', style: {width: '1000px'}},
+                /*{e: 'segment-line', style: {width: '1000px'}},*/
                 {e: 'segment-label', c: label}
             ]});
         },
@@ -373,26 +425,36 @@ ui.program = {
             }]});
         },
         timeline: function(from, to, subsegments) {
-            var from = Number(from.split(':')[0]),
+            var program = ui.program,
+                tpl = this,
+                from = Number(from.split(':')[0]),
                 to = Number(to.split(':')[0]),
-                segmentHeight = ui.program.timelineSegmentHeight,
-                subsegments = (typeof subsegments !== 'undefined') ? subsegments : 2,
-                subsegmentDuration = (subsegments > 0) ? Math.round(60 / subsegments) : 0,
-                subsegmentPxStep = Math.round(segmentHeight / subsegments),
-                segment, subsegment, label, sublabel,
-                fragment = document.createDocumentFragment(),
+                segmentHeight = program.timelineSegmentHeight,
+                subsegments = subsegments || 2,
+                segment,
+                subsegment,
+                subsegmentDuration,
+                subsegmentPxStep,
+                label,
+                sublabel,
+                fragment,
                 i, j;
+
+            subsegments = (typeof subsegments !== 'undefined') ? subsegments : 2;
+            subsegmentDuration = (subsegments > 0) ? Math.round(60 / subsegments) : 0;
+            subsegmentPxStep = Math.round(segmentHeight / subsegments);
+            fragment = document.createDocumentFragment();
 
             // Segments
             for (i = from; i <= to; i++) {
                 label = i.toString() + ':00';
-                segment = ui.program.tpl.timelineSegment(label, i === to);
+                segment = tpl.timelineSegment(label, i === to);
 
                 // Sub-segments
                 if (i < to) {
                     for (j = 1; j < subsegments; j++) {
                         sublabel = i.toString() + ':' + (j * subsegmentDuration).toString();
-                        subsegment = ui.program.tpl.timelineSubsegment(sublabel);
+                        subsegment = tpl.timelineSubsegment(sublabel);
                         subsegment.style.top = (subsegmentPxStep * j).toString() + 'px';
                         segment.appendChild(subsegment);
                     }
