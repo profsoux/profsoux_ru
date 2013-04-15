@@ -265,8 +265,14 @@ ui.program = {
         var items = this.data.items,
             f = [];
 
-        for (var i = 0, l = items.length; i < l; i++) {
-            if (items[i].flowId === id) {
+        for (var i = 0, len = items.length; i < len; i++) {
+            if (items[i].flowId instanceof Array) {
+                for (var j = 0, lenj = items[i].flowId.length; j < lenj; j++) {
+                    if (items[i].flowId[j] === id) {
+                        f.push(items[i]);
+                    }
+                }
+            } else if (items[i].flowId === id) {
                 f.push(items[i]);
             }
         }
@@ -280,6 +286,74 @@ ui.program = {
 
         px = Math.round( (duration * segmentHeight) / 60 );
         return px;
+    },
+
+    getTimeMap: function() {
+        var that = this,
+            data = that.data,
+            flows = data.flows,
+            items = data.items,
+            flowItems, flow, flowSplittedTime, flowStart,
+            item, itemStart, itemEnd, prevItemEnds, itemSplittedTime, mappedItem,
+            timeMap = {};
+
+        for (var i = 0, len = flows.length; i < len; i++) {
+            flow = flows[i];
+            flowSplittedTime = flow.startTime.split(':');
+
+            flowStart = new Date();
+            flowStart.setHours(parseInt(flowSplittedTime[0]));
+            flowStart.setMinutes(parseInt(flowSplittedTime[1]));
+            flowStart.setSeconds(0);
+
+            // Flow
+            timeMap[ flow.id ] = {
+                id: flow.id,
+                title: flow.title,
+                code: flow.code,
+                startTime: flow.startTime,
+                start: flowStart,
+                map: []
+            };
+
+            flowItems = that.getFlowItems(flow.id);
+
+            // Flow items
+            for (var j = 0, lenj = flowItems.length; j < lenj; j++) {
+                item = flowItems[j];
+                itemStart = new Date();
+                itemStart.setSeconds(0);
+
+                // TODO: refactor
+                if (typeof flowItems[j - 1] !== 'undefined') {
+                    prevItemEnds = timeMap[flow.id].map[j - 1].end;
+                } else {
+                    prevItemEnds = new Date(flowStart.getTime());
+                }
+
+                if ('startTime' in item) {
+                    itemSplittedTime = item.startTime.split(':');
+                    itemStart.setHours(parseInt(itemSplittedTime[0]));
+                    itemStart.setMinutes(parseInt(itemSplittedTime[1]));
+                } else {
+                    itemStart.setTime(prevItemEnds.getTime());
+                }
+
+                itemEnd = new Date(itemStart.getTime());
+                // Increase time to duration minutes
+                itemEnd.setTime( itemEnd.getTime() + (item.duration*60*1000) );
+
+                mappedItem = timeMap[ flow.id ].map[j] = {
+                    start: itemStart,
+                    end: itemEnd
+                };
+                for (var f in item) {
+                    mappedItem[f] = item[f];
+                }
+            }
+        }
+
+        return timeMap;
     },
 
     _getTimelineSegmentHeight: function() {
@@ -305,12 +379,14 @@ ui.program = {
                 data = opts.data,
                 table,
                 timeline, timelineCell,
+                timemap,
                 flowsCells = {},
-                flow, flowCell, flowTitle, currentFlow,
-                item, itemNode,
+                flow, flowId, flowCell, flowTitle, currentFlow,
+                item, flowItems, itemNode, mappedItem,
                 i, len,
                 programRow;
 
+            timemap = program.getTimeMap();
             table = tpl.tableLayout(opts);
             timeline = tpl.timeline(opts.from, opts.to, opts.timelineSegments);
 
@@ -321,41 +397,50 @@ ui.program = {
             // Flows
             for (i = 0, len = data.flows.length; i < len; i++) {
                 flow = data.flows[i];
+                flowId = flow.id;
+                flow = timemap[flowId];
                 flowTitle = flow.title;
                 flowCell = tpl.flowCell(flow, i === 0);
-                flowsCells[flow.id] = flowCell;
+                flowsCells[flowId] = flowCell;
+                flowItems = timemap[flowId].map;
 
                 programRow.appendChild(flowCell);
-            }
 
-            // Items
-            for (i = 0, len = data.items.length; i < len; i++) {
-                item = data.items[i];
-                itemNode = tpl.item(item);
-                currentFlow = flowsCells[item.flowId];
+                // Items
+                for (var j = 0, lenj = flowItems.length; j < lenj; j++) {
+                    item = timemap[flowId].map[j];
+                    itemNode = tpl.item(item);
 
-                // Invalid flowId in data
-                if (typeof item.flowId !== 'undefined' && !(item.flowId in flowsCells)) {
-                    continue;
-                }
+                    // Invalid flowId in data
+                    /*
+                     if ('flowId' in item && !(item.flowId instanceof Array) && !(item.flowId in flowsCells)) {
+                        continue;
+                     }
+                     */
 
-                // Item with no flow
-                if (typeof item.flowId === 'undefined') {
-                    var f, c = 0;
-                    for (f in flowsCells) {
-                        c++;
-                        if (c === 0) {
-                            flowsCells[f].appendChild(itemNode);
-                        } else {
-                            flowsCells[f].appendChild(tpl.item(item, 'empty'));
+                    if (j === 0) {
+                        var fromTimeSplitted = opts.from.split(':'),
+                            d = new Date(),
+                            diffMinutes;
+
+                        d.setHours(parseInt(fromTimeSplitted[0]));
+                        d.setMinutes(parseInt(fromTimeSplitted[1]));
+                        d.setSeconds(0);
+                        diffMinutes = (item.start - d) / 60 / 1000;
+
+                        itemNode.style.marginTop = program.fromMinutesToPx(diffMinutes).toString() + 'px';
+                    }
+
+                    if (flowItems[j - 1]) {
+                        var itemsDiff = (flowItems[j].start - flowItems[j-1].end) / 60 / 1000;
+                        if (itemsDiff > 0) {
+                            itemNode.style.marginTop = program.fromMinutesToPx(itemsDiff).toString() + 'px';
                         }
                     }
 
-                } else {
-                    flowsCells[item.flowId].appendChild(itemNode);
+                    flowsCells[flowId].appendChild(itemNode);
                 }
             }
-
             return table.fragment;
         },
         tableLayout: function() {
@@ -392,6 +477,9 @@ ui.program = {
                 ]}
             );
         },
+        items: function(flow) {
+
+        },
         item: function(item, type) {
             var mods = [],
                 duration = item.duration || 15,
@@ -427,8 +515,8 @@ ui.program = {
         timeline: function(from, to, subsegments) {
             var program = ui.program,
                 tpl = this,
-                from = Number(from.split(':')[0]),
-                to = Number(to.split(':')[0]),
+                from = parseInt(from.split(':')[0]),
+                to = parseInt(to.split(':')[0]),
                 segmentHeight = program.timelineSegmentHeight,
                 subsegments = subsegments || 2,
                 segment,

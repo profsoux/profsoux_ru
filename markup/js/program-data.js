@@ -2,8 +2,8 @@ var programData = {};
 
 programData.flows = [
     {id: 1, title: 'Зал 1', code: 'Z1', startTime: '10:00'},
-    {id: 2, title: 'Зал 2', code: 'Z2', startTime: '16:00'},
-    {id: 3, title: 'Холл', code: 'HALL', startTime: '9:00'}
+    {id: 2, title: 'Зал 2', code: 'Z2', startTime: '9:00'},
+    {id: 3, title: 'Холл', code: 'LOBBY', startTime: '9:00'}
 ];
 
 programData.items = [
@@ -60,6 +60,8 @@ programData.items = [
 
     {
         title: 'Кофе брейк',
-        duration: 60
+        duration: 60,
+        startTime: '12:00',
+        flowId: [1,2,3]
     }
 ];

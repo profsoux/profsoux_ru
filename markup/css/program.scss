@@ -87,7 +87,7 @@ body {
 .program-flow {
     &.code_Z1 {width: 50%;}
     &.code_Z2 {width: 25%;}
-    &.code_HALL {width: 25%;}
+    &.code_LOBBY {width: 25%;}
 
     &.first .program-item {
         margin-left: 2px;
@@ -95,8 +95,9 @@ body {
 }
 
 .program-flow-title {
+    position: absolute;
+    top: -25px;
     height: 25px;
-    margin-top: -25px;
 
     .title {
         padding: 0 10px;
