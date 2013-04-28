@@ -41,6 +41,7 @@ urlpatterns = patterns('',
     url(r'^twitter/$', 'conference.views.twitter'),
     url(r'^results/$', 'conference.views.results'),
     url(r'^results/export/((?P<depht>all)/)?$', 'conference.views.results_to_xls'),
+    url(r'^api/schedule/$', 'conference.views.schedule_as_json'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

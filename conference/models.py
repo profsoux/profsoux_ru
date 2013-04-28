@@ -233,6 +233,12 @@ class ScheduleSection(models.Model):
         verbose_name = 'Секция расписания'
         verbose_name_plural = 'Секции расписания'
 
+    def get_title(self):
+        return self.lecture.title if self.lecture is not None else self.title
+
+    def get_speakers(self):
+        return self.lecture.get_speakers() if self.lecture is not None else None
+
     def __unicode__(self):
         if self.title:
             return u"%2s. %2s" % (self.start_time, self.title)
