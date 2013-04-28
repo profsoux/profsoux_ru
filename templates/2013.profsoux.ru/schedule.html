@@ -1,0 +1,32 @@
+{% extends "__two-column.html" %}
+
+{% load conference_tags %}
+
+{% block body_className %}page-schedule{% endblock %}
+
+{% block page-header %}
+<h2>Программа</h2>
+{% endblock %}
+
+{% block content-main %}
+<div id="schedule" class="schedule">
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/api/schedule/"></script>
+<script>
+$(document).ready(function() {
+    var table;
+    table = ui.program.generate({
+        data: programData,
+        from: '09:00',
+        to: '20:00',
+        timelineSegments: 2
+    });
+
+    $('#schedule').append(table);
+});
+</script>
+{% endblock %}

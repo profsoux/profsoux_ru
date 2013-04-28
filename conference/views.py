@@ -727,3 +727,15 @@ def results_to_xls(request, depht=None):
     response['Content-Disposition'] = 'attachment; filename=ProfsoUX-2012-results.xls'
 
     return response
+
+
+def schedule_as_json(request):
+    event = request.event
+    flows = ScheduleFlow.objects.filter(event=event)
+    sections = ScheduleSection.objects.filter(event=event).distinct().order_by('start_time', 'flow_slot')
+    c = {
+        'flows': flows,
+        'sections': sections,
+    }
+
+    return render(request, 'api/schedule.html', c, content_type='text/javascript')

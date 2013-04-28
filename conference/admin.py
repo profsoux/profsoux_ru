@@ -147,10 +147,10 @@ class PartnerAdmin(EventMixin, admin.ModelAdmin):
 
 
 class ScheduleAdmin(EventMixin, admin.ModelAdmin):
-    list_display = ('start_time', 'duration', 'title', 'lecture', 'category')
+    list_display = ('start_time', 'duration', 'title', 'lecture',)
     list_display_links = ('title', 'lecture')
-    list_filter = ('category',)
-    list_editable = ('start_time', 'duration', 'category')
+    # list_filter = ('')
+    list_editable = ('start_time', 'duration')
     ordering = ['start_time']
 
 
@@ -257,3 +257,4 @@ admin.site.register(Result, ResultAdmin)
 admin.site.register(LectureRate)
 admin.site.register(AddressBook)
 admin.site.register(Event, EventAdmin)
+admin.site.register(ScheduleFlow)
