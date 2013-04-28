@@ -1,0 +1,29 @@
+var programData = {};
+
+programData.flows = [
+    {% for flow in flows %}
+    {
+        id: {{ flow.id }},
+        title: '{{ flow.title }}',
+        code: 'flow_{{ flow.id }}',
+        startTime: '{{ flow.start_time }}',
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+];
+
+programData.items = [
+    {% for section in sections %}
+    {
+        title: '{{ section.get_title }}',
+        startTime: '{{ section.start_time }}',
+        {% if section.get_speakers %}
+        person: '{{ section.get_speakers }}',
+        {% endif %}
+        flowId: [{% for flow in section.flow.all %}{{ flow.id }}{% if not forloop.last %},{% endif %}{% endfor %}],
+        duration: {{ section.duration }},
+        {% if section.flow_slot %}
+        slot: {{ section.flow_slot }}
+        {% endif %}
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+]
