@@ -63,6 +63,8 @@ class Event(models.Model):
     address = models.TextField('Адрес места проведения', null=True, blank=True)
     coordinates = models.CharField('Координтаты места проведения', max_length=24, null=True, blank=True)
     place_note = models.TextField('Дополнительная информация о месте проведения', null=True, blank=True)
+    use_sections = models.BooleanField('Доклады делятся по секциям', default=False)
+    use_flows = models.BooleanField('Конференция в несколько потоков', default=False)
 
     class Meta:
         verbose_name = 'Событие'
@@ -220,6 +222,11 @@ class ScheduleSection(models.Model):
     title = models.CharField('Название', max_length=64, blank=True)
     category = models.ForeignKey('Category', verbose_name='Категория', blank=True, null=True)
     lecture = models.ForeignKey('Lecture', verbose_name='Доклад', blank=True, null=True)
+    flow = models.ManyToManyField('ScheduleFlow', blank=True, null=True,
+                                  verbose_name="Поток",
+                                  help_text="Можно выбрать несколько потоков одновременно")
+    flow_slot = models.IntegerField('Номер слота', blank=True, null=True,
+                                    help_text="Используется для нескольких докладов, идущих подряд")
     event = models.ForeignKey(Event)
 
     class Meta:
@@ -231,6 +238,19 @@ class ScheduleSection(models.Model):
             return u"%2s. %2s" % (self.start_time, self.title)
         else:
             return u"%2s. %2s" % (self.start_time, self.category)
+
+
+class ScheduleFlow(models.Model):
+    title = models.CharField('Название', max_length=64)
+    start_time = models.TimeField('Время начала первого доклада')
+    event = models.ForeignKey(Event)
+
+    class Meta:
+        verbose_name = 'Поток'
+        verbose_name_plural = 'Потоки'
+
+    def __unicode__(self):
+        return self.title
 
 
 class Participant(models.Model):
