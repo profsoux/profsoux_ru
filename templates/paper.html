@@ -2,6 +2,8 @@
 
 {% load conference_tags %}
 
+{% block page_title %}{{ paper.title|safe }} - {{ block.super }}{% endblock %}
+
 {% block body_className %}page-paper{% endblock %}
 
 {% block page-header %}

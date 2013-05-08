@@ -2,6 +2,8 @@
 
 {% load conference_tags %}
 
+{% block page_title %}{{ title }} - {{ block.super }}{% endblock %}
+
 {% block body_className %}page-people{% endblock %}
 
 {% block page-header %}

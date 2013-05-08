@@ -2,6 +2,8 @@
 
 {% load conference_tags %}
 
+{% block page_title %}{{ speaker.person.first_name }} {{ speaker.person.last_name }} - {{ block.super }}{% endblock %}
+
 {% block body_className %}page-speaker{% endblock %}
 
 {% block page-header %}
