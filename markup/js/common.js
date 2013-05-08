@@ -496,7 +496,7 @@ ui.program = {
                 },
                 c: [
                     (item.startTime) ? {e: 'time', c: item.startTime} : '',
-                    (item.title) ? {e: 'title', c: item.title} : '',
+                    (item.title) ? (item.href)? {e: 'title', tag: 'a', href: item.href, c: item.title} : {e: 'title', c: item.title} : '',
                     (item.person) ? {e: 'person', c: item.person} : ''
                 ]
             });

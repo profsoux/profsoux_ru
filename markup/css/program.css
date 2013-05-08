@@ -16,7 +16,7 @@
     position: relative;
     box-sizing: border-box;
     top: -1px;
-    height: 200px; }
+    height: 250px; }
     .program-timeline .segment.last {
       height: 0; }
   .program-timeline .segment-line {
@@ -75,12 +75,12 @@
   .program-item.common {
     width: 400%; }
   .program-item .time {
-    display: inline-block;
+    float: left;
     padding-right: 5px;
     color: #999; }
   .program-item .title {
     display: inline;
-    padding-right: 5px;
+    margin-right: 5px;
     font-weight: bold; }
   .program-item .person {
     display: inline-block; }

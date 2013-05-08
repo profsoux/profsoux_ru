@@ -236,6 +236,9 @@ class ScheduleSection(models.Model):
     def get_title(self):
         return self.lecture.title if self.lecture is not None else self.title
 
+    def get_absolute_url(self):
+        return self.lecture.get_absolute_url() if self.lecture is not None else None
+
     def get_speakers(self):
         return self.lecture.get_speakers() if self.lecture is not None else None
 
