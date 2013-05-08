@@ -15,6 +15,9 @@ programData.items = [
     {% for section in sections %}
     {
         title: '{{ section.get_title }}',
+        {% if section.get_absolute_url %}
+        href: '{{ section.get_absolute_url }}',
+        {% endif %}
         startTime: '{{ section.start_time }}',
         {% if section.get_speakers %}
         person: '{{ section.get_speakers }}',
