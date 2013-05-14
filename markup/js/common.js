@@ -489,6 +489,10 @@ ui.program = {
                 mods.push(type);
             }
 
+            if (item.category) {
+                mods.push('legend-' + item.category)
+            }
+
             return ui.create({
                 e: 'program-item ' + mods.join(' '),
                 style: {

@@ -78,6 +78,7 @@ $program-background-color: #ccc;
 
 
 .program-flow {
+    width: 30%;
     &.code_Z1 {width: 50%;}
     &.code_Z2 {width: 25%;}
     &.code_LOBBY {width: 25%;}
@@ -129,4 +130,18 @@ $program-background-color: #ccc;
     .person {
         display: inline-block;
     }
+}
+
+
+.program .legend-analytics {
+  background-image:url("../img/schedule/legend-analytics.png");
+}
+.program .legend-ui {
+  background-image:url("../img/schedule/legend-ui.png");
+}
+.program .legend-testing {
+  background-image:url("../img/schedule/legend-testing.png");
+}
+.program .legend-implementation {
+  background-image:url("../img/schedule/legend-implementation.png");
 }

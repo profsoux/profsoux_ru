@@ -1,0 +1,17 @@
+{% extends "__base.html" %}
+
+{% block content %}
+    <article id="content-main" class="span12">
+        {% block page-header-wrapper %}
+        <div class="page-header clearfix">
+        {% block page-header %}{% endblock %}
+        </div>
+        {% endblock %}
+
+        <div class="row">
+            <div class="span12">
+            {% block content-main %}{% endblock %}
+            </div>
+        </div>
+    </article>
+{% endblock %}
