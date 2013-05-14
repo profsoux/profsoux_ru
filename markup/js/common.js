@@ -266,12 +266,21 @@ ui.program = {
             f = [];
 
         for (var i = 0, len = items.length; i < len; i++) {
+            // If item is common for several flows
             if (items[i].flowId instanceof Array) {
+
                 for (var j = 0, lenj = items[i].flowId.length; j < lenj; j++) {
+
+                    // Copy every item in its flow
                     if (items[i].flowId[j] === id) {
                         f.push(items[i]);
+
+                        if (lenj > 1) {
+                            f[f.length - 1].multiflow = true;
+                        }
                     }
                 }
+
             } else if (items[i].flowId === id) {
                 f.push(items[i]);
             }
@@ -418,6 +427,7 @@ ui.program = {
                      }
                      */
 
+                    // First item in flow
                     if (j === 0) {
                         var fromTimeSplitted = opts.from.split(':'),
                             d = new Date(),
@@ -431,6 +441,7 @@ ui.program = {
                         itemNode.style.marginTop = program.fromMinutesToPx(diffMinutes).toString() + 'px';
                     }
 
+                    // Spacing between nearest items
                     if (flowItems[j - 1]) {
                         var itemsDiff = (flowItems[j].start - flowItems[j-1].end) / 60 / 1000;
                         if (itemsDiff > 0) {
@@ -493,6 +504,14 @@ ui.program = {
                 mods.push('legend-' + item.category)
             }
 
+            if (item.multiflow) {
+                mods.push('multiflow');
+            }
+
+            if (item.multiflowFirst) {
+                mods.push('multiflow-first');
+            }
+
             return ui.create({
                 e: 'program-item ' + mods.join(' '),
                 style: {
@@ -500,7 +519,11 @@ ui.program = {
                 },
                 c: [
                     (item.startTime) ? {e: 'time', c: item.startTime} : '',
-                    (item.title) ? (item.href)? {e: 'title', tag: 'a', href: item.href, c: item.title} : {e: 'title', c: item.title} : '',
+                    (item.title) ?
+                        (item.href)
+                            ? {e: 'title', tag: 'a', href: item.href, c: item.title}
+                            : {e: 'title', c: item.title}
+                        : '',
                     (item.person) ? {e: 'person', c: item.person} : ''
                 ]
             });

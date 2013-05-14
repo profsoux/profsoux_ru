@@ -86,6 +86,14 @@ $program-background-color: #ccc;
     &.first .program-item {
         margin-left: 2px;
     }
+
+    &.first .program-item.multiflow {
+        .time,
+        .title,
+        .person {
+            display: block;
+        }
+    }
 }
 
 .program-flow-title {
@@ -130,7 +138,19 @@ $program-background-color: #ccc;
     .person {
         display: inline-block;
     }
+
+    &.multiflow {
+        margin-left: -2px;
+
+        .time,
+        .title,
+        .person {
+            display: none;
+        }
+    }
 }
+
+
 
 
 .program .legend-analytics {
