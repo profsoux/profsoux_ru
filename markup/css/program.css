@@ -86,3 +86,15 @@
     font-weight: bold; }
   .program-item .person {
     display: inline-block; }
+
+.program .legend-analytics {
+  background-image: url("../img/schedule/legend-analytics.png"); }
+
+.program .legend-ui {
+  background-image: url("../img/schedule/legend-ui.png"); }
+
+.program .legend-testing {
+  background-image: url("../img/schedule/legend-testing.png"); }
+
+.program .legend-implementation {
+  background-image: url("../img/schedule/legend-implementation.png"); }

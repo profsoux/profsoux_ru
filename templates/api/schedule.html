@@ -27,6 +27,7 @@ programData.items = [
         {% if section.flow_slot %}
         slot: {{ section.flow_slot }}
         {% endif %}
+        category: '{{ section.category.class_name }}'
     }{% if not forloop.last %},{% endif %}
     {% endfor %}
 ]
