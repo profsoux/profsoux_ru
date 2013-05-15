@@ -450,6 +450,7 @@ ui.program = {
                         } else if (itemsDiff < 0) {
                             // Negative margin-top
                             itemNode.style.marginTop = (program.fromMinutesToPx(itemsDiff)).toString() + 'px';
+                            itemNode.className += ' overlapping';
                         }
                     }
 

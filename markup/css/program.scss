@@ -109,6 +109,7 @@ $program-background-color: #ccc;
 }
 
 .program-item {
+    position: relative;
     box-sizing: border-box;
     margin-bottom: 0;
     margin-right: 0;
@@ -147,6 +148,11 @@ $program-background-color: #ccc;
         .person {
             display: none;
         }
+    }
+
+    &.overlapping {
+        position: relative;
+        z-index: 1;
     }
 }
 
