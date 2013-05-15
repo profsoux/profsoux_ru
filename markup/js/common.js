@@ -444,8 +444,12 @@ ui.program = {
                     // Spacing between nearest items
                     if (flowItems[j - 1]) {
                         var itemsDiff = (flowItems[j].start - flowItems[j-1].end) / 60 / 1000;
+                        // Positive margin-top between items
                         if (itemsDiff > 0) {
                             itemNode.style.marginTop = program.fromMinutesToPx(itemsDiff).toString() + 'px';
+                        } else if (itemsDiff < 0) {
+                            // Negative margin-top
+                            itemNode.style.marginTop = (program.fromMinutesToPx(itemsDiff)).toString() + 'px';
                         }
                     }
 
