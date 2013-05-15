@@ -164,6 +164,7 @@ $program-items-spacing: 1px;
 /* @item */
 .program-item {
     position: relative;
+    z-index: 5;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     margin-bottom: 0;
@@ -191,14 +192,26 @@ $program-items-spacing: 1px;
 
     &.overlapping {
         position: relative;
+        z-index: 6;
+
+        .inner {
+            right: 0;
+            bottom: 0;
+            left: 0;
+            border: $program-items-spacing solid #DFDFDF
+        }
+    }
+    &.overlapping.multiflow {
+        .inner {
+
+        }
+    }
+
+    &.virtual {
         z-index: 1;
 
         .inner {
-            top: 0;
-            right: -$program-items-spacing;
-            bottom: 0;
-            left: -$program-items-spacing;
-            border: $program-items-spacing solid #DFDFDF
+            border: 0;
         }
     }
 

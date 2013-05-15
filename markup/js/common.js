@@ -278,6 +278,10 @@ ui.program = {
                         if (lenj > 1) {
                             f[f.length - 1].multiflow = true;
                         }
+
+                        if (j > 0) {
+                            f[f.length - 1].type = 'virtual';
+                        }
                     }
                 }
 
@@ -391,8 +395,10 @@ ui.program = {
                 timeline2, timelineCell2,
                 timemap,
                 flowsCells = {},
-                flow, flowId, flowCell, flowTitle, currentFlow,
-                item, flowItems, itemNode, mappedItem,
+                flow, flowId, flowCell, flowTitle,
+                item, flowItems, itemNode, prevItem, nextItem,
+                nearestPrevItemsTimeDiff = 0, nearestNextItemsTimeDiff = 0,
+                flowStartTime, flowStartAndItemStartDiff,
                 i, len,
                 programRow;
 
@@ -424,6 +430,8 @@ ui.program = {
                 for (var j = 0, lenj = flowItems.length; j < lenj; j++) {
                     item = timemap[flowId].map[j];
                     itemNode = tpl.item(item);
+                    prevItem = flowItems[j - 1];
+                    nextItem = flowItems[j + 1];
 
                     // Invalid flowId in data
                     /*
@@ -434,29 +442,45 @@ ui.program = {
 
                     // First item in flow
                     if (j === 0) {
-                        var fromTimeSplitted = opts.from.split(':'),
-                            d = new Date(),
-                            diffMinutes;
+                        flowStartTime = new Date();
+                        flowStartTime.setHours(parseInt(opts.from.split(':')[0]));
+                        flowStartTime.setMinutes(parseInt(opts.from.split(':')[1]));
+                        flowStartTime.setSeconds(0);
+                        flowStartAndItemStartDiff = (item.start - flowStartTime) / 60 / 1000;
 
-                        d.setHours(parseInt(fromTimeSplitted[0]));
-                        d.setMinutes(parseInt(fromTimeSplitted[1]));
-                        d.setSeconds(0);
-                        diffMinutes = (item.start - d) / 60 / 1000;
-
-                        itemNode.style.marginTop = program.fromMinutesToPx(diffMinutes).toString() + 'px';
+                        itemNode.style.marginTop = program.fromMinutesToPx(flowStartAndItemStartDiff).toString() + 'px';
                     }
 
-                    // Spacing between nearest items
-                    if (flowItems[j - 1]) {
-                        var itemsDiff = (flowItems[j].start - flowItems[j-1].end) / 60 / 1000;
-                        // Positive margin-top between items
-                        if (itemsDiff > 0) {
-                            itemNode.style.marginTop = program.fromMinutesToPx(itemsDiff).toString() + 'px';
-                        } else if (itemsDiff < 0) {
-                            // Negative margin-top
-                            itemNode.style.marginTop = (program.fromMinutesToPx(itemsDiff)).toString() + 'px';
+                    // If previous or next item exists
+                    // we need to calculate spacing between nearest items
+                    if (prevItem || nextItem) {
+                        // Calculating diff between nearest items
+                        nearestPrevItemsTimeDiff = (prevItem) ? (item.start - prevItem.end) / 60 / 1000 : 0;
+                        nearestNextItemsTimeDiff = (nextItem) ? (item.end - nextItem.end) / 60 / 1000 : 0;
+
+                        // Current and previous items
+                        // Positive margin-top (no overlapping)
+                        if (nearestPrevItemsTimeDiff > 0) {
+                            itemNode.style.marginTop = program.fromMinutesToPx(nearestPrevItemsTimeDiff).toString() + 'px';
+                        }
+                        else if (nearestPrevItemsTimeDiff < 0) {
+                            // Negative margin-top (overlapping)
+                            itemNode.style.marginTop = (program.fromMinutesToPx(nearestPrevItemsTimeDiff)).toString() + 'px';
                             itemNode.className += ' overlapping';
                         }
+
+                        // For current and next items we not need to do anything
+                    }
+
+                    // If multiflow item
+                    if (item.flowId.length > 1) {
+                        //itemNode.style.width = (80 * item.flowId.length).toString() + '%';
+                    }
+
+                    if (item.type && item.type === 'virtual') {
+                        //itemNode.style.visibility = 'hidden';
+                        itemNode.className += ' virtual';
+                        itemNode.style.width = 'auto';
                     }
 
                     flowsCells[flowId].appendChild(itemNode);

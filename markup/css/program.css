@@ -20,7 +20,7 @@
   /* @left segment */
   /* @right segment */ }
   .program-timeline.left {
-    border-right: 1px solid #ccc; }
+    border-right: 1px solid #cccccc; }
     .program-timeline.left .segment-label {
       margin-right: -1px;
       padding: 3px 6px 0 0;
@@ -32,7 +32,7 @@
     .program-timeline.left .segment-line {
       width: 9000%; }
   .program-timeline.right {
-    border-left: 1px solid #ccc; }
+    border-left: 1px solid #cccccc; }
     .program-timeline.right .segment-label {
       margin-left: -1px;
       padding: 3px 0 0 6px;
@@ -59,16 +59,16 @@
     background-color: #ccc;
     */
     height: 0;
-    border-bottom: 1px dotted #ccc; }
+    border-bottom: 1px dotted #cccccc; }
   .program-timeline .segment-label {
-    border-top: 1px solid #ccc; }
+    border-top: 1px solid #cccccc; }
   .program-timeline .subsegment {
     position: absolute;
     top: auto; }
   .program-timeline .subsegment-label {
     margin-top: 0;
     padding-top: 1px;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #cccccc;
     font-size: 12px;
     color: #999; }
 
@@ -107,6 +107,7 @@
 /* @item */
 .program-item {
   position: relative;
+  z-index: 5;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   margin-bottom: 0;
@@ -127,13 +128,16 @@
     display: none; }
   .program-item.overlapping {
     position: relative;
-    z-index: 1; }
+    z-index: 6; }
     .program-item.overlapping .inner {
-      top: 0;
-      right: -1px;
+      right: 0;
       bottom: 0;
-      left: -1px;
+      left: 0;
       border: 1px solid #dfdfdf; }
+  .program-item.virtual {
+    z-index: 1; }
+    .program-item.virtual .inner {
+      border: 0; }
   .program-item.legend-analytics .inner {
     background-color: #B5C4D2; }
   .program-item.legend-ui .inner {
