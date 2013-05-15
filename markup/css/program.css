@@ -53,6 +53,10 @@
     width: 25%; }
   .program-flow.first .program-item {
     margin-left: 2px; }
+  .program-flow.first .program-item.multiflow .time,
+  .program-flow.first .program-item.multiflow .title,
+  .program-flow.first .program-item.multiflow .person {
+    display: block; }
 
 .program-flow-title {
   position: absolute;
@@ -86,6 +90,12 @@
     font-weight: bold; }
   .program-item .person {
     display: inline-block; }
+  .program-item.multiflow {
+    margin-left: -2px; }
+    .program-item.multiflow .time,
+    .program-item.multiflow .title,
+    .program-item.multiflow .person {
+      display: none; }
 
 .program .legend-analytics {
   background-image: url("../img/schedule/legend-analytics.png"); }
