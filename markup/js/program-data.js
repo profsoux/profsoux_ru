@@ -9,28 +9,28 @@ programData.flows = [
         id: 1,
         title: 'Холл',
         code: 'flow_1',
-        startTime: '10:00'
+        startTime: '10:00',
     },
 
     {
         id: 2,
-        title: 'Зал 1',
+        title: 'Большой зал',
         code: 'flow_2',
-        startTime: '10:00'
+        startTime: '10:00',
     },
 
     {
         id: 3,
-        title: 'Зал 2',
+        title: 'Малый зал',
         code: 'flow_3',
-        startTime: '14:30'
+        startTime: '14:30',
     },
 
     {
         id: 4,
-        title: 'Зал 3',
+        title: 'Зал на II этаже',
         code: 'flow_4',
-        startTime: '14:30'
+        startTime: '14:30',
     }
 
 ];
@@ -43,7 +43,7 @@ programData.items = [
         startTime: '10:00',
 
         flowId: [1],
-        duration: 24,
+        duration: 25,
 
         category: ''
     },
@@ -94,7 +94,7 @@ programData.items = [
         flowId: [1],
         duration: 15,
 
-        category: ''
+        category: 'analytics'
     },
 
     {
@@ -113,9 +113,13 @@ programData.items = [
     },
 
     {
-        title: 'Церемония открытия',
+        title: 'Открытие. Приветствие участникам',
+
+        href: '/papers/49/',
 
         startTime: '11:30',
+
+        person: 'Софья Чебанова, Николай Пунтиков',
 
         flowId: [2],
         duration: 20,
@@ -143,12 +147,12 @@ programData.items = [
 
         href: '/papers/40/',
 
-        startTime: '11:55',
+        startTime: '12:00',
 
         person: 'Тарас Бризицкий',
 
         flowId: [1],
-        duration: 15,
+        duration: 30,
 
         category: 'analytics'
     },
@@ -203,7 +207,7 @@ programData.items = [
 
         startTime: '13:40',
 
-        flowId: [1,2],
+        flowId: [1,2,3,4],
         duration: 60,
 
         category: ''
@@ -236,7 +240,7 @@ programData.items = [
         flowId: [4],
         duration: 120,
 
-        category: 'testing'
+        category: 'implementation'
     },
 
     {
@@ -320,28 +324,13 @@ programData.items = [
         startTime: '16:20',
 
         flowId: [1],
-        duration: 20,
+        duration: 30,
 
         category: ''
     },
 
     {
-        title: 'Gamification in Action',
-
-        href: '/papers/28/',
-
-        startTime: '16:40',
-
-        person: 'Иво Димитров',
-
-        flowId: [2],
-        duration: 20,
-
-        category: 'ui'
-    },
-
-    {
-        title: 'Мастер-класс: Исследование аудитории',
+        title: 'Интерактив: Исследование аудитории',
 
         href: '/papers/47/',
 
@@ -356,58 +345,28 @@ programData.items = [
     },
 
     {
-        title: 'Секретная техника самураев Toyota',
-
-        href: '/papers/30/',
-
-        startTime: '17:00',
-
-        person: 'Рамиль Шайхутдинов',
-
-        flowId: [2],
-        duration: 20,
-
-        category: 'ui'
-    },
-
-    {
-        title: 'Статистика без банальщины',
-
-        href: '/papers/27/',
-
-        startTime: '17:00',
-
-        person: 'Иван Серебренников',
-
-        flowId: [1],
-        duration: 20,
-
-        category: 'ui'
-    },
-
-    {
-        title: 'Рука об руку с эффективностью — сплит-тесты',
-
-        href: '/papers/42/',
-
-        startTime: '17:20',
-
-        person: 'Ирина Кукушкина',
-
-        flowId: [2],
-        duration: 20,
-
-        category: 'ui'
-    },
-
-    {
         title: 'Проектирование адаптивного интерфейса',
 
         href: '/papers/34/',
 
-        startTime: '17:40',
+        startTime: '16:50',
 
         person: 'Андрей Туркин',
+
+        flowId: [2],
+        duration: 20,
+
+        category: 'ui'
+    },
+
+    {
+        title: 'Секретная техника самураев Toyota',
+
+        href: '/papers/30/',
+
+        startTime: '17:10',
+
+        person: 'Рамиль Шайхутдинов',
 
         flowId: [2],
         duration: 20,
@@ -420,9 +379,24 @@ programData.items = [
 
         href: '/papers/33/',
 
-        startTime: '18:00',
+        startTime: '17:10',
 
         person: 'Евгений Гуринович',
+
+        flowId: [1],
+        duration: 20,
+
+        category: 'analytics'
+    },
+
+    {
+        title: 'Рука об руку с эффективностью — сплит-тесты',
+
+        href: '/papers/42/',
+
+        startTime: '17:30',
+
+        person: 'Ирина Кукушкина',
 
         flowId: [2],
         duration: 20,
@@ -431,11 +405,26 @@ programData.items = [
     },
 
     {
+        title: 'Статистика без банальщины',
+
+        href: '/papers/27/',
+
+        startTime: '17:30',
+
+        person: 'Иван Серебренников',
+
+        flowId: [1],
+        duration: 20,
+
+        category: 'analytics'
+    },
+
+    {
         title: 'Взаимодействие пользователя и системы. Методики описания ...',
 
         href: '/papers/29/',
 
-        startTime: '18:20',
+        startTime: '17:50',
 
         person: 'Маргарита Титова',
 
@@ -446,14 +435,40 @@ programData.items = [
     },
 
     {
+        title: 'Gamification in Action',
+
+        href: '/papers/28/',
+
+        startTime: '18:10',
+
+        person: 'Иво Димитров',
+
+        flowId: [2],
+        duration: 20,
+
+        category: 'ui'
+    },
+
+    {
         title: 'Закрытие. Призы и итоги',
 
-        startTime: '18:40',
+        startTime: '18:30',
 
         flowId: [2],
         duration: 30,
 
         category: ''
+    },
+
+    {
+        title: 'Afterparty',
+
+        startTime: '19:00',
+
+        flowId: [1,2,3,4],
+        duration: 120,
+
+        category: ''
     }
 
-];
+]
