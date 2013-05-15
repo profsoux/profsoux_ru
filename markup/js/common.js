@@ -523,14 +523,16 @@ ui.program = {
                     height: height.toString() + 'px'
                 },
                 c: [
-                    (item.startTime) ? {e: 'time', c: item.startTime} : '',
-                    (item.title) ?
-                        (item.href)
-                            ? {e: 'title', tag: 'a', href: item.href, c: item.title}
-                            : {e: 'title', c: item.title}
-                        : '',
-                    (item.person) ? {e: 'person', c: item.person} : '',
-                    (item.duration) ? {e: 'duration', c: item.duration.toString() + ' минут'} : ''
+                    {e: 'inner', c: [
+                        (item.startTime) ? {e: 'time', c: item.startTime} : '',
+                        (item.title) ?
+                            (item.href)
+                                ? {e: 'title', tag: 'a', href: item.href, c: item.title}
+                                : {e: 'title', c: item.title}
+                            : '',
+                        (item.person) ? {e: 'person', c: item.person} : '',
+                        (item.duration) ? {e: 'duration', c: item.duration.toString() + ' минут'} : ''
+                    ]}
                 ]
             });
         },

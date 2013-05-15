@@ -2,13 +2,14 @@
   border-collapse: collapse;
   border-spacing: 0;
   font-family: Arial, sans-serif;
-  margin: 50px 0; }
+  margin: 50px 0;
+  /* @legend */ }
+  .program td {
+    position: relative;
+    padding: 0;
+    vertical-align: top; }
 
-.program td {
-  position: relative;
-  padding: 0;
-  vertical-align: top; }
-
+/* @timeline */
 .program-timeline {
   width: 40px;
   border-right: 1px solid #ccc; }
@@ -43,21 +44,26 @@
     font-size: 12px;
     color: #999; }
 
+/* @flow */
 .program-flow {
   width: 30%; }
-  .program-flow.code_Z1 {
-    width: 50%; }
-  .program-flow.code_Z2 {
+  .program-flow.code_flow_1 {
     width: 25%; }
-  .program-flow.code_LOBBY {
+  .program-flow.code_flow_2 {
+    width: 25%; }
+  .program-flow.code_flow_3 {
+    width: 25%; }
+  .program-flow.code_flow_4 {
     width: 25%; }
   .program-flow.first .program-item {
     margin-left: 2px; }
   .program-flow.first .program-item.multiflow .time,
   .program-flow.first .program-item.multiflow .title,
-  .program-flow.first .program-item.multiflow .person {
+  .program-flow.first .program-item.multiflow .person,
+  .program-flow.first .program-item.multiflow .duration {
     display: block; }
 
+/* @flow-title */
 .program-flow-title {
   position: absolute;
   top: -25px;
@@ -67,24 +73,69 @@
     font-size: 18px;
     font-weight: bold; }
 
+/* @item */
 .program-item {
   position: relative;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   margin-bottom: 0;
   margin-right: 0;
-  padding: 5px 7px;
   min-width: 200px;
-  background-color: #cccccc;
-  font-size: 13px;
-  line-height: 15px;
-  border-bottom: 2px solid #fff;
-  border-right: 2px solid #fff;
-  text-shadow: none; }
+  background-image: none !important;
+  /* @legend */ }
   .program-item.common {
     width: 400%; }
+  .program-item.multiflow .inner {
+    border: 0;
+    left: 0;
+    right: 0; }
+  .program-item.multiflow .time,
+  .program-item.multiflow .title,
+  .program-item.multiflow .person,
+  .program-item.multiflow .duration {
+    display: none; }
+  .program-item.overlapping {
+    position: relative;
+    z-index: 1; }
+    .program-item.overlapping .inner {
+      top: 0;
+      right: -1px;
+      bottom: 0;
+      left: -1px;
+      border: 1px solid #dfdfdf; }
+  .program-item.legend-analytics .inner {
+    background-color: #B5C4D2; }
+  .program-item.legend-ui .inner {
+    background-color: #BCD0BF; }
+  .program-item.legend-testing .inner {
+    background-color: #D2C6B5; }
+  .program-item.legend-implementation .inner {
+    background-color: #D2B5B5; }
+  .program-item .inner {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    left: 1px;
+    margin-right: -1px;
+    margin-bottom: -1px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-color: #ccc;
+    padding: 5px 7px;
+    /*
+    border: 1px solid white;
+    border-right-color: transparent;
+    */
+    /*
+    border-bottom: 2px solid white;
+    border-right: 2px solid white;
+    */
+    font-size: 13px;
+    line-height: 17px;
+    text-shadow: none; }
   .program-item .time {
-    float: left;
+    display: inline;
     padding-right: 5px;
     color: #999; }
   .program-item .title {
@@ -93,24 +144,5 @@
     font-weight: bold; }
   .program-item .person {
     display: inline-block; }
-  .program-item.multiflow {
-    margin-left: -2px; }
-    .program-item.multiflow .time,
-    .program-item.multiflow .title,
-    .program-item.multiflow .person {
-      display: none; }
-  .program-item.overlapping {
-    position: relative;
-    z-index: 1; }
-
-.program .legend-analytics {
-  background-image: url("../img/schedule/legend-analytics.png"); }
-
-.program .legend-ui {
-  background-image: url("../img/schedule/legend-ui.png"); }
-
-.program .legend-testing {
-  background-image: url("../img/schedule/legend-testing.png"); }
-
-.program .legend-implementation {
-  background-image: url("../img/schedule/legend-implementation.png"); }
+  .program-item .duration {
+    display: block; }
