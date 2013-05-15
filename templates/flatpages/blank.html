@@ -1,0 +1,9 @@
+{% extends "__one-column.html" %}
+
+{% block page-header %}
+<h2>{{ flatpage.title }}</h2>
+{% endblock %}
+
+{% block content-main %}
+{{ flatpage.content|safe }}
+{% endblock %}
