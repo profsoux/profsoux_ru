@@ -10,10 +10,15 @@ from conference.models import *
 register = template.Library()
 
 
-@register.inclusion_tag('tags/category_list.html')
-def category_list():
-    categories = Category.objects.all()
-    return {'items': categories}
+@register.inclusion_tag('tags/category_list.html', takes_context=True)
+def category_list(context):
+    sections = ScheduleSection.objects.filter(event=context['request'].event).order_by('category')
+
+    categories = map(lambda x: x.category, sections)
+
+    print categories
+
+    return {'items': [v for i,v in enumerate(categories) if v not in categories[:i]]}
 
 
 @register.inclusion_tag('tags/speakers_list.html', takes_context=True)

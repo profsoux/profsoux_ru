@@ -1,8 +1,5 @@
-// TODO: отрефакторить стили
-
 $program-period-height: 300px;
-//$program-background-color: #F6F6F6;
-$program-background-color: #ccc;
+$program-items-spacing: 1px;
 
 @mixin item-height($percent) {
     $extra-px: 0;
@@ -13,30 +10,80 @@ $program-background-color: #ccc;
 }
 
 .program {
+    overflow: hidden;
+    margin: 50px 0;
     border-collapse: collapse;
     border-spacing: 0;
     font-family: Arial, sans-serif;
-    margin: 50px 0;
+
+    /* @legend */
+    td {
+        position: relative;
+        padding: 0;
+        vertical-align: top;
+        padding-top: 25px; /* this is for flow-title */
+    }
+
+    a {
+        /*border-bottom: 0;*/
+    }
 }
 
-.program td {
-    position: relative;
-    padding: 0;
-    vertical-align: top;
-}
 
-.program-row {
 
-}
-
+/* @timeline */
 .program-timeline {
     width: 40px;
-    border-right: 1px solid #ccc;
+
+    /* @left segment */
+    &.left {
+        border-right: 1px solid #ccc;
+
+        .segment-label {
+            margin-right: -1px;
+            padding: 3px 6px 0 0;
+            text-align: right;
+        }
+
+        .subsegment {
+            right: 0;
+        }
+
+        .subsegment-label {
+            padding-right: 4px;
+        }
+        .segment-line {
+            width: 9000%;
+        }
+    }
+
+    /* @right segment */
+    &.right {
+        border-left: 1px solid #ccc;
+
+        .segment-label {
+            margin-left: -1px;
+            padding: 3px 0 0 6px;
+            text-align: left;
+        }
+
+        .subsegment {
+            left: 0;
+        }
+
+        .subsegment-label {
+            padding-left: 4px;
+        }
+
+        .segment-line {
+            display: none;
+        }
+    }
 
     .segment {
         position: relative;
         box-sizing: border-box;
-        top: -1px;
+        top: 0 ;
         height: $program-period-height;
 
         &.last {
@@ -48,28 +95,26 @@ $program-background-color: #ccc;
         position: absolute;
         top: 0;
         left: 100%;
+        /*
         height: 1px;
         background-color: #ccc;
+        */
+        height: 0;
+        border-bottom: 1px dotted #ccc;
     }
 
     .segment-label {
-        margin-right: 2px;
-        margin-right: -1px;
-        padding: 3px 6px 0 0;
         border-top: 1px solid #ccc;
-        text-align: right;
     }
 
     .subsegment {
         position: absolute;
         top: auto;
-        right: 0;
     }
 
     .subsegment-label {
         margin-top: 0;
         padding-top: 1px;
-        padding-right: 4px;
         border-top: 1px solid #ccc;
         font-size: 12px;
         color: #999;
@@ -77,20 +122,34 @@ $program-background-color: #ccc;
 }
 
 
+
+/* @flow */
 .program-flow {
     width: 30%;
-    &.code_Z1 {width: 50%;}
-    &.code_Z2 {width: 25%;}
-    &.code_LOBBY {width: 25%;}
+
+    &.code_flow_1 {width: 25%;}
+    &.code_flow_2 {width: 25%;}
+    &.code_flow_3 {width: 25%;}
+    &.code_flow_4 {width: 25%;}
 
     &.first .program-item {
-        margin-left: 2px;
+        margin-left: 0;
+    }
+
+    &.first .program-item.multiflow {
+        .time {display: inline;}
+        .title {display: inline;}
+        .person {display: inline-block;}
+        .duration {display: block;}
     }
 }
 
+
+
+/* @flow-title */
 .program-flow-title {
     position: absolute;
-    top: -25px;
+    top: 0;
     height: 25px;
 
     .title {
@@ -100,23 +159,93 @@ $program-background-color: #ccc;
     }
 }
 
+
+
+/* @item */
 .program-item {
+    position: relative;
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
     margin-bottom: 0;
     margin-right: 0;
-    padding: 5px 7px;
     min-width: 200px;
-    background-color: $program-background-color;
-    font-size: 13px;
-    line-height: 15px;
-    border-bottom: 2px solid #fff;
-    border-right: 2px solid #fff;
+    background-image: none !important;
 
     &.common {width: 400%;}
     &.section_testing {}
 
+    &.multiflow {
+        .inner {
+            border: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .time,
+        .title,
+        .person,
+        .duration {
+            display: none;
+        }
+    }
+
+    &.overlapping {
+        position: relative;
+        z-index: 1;
+
+        .inner {
+            top: 0;
+            right: -$program-items-spacing;
+            bottom: 0;
+            left: -$program-items-spacing;
+            border: $program-items-spacing solid #DFDFDF
+        }
+    }
+
+    /* @legend */
+    &.legend-analytics .inner {background-color: #B5C4D2;}
+    &.legend-ui .inner {background-color: #BCD0BF;}
+    &.legend-testing .inner {background-color: #D2C6B5;}
+    &.legend-implementation .inner {background-color: #D2B5B5;}
+
+
+    .inner {
+        position: absolute;
+        top: $program-items-spacing;
+        @if ($program-items-spacing == 1px) {
+            right: 1px;
+        } @else {
+            right: $program-items-spacing - 1px;
+        }
+
+        @if ($program-items-spacing == 1px) {
+            bottom: 1px;
+        } @else {
+            bottom: $program-items-spacing - 1px;
+        }
+
+        left: $program-items-spacing;
+        margin-right: -1px;
+        margin-bottom: -1px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        background-color: #ccc;
+        padding: 5px 7px;
+        /*
+        border: 1px solid white;
+        border-right-color: transparent;
+        */
+        /*
+        border-bottom: 2px solid white;
+        border-right: 2px solid white;
+        */
+        font-size: 13px;
+        line-height: 17px;
+        text-shadow: none;
+    }
+
     .time {
-        float:left;
+        display: inline;
         padding-right: 5px;
         color: #999;
     }
@@ -130,18 +259,8 @@ $program-background-color: #ccc;
     .person {
         display: inline-block;
     }
-}
 
-
-.program .legend-analytics {
-  background-image:url("../img/schedule/legend-analytics.png");
-}
-.program .legend-ui {
-  background-image:url("../img/schedule/legend-ui.png");
-}
-.program .legend-testing {
-  background-image:url("../img/schedule/legend-testing.png");
-}
-.program .legend-implementation {
-  background-image:url("../img/schedule/legend-implementation.png");
+    .duration {
+        display: block;
+    }
 }

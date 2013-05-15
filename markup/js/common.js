@@ -266,12 +266,21 @@ ui.program = {
             f = [];
 
         for (var i = 0, len = items.length; i < len; i++) {
+            // If item is common for several flows
             if (items[i].flowId instanceof Array) {
+
                 for (var j = 0, lenj = items[i].flowId.length; j < lenj; j++) {
+
+                    // Copy every item in its flow
                     if (items[i].flowId[j] === id) {
                         f.push(items[i]);
+
+                        if (lenj > 1) {
+                            f[f.length - 1].multiflow = true;
+                        }
                     }
                 }
+
             } else if (items[i].flowId === id) {
                 f.push(items[i]);
             }
@@ -379,6 +388,7 @@ ui.program = {
                 data = opts.data,
                 table,
                 timeline, timelineCell,
+                timeline2, timelineCell2,
                 timemap,
                 flowsCells = {},
                 flow, flowId, flowCell, flowTitle, currentFlow,
@@ -389,10 +399,14 @@ ui.program = {
             timemap = program.getTimeMap();
             table = tpl.tableLayout(opts);
             timeline = tpl.timeline(opts.from, opts.to, opts.timelineSegments);
+            timeline2 = tpl.timeline(opts.from, opts.to, opts.timelineSegments);
+            timelineCell2 = ui.create({tag: 'td', e: 'program-timeline'});
 
             programRow = table.set[0];
             timelineCell = table.set[1];
+
             timelineCell.appendChild(timeline);
+            timelineCell.className += ' left';
 
             // Flows
             for (i = 0, len = data.flows.length; i < len; i++) {
@@ -418,6 +432,7 @@ ui.program = {
                      }
                      */
 
+                    // First item in flow
                     if (j === 0) {
                         var fromTimeSplitted = opts.from.split(':'),
                             d = new Date(),
@@ -431,16 +446,27 @@ ui.program = {
                         itemNode.style.marginTop = program.fromMinutesToPx(diffMinutes).toString() + 'px';
                     }
 
+                    // Spacing between nearest items
                     if (flowItems[j - 1]) {
                         var itemsDiff = (flowItems[j].start - flowItems[j-1].end) / 60 / 1000;
+                        // Positive margin-top between items
                         if (itemsDiff > 0) {
                             itemNode.style.marginTop = program.fromMinutesToPx(itemsDiff).toString() + 'px';
+                        } else if (itemsDiff < 0) {
+                            // Negative margin-top
+                            itemNode.style.marginTop = (program.fromMinutesToPx(itemsDiff)).toString() + 'px';
+                            itemNode.className += ' overlapping';
                         }
                     }
 
                     flowsCells[flowId].appendChild(itemNode);
                 }
             }
+
+            timelineCell2.className += ' right';
+            timelineCell2.appendChild(timeline2);
+            table.set[0].appendChild(timelineCell2);
+
             return table.fragment;
         },
         tableLayout: function() {
@@ -493,21 +519,36 @@ ui.program = {
                 mods.push('legend-' + item.category)
             }
 
+            if (item.multiflow) {
+                mods.push('multiflow');
+            }
+
+            if (item.multiflowFirst) {
+                mods.push('multiflow-first');
+            }
+
             return ui.create({
                 e: 'program-item ' + mods.join(' '),
                 style: {
                     height: height.toString() + 'px'
                 },
                 c: [
-                    (item.startTime) ? {e: 'time', c: item.startTime} : '',
-                    (item.title) ? (item.href)? {e: 'title', tag: 'a', href: item.href, c: item.title} : {e: 'title', c: item.title} : '',
-                    (item.person) ? {e: 'person', c: item.person} : ''
+                    {e: 'inner', c: [
+                        (item.startTime) ? {e: 'time', c: item.startTime} : '',
+                        (item.title) ?
+                            (item.href)
+                                ? {e: 'title', tag: 'a', href: item.href, c: item.title}
+                                : {e: 'title', c: item.title}
+                            : '',
+                        (item.person) ? {e: 'person', c: item.person} : '',
+                        (item.duration) ? {e: 'duration', c: item.duration.toString() + ' минут'} : ''
+                    ]}
                 ]
             });
         },
         timelineSegment: function(label, isLast) {
             return ui.create({e: 'segment' + (isLast ? ' last' : ''), c: [
-                /*{e: 'segment-line', style: {width: '1000px'}},*/
+                {e: 'segment-line' /*, style: {width: '1000px'}*/ },
                 {e: 'segment-label', c: label}
             ]});
         },
