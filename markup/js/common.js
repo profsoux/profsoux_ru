@@ -529,7 +529,8 @@ ui.program = {
                             ? {e: 'title', tag: 'a', href: item.href, c: item.title}
                             : {e: 'title', c: item.title}
                         : '',
-                    (item.person) ? {e: 'person', c: item.person} : ''
+                    (item.person) ? {e: 'person', c: item.person} : '',
+                    (item.duration) ? {e: 'duration', c: item.duration.toString() + ' минут'} : ''
                 ]
             });
         },
