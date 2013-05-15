@@ -10,16 +10,22 @@ $program-items-spacing: 1px;
 }
 
 .program {
+    overflow: hidden;
+    margin: 50px 0;
     border-collapse: collapse;
     border-spacing: 0;
     font-family: Arial, sans-serif;
-    margin: 50px 0;
 
     /* @legend */
     td {
         position: relative;
         padding: 0;
         vertical-align: top;
+        padding-top: 25px; /* this is for flow-title */
+    }
+
+    a {
+        /*border-bottom: 0;*/
     }
 }
 
@@ -28,12 +34,56 @@ $program-items-spacing: 1px;
 /* @timeline */
 .program-timeline {
     width: 40px;
-    border-right: 1px solid #ccc;
+
+    /* @left segment */
+    &.left {
+        border-right: 1px solid #ccc;
+
+        .segment-label {
+            margin-right: -1px;
+            padding: 3px 6px 0 0;
+            text-align: right;
+        }
+
+        .subsegment {
+            right: 0;
+        }
+
+        .subsegment-label {
+            padding-right: 4px;
+        }
+        .segment-line {
+            width: 9000%;
+        }
+    }
+
+    /* @right segment */
+    &.right {
+        border-left: 1px solid #ccc;
+
+        .segment-label {
+            margin-left: -1px;
+            padding: 3px 0 0 6px;
+            text-align: left;
+        }
+
+        .subsegment {
+            left: 0;
+        }
+
+        .subsegment-label {
+            padding-left: 4px;
+        }
+
+        .segment-line {
+            display: none;
+        }
+    }
 
     .segment {
         position: relative;
         box-sizing: border-box;
-        top: -1px;
+        top: 0 ;
         height: $program-period-height;
 
         &.last {
@@ -45,28 +95,26 @@ $program-items-spacing: 1px;
         position: absolute;
         top: 0;
         left: 100%;
+        /*
         height: 1px;
         background-color: #ccc;
+        */
+        height: 0;
+        border-bottom: 1px dotted #ccc;
     }
 
     .segment-label {
-        margin-right: 2px;
-        margin-right: -1px;
-        padding: 3px 6px 0 0;
         border-top: 1px solid #ccc;
-        text-align: right;
     }
 
     .subsegment {
         position: absolute;
         top: auto;
-        right: 0;
     }
 
     .subsegment-label {
         margin-top: 0;
         padding-top: 1px;
-        padding-right: 4px;
         border-top: 1px solid #ccc;
         font-size: 12px;
         color: #999;
@@ -85,16 +133,14 @@ $program-items-spacing: 1px;
     &.code_flow_4 {width: 25%;}
 
     &.first .program-item {
-        margin-left: 2px;
+        margin-left: 0;
     }
 
     &.first .program-item.multiflow {
-        .time,
-        .title,
-        .person,
-        .duration {
-            display: block;
-        }
+        .time {display: inline;}
+        .title {display: inline;}
+        .person {display: inline-block;}
+        .duration {display: block;}
     }
 }
 
@@ -103,7 +149,7 @@ $program-items-spacing: 1px;
 /* @flow-title */
 .program-flow-title {
     position: absolute;
-    top: -25px;
+    top: 0;
     height: 25px;
 
     .title {

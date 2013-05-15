@@ -388,6 +388,7 @@ ui.program = {
                 data = opts.data,
                 table,
                 timeline, timelineCell,
+                timeline2, timelineCell2,
                 timemap,
                 flowsCells = {},
                 flow, flowId, flowCell, flowTitle, currentFlow,
@@ -398,10 +399,14 @@ ui.program = {
             timemap = program.getTimeMap();
             table = tpl.tableLayout(opts);
             timeline = tpl.timeline(opts.from, opts.to, opts.timelineSegments);
+            timeline2 = tpl.timeline(opts.from, opts.to, opts.timelineSegments);
+            timelineCell2 = ui.create({tag: 'td', e: 'program-timeline'});
 
             programRow = table.set[0];
             timelineCell = table.set[1];
+
             timelineCell.appendChild(timeline);
+            timelineCell.className += ' left';
 
             // Flows
             for (i = 0, len = data.flows.length; i < len; i++) {
@@ -457,6 +462,11 @@ ui.program = {
                     flowsCells[flowId].appendChild(itemNode);
                 }
             }
+
+            timelineCell2.className += ' right';
+            timelineCell2.appendChild(timeline2);
+            table.set[0].appendChild(timelineCell2);
+
             return table.fragment;
         },
         tableLayout: function() {
@@ -538,7 +548,7 @@ ui.program = {
         },
         timelineSegment: function(label, isLast) {
             return ui.create({e: 'segment' + (isLast ? ' last' : ''), c: [
-                /*{e: 'segment-line', style: {width: '1000px'}},*/
+                {e: 'segment-line' /*, style: {width: '1000px'}*/ },
                 {e: 'segment-label', c: label}
             ]});
         },
