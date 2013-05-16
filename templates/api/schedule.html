@@ -14,7 +14,7 @@ programData.flows = [
 programData.items = [
     {% for section in sections %}
     {
-        title: '{{ section.get_title|safe|truncatechars:60 }}',
+        title: '{{ section.get_title|safe }}',
         {% if section.get_absolute_url %}
         href: '{{ section.get_absolute_url }}',
         {% endif %}
