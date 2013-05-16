@@ -1,5 +1,6 @@
 $program-period-height: 300px;
 $program-items-spacing: 1px;
+$program-flow-section-title-height: 25px;
 
 @mixin item-height($percent) {
     $extra-px: 0;
@@ -9,9 +10,13 @@ $program-items-spacing: 1px;
     height: (($program-period-height * $percent) / 60) - $extra-px;
 }
 
-.program {
+.schedule {
+    padding-top: $program-flow-section-title-height;
     overflow: hidden;
-    margin: 50px 0;
+}
+
+.program {
+    margin: 0;
     border-collapse: collapse;
     border-spacing: 0;
     font-family: Arial, sans-serif;
@@ -21,7 +26,6 @@ $program-items-spacing: 1px;
         position: relative;
         padding: 0;
         vertical-align: top;
-        padding-top: 25px; /* this is for flow-title */
     }
 
     a {
@@ -146,11 +150,40 @@ $program-items-spacing: 1px;
 
 
 
+/* @flow-section */
+.program-flow-section {
+    position: relative;
+    padding-top: $program-flow-section-title-height;
+    margin-top: -$program-flow-section-title-height;
+}
+
+
+
 /* @flow-title */
-.program-flow-title {
+.program-flow-section-title {
     position: absolute;
     top: 0;
     height: 25px;
+    margin-left: 2px;
+
+    &.active {
+        border: 1px solid #999;
+        border-width: 0 1px 1px 1px;
+        margin-left: 1px;
+        margin-top: -1px;
+    }
+
+    &.fixed {
+        position: fixed;
+        z-index: 10;
+    }
+
+    &.bottom {
+        position: absolute;
+        top: auto;
+        bottom: 0;
+        z-index: 10;
+    }
 
     .title {
         padding: 0 10px;
@@ -158,12 +191,17 @@ $program-items-spacing: 1px;
         font-weight: bold;
     }
 }
+.code_flow_1 .program-flow-section-title.active {background-color: #B5C4D2;}
+.code_flow_2 .program-flow-section-title.active {background-color: #BCD0BF;}
+.code_flow_3 .program-flow-section-title.active {background-color: #D2C6B5;}
+.code_flow_4 .program-flow-section-title.active {background-color: #D2B5B5;}
 
 
 
 /* @item */
 .program-item {
     position: relative;
+    z-index: 5;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     margin-bottom: 0;
@@ -191,14 +229,26 @@ $program-items-spacing: 1px;
 
     &.overlapping {
         position: relative;
+        z-index: 6;
+
+        .inner {
+            right: 0;
+            bottom: 0;
+            left: 0;
+            border: $program-items-spacing solid #DFDFDF
+        }
+    }
+    &.overlapping.multiflow {
+        .inner {
+
+        }
+    }
+
+    &.virtual {
         z-index: 1;
 
         .inner {
-            top: 0;
-            right: -$program-items-spacing;
-            bottom: 0;
-            left: -$program-items-spacing;
-            border: $program-items-spacing solid #DFDFDF
+            border: 0;
         }
     }
 

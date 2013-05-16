@@ -251,14 +251,57 @@ ui.program = {
     generate: function(opts) {
         var that = this,
             data = opts.data,
-            table;
+            table,
+            flowTitles;
 
         that.data = data;
         that.timelineSegmentHeight = that._getTimelineSegmentHeight();
 
         table = that.tpl.table(opts);
-
         return table;
+    },
+
+    init: function(opts) {
+        var that = this,
+            table,
+            $programBlock = $('#schedule'),
+            programPositionTop = $programBlock.offset().top,
+            programHeight = 0,
+            $flowSectionsTitles = null,
+            flowSectionHeight = 0;
+
+        that.data = opts.data;
+        that.timelineSegmentHeight = that._getTimelineSegmentHeight();
+
+        table = that.generate({
+            data: opts.data,
+            from: '10:00',
+            to: '20:00',
+            timelineSegments: 2
+        });
+
+        $programBlock.append(table);
+        $flowSectionsTitles = $programBlock.find('.program-flow-section-title');
+        flowSectionHeight = $($flowSectionsTitles).get(0).offsetHeight;
+
+        $(window).scroll(function() {
+            var scrollTop = $(window).scrollTop(),
+                programHeight = $programBlock.get(0).offsetHeight;
+
+            if (scrollTop > programPositionTop) {
+                if (scrollTop < ((programHeight + programPositionTop) - flowSectionHeight)) {
+                    $flowSectionsTitles.addClass('fixed active');
+                    $flowSectionsTitles.removeClass('bottom');
+                } else {
+                    console.log('213');
+                    $flowSectionsTitles.addClass('bottom active');
+                    $flowSectionsTitles.removeClass('fixed');
+                }
+
+            } else if (scrollTop < programPositionTop) {
+                $flowSectionsTitles.removeClass('fixed bottom active');
+            }
+        });
     },
 
     getFlowItems: function(id) {
@@ -277,6 +320,10 @@ ui.program = {
 
                         if (lenj > 1) {
                             f[f.length - 1].multiflow = true;
+                        }
+
+                        if (j > 0) {
+                            f[f.length - 1].type = 'virtual';
                         }
                     }
                 }
@@ -390,9 +437,11 @@ ui.program = {
                 timeline, timelineCell,
                 timeline2, timelineCell2,
                 timemap,
-                flowsCells = {},
-                flow, flowId, flowCell, flowTitle, currentFlow,
-                item, flowItems, itemNode, mappedItem,
+                flowsSections = {},
+                flow, flowId, flowCell, flowTitle, flowSection,
+                item, flowItems, itemNode, prevItem, nextItem,
+                nearestPrevItemsTimeDiff = 0, nearestNextItemsTimeDiff = 0,
+                flowStartTime, flowStartAndItemStartDiff,
                 i, len,
                 programRow;
 
@@ -415,7 +464,8 @@ ui.program = {
                 flow = timemap[flowId];
                 flowTitle = flow.title;
                 flowCell = tpl.flowCell(flow, i === 0);
-                flowsCells[flowId] = flowCell;
+                flowSection = flowCell.childNodes[0];
+                flowsSections[flowId] = flowSection;
                 flowItems = timemap[flowId].map;
 
                 programRow.appendChild(flowCell);
@@ -424,6 +474,8 @@ ui.program = {
                 for (var j = 0, lenj = flowItems.length; j < lenj; j++) {
                     item = timemap[flowId].map[j];
                     itemNode = tpl.item(item);
+                    prevItem = flowItems[j - 1];
+                    nextItem = flowItems[j + 1];
 
                     // Invalid flowId in data
                     /*
@@ -434,32 +486,48 @@ ui.program = {
 
                     // First item in flow
                     if (j === 0) {
-                        var fromTimeSplitted = opts.from.split(':'),
-                            d = new Date(),
-                            diffMinutes;
+                        flowStartTime = new Date();
+                        flowStartTime.setHours(parseInt(opts.from.split(':')[0]));
+                        flowStartTime.setMinutes(parseInt(opts.from.split(':')[1]));
+                        flowStartTime.setSeconds(0);
+                        flowStartAndItemStartDiff = (item.start - flowStartTime) / 60 / 1000;
 
-                        d.setHours(parseInt(fromTimeSplitted[0]));
-                        d.setMinutes(parseInt(fromTimeSplitted[1]));
-                        d.setSeconds(0);
-                        diffMinutes = (item.start - d) / 60 / 1000;
-
-                        itemNode.style.marginTop = program.fromMinutesToPx(diffMinutes).toString() + 'px';
+                        itemNode.style.marginTop = program.fromMinutesToPx(flowStartAndItemStartDiff).toString() + 'px';
                     }
 
-                    // Spacing between nearest items
-                    if (flowItems[j - 1]) {
-                        var itemsDiff = (flowItems[j].start - flowItems[j-1].end) / 60 / 1000;
-                        // Positive margin-top between items
-                        if (itemsDiff > 0) {
-                            itemNode.style.marginTop = program.fromMinutesToPx(itemsDiff).toString() + 'px';
-                        } else if (itemsDiff < 0) {
-                            // Negative margin-top
-                            itemNode.style.marginTop = (program.fromMinutesToPx(itemsDiff)).toString() + 'px';
+                    // If previous or next item exists
+                    // we need to calculate spacing between nearest items
+                    if (prevItem || nextItem) {
+                        // Calculating diff between nearest items
+                        nearestPrevItemsTimeDiff = (prevItem) ? (item.start - prevItem.end) / 60 / 1000 : 0;
+                        nearestNextItemsTimeDiff = (nextItem) ? (item.end - nextItem.end) / 60 / 1000 : 0;
+
+                        // Current and previous items
+                        // Positive margin-top (no overlapping)
+                        if (nearestPrevItemsTimeDiff > 0) {
+                            itemNode.style.marginTop = program.fromMinutesToPx(nearestPrevItemsTimeDiff).toString() + 'px';
+                        }
+                        else if (nearestPrevItemsTimeDiff < 0) {
+                            // Negative margin-top (overlapping)
+                            itemNode.style.marginTop = (program.fromMinutesToPx(nearestPrevItemsTimeDiff)).toString() + 'px';
                             itemNode.className += ' overlapping';
                         }
+
+                        // For current and next items we not need to do anything
                     }
 
-                    flowsCells[flowId].appendChild(itemNode);
+                    // If multiflow item
+                    if (item.flowId.length > 1) {
+                        //itemNode.style.width = (80 * item.flowId.length).toString() + '%';
+                    }
+
+                    if (item.type && item.type === 'virtual') {
+                        //itemNode.style.visibility = 'hidden';
+                        itemNode.className += ' virtual';
+                        itemNode.style.width = 'auto';
+                    }
+
+                    flowsSections[flowId].appendChild(itemNode);
                 }
             }
 
@@ -497,8 +565,10 @@ ui.program = {
                 e: 'program-flow ' + mods.join(' '),
                 tag: 'td',
                 c: [
-                    {e: 'program-flow-title', c: [
-                        {e: 'title', c: flow.title}
+                    {e: 'program-flow-section', c: [
+                        {e: 'program-flow-section-title', c: [
+                            {e: 'title', c: flow.title}
+                        ]}
                     ]}
                 ]}
             );

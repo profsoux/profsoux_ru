@@ -4,7 +4,7 @@ programData.flows = [
     {% for flow in flows %}
     {
         id: {{ flow.id }},
-        title: '{{ flow.title }}',
+        title: '{{ flow.title|safe }}',
         code: 'flow_{{ flow.id }}',
         startTime: '{{ flow.start_time }}',
     }{% if not forloop.last %},{% endif %}
@@ -14,7 +14,7 @@ programData.flows = [
 programData.items = [
     {% for section in sections %}
     {
-        title: '{{ section.get_title|truncatechars:60 }}',
+        title: '{{ section.get_title|safe|truncatechars:60 }}',
         {% if section.get_absolute_url %}
         href: '{{ section.get_absolute_url }}',
         {% endif %}
