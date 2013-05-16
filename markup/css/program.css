@@ -1,5 +1,6 @@
 .schedule {
   padding-top: 25px;
+  padding-left: 0;
   overflow: hidden; }
 
 .program {
@@ -21,7 +22,7 @@
   /* @left segment */
   /* @right segment */ }
   .program-timeline.left {
-    border-right: 1px solid #cccccc; }
+    border-right: 1px solid #ccc; }
     .program-timeline.left .segment-label {
       margin-right: -1px;
       padding: 3px 6px 0 0;
@@ -33,7 +34,7 @@
     .program-timeline.left .segment-line {
       width: 9000%; }
   .program-timeline.right {
-    border-left: 1px solid #cccccc; }
+    border-left: 1px solid #ccc; }
     .program-timeline.right .segment-label {
       margin-left: -1px;
       padding: 3px 0 0 6px;
@@ -60,16 +61,16 @@
     background-color: #ccc;
     */
     height: 0;
-    border-bottom: 1px dotted #cccccc; }
+    border-bottom: 1px dotted #ccc; }
   .program-timeline .segment-label {
-    border-top: 1px solid #cccccc; }
+    border-top: 1px solid #ccc; }
   .program-timeline .subsegment {
     position: absolute;
     top: auto; }
   .program-timeline .subsegment-label {
     margin-top: 0;
     padding-top: 1px;
-    border-top: 1px solid #cccccc;
+    border-top: 1px solid #ccc;
     font-size: 12px;
     color: #999; }
 
@@ -108,7 +109,7 @@
   height: 25px;
   margin-left: 2px; }
   .program-flow-section-title.active {
-    border: 1px solid #999999;
+    border: 1px solid #999;
     border-width: 0 1px 1px 1px;
     margin-left: 1px;
     margin-top: -1px; }
@@ -214,3 +215,7 @@
     display: inline-block; }
   .program-item .duration {
     display: block; }
+
+/* Dirty hack to hide afterparty duration */
+.code_flow_1 .program-item:last-child .duration {
+  display: none !important; }
