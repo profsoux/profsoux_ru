@@ -1,6 +1,9 @@
+.schedule {
+  padding-top: 25px;
+  overflow: hidden; }
+
 .program {
-  overflow: hidden;
-  margin: 50px 0;
+  margin: 0;
   border-collapse: collapse;
   border-spacing: 0;
   font-family: Arial, sans-serif;
@@ -8,9 +11,7 @@
   .program td {
     position: relative;
     padding: 0;
-    vertical-align: top;
-    padding-top: 25px;
-    /* this is for flow-title */ }
+    vertical-align: top; }
   .program a {
     /*border-bottom: 0;*/ }
 
@@ -94,15 +95,47 @@
   .program-flow.first .program-item.multiflow .duration {
     display: block; }
 
+/* @flow-section */
+.program-flow-section {
+  position: relative;
+  padding-top: 25px;
+  margin-top: -25px; }
+
 /* @flow-title */
-.program-flow-title {
+.program-flow-section-title {
   position: absolute;
   top: 0;
-  height: 25px; }
-  .program-flow-title .title {
+  height: 25px;
+  margin-left: 2px; }
+  .program-flow-section-title.active {
+    border: 1px solid #999999;
+    border-width: 0 1px 1px 1px;
+    margin-left: 1px;
+    margin-top: -1px; }
+  .program-flow-section-title.fixed {
+    position: fixed;
+    z-index: 10; }
+  .program-flow-section-title.bottom {
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    z-index: 10; }
+  .program-flow-section-title .title {
     padding: 0 10px;
     font-size: 18px;
     font-weight: bold; }
+
+.code_flow_1 .program-flow-section-title.active {
+  background-color: #B5C4D2; }
+
+.code_flow_2 .program-flow-section-title.active {
+  background-color: #BCD0BF; }
+
+.code_flow_3 .program-flow-section-title.active {
+  background-color: #D2C6B5; }
+
+.code_flow_4 .program-flow-section-title.active {
+  background-color: #D2B5B5; }
 
 /* @item */
 .program-item {

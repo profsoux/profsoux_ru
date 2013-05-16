@@ -251,14 +251,57 @@ ui.program = {
     generate: function(opts) {
         var that = this,
             data = opts.data,
-            table;
+            table,
+            flowTitles;
 
         that.data = data;
         that.timelineSegmentHeight = that._getTimelineSegmentHeight();
 
         table = that.tpl.table(opts);
-
         return table;
+    },
+
+    init: function(opts) {
+        var that = this,
+            table,
+            $programBlock = $('#schedule'),
+            programPositionTop = $programBlock.offset().top,
+            programHeight = 0,
+            $flowSectionsTitles = null,
+            flowSectionHeight = 0;
+
+        that.data = opts.data;
+        that.timelineSegmentHeight = that._getTimelineSegmentHeight();
+
+        table = that.generate({
+            data: opts.data,
+            from: '10:00',
+            to: '20:00',
+            timelineSegments: 2
+        });
+
+        $programBlock.append(table);
+        $flowSectionsTitles = $programBlock.find('.program-flow-section-title');
+        flowSectionHeight = $($flowSectionsTitles).get(0).offsetHeight;
+
+        $(window).scroll(function() {
+            var scrollTop = $(window).scrollTop(),
+                programHeight = $programBlock.get(0).offsetHeight;
+
+            if (scrollTop > programPositionTop) {
+                if (scrollTop < ((programHeight + programPositionTop) - flowSectionHeight)) {
+                    $flowSectionsTitles.addClass('fixed active');
+                    $flowSectionsTitles.removeClass('bottom');
+                } else {
+                    console.log('213');
+                    $flowSectionsTitles.addClass('bottom active');
+                    $flowSectionsTitles.removeClass('fixed');
+                }
+
+            } else if (scrollTop < programPositionTop) {
+                $flowSectionsTitles.removeClass('fixed bottom active');
+            }
+        });
     },
 
     getFlowItems: function(id) {
@@ -394,8 +437,8 @@ ui.program = {
                 timeline, timelineCell,
                 timeline2, timelineCell2,
                 timemap,
-                flowsCells = {},
-                flow, flowId, flowCell, flowTitle,
+                flowsSections = {},
+                flow, flowId, flowCell, flowTitle, flowSection,
                 item, flowItems, itemNode, prevItem, nextItem,
                 nearestPrevItemsTimeDiff = 0, nearestNextItemsTimeDiff = 0,
                 flowStartTime, flowStartAndItemStartDiff,
@@ -421,7 +464,8 @@ ui.program = {
                 flow = timemap[flowId];
                 flowTitle = flow.title;
                 flowCell = tpl.flowCell(flow, i === 0);
-                flowsCells[flowId] = flowCell;
+                flowSection = flowCell.childNodes[0];
+                flowsSections[flowId] = flowSection;
                 flowItems = timemap[flowId].map;
 
                 programRow.appendChild(flowCell);
@@ -483,7 +527,7 @@ ui.program = {
                         itemNode.style.width = 'auto';
                     }
 
-                    flowsCells[flowId].appendChild(itemNode);
+                    flowsSections[flowId].appendChild(itemNode);
                 }
             }
 
@@ -521,8 +565,10 @@ ui.program = {
                 e: 'program-flow ' + mods.join(' '),
                 tag: 'td',
                 c: [
-                    {e: 'program-flow-title', c: [
-                        {e: 'title', c: flow.title}
+                    {e: 'program-flow-section', c: [
+                        {e: 'program-flow-section-title', c: [
+                            {e: 'title', c: flow.title}
+                        ]}
                     ]}
                 ]}
             );

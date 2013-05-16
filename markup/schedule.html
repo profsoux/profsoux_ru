@@ -258,15 +258,9 @@
 
 <script>
 $(document).ready(function() {
-    var table;
-    table = ui.program.generate({
-        data: programData,
-        from: '10:00',
-        to: '20:00',
-        timelineSegments: 2
+    ui.program.init({
+        data: programData
     });
-
-    $('#schedule').append(table);
 });
 </script>
 
