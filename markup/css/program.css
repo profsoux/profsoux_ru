@@ -76,7 +76,8 @@
 
 /* @flow */
 .program-flow {
-  width: 30%; }
+  width: 30%;
+  background-color: #FAFAFA; }
   .program-flow.code_flow_1 {
     width: 25%; }
   .program-flow.code_flow_2 {
@@ -126,17 +127,22 @@
     font-size: 18px;
     font-weight: bold; }
 
-.code_flow_1 .program-flow-section-title.active {
-  background-color: #B5C4D2; }
+/* @legends */
+.code_flow_1 .program-flow-section-title.active,
+.program-item.legend-analytics .inner {
+  background-color: #E0F5FF; }
 
-.code_flow_2 .program-flow-section-title.active {
-  background-color: #BCD0BF; }
+.code_flow_2 .program-flow-section-title.active,
+.program-item.legend-ui .inner {
+  background-color: #EBF5DE; }
 
-.code_flow_3 .program-flow-section-title.active {
-  background-color: #D2C6B5; }
+.code_flow_3 .program-flow-section-title.active,
+.program-item.legend-testing .inner {
+  background-color: #FFFFE9; }
 
-.code_flow_4 .program-flow-section-title.active {
-  background-color: #D2B5B5; }
+.code_flow_4 .program-flow-section-title.active,
+.program-item.legend-implementation .inner {
+  background-color: #FFEBEB; }
 
 /* @item */
 .program-item {
@@ -148,18 +154,28 @@
   margin-right: 0;
   min-width: 200px;
   background-image: none !important;
-  /* @legend */ }
+  box-shadow: 0px 0px 9px -2px rgba(0, 0, 0, 0.15); }
   .program-item.common {
     width: 400%; }
-  .program-item.multiflow .inner {
-    border: 0;
-    left: 0;
-    right: 0; }
-  .program-item.multiflow .time,
-  .program-item.multiflow .title,
-  .program-item.multiflow .person,
-  .program-item.multiflow .duration {
-    display: none; }
+  .program-item.multiflow {
+    box-shadow: none; }
+    .program-item.multiflow .inner {
+      border-width: 1px 0;
+      left: 0;
+      right: 0;
+      background: url("../img/textures/program-item.png") repeat; }
+    .program-item.multiflow .time,
+    .program-item.multiflow .title,
+    .program-item.multiflow .person,
+    .program-item.multiflow .duration {
+      display: none; }
+  .program-item.multiflow.virtual .inner {
+    background-image: none; }
+  .program-item.virtual {
+    z-index: 1;
+    box-shadow: none; }
+    .program-item.virtual .inner {
+      border: 0; }
   .program-item.overlapping {
     position: relative;
     z-index: 6; }
@@ -167,39 +183,35 @@
       right: 0;
       bottom: 0;
       left: 0;
-      border: 1px solid #dfdfdf; }
-  .program-item.virtual {
-    z-index: 1; }
-    .program-item.virtual .inner {
-      border: 0; }
-  .program-item.legend-analytics .inner {
-    background-color: #B5C4D2; }
-  .program-item.legend-ui .inner {
-    background-color: #BCD0BF; }
-  .program-item.legend-testing .inner {
-    background-color: #D2C6B5; }
-  .program-item.legend-implementation .inner {
-    background-color: #D2B5B5; }
+      /*            border: $program-items-spacing solid #DFDFDF*/ }
   .program-item .inner {
     position: absolute;
-    top: 1px;
-    right: 1px;
-    bottom: 1px;
-    left: 1px;
+        /*
+        top: $program-items-spacing;
+        @if ($program-items-spacing == 1px) {
+            right: 1px;
+        } @else {
+            right: $program-items-spacing - 1px;
+        }
+        @if ($program-items-spacing == 1px) {
+            bottom: 1px;
+        } @else {
+            bottom: $program-items-spacing - 1px;
+        }
+        left: $program-items-spacing;
+
+        */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     margin-right: -1px;
     margin-bottom: -1px;
+    border: 1px solid #dfdfdf;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
-    background-color: #ccc;
+    background-color: #F0F0F0;
     padding: 5px 7px;
-    /*
-    border: 1px solid white;
-    border-right-color: transparent;
-    */
-    /*
-    border-bottom: 2px solid white;
-    border-right: 2px solid white;
-    */
     font-size: 13px;
     line-height: 17px;
     text-shadow: none; }
@@ -217,5 +229,7 @@
     display: block; }
 
 /* Dirty hack to hide afterparty duration */
+.code_flow_1 .program-item:last-child .inner {
+  background-image: url("../img/textures/program-item_legend-afterparty.png"); }
 .code_flow_1 .program-item:last-child .duration {
   display: none !important; }

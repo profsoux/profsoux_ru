@@ -131,6 +131,7 @@ $program-flow-section-title-height: 25px;
 /* @flow */
 .program-flow {
     width: 30%;
+    background-color: #FAFAFA;
 
     &.code_flow_1 {width: 25%;}
     &.code_flow_2 {width: 25%;}
@@ -139,6 +140,10 @@ $program-flow-section-title-height: 25px;
 
     &.first .program-item {
         margin-left: 0;
+
+        .inner {
+            //border-left: 0;
+        }
     }
 
     &.first .program-item.multiflow {
@@ -192,10 +197,29 @@ $program-flow-section-title-height: 25px;
         font-weight: bold;
     }
 }
-.code_flow_1 .program-flow-section-title.active {background-color: #B5C4D2;}
-.code_flow_2 .program-flow-section-title.active {background-color: #BCD0BF;}
-.code_flow_3 .program-flow-section-title.active {background-color: #D2C6B5;}
-.code_flow_4 .program-flow-section-title.active {background-color: #D2B5B5;}
+
+
+
+/* @legends */
+.code_flow_1 .program-flow-section-title.active,
+.program-item.legend-analytics .inner {
+    background-color: #E0F5FF;
+}
+
+.code_flow_2 .program-flow-section-title.active,
+.program-item.legend-ui .inner {
+    background-color: #EBF5DE;
+}
+
+.code_flow_3 .program-flow-section-title.active,
+.program-item.legend-testing .inner {
+    background-color: #FFFFE9;
+}
+
+.code_flow_4 .program-flow-section-title.active,
+.program-item.legend-implementation .inner {
+    background-color: #FFEBEB;
+}
 
 
 
@@ -209,15 +233,19 @@ $program-flow-section-title-height: 25px;
     margin-right: 0;
     min-width: 200px;
     background-image: none !important;
+    box-shadow: 0px 0px 9px -2px rgba(0, 0, 0, 0.15);
 
     &.common {width: 400%;}
     &.section_testing {}
 
     &.multiflow {
+        box-shadow: none;
+
         .inner {
-            border: 0;
+            border-width: 1px 0;
             left: 0;
             right: 0;
+            background: url('../img/textures/program-item.png') repeat;
         }
 
         .time,
@@ -225,6 +253,20 @@ $program-flow-section-title-height: 25px;
         .person,
         .duration {
             display: none;
+        }
+    }
+    &.multiflow.virtual {
+        .inner {
+            background-image: none;
+        }
+    }
+
+    &.virtual {
+        z-index: 1;
+        box-shadow: none;
+
+        .inner {
+            border: 0;
         }
     }
 
@@ -236,7 +278,7 @@ $program-flow-section-title-height: 25px;
             right: 0;
             bottom: 0;
             left: 0;
-            border: $program-items-spacing solid #DFDFDF
+/*            border: $program-items-spacing solid #DFDFDF*/
         }
     }
     &.overlapping.multiflow {
@@ -245,51 +287,35 @@ $program-flow-section-title-height: 25px;
         }
     }
 
-    &.virtual {
-        z-index: 1;
-
-        .inner {
-            border: 0;
-        }
-    }
-
-    /* @legend */
-    &.legend-analytics .inner {background-color: #B5C4D2;}
-    &.legend-ui .inner {background-color: #BCD0BF;}
-    &.legend-testing .inner {background-color: #D2C6B5;}
-    &.legend-implementation .inner {background-color: #D2B5B5;}
-
 
     .inner {
         position: absolute;
+        /*
         top: $program-items-spacing;
         @if ($program-items-spacing == 1px) {
             right: 1px;
         } @else {
             right: $program-items-spacing - 1px;
         }
-
         @if ($program-items-spacing == 1px) {
             bottom: 1px;
         } @else {
             bottom: $program-items-spacing - 1px;
         }
-
         left: $program-items-spacing;
+
+        */
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
         margin-right: -1px;
         margin-bottom: -1px;
+        border: 1px solid #dfdfdf;
         box-sizing: border-box;
         -moz-box-sizing: border-box;
-        background-color: #ccc;
+        background-color: #F0F0F0;
         padding: 5px 7px;
-        /*
-        border: 1px solid white;
-        border-right-color: transparent;
-        */
-        /*
-        border-bottom: 2px solid white;
-        border-right: 2px solid white;
-        */
         font-size: 13px;
         line-height: 17px;
         text-shadow: none;
@@ -318,6 +344,14 @@ $program-flow-section-title-height: 25px;
 
 
 /* Dirty hack to hide afterparty duration */
-.code_flow_1 .program-item:last-child .duration {
-    display: none !important;
+.code_flow_1 .program-item:last-child  {
+
+    .inner {
+        background-image: url('../img/textures/program-item_legend-afterparty.png');
+    }
+
+    .duration {
+        display: none !important;
+    }
+
 }
