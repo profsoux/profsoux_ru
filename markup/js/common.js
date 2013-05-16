@@ -518,7 +518,7 @@ ui.program = {
 
                     // If multiflow item
                     if (item.flowId.length > 1) {
-                        //itemNode.style.width = (80 * item.flowId.length).toString() + '%';
+                        itemNode.style.width = ((100 * item.flowId.length) + 2).toString() + '%';
                     }
 
                     if (item.type && item.type === 'virtual') {
