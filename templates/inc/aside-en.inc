@@ -26,7 +26,7 @@
         </p>
     {% else %}
         <p><small>Registration is closed <br />
-        Watch us live. The live video stream will start at 11:30</small></p>
+        <a href="/online/">Watch us live</a>.</small></p>
     {% endif %}
 
     {% if counts.participants %}
