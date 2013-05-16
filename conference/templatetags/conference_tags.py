@@ -16,8 +16,6 @@ def category_list(context):
 
     categories = map(lambda x: x.category, sections)
 
-    print categories
-
     return {'items': [v for i,v in enumerate(categories) if v not in categories[:i]]}
 
 
