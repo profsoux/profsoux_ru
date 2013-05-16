@@ -12,6 +12,7 @@ $program-flow-section-title-height: 25px;
 
 .schedule {
     padding-top: $program-flow-section-title-height;
+    padding-left: 0;
     overflow: hidden;
 }
 
@@ -313,4 +314,10 @@ $program-flow-section-title-height: 25px;
     .duration {
         display: block;
     }
+}
+
+
+/* Dirty hack to hide afterparty duration */
+.code_flow_1 .program-item:last-child .duration {
+    display: none !important;
 }
