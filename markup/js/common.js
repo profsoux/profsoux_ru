@@ -1038,9 +1038,6 @@ ui.twee = {
 
 
 $(function(){
-    // schedule
-    ui.schedule.init();
-
     var $paygate = $('#paygate');
 
     $paygate.find('link').remove();
