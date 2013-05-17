@@ -1,3 +1,4 @@
+$program-min-width: 640px;
 $program-timeline-period-height: 300px;
 $program-timeline-width: 45px;
 $program-items-spacing: 1px;
@@ -12,8 +13,30 @@ $program-section-title-height: 25px;
 }
 
 
+/* =============================================================================
+   Styles
+*/
+
+
+.page-schedule {
+    min-width: $program-min-width;
+
+    #content-main {
+
+    }
+
+    @media (max-width: 979px) and (min-width: 768px) {
+        //.container {width: 800px;}
+    }
+    
+    .span12 {
+
+    }
+}
+
 .schedule {
     position: relative;
+    min-width: $program-min-width;
     padding: $program-section-title-height 0 0 0;
     margin-left: $program-timeline-width;
     margin-right: $program-timeline-width;
@@ -129,6 +152,10 @@ $program-section-title-height: 25px;
         right: -$program-timeline-width - 1px;
         border-left: 1px solid #ccc;
 
+        @media (max-width: 970px) {
+            visibility: hidden;
+        }
+
         .segment-label {
             margin-left: -1px;
             padding: 3px 0 0 6px;
@@ -194,17 +221,17 @@ $program-section-title-height: 25px;
 
 
 
-/* @flow-title */
+/* @section-title */
 .program-flow-section-title {
     position: absolute;
     top: 0;
     height: 25px;
-    margin-left: 2px;
+    margin-left: 1px;
 
     &.active {
         border: 1px solid #999;
         border-width: 0 1px 1px 1px;
-        margin-left: 1px;
+        margin-left: 0px;
         margin-top: -1px;
     }
 
@@ -224,6 +251,7 @@ $program-section-title-height: 25px;
         padding: 0 10px;
         font-size: 18px;
         font-weight: bold;
+        white-space: nowrap;
     }
 }
 

@@ -1,5 +1,12 @@
+/* =============================================================================
+   Styles
+*/
+.page-schedule {
+  min-width: 640px; }
+
 .schedule {
   position: relative;
+  min-width: 640px;
   padding: 25px 0 0 0;
   margin-left: 45px;
   margin-right: 45px; }
@@ -77,6 +84,9 @@
     left: auto;
     right: -46px;
     border-left: 1px solid #ccc; }
+    @media (max-width: 970px) {
+      .program-timeline.right {
+        visibility: hidden; } }
     .program-timeline.right .segment-label {
       margin-left: -1px;
       padding: 3px 0 0 6px;
@@ -122,16 +132,16 @@
   padding-top: 25px;
   margin-top: -25px; }
 
-/* @flow-title */
+/* @section-title */
 .program-flow-section-title {
   position: absolute;
   top: 0;
   height: 25px;
-  margin-left: 2px; }
+  margin-left: 1px; }
   .program-flow-section-title.active {
     border: 1px solid #999;
     border-width: 0 1px 1px 1px;
-    margin-left: 1px;
+    margin-left: 0px;
     margin-top: -1px; }
   .program-flow-section-title.fixed {
     position: fixed;
@@ -144,7 +154,8 @@
   .program-flow-section-title .title {
     padding: 0 10px;
     font-size: 18px;
-    font-weight: bold; }
+    font-weight: bold;
+    white-space: nowrap; }
 
 /* @legends */
 .code_flow_1 .program-flow-section-title.active,

@@ -252,6 +252,8 @@ ui.program = {
 
     data: null,
 
+    isSticky: false,
+
     init: function(opts) {
         var that = this,
             table,
@@ -259,7 +261,8 @@ ui.program = {
             programPositionTop = $programBlock.offset().top,
             $flowSectionsTitles = null,
             flowSectionHeight = 0,
-            timelineLeft, timelineRight;
+            timelineLeft, timelineRight,
+            flowWidth;
 
         // Defaults
         opts.from = '10:00';
@@ -283,10 +286,13 @@ ui.program = {
         // Sticky columns titles
         $flowSectionsTitles = $programBlock.find('.program-flow-section-title');
         flowSectionHeight = $($flowSectionsTitles).get(0).offsetHeight;
+        flowWidth = $flowSectionsTitles.get(0).parentNode.offsetWidth;
 
         $(window).scroll(function() {
             var scrollTop = $(window).scrollTop(),
-                programHeight = $programBlock.get(0).offsetHeight;
+                scrollLeft = $(window).scrollLeft(),
+                programHeight = $programBlock.get(0).offsetHeight,
+                programOffsetLeft = $programBlock.offset().left;
 
             if (scrollTop > programPositionTop) {
                 if (scrollTop < ((programHeight + programPositionTop) - flowSectionHeight)) {
@@ -296,9 +302,22 @@ ui.program = {
                     $flowSectionsTitles.addClass('bottom active');
                     $flowSectionsTitles.removeClass('fixed');
                 }
+                that.isSticky = true;
 
             } else if (scrollTop < programPositionTop) {
                 $flowSectionsTitles.removeClass('fixed bottom active');
+                that.isSticky = false;
+            }
+
+            if (scrollLeft > 0 && that.isSticky) {
+                $flowSectionsTitles.each(function() {
+                    var $this = $(this),
+                        parentOffsetLeft = $this.parent().offset().left;
+
+                    $this.css('left', parentOffsetLeft - scrollLeft);
+                });
+            } else {
+                $flowSectionsTitles.css('left', 'auto');
             }
         });
     },
