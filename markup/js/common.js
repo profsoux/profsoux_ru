@@ -280,11 +280,13 @@ ui.program = {
         nowAndStartTimeMinutesDiff = now - that.confStartTime;
 
         if (nowAndStartTimeMinutesDiff > 0) {
-            // Set marker position
             markerTop = that.fromMinutesToPx(nowAndStartTimeMinutesDiff / 1000 / 60);
             markerTop += parseInt(that.$programBlock.css('padding-top'));
+            that.marker.style.display = 'block';
             that.marker.style.top = markerTop + 'px';
             that.marker.style.width = that.$programBlock.find('table').width() + 'px';
+        } else {
+            that.marker.style.display = 'none';
         }
     },
 
