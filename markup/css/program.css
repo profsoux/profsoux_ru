@@ -77,7 +77,8 @@
     .program-timeline.left .subsegment {
       right: 0; }
     .program-timeline.left .subsegment-label {
-      padding-right: 4px; }
+      padding-right: 4px;
+      white-space: nowrap; }
     .program-timeline.left .segment-line {
       width: 0; }
   .program-timeline.right {
@@ -139,23 +140,31 @@
   height: 25px;
   margin-left: 1px; }
   .program-flow-section-title.active {
-    border: 1px solid #999;
+    border: 1px solid #bbb;
     border-width: 0 1px 1px 1px;
     margin-left: 0px;
-    margin-top: -1px; }
+    margin-top: -1px;
+    border-radius: 0 0 7px 0; }
   .program-flow-section-title.fixed {
     position: fixed;
-    z-index: 10; }
+    z-index: 10;
+    box-shadow: 0px 0px 11px -1px rgba(0, 0, 0, 0.25); }
   .program-flow-section-title.bottom {
     position: absolute;
+    z-index: 10;
     top: auto;
-    bottom: 0;
-    z-index: 10; }
+    bottom: 0; }
   .program-flow-section-title .title {
     padding: 0 10px;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: normal;
     white-space: nowrap; }
+
+.code_flow_1 .program-flow-section-title {
+  margin-left: 0px; }
+
+.code_flow_1 .program-flow-section-title.active {
+  margin-left: -1px; }
 
 /* @legends */
 .code_flow_1 .program-flow-section-title.active,
@@ -199,8 +208,10 @@
     .program-item.multiflow .person,
     .program-item.multiflow .duration {
       display: none; }
-  .program-item.multiflow.virtual .inner {
-    background-image: none; }
+  .program-item.multiflow.virtual {
+    visibility: hidden; }
+    .program-item.multiflow.virtual .inner {
+      background-image: none; }
   .program-item.virtual {
     z-index: 1;
     box-shadow: none; }
@@ -242,6 +253,33 @@
     display: inline-block; }
   .program-item .duration {
     display: block; }
+
+/* @marker */
+.program-time-marker {
+  position: absolute;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  opacity: 0.5; }
+  .program-time-marker .inner {
+    position: absolute;
+    left: -20px;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: #d70000; }
+    .program-time-marker .inner:before {
+      display: block;
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      width: 7px;
+      height: 7px;
+      border-radius: 7px;
+      background-color: #d70000;
+      content: ''; }
 
 /* Dirty hack to hide afterparty duration */
 .code_flow_1 .program-item:last-child .inner {

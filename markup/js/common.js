@@ -244,6 +244,12 @@ ui.create = function(data, options) {
 };
 
 ui.program = {
+    $programBlock: null,
+
+    now: null,
+
+    confStartTime: null,
+
     _timelineSegmentHeight: null,
 
     _programHeight: 0,
@@ -254,23 +260,30 @@ ui.program = {
 
     isSticky: false,
 
+    marker: null,
+
     init: function(opts) {
         var that = this,
             table,
-            $programBlock = $('#schedule'),
-            programPositionTop = $programBlock.offset().top,
+            $programBlock,
+            programPositionTop,
             $flowSectionsTitles = null,
             flowSectionHeight = 0,
             timelineLeft, timelineRight,
-            flowWidth;
+            flowWidth,
+            now, confStartTimeFrom;
+
+        that.$programBlock = $programBlock = $('#schedule');
+        programPositionTop = $programBlock.offset().top;
 
         // Defaults
         opts.from = '10:00';
         opts.to = '20:00';
-        opts.timelineSegments = '20:00';
+        opts.timelineSegments = 2;
+        that.now = new Date();
         that.data = opts.data;
         that._timelineSegmentHeight = that._getTimelineSegmentHeight();
-        that._programHeight = $programBlock.get(0).offsetHeight
+        that._programHeight = $programBlock.get(0).offsetHeight;
         that._programWidth = $programBlock.get(0).offsetWidth;
 
         table = that.tpl.table(opts);
@@ -278,6 +291,11 @@ ui.program = {
         timelineRight = that.tpl.timeline(opts.from, opts.to);
         timelineLeft.className += ' left';
         timelineRight.className += ' right';
+
+        confStartTimeFrom = opts.from.split(':');
+        that.confStartTime = ui.CONF_DATE;
+        that.confStartTime.setHours(confStartTimeFrom[0]);
+        that.confStartTime.setMinutes(confStartTimeFrom[1]);
 
         $programBlock.append(timelineLeft);
         $programBlock.append(table);
@@ -320,6 +338,46 @@ ui.program = {
                 $flowSectionsTitles.css('left', 'auto');
             }
         });
+
+
+        now = that.now;
+        // Time marker
+        if (that.confStartTime.getFullYear() == now.getFullYear() &&
+            that.confStartTime.getMonth() == now.getMonth() &&
+            that.confStartTime.getDate() == now.getDate()) {
+            that.initMarker();
+        }
+    },
+
+    initMarker: function() {
+        var that = this;
+
+        that.marker = that.tpl.marker();
+        that.$programBlock.append(that.marker);
+
+        that.updateMarker();
+
+        setInterval(function() {
+            that.updateMarker();
+        }, 1000 * 60);
+    },
+
+    updateMarker: function() {
+        var that = this,
+            now = that.now,
+            nowAndStartTimeMinutesDiff = 0,
+            markerTop;
+
+        //now = new Date(2013, 5-1, 18, 11, 34);
+        nowAndStartTimeMinutesDiff = now - that.confStartTime;
+
+        if (nowAndStartTimeMinutesDiff > 0) {
+            // Set marker position
+            markerTop = that.fromMinutesToPx(nowAndStartTimeMinutesDiff / 1000 / 60);
+            markerTop += parseInt(that.$programBlock.css('padding-top'));
+            that.marker.style.top = markerTop + 'px';
+            that.marker.style.width = that.$programBlock.find('table').width() + 'px';
+        }
     },
 
     getFlowItems: function(id) {
@@ -663,6 +721,13 @@ ui.program = {
             }
 
             return timeline;
+        },
+        marker: function() {
+            return ui.create({
+                e: 'program-time-marker', c: [
+                    {e: 'inner'}
+                ]
+            });
         }
     }
 };

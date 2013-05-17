@@ -139,6 +139,7 @@ $program-section-title-height: 25px;
 
         .subsegment-label {
             padding-right: 4px;
+            white-space: nowrap;
         }
 
         .segment-line {
@@ -229,30 +230,38 @@ $program-section-title-height: 25px;
     margin-left: 1px;
 
     &.active {
-        border: 1px solid #999;
+        border: 1px solid #bbb;
         border-width: 0 1px 1px 1px;
         margin-left: 0px;
         margin-top: -1px;
+        border-radius: 0 0 7px 0;
     }
 
     &.fixed {
         position: fixed;
         z-index: 10;
+        box-shadow: 0px 0px 11px -1px rgba(0, 0, 0, 0.25);
     }
 
     &.bottom {
         position: absolute;
+        z-index: 10;
         top: auto;
         bottom: 0;
-        z-index: 10;
     }
 
     .title {
         padding: 0 10px;
         font-size: 18px;
-        font-weight: bold;
+        font-weight: normal;
         white-space: nowrap;
     }
+}
+.code_flow_1 .program-flow-section-title {
+    margin-left: 0px;
+}
+.code_flow_1 .program-flow-section-title.active {
+    margin-left: -1px;
 }
 
 
@@ -313,6 +322,7 @@ $program-section-title-height: 25px;
         }
     }
     &.multiflow.virtual {
+        visibility: hidden;
         .inner {
             background-image: none;
         }
@@ -383,9 +393,47 @@ $program-section-title-height: 25px;
         display: block;
     }
 }
-.program-flow-section .program-item:first-child .inner {
 
+
+
+/* @marker */
+.program-time-marker {
+    $width: 7px;
+    $color: #D70000;
+
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    opacity: 0.5;
+
+    .inner {
+        position: absolute;
+        left: -20px;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background-color: $color;
+
+        &:before {
+            display: block;
+            position: absolute;
+            top: -($width - 1px) / 2;
+            left: -($width - 1px) / 2;
+            width: $width;
+            height: $width;
+            border-radius: $width;
+            background-color: $color;
+            content: '';
+        }
+    }
 }
+
+
+
+
 
 /* Dirty hack to hide afterparty duration */
 .code_flow_1 .program-item:last-child  {
