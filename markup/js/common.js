@@ -246,6 +246,8 @@ ui.create = function(data, options) {
 ui.program = {
     timelineSegmentHeight: null,
 
+    programHeight: 0,
+
     data: null,
 
     generate: function(opts) {
@@ -266,24 +268,31 @@ ui.program = {
             table,
             $programBlock = $('#schedule'),
             programPositionTop = $programBlock.offset().top,
-            programHeight = 0,
             $flowSectionsTitles = null,
-            flowSectionHeight = 0;
+            flowSectionHeight = 0,
+            timelineLeft, timelineRight;
 
+        // Defaults
+        opts.from = '10:00';
+        opts.to = '20:00';
+        opts.timelineSegments = '20:00';
         that.data = opts.data;
         that.timelineSegmentHeight = that._getTimelineSegmentHeight();
 
-        table = that.generate({
-            data: opts.data,
-            from: '10:00',
-            to: '20:00',
-            timelineSegments: 2
-        });
+        table = that.tpl.table(opts);
+        timelineLeft = that.tpl.timeline(opts.from, opts.to);
+        timelineRight = that.tpl.timeline(opts.from, opts.to);
 
+        timelineLeft.className += ' left';
+        timelineRight.className += ' right';
+
+        $programBlock.append(timelineLeft);
         $programBlock.append(table);
+        $programBlock.append(timelineRight);
+
+        // Sticky columns titles
         $flowSectionsTitles = $programBlock.find('.program-flow-section-title');
         flowSectionHeight = $($flowSectionsTitles).get(0).offsetHeight;
-
         $(window).scroll(function() {
             var scrollTop = $(window).scrollTop(),
                 programHeight = $programBlock.get(0).offsetHeight;
@@ -293,7 +302,6 @@ ui.program = {
                     $flowSectionsTitles.addClass('fixed active');
                     $flowSectionsTitles.removeClass('bottom');
                 } else {
-                    console.log('213');
                     $flowSectionsTitles.addClass('bottom active');
                     $flowSectionsTitles.removeClass('fixed');
                 }
@@ -434,8 +442,6 @@ ui.program = {
                 tpl = this,
                 data = opts.data,
                 table,
-                timeline, timelineCell,
-                timeline2, timelineCell2,
                 timemap,
                 flowsSections = {},
                 flow, flowId, flowCell, flowTitle, flowSection,
@@ -447,15 +453,7 @@ ui.program = {
 
             timemap = program.getTimeMap();
             table = tpl.tableLayout(opts);
-            timeline = tpl.timeline(opts.from, opts.to, opts.timelineSegments);
-            timeline2 = tpl.timeline(opts.from, opts.to, opts.timelineSegments);
-            timelineCell2 = ui.create({tag: 'td', e: 'program-timeline'});
-
             programRow = table.set[0];
-            timelineCell = table.set[1];
-
-            timelineCell.appendChild(timeline);
-            timelineCell.className += ' left';
 
             // Flows
             for (i = 0, len = data.flows.length; i < len; i++) {
@@ -476,13 +474,6 @@ ui.program = {
                     itemNode = tpl.item(item);
                     prevItem = flowItems[j - 1];
                     nextItem = flowItems[j + 1];
-
-                    // Invalid flowId in data
-                    /*
-                     if ('flowId' in item && !(item.flowId instanceof Array) && !(item.flowId in flowsCells)) {
-                        continue;
-                     }
-                     */
 
                     // First item in flow
                     if (j === 0) {
@@ -531,10 +522,6 @@ ui.program = {
                 }
             }
 
-            timelineCell2.className += ' right';
-            timelineCell2.appendChild(timeline2);
-            table.set[0].appendChild(timelineCell2);
-
             return table.fragment;
         },
         tableLayout: function() {
@@ -545,7 +532,7 @@ ui.program = {
                     tag: 'tr',
                     e: 'program-row',
                     c: [
-                       {tag: 'td', e: 'program-timeline', get: 1}
+//                       {tag: 'td', e: 'program-timeline', get: 1}
                     ],
                     get: 1
                 }]
@@ -641,12 +628,13 @@ ui.program = {
                 label,
                 sublabel,
                 fragment,
+                timeline,
                 i, j;
 
             subsegments = (typeof subsegments !== 'undefined') ? subsegments : 2;
             subsegmentDuration = (subsegments > 0) ? Math.round(60 / subsegments) : 0;
             subsegmentPxStep = Math.round(segmentHeight / subsegments);
-            fragment = document.createDocumentFragment();
+            timeline = ui.create({e: 'program-timeline'});
 
             // Segments
             for (i = from; i <= to; i++) {
@@ -663,10 +651,10 @@ ui.program = {
                     }
                 }
 
-                fragment.appendChild(segment);
+                timeline.appendChild(segment);
             }
 
-            return fragment;
+            return timeline;
         }
     }
 };
