@@ -53,7 +53,6 @@ $program-section-title-height: 25px;
 .program {
     width: 100%;
     margin: 0;
-    border-top: 1px solid #ccc;
     border-collapse: collapse;
     border-spacing: 0;
     font-family: Arial, sans-serif;
@@ -153,7 +152,7 @@ $program-section-title-height: 25px;
         right: -$program-timeline-width - 1px;
         border-left: 1px solid #ccc;
 
-        @media (max-width: 970px) {
+        @media (max-width: 980px) {
             visibility: hidden;
         }
 
