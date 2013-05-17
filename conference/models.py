@@ -81,6 +81,15 @@ class Event(models.Model):
                 state = "active"
         return state
 
+    def get_state(self):
+        now = datetime.now().date()
+        state = 'in_progress'
+        if now < self.date:
+            state = 'waiting'
+        if now > self.date:
+            state = 'ended'
+        return state
+
     def is_ended(self):
         return self.date < datetime.now().date()
 

@@ -35,7 +35,9 @@
 
             {% else %}
 
-                <p class="small">{{ event.date }} &nbsp;Санкт-Петербурге прошла конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия. Доклады и&nbsp;дискуссии посвящены основным ступеням UX-процесса.</p>
+                <p class="small">Конференция прошла {{ event.date }} в&nbsp;Санкт-Петербурге.</p>
+
+                <p class="small">Презентации и&nbsp;видеозаписи (из&nbsp;Большого зала) будут доступны на&nbsp;страницах <a href="/papers/">докладов</a>. Фотографии смотрите <a href="https://www.facebook.com/Profsoux">в&nbsp;группе на&nbsp;Facebook</a>.</p>
 
             {% endif %}
 
@@ -65,7 +67,7 @@
     {% if states.show_tweets %}
     <div class="row">
         <section id="confTweetsBlock" class="conf-tweets-block span12">
-            <h2>Twitter <a href="http://profsoux.ru/twitter/" target="_blank">#ProfsoUX</a></h2>
+            <h2>Twitter <a href="https://twitter.com/search?q=#profsoux&amp;src=typd" target="_blank">#ProfsoUX</a></h2>
             <ul id="confTweets" class="conf-tweets unstyled"></ul>
         </section>
     </div>
