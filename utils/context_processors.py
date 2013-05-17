@@ -24,6 +24,7 @@ def site_globals(request):
         },
         'states': {
             'registration': event.get_registration_state(),
+            'conference': event.get_state(),
             'conference_ended': event.date < now,
             'show_tweets': (event.date + two_weeks) > now >= event.date,
         },
