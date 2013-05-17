@@ -1,14 +1,16 @@
-{% if states.conference_ended %}
+{% if states.conference == 'ended' %}
 
-    <p class="small">19 мая в&nbsp;Санкт-Петербурге прошла конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия.</p>
+    <p class="small">18 мая 2013&nbsp;г. в&nbsp;Санкт-Петербурге прошла конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия.</p>
 
-    <p class="small">Уже опубликованы презентации докладов, а так же  <a href="http://www.facebook.com/media/set/?set=oa.344384208963349&type=1" target="_blank">фотографии с конференции</a>. Видеозаписи докладов вы можете посмотреть на <a href="https://vimeo.com/channels/profsoux2012" target="_blank">нашем канале</a>.</p>
+    <p class="small">Презентации и&nbsp;видеозаписи (из&nbsp;Большого зала) будут доступны на&nbsp;страницах <a href="/papers/">докладов</a>. Фотографии смотрите <a href="https://www.facebook.com/Profsoux">в&nbsp;группе на&nbsp;Facebook</a>.</p>
 
     <p class="small">Спасибо всем, кто <a href="http://profsoux.ru/organizers/">сделал эту конференцию</a>!</p>
 
-    <p><a href="{{ registration_url }}" class="btn btn-signup btn-primary btn-large">Хочу принять участие в&nbsp;ProfsoUX 2013</a>
+    <p><a href="{{ registration_url }}" class="btn btn-signup btn-primary btn-large">Хочу принять участие в&nbsp;ProfsoUX 2014</a>
 
-{% else %}
+{% endif %}
+
+{% if states.conference == 'waiting' %}
 
     {% if states.registration = "waiting" %}
         {% if event.registration_start %}
@@ -35,6 +37,12 @@
         <p>Уже идут: {{ counts.participants }}. <a href="/people/">Кто идёт? »</a></p>
     {% endif %}
 
+{% endif %}
+
+{% if states.conference == 'in_progress' %}
+    <p class="small">Регистрация закрыта. </p>
+
+    <p class="small">Начало трансляции&nbsp;&mdash; 18&nbsp;мая в&nbsp;11:30. <a href="/online/">Смотреть онлайн-трансляцию</a></p>
 {% endif %}
 
 {% include "inc/btn-share.inc" %}
