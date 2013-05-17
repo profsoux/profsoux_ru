@@ -244,24 +244,13 @@ ui.create = function(data, options) {
 };
 
 ui.program = {
-    timelineSegmentHeight: null,
+    _timelineSegmentHeight: null,
 
-    programHeight: 0,
+    _programHeight: 0,
+
+    _programWidth: 0,
 
     data: null,
-
-    generate: function(opts) {
-        var that = this,
-            data = opts.data,
-            table,
-            flowTitles;
-
-        that.data = data;
-        that.timelineSegmentHeight = that._getTimelineSegmentHeight();
-
-        table = that.tpl.table(opts);
-        return table;
-    },
 
     init: function(opts) {
         var that = this,
@@ -277,12 +266,13 @@ ui.program = {
         opts.to = '20:00';
         opts.timelineSegments = '20:00';
         that.data = opts.data;
-        that.timelineSegmentHeight = that._getTimelineSegmentHeight();
+        that._timelineSegmentHeight = that._getTimelineSegmentHeight();
+        that._programHeight = $programBlock.get(0).offsetHeight
+        that._programWidth = $programBlock.get(0).offsetWidth;
 
         table = that.tpl.table(opts);
         timelineLeft = that.tpl.timeline(opts.from, opts.to);
         timelineRight = that.tpl.timeline(opts.from, opts.to);
-
         timelineLeft.className += ' left';
         timelineRight.className += ' right';
 
@@ -293,6 +283,7 @@ ui.program = {
         // Sticky columns titles
         $flowSectionsTitles = $programBlock.find('.program-flow-section-title');
         flowSectionHeight = $($flowSectionsTitles).get(0).offsetHeight;
+
         $(window).scroll(function() {
             var scrollTop = $(window).scrollTop(),
                 programHeight = $programBlock.get(0).offsetHeight;
@@ -345,7 +336,7 @@ ui.program = {
     },
 
     fromMinutesToPx: function(duration) {
-        var segmentHeight = this.timelineSegmentHeight,
+        var segmentHeight = this._timelineSegmentHeight,
             px;
 
         px = Math.round( (duration * segmentHeight) / 60 );
@@ -461,7 +452,7 @@ ui.program = {
                 flowId = flow.id;
                 flow = timemap[flowId];
                 flowTitle = flow.title;
-                flowCell = tpl.flowCell(flow, i === 0);
+                flowCell = tpl.flowCell(flow, (i === 0) ? 'first' : (i+1 === len) ? 'last' : undefined);
                 flowSection = flowCell.childNodes[0];
                 flowsSections[flowId] = flowSection;
                 flowItems = timemap[flowId].map;
@@ -509,7 +500,8 @@ ui.program = {
 
                     // If multiflow item
                     if (item.flowId.length > 1) {
-                        itemNode.style.width = ((100 * item.flowId.length) + 2).toString() + '%';
+                        itemNode.style.width = ((100 * item.flowId.length)).toString() + '%';
+                        //itemNode.style.width = (ui.program._programWidth).toString() + 'px';
                     }
 
                     if (item.type && item.type === 'virtual') {
@@ -540,12 +532,12 @@ ui.program = {
 
             return table;
         },
-        flowCell: function(flow, isFirst) {
+        flowCell: function(flow, count) {
             var mods = [];
             mods.push('code_' + flow.code);
 
-            if (isFirst) {
-                mods.push('first');
+            if (count !== undefined) {
+                mods.push(count);
             }
 
             return ui.create({
@@ -559,9 +551,6 @@ ui.program = {
                     ]}
                 ]}
             );
-        },
-        items: function(flow) {
-
         },
         item: function(item, type) {
             var mods = [],
@@ -605,7 +594,7 @@ ui.program = {
         },
         timelineSegment: function(label, isLast) {
             return ui.create({e: 'segment' + (isLast ? ' last' : ''), c: [
-                {e: 'segment-line' /*, style: {width: '1000px'}*/ },
+                {e: 'segment-line', style: {width: ui.program._programWidth + 'px'}},
                 {e: 'segment-label', c: label}
             ]});
         },
@@ -619,7 +608,7 @@ ui.program = {
                 tpl = this,
                 from = parseInt(from.split(':')[0]),
                 to = parseInt(to.split(':')[0]),
-                segmentHeight = program.timelineSegmentHeight,
+                segmentHeight = program._timelineSegmentHeight,
                 subsegments = subsegments || 2,
                 segment,
                 subsegment,
@@ -1026,10 +1015,6 @@ ui.twee = {
 
 
 $(function(){
-    // schedule
-    ui.schedule.init();
-
     var $paygate = $('#paygate');
-
     $paygate.find('link').remove();
 });

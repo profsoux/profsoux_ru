@@ -1,23 +1,36 @@
-$program-period-height: 300px;
+$program-timeline-period-height: 300px;
+$program-timeline-width: 45px;
 $program-items-spacing: 1px;
-$program-flow-section-title-height: 25px;
+$program-section-title-height: 25px;
 
 @mixin item-height($percent) {
     $extra-px: 0;
     @if $percent == 60 {
         $extra-px: 0;
     }
-    height: (($program-period-height * $percent) / 60) - $extra-px;
+    height: (($program-timeline-period-height * $percent) / 60) - $extra-px;
 }
 
+
 .schedule {
-    padding-top: $program-flow-section-title-height;
-    padding-left: 0;
-    overflow: hidden;
+    position: relative;
+    padding: $program-section-title-height 0 0 0;
+    margin-left: $program-timeline-width;
+    margin-right: $program-timeline-width;
+    //overflow: hidden;
+
+    &:after {
+        display: block;
+        clear: both;
+        height: 0;
+        content: '';
+    }
 }
 
 .program {
+    width: 100%;
     margin: 0;
+    border-top: 1px solid #ccc;
     border-collapse: collapse;
     border-spacing: 0;
     font-family: Arial, sans-serif;
@@ -38,10 +51,57 @@ $program-flow-section-title-height: 25px;
 
 /* @timeline */
 .program-timeline {
-    width: 40px;
+    position: absolute;
+    top: $program-section-title-height;
+    width: $program-timeline-width;
+
+    .segment {
+        position: relative;
+        box-sizing: border-box;
+        top: 0 ;
+        height: $program-timeline-period-height;
+
+        &.last {
+            height: 0;
+        }
+    }
+
+    .segment-label {
+        border-top: 1px solid #ccc;
+    }
+
+    .subsegment {
+        position: absolute;
+        top: auto;
+    }
+
+    .subsegment-label {
+        margin-top: 0;
+        padding-top: 1px;
+        border-top: 1px solid #ccc;
+        font-size: 12px;
+        color: #999;
+    }
+
+    .segment-line {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 100%;
+        height: 0;
+        margin-left: 1px;
+        border-bottom: 1px dotted #ddd;
+
+        &:first-child {
+            display: none;
+        }
+    }
+
 
     /* @left segment */
     &.left {
+        left: -$program-timeline-width - 1px;
+        right: auto;
         border-right: 1px solid #ccc;
 
         .segment-label {
@@ -57,13 +117,16 @@ $program-flow-section-title-height: 25px;
         .subsegment-label {
             padding-right: 4px;
         }
+
         .segment-line {
-            width: 9000%;
+            width: 0;
         }
     }
 
     /* @right segment */
     &.right {
+        left: auto;
+        right: -$program-timeline-width - 1px;
         border-left: 1px solid #ccc;
 
         .segment-label {
@@ -84,46 +147,6 @@ $program-flow-section-title-height: 25px;
             display: none;
         }
     }
-
-    .segment {
-        position: relative;
-        box-sizing: border-box;
-        top: 0 ;
-        height: $program-period-height;
-
-        &.last {
-            height: 0;
-        }
-    }
-
-    .segment-line {
-        position: absolute;
-        top: 0;
-        left: 100%;
-        /*
-        height: 1px;
-        background-color: #ccc;
-        */
-        height: 0;
-        border-bottom: 1px dotted #ccc;
-    }
-
-    .segment-label {
-        border-top: 1px solid #ccc;
-    }
-
-    .subsegment {
-        position: absolute;
-        top: auto;
-    }
-
-    .subsegment-label {
-        margin-top: 0;
-        padding-top: 1px;
-        border-top: 1px solid #ccc;
-        font-size: 12px;
-        color: #999;
-    }
 }
 
 
@@ -142,7 +165,13 @@ $program-flow-section-title-height: 25px;
         margin-left: 0;
 
         .inner {
-            //border-left: 0;
+            border-left: 0;
+        }
+    }
+    &.last .program-item {
+        .inner {
+            border-right: 0;
+            right: 1px;
         }
     }
 
@@ -159,8 +188,8 @@ $program-flow-section-title-height: 25px;
 /* @flow-section */
 .program-flow-section {
     position: relative;
-    padding-top: $program-flow-section-title-height;
-    margin-top: -$program-flow-section-title-height;
+    padding-top: $program-section-title-height;
+    margin-top: -$program-section-title-height;
 }
 
 
@@ -244,7 +273,7 @@ $program-flow-section-title-height: 25px;
         .inner {
             border-width: 1px 0;
             left: 0;
-            right: 0;
+            right: 1px;
             background: url('../img/textures/program-item.png') repeat;
         }
 
@@ -290,21 +319,6 @@ $program-flow-section-title-height: 25px;
 
     .inner {
         position: absolute;
-        /*
-        top: $program-items-spacing;
-        @if ($program-items-spacing == 1px) {
-            right: 1px;
-        } @else {
-            right: $program-items-spacing - 1px;
-        }
-        @if ($program-items-spacing == 1px) {
-            bottom: 1px;
-        } @else {
-            bottom: $program-items-spacing - 1px;
-        }
-        left: $program-items-spacing;
-
-        */
         top: 0;
         right: 0;
         bottom: 0;
@@ -341,7 +355,9 @@ $program-flow-section-title-height: 25px;
         display: block;
     }
 }
+.program-flow-section .program-item:first-child .inner {
 
+}
 
 /* Dirty hack to hide afterparty duration */
 .code_flow_1 .program-item:last-child  {
