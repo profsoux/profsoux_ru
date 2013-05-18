@@ -1,9 +1,65 @@
+/* ========================================================================== */
+@media (min-width: 979px) and (max-width: 1020px) {
+  #content-container {
+    width: 950px; } }
+@media (min-width: 979px) and (max-width: 1000px) {
+  #content-container {
+    width: 945px; } }
+@media (min-width: 900px) and (max-width: 979px) {
+  #content-container {
+    width: 890px; } }
+@media (min-width: 900px) and (max-width: 970px) {
+  #content-container {
+    width: 850px; } }
+@media (min-width: 840px) and (max-width: 910px) {
+  #content-container {
+    width: 855px; } }
+@media (min-width: 840px) and (max-width: 900px) {
+  #content-container {
+    width: 830px; } }
+@media (min-width: 840px) and (max-width: 880px) {
+  #content-container {
+    width: 810px; } }
+@media (min-width: 800px) and (max-width: 860px) {
+  #content-container {
+    width: 790px; } }
+@media (min-width: 780px) and (max-width: 830px) {
+  #content-container {
+    width: 780px; } }
+@media (min-width: 770px) and (max-width: 820px) {
+  #content-container {
+    width: 760px; } }
+@media (max-width: 819px) {
+  #content-container {
+    width: 750px; } }
+@media (min-width: 600px) and (max-width: 900px) {
+  #content-container {
+    width: 900px;
+    background-color: pink; } }
+
+.page-schedule {
+  min-width: 800px; }
+  @media (max-width: 970px) {
+    .page-schedule #content-main {
+      margin-left: 0; } }
+
 .schedule {
-  padding-top: 25px;
-  padding-left: 0;
-  overflow: hidden; }
+  position: relative;
+  min-width: 800px;
+  padding: 25px 0 0 0;
+  margin-left: 45px;
+  margin-right: 45px; }
+  .schedule:after {
+    display: block;
+    clear: both;
+    height: 0;
+    content: ''; }
+  @media (max-width: 970px) {
+    .schedule {
+      width: 800px; } }
 
 .program {
+  width: 100%;
   margin: 0;
   border-collapse: collapse;
   border-spacing: 0;
@@ -18,33 +74,11 @@
 
 /* @timeline */
 .program-timeline {
-  width: 40px;
+  position: absolute;
+  top: 25px;
+  width: 45px;
   /* @left segment */
   /* @right segment */ }
-  .program-timeline.left {
-    border-right: 1px solid #ccc; }
-    .program-timeline.left .segment-label {
-      margin-right: -1px;
-      padding: 3px 6px 0 0;
-      text-align: right; }
-    .program-timeline.left .subsegment {
-      right: 0; }
-    .program-timeline.left .subsegment-label {
-      padding-right: 4px; }
-    .program-timeline.left .segment-line {
-      width: 9000%; }
-  .program-timeline.right {
-    border-left: 1px solid #ccc; }
-    .program-timeline.right .segment-label {
-      margin-left: -1px;
-      padding: 3px 0 0 6px;
-      text-align: left; }
-    .program-timeline.right .subsegment {
-      left: 0; }
-    .program-timeline.right .subsegment-label {
-      padding-left: 4px; }
-    .program-timeline.right .segment-line {
-      display: none; }
   .program-timeline .segment {
     position: relative;
     box-sizing: border-box;
@@ -52,16 +86,6 @@
     height: 300px; }
     .program-timeline .segment.last {
       height: 0; }
-  .program-timeline .segment-line {
-    position: absolute;
-    top: 0;
-    left: 100%;
-    /*
-    height: 1px;
-    background-color: #ccc;
-    */
-    height: 0;
-    border-bottom: 1px dotted #ccc; }
   .program-timeline .segment-label {
     border-top: 1px solid #ccc; }
   .program-timeline .subsegment {
@@ -73,6 +97,48 @@
     border-top: 1px solid #ccc;
     font-size: 12px;
     color: #999; }
+  .program-timeline .segment-line {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 100%;
+    height: 0;
+    margin-left: 1px;
+    border-bottom: 1px dotted #ddd; }
+    .program-timeline .segment-line:first-child {
+      display: none; }
+  .program-timeline.left {
+    left: -46px;
+    right: auto;
+    border-right: 1px solid #ccc; }
+    .program-timeline.left .segment-label {
+      margin-right: -1px;
+      padding: 3px 6px 0 0;
+      text-align: right; }
+    .program-timeline.left .subsegment {
+      right: 0; }
+    .program-timeline.left .subsegment-label {
+      padding-right: 4px;
+      white-space: nowrap; }
+    .program-timeline.left .segment-line {
+      width: 0; }
+  .program-timeline.right {
+    left: auto;
+    right: -46px;
+    border-left: 1px solid #ccc; }
+    @media (max-width: 980px) {
+      .program-timeline.right {
+        /*            visibility: hidden;*/ } }
+    .program-timeline.right .segment-label {
+      margin-left: -1px;
+      padding: 3px 0 0 6px;
+      text-align: left; }
+    .program-timeline.right .subsegment {
+      left: 0; }
+    .program-timeline.right .subsegment-label {
+      padding-left: 4px; }
+    .program-timeline.right .segment-line {
+      display: none; }
 
 /* @flow */
 .program-flow {
@@ -88,6 +154,11 @@
     width: 25%; }
   .program-flow.first .program-item {
     margin-left: 0; }
+    .program-flow.first .program-item .inner {
+      border-left: 0; }
+  .program-flow.last .program-item .inner {
+    border-right: 0;
+    right: 1px; }
   .program-flow.first .program-item.multiflow .time {
     display: inline; }
   .program-flow.first .program-item.multiflow .title {
@@ -103,29 +174,38 @@
   padding-top: 25px;
   margin-top: -25px; }
 
-/* @flow-title */
+/* @section-title */
 .program-flow-section-title {
   position: absolute;
   top: 0;
   height: 25px;
-  margin-left: 2px; }
+  margin-left: 1px; }
   .program-flow-section-title.active {
-    border: 1px solid #999;
+    border: 1px solid #bbb;
     border-width: 0 1px 1px 1px;
-    margin-left: 1px;
-    margin-top: -1px; }
+    margin-left: 0px;
+    margin-top: -1px;
+    border-radius: 0 0 7px 0; }
   .program-flow-section-title.fixed {
     position: fixed;
-    z-index: 10; }
+    z-index: 10;
+    box-shadow: 0px 0px 11px -1px rgba(0, 0, 0, 0.25); }
   .program-flow-section-title.bottom {
     position: absolute;
+    z-index: 10;
     top: auto;
-    bottom: 0;
-    z-index: 10; }
+    bottom: 0; }
   .program-flow-section-title .title {
     padding: 0 10px;
     font-size: 18px;
-    font-weight: bold; }
+    font-weight: normal;
+    white-space: nowrap; }
+
+.code_flow_1 .program-flow-section-title {
+  margin-left: 0px; }
+
+.code_flow_1 .program-flow-section-title.active {
+  margin-left: -1px; }
 
 /* @legends */
 .code_flow_1 .program-flow-section-title.active,
@@ -162,15 +242,17 @@
     .program-item.multiflow .inner {
       border-width: 1px 0;
       left: 0;
-      right: 0;
+      right: 1px;
       background: url("../img/textures/program-item.png") repeat; }
     .program-item.multiflow .time,
     .program-item.multiflow .title,
     .program-item.multiflow .person,
     .program-item.multiflow .duration {
       display: none; }
-  .program-item.multiflow.virtual .inner {
-    background-image: none; }
+  .program-item.multiflow.virtual {
+    visibility: hidden; }
+    .program-item.multiflow.virtual .inner {
+      background-image: none; }
   .program-item.virtual {
     z-index: 1;
     box-shadow: none; }
@@ -186,21 +268,6 @@
       /*            border: $program-items-spacing solid #DFDFDF*/ }
   .program-item .inner {
     position: absolute;
-        /*
-        top: $program-items-spacing;
-        @if ($program-items-spacing == 1px) {
-            right: 1px;
-        } @else {
-            right: $program-items-spacing - 1px;
-        }
-        @if ($program-items-spacing == 1px) {
-            bottom: 1px;
-        } @else {
-            bottom: $program-items-spacing - 1px;
-        }
-        left: $program-items-spacing;
-
-        */
     top: 0;
     right: 0;
     bottom: 0;
@@ -227,6 +294,33 @@
     display: inline-block; }
   .program-item .duration {
     display: block; }
+
+/* @marker */
+.program-time-marker {
+  position: absolute;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  opacity: 0.5; }
+  .program-time-marker .inner {
+    position: absolute;
+    left: -20px;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: #d70000; }
+    .program-time-marker .inner:before {
+      display: block;
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      width: 7px;
+      height: 7px;
+      border-radius: 7px;
+      background-color: #d70000;
+      content: ''; }
 
 /* Dirty hack to hide afterparty duration */
 .code_flow_1 .program-item:last-child .inner {

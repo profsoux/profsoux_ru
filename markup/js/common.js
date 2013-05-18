@@ -5,98 +5,6 @@ var ui = {};
  */
 ui.CONF_DATE = new Date(2013, 5-1, 18);
 
-/**
- * Schedule
- */
-ui.schedule = {
-    $schedule: null,
-
-    init: function() {
-        var $schedule = $("#schedule"),
-            markerPlacementDate = new Date();
-
-        /*
-         markerPlacementDate = new Date(
-         ui.CONF_DATE.getFullYear(),
-         ui.CONF_DATE.getMonth(),
-         ui.CONF_DATE.getDate(), 12, 15);
-         */
-
-        if ($schedule.length == 0) {
-            return false;
-        }
-
-        this.$schedule = $schedule;
-        //this.initTooltips();
-
-        if (ui.CONF_DATE.getFullYear() == markerPlacementDate.getFullYear() &&
-            ui.CONF_DATE.getMonth() == markerPlacementDate.getMonth() &&
-            ui.CONF_DATE.getDate() == markerPlacementDate.getDate()) {
-            this.initTimeMarker(markerPlacementDate);
-        }
-    },
-
-    initTooltips: function() {
-        var $events = this.$schedule.find('.event');
-        $events.each(function() {
-            var eventLength = this.className.match(/div\-([0-9]{1,2})/),
-                tooltipText = '';
-
-            if (eventLength != null) {
-                eventLength = Number(eventLength[1]);
-                if (eventLength == 60) {
-                    tooltipText = 'Длится 1 час';
-                } else if (eventLength < 60) {
-                    tooltipText = 'Длится '+ eventLength +' минут';
-                }
-
-                this.setAttribute('rel', 'tooltip');
-                this.setAttribute('data-original-title', tooltipText);
-                $(this).tooltip({
-                    animation: false,
-                    placement: 'left'
-                });
-            }
-        });
-    },
-
-    initTimeMarker: function(placementDate) {
-        var $schedule = this.$schedule,
-            $timeElement, $timeLabels,
-            labelHeight,
-            placementDate = (placementDate instanceof Date) ? placementDate : new Date(),
-            placementHours,
-            placementMinutes,
-            parseHourRegexp,
-            startHour,
-            endHour,
-            inHourPixelVal, timeTopMargin;
-
-        // init vars block
-        placementHours = placementDate.getHours();
-        placementMinutes = placementDate.getMinutes();
-        $timeElement = $schedule.find(".current-time");
-        $timeLabels = $schedule.find(".caption");
-        parseHourRegexp = /time_([0-9]{1,2})\-[0-9]{1,2}/;
-        labelHeight = $timeLabels[0].offsetHeight;
-        startHour = $timeLabels[0].className.match(parseHourRegexp);
-        endHour = $timeLabels[$timeLabels.length-1].className.match(parseHourRegexp);
-        inHourPixelVal = Math.round((placementMinutes / 60) * labelHeight);
-
-        if (startHour != null && endHour != null) {
-            startHour = Number(startHour[1]);
-            endHour = Number(endHour[1]);
-            timeTopMargin = ((placementHours - startHour) * labelHeight) + (inHourPixelVal);
-            timeTopMargin -= 1;
-
-            $timeElement.css({
-                'display': 'block',
-                'top': timeTopMargin
-            });
-        }
-    }
-};
-
 ui.create = function(data, options) {
     var mode,
         parent = (options && 'parent' in options) ? options.parent : null,
@@ -244,64 +152,142 @@ ui.create = function(data, options) {
 };
 
 ui.program = {
-    timelineSegmentHeight: null,
+    $programBlock: null,
+
+    now: null,
+
+    confStartTime: null,
+
+    _timelineSegmentHeight: null,
+
+    _programHeight: 0,
+
+    _programWidth: 0,
 
     data: null,
 
-    generate: function(opts) {
-        var that = this,
-            data = opts.data,
-            table,
-            flowTitles;
+    isSticky: false,
 
-        that.data = data;
-        that.timelineSegmentHeight = that._getTimelineSegmentHeight();
-
-        table = that.tpl.table(opts);
-        return table;
-    },
+    marker: null,
 
     init: function(opts) {
         var that = this,
             table,
-            $programBlock = $('#schedule'),
-            programPositionTop = $programBlock.offset().top,
-            programHeight = 0,
+            $programBlock,
+            programPositionTop,
             $flowSectionsTitles = null,
-            flowSectionHeight = 0;
+            flowSectionHeight = 0,
+            timelineLeft, timelineRight,
+            flowWidth,
+            now, confStartTimeFrom;
 
+        that.$programBlock = $programBlock = $('#schedule');
+        programPositionTop = $programBlock.offset().top;
+
+        // Defaults
+        opts.from = '10:00';
+        opts.to = '20:00';
+        opts.timelineSegments = 2;
+        that.now = new Date();
         that.data = opts.data;
-        that.timelineSegmentHeight = that._getTimelineSegmentHeight();
+        that._timelineSegmentHeight = that._getTimelineSegmentHeight();
+        that._programHeight = $programBlock.get(0).offsetHeight;
+        that._programWidth = $programBlock.get(0).offsetWidth;
 
-        table = that.generate({
-            data: opts.data,
-            from: '10:00',
-            to: '20:00',
-            timelineSegments: 2
-        });
+        table = that.tpl.table(opts);
+        timelineLeft = that.tpl.timeline(opts.from, opts.to);
+        timelineRight = that.tpl.timeline(opts.from, opts.to);
+        timelineLeft.className += ' left';
+        timelineRight.className += ' right';
 
+        confStartTimeFrom = opts.from.split(':');
+        that.confStartTime = ui.CONF_DATE;
+        that.confStartTime.setHours(confStartTimeFrom[0]);
+        that.confStartTime.setMinutes(confStartTimeFrom[1]);
+
+        $programBlock.append(timelineLeft);
         $programBlock.append(table);
+        $programBlock.append(timelineRight);
+
+        // Sticky columns titles
         $flowSectionsTitles = $programBlock.find('.program-flow-section-title');
         flowSectionHeight = $($flowSectionsTitles).get(0).offsetHeight;
+        flowWidth = $flowSectionsTitles.get(0).parentNode.offsetWidth;
 
         $(window).scroll(function() {
             var scrollTop = $(window).scrollTop(),
-                programHeight = $programBlock.get(0).offsetHeight;
+                scrollLeft = $(window).scrollLeft(),
+                programHeight = $programBlock.get(0).offsetHeight,
+                programOffsetLeft = $programBlock.offset().left;
 
             if (scrollTop > programPositionTop) {
                 if (scrollTop < ((programHeight + programPositionTop) - flowSectionHeight)) {
                     $flowSectionsTitles.addClass('fixed active');
                     $flowSectionsTitles.removeClass('bottom');
                 } else {
-                    console.log('213');
                     $flowSectionsTitles.addClass('bottom active');
                     $flowSectionsTitles.removeClass('fixed');
                 }
+                that.isSticky = true;
 
             } else if (scrollTop < programPositionTop) {
                 $flowSectionsTitles.removeClass('fixed bottom active');
+                that.isSticky = false;
+            }
+
+            if (scrollLeft > 0 && that.isSticky) {
+                $flowSectionsTitles.each(function() {
+                    var $this = $(this),
+                        parentOffsetLeft = $this.parent().offset().left;
+
+                    $this.css('left', parentOffsetLeft - scrollLeft);
+                });
+            } else {
+                $flowSectionsTitles.css('left', 'auto');
             }
         });
+
+
+        now = that.now;
+        // Time marker
+        if (that.confStartTime.getFullYear() == now.getFullYear() &&
+            that.confStartTime.getMonth() == now.getMonth() &&
+            that.confStartTime.getDate() == now.getDate()) {
+            that.initMarker();
+        }
+    },
+
+    initMarker: function() {
+        var that = this;
+
+        that.marker = that.tpl.marker();
+        that.$programBlock.append(that.marker);
+
+        that.updateMarker();
+
+        setInterval(function() {
+            that.updateMarker();
+        }, 1000 * 60);
+    },
+
+    updateMarker: function() {
+        var that = this,
+            now = that.now,
+            nowAndStartTimeMinutesDiff = 0,
+            markerTop;
+
+        //now = new Date(2013, 5-1, 18, 11, 34);
+        nowAndStartTimeMinutesDiff = now - that.confStartTime;
+
+        if (nowAndStartTimeMinutesDiff > 0) {
+            markerTop = that.fromMinutesToPx(nowAndStartTimeMinutesDiff / 1000 / 60);
+            markerTop += parseInt(that.$programBlock.css('padding-top'));
+            that.marker.style.display = 'block';
+            that.marker.style.top = markerTop + 'px';
+            that.marker.style.width = that.$programBlock.find('table').width() + 'px';
+        } else {
+            that.marker.style.display = 'none';
+        }
     },
 
     getFlowItems: function(id) {
@@ -337,7 +323,7 @@ ui.program = {
     },
 
     fromMinutesToPx: function(duration) {
-        var segmentHeight = this.timelineSegmentHeight,
+        var segmentHeight = this._timelineSegmentHeight,
             px;
 
         px = Math.round( (duration * segmentHeight) / 60 );
@@ -434,8 +420,6 @@ ui.program = {
                 tpl = this,
                 data = opts.data,
                 table,
-                timeline, timelineCell,
-                timeline2, timelineCell2,
                 timemap,
                 flowsSections = {},
                 flow, flowId, flowCell, flowTitle, flowSection,
@@ -447,15 +431,7 @@ ui.program = {
 
             timemap = program.getTimeMap();
             table = tpl.tableLayout(opts);
-            timeline = tpl.timeline(opts.from, opts.to, opts.timelineSegments);
-            timeline2 = tpl.timeline(opts.from, opts.to, opts.timelineSegments);
-            timelineCell2 = ui.create({tag: 'td', e: 'program-timeline'});
-
             programRow = table.set[0];
-            timelineCell = table.set[1];
-
-            timelineCell.appendChild(timeline);
-            timelineCell.className += ' left';
 
             // Flows
             for (i = 0, len = data.flows.length; i < len; i++) {
@@ -463,7 +439,7 @@ ui.program = {
                 flowId = flow.id;
                 flow = timemap[flowId];
                 flowTitle = flow.title;
-                flowCell = tpl.flowCell(flow, i === 0);
+                flowCell = tpl.flowCell(flow, (i === 0) ? 'first' : (i+1 === len) ? 'last' : undefined);
                 flowSection = flowCell.childNodes[0];
                 flowsSections[flowId] = flowSection;
                 flowItems = timemap[flowId].map;
@@ -476,13 +452,6 @@ ui.program = {
                     itemNode = tpl.item(item);
                     prevItem = flowItems[j - 1];
                     nextItem = flowItems[j + 1];
-
-                    // Invalid flowId in data
-                    /*
-                     if ('flowId' in item && !(item.flowId instanceof Array) && !(item.flowId in flowsCells)) {
-                        continue;
-                     }
-                     */
 
                     // First item in flow
                     if (j === 0) {
@@ -518,7 +487,8 @@ ui.program = {
 
                     // If multiflow item
                     if (item.flowId.length > 1) {
-                        itemNode.style.width = ((100 * item.flowId.length) + 2).toString() + '%';
+                        itemNode.style.width = ((100 * item.flowId.length)).toString() + '%';
+                        //itemNode.style.width = (ui.program._programWidth).toString() + 'px';
                     }
 
                     if (item.type && item.type === 'virtual') {
@@ -531,10 +501,6 @@ ui.program = {
                 }
             }
 
-            timelineCell2.className += ' right';
-            timelineCell2.appendChild(timeline2);
-            table.set[0].appendChild(timelineCell2);
-
             return table.fragment;
         },
         tableLayout: function() {
@@ -545,7 +511,7 @@ ui.program = {
                     tag: 'tr',
                     e: 'program-row',
                     c: [
-                       {tag: 'td', e: 'program-timeline', get: 1}
+//                       {tag: 'td', e: 'program-timeline', get: 1}
                     ],
                     get: 1
                 }]
@@ -553,12 +519,12 @@ ui.program = {
 
             return table;
         },
-        flowCell: function(flow, isFirst) {
+        flowCell: function(flow, count) {
             var mods = [];
             mods.push('code_' + flow.code);
 
-            if (isFirst) {
-                mods.push('first');
+            if (count !== undefined) {
+                mods.push(count);
             }
 
             return ui.create({
@@ -572,9 +538,6 @@ ui.program = {
                     ]}
                 ]}
             );
-        },
-        items: function(flow) {
-
         },
         item: function(item, type) {
             var mods = [],
@@ -618,7 +581,7 @@ ui.program = {
         },
         timelineSegment: function(label, isLast) {
             return ui.create({e: 'segment' + (isLast ? ' last' : ''), c: [
-                {e: 'segment-line' /*, style: {width: '1000px'}*/ },
+                {e: 'segment-line', style: {width: ui.program._programWidth + 'px'}},
                 {e: 'segment-label', c: label}
             ]});
         },
@@ -632,7 +595,7 @@ ui.program = {
                 tpl = this,
                 from = parseInt(from.split(':')[0]),
                 to = parseInt(to.split(':')[0]),
-                segmentHeight = program.timelineSegmentHeight,
+                segmentHeight = program._timelineSegmentHeight,
                 subsegments = subsegments || 2,
                 segment,
                 subsegment,
@@ -641,12 +604,13 @@ ui.program = {
                 label,
                 sublabel,
                 fragment,
+                timeline,
                 i, j;
 
             subsegments = (typeof subsegments !== 'undefined') ? subsegments : 2;
             subsegmentDuration = (subsegments > 0) ? Math.round(60 / subsegments) : 0;
             subsegmentPxStep = Math.round(segmentHeight / subsegments);
-            fragment = document.createDocumentFragment();
+            timeline = ui.create({e: 'program-timeline'});
 
             // Segments
             for (i = from; i <= to; i++) {
@@ -663,10 +627,17 @@ ui.program = {
                     }
                 }
 
-                fragment.appendChild(segment);
+                timeline.appendChild(segment);
             }
 
-            return fragment;
+            return timeline;
+        },
+        marker: function() {
+            return ui.create({
+                e: 'program-time-marker', c: [
+                    {e: 'inner'}
+                ]
+            });
         }
     }
 };
@@ -1039,6 +1010,5 @@ ui.twee = {
 
 $(function(){
     var $paygate = $('#paygate');
-
     $paygate.find('link').remove();
 });
