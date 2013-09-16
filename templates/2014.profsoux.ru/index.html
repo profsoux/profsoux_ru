@@ -1,0 +1,35 @@
+{% extends '__base.html' %}
+
+{% load conference_tags %}
+
+{% block body_className %}page-home{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <section id="intro" class="span4">
+            <p><strong>ПрофсоUX</strong>&nbsp;&mdash; главная питерская конференция о&nbsp;юзабилити, UX&nbsp;и&nbsp;создании цифровых продуктов, ориентированных на&nbsp;человека.</p>
+            {% include "inc/btn-share.inc" %}
+        </section>
+
+        <section id="programm" class="span4">
+            <h2>В программе</h2>
+
+            <p>В прогамме ожидается много интересного.</p>
+        </section>
+
+        <section id="speakers" class="span4">
+            <h2>Докладчикам</h2>
+
+            <p>Самое время отправить заявку на почту <a href="mailto:contact@profsoux.ru">contact@profsoux.ru</a></p>
+        </section>
+    </div>
+    {% if states.show_tweets %}
+    <div class="row">
+        <section id="confTweetsBlock" class="conf-tweets-block span12">
+            <h2>Twitter <a href="https://twitter.com/search?q=#profsoux&amp;src=typd" target="_blank">#ProfsoUX</a></h2>
+            <ul id="confTweets" class="conf-tweets unstyled"></ul>
+        </section>
+    </div>
+    {% endif %}
+{% endblock %}
+
