@@ -7,8 +7,8 @@
                     <img src="{% static "img/branding/logo_profsoux.png" %}" alt="{{ site_title }}" />
                     <time class="year">{{ event.short_name }}</time>
                 </a>
-                <h2 id="site-description">ProfsoUX'13<br>User Experience conference</h2>
-                <p><time>May 18, 2013</time>. St. Petersburg, Russia</p>
+                <h2 id="site-description">ProfsoUX'14<br>User Experience conference</h2>
+                <p><time>April 26, 2014</time>. St. Petersburg, Russia</p>
             </div>
         </hgroup>
     </div>
