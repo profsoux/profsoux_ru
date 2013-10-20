@@ -382,24 +382,29 @@ def confirm(request):
 
 
 def contacts(request):
+    from utils import antispam
+
     if request.method == 'POST':
         form = ContactsForm(request.POST)
         if form.is_valid():
             form.save()
 
-            subject = u'Сообщения с сайта profsoux.ru'
-            message = u'''Имя: %s
-                email: %s
-                Сайт: %s
-                Сообщение: %s''' % (form.cleaned_data['name'],
-                    form.cleaned_data['email'],
-                    form.cleaned_data['site'],
-                    form.cleaned_data['comment'])
-            sender = 'robot@profsoux.ru'
-            recipients = ['contact@ux-spb.ru']
+            comment = form.cleaned_data['comment']
 
-            from django.core.mail import send_mail
-            send_mail(subject, message, sender, recipients)
+            if not antispam.check_spam(comment, request):
+                subject = u'Сообщения с сайта profsoux.ru'
+                message = u'''Имя: %s
+                    email: %s
+                    Сайт: %s
+                    Сообщение: %s''' % (form.cleaned_data['name'],
+                        form.cleaned_data['email'],
+                        form.cleaned_data['site'],
+                        form.cleaned_data['comment'])
+                sender = 'robot@profsoux.ru'
+                recipients = ['contact@ux-spb.ru']
+
+                from django.core.mail import send_mail
+                send_mail(subject, message, sender, recipients)
 
             c = {
                 'state': 'thanks',
