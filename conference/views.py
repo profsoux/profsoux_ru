@@ -383,6 +383,7 @@ def confirm(request):
 
 def contacts(request):
     from utils import antispam
+    from django.template import loader
 
     if request.method == 'POST':
         form = ContactsForm(request.POST)
@@ -390,16 +391,19 @@ def contacts(request):
             form.save()
 
             comment = form.cleaned_data['comment']
+            email_data = {
+                'name': form.cleaned_data['name'],
+                'comment': comment,
+                'email': form.cleaned_data['email'],
+                'site': form.cleaned_data['site'],
+                'timestamp': datetime.now(),
+                'user_ip': request.META['REMOTE_ADDR'],
+            }
 
             if not antispam.check_spam(comment, request):
                 subject = u'Сообщения с сайта profsoux.ru'
-                message = u'''Имя: %s
-                    email: %s
-                    Сайт: %s
-                    Сообщение: %s''' % (form.cleaned_data['name'],
-                        form.cleaned_data['email'],
-                        form.cleaned_data['site'],
-                        form.cleaned_data['comment'])
+
+                message = loader.render_to_string('email/contact_form.html', email_data)
                 sender = 'robot@profsoux.ru'
                 recipients = ['contact@ux-spb.ru']
 
