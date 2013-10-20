@@ -22,7 +22,7 @@
                 {% endif %}
                 <div class="span3">
                     <h3>Where and When?</h3>
-                    <p>May 18, 2013,
+                    <p>April 26, 2014,
                     <br />St. Petersburg, Russia, PetroCongress Center, Lodeinopolskaya Street, 5</p>
                 </div>
                 <div class="span3">
