@@ -210,11 +210,10 @@ TINYMCE_DEFAULT_CONFIG = {
 # Filebrowser Settings
 FILEBROWSER_DIRECTORY = MEDIA_ROOT
 
-#EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-#EMAIL_FILE_PATH = '/tmp/app-messages'   # change this to a proper location
-
 EMAIL_SUBJECT_PREFIX = "[Profsoux.ru] "
 
 SEND_BROKEN_LINK_EMAILS = True
 
 SERVER_EMAIL = 'server@profsoux.ru'
+
+AKISMET_KEY = '062e97a17ef0'
