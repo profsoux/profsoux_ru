@@ -1,0 +1,341 @@
+/*
+* Custom styles
+* 
+* author: alex@kotomanov.com;
+-----------------------------------------------------------------------------*/
+
+/* Layout */
+
+/* Header */
+#header {
+	border-top:1px solid #ebeaea;
+	border-bottom:1px solid #f4f3f1;
+	background:#ece8e2 url(../img/textures/bg_header.png) 0 0 repeat;
+	@shadow: inset 0 -5px 10px rgba(43, 28, 4, .1), inset 0 5px 10px rgba(43, 28, 4, .1);
+	.box-shadow(@shadow);
+	}
+	#branding {
+		position:relative;
+		margin:0 0 0 -20px;
+		padding:30px 0;
+		}
+	#logo {
+		position:absolute;
+		left:15px;
+		top:-115px;
+		width:230px;
+		height:250px;
+		border:none;
+		.transition(all 0.1s ease-in-out);
+		}
+		#logo:hover {top:-110px;}
+		#logo .year {
+			position:absolute;
+			top:197px;
+			display:block;
+			width:100%;
+			text-align:center;
+			font:16px bold Arial, "Helvetica Neue", Helvetica, sans-serif;
+			color:#eeeae5;
+			text-shadow:0 -1px 1px rgba(0,0,0,.5);
+			}
+	#site-title {
+		margin:0 0 3px;
+		font-size:36px;
+		line-height:48px;
+		}
+		#site-title a {
+			border:none;
+			}
+	#site-description {
+		margin:0 0 10px;
+		font-size:24px;
+		line-height:1.2;
+		}
+	#header p {margin:0 0 5px;}
+
+	
+/* Footer */
+#footer {
+	padding:10px 0;
+	background:#555b3f url(../img/textures/bg_footer.png) 0 0 repeat;
+	color:#fff3c8;
+
+	text-shadow:0 -1px 1px rgba(0,0,0,.9);
+
+	border-width:30px 0;
+	-webkit-border-image:url(../img/textures/brd_footer.png) 30 0 repeat;
+	-moz-border-image:url(../img/textures/brd_footer.png) 30 0 repeat;
+	-o-border-image:url(../img/textures/brd_footer.png) 30 0 repeat;
+	border-image:url(../img/textures/brd_footer.png) 30 0 repeat;
+	}
+	#footer .row {
+		margin-bottom:10px;
+		}
+		#footer .span3 {
+			margin-bottom:30px;
+			}
+	#footer h3 {
+		margin-bottom:10px;
+		line-height:1.2;
+		font-size:24px;
+		color:#fff3c8;
+		}
+	#footer p {
+		margin:0;
+		}
+	#footer ul {
+		margin:0;
+		list-style:none;
+		}
+	#footer a {
+		color:#fff3c8;
+		border-bottom: 1px solid fadeout(#fff3c8, 60%);
+		}
+		#footer a:hover {
+			color: darken(#fff3c8, 5%);
+			border-bottom: 1px solid darken(#fff3c8, 5%);
+			}
+
+#content-container {
+	padding:40px 0;
+	}
+
+/* Aside */
+#content-sup h3 {
+	margin:0 0 30px;
+	font-size:21px;
+	line-height:1.4;
+	}
+#content-sup .btn-signup {
+	display:block;
+	margin:0 0 15px;
+	}
+#content-sup nav ul {
+	margin:0 0 30px;
+	}
+	#content-sup nav li {
+		margin:0 0 5px;
+		list-style:none;
+		}
+
+
+#intro,
+#programm, 
+#speakers {
+	margin-bottom:20px;
+	}
+	#programm h2, 
+	#speakers h2,
+	#organizers h2, 
+	#partners h2 {
+		padding-bottom:10px;
+		margin-bottom:30px;
+		line-height:1.2;
+		font-size: 30px;
+		.title-border-bottom();
+		}
+		#partners h2 a,
+		#organizers h2 a {
+			display: inline;
+			color:@black;
+			border-bottom: solid 1px @grayLighter;
+			}
+			#partners h2 a:hover,
+			#organizers h2 a:hover {
+				border-color:@grayDark;
+				color:@grayDark;
+				}
+	#organizers h3, 
+	#partners h3 {
+		margin:0 0 20px;
+		font-size:24px;
+		}
+
+	#intro .btn-signup {
+		margin:0 0 10px;
+		display:block;
+		width:80%;
+		min-height:28px;
+		.box-sizing(border-box);
+		line-height:28px;
+		}
+	#intro .small {
+		font-size:14px;
+		}
+
+	#programm dt {
+		margin:0 0 5px;
+		#font > .shorthand(21px, normal, 1.2);
+		font-family:@headingsFontFamily;
+		color:@headingsColor;
+		}
+	#programm dd {
+		margin:0 0 30px;
+		line-height:20px;
+		font-size:14px;
+		}
+
+	#organizers ul,
+	#partners ul {
+		margin:0;
+		list-style:none;
+		}
+		#organizers li,
+		#partners li {
+			display:inline;
+			float:left;
+			margin:0 0 20px;
+			min-width:100px;
+			min-height:100px;
+			}
+		#organizers li {
+			width:50%;
+			}
+		#partners li {
+			width:25%;
+			}
+		#organizers a,
+		#partners a,
+        #organizers a,
+        #partners a {
+            line-height: 80px;
+            display: inline-block;
+            height: 80px;
+            width: 80px;
+			border:none;
+			}
+
+
+figure.thumbnail {
+	margin:0;
+	}
+
+
+ul.list-of-speakers {
+	margin:0;
+	list-style:none;
+	}
+	.list-of-speakers .speaker {
+		position:relative;
+		margin-bottom:20px;
+		min-height:115px;
+		}
+	.list-of-speakers .thumbnail {
+		position:absolute;
+		top:0;
+		left:0;
+		display:block;
+		}
+	.list-of-speakers h3 {
+		margin:0 0 5px 115px;
+		line-height:1.2;
+		font-size:21px;
+		}
+		.list-of-speakers h3 a {
+			border-bottom-color:#ccc;
+			color:#000;
+			}
+			.list-of-speakers h3 a:hover {
+				border-bottom-color:#999;
+				}
+	.list-of-speakers p {
+		margin:0 0 5px 115px;
+		line-height:20px;
+		font-size:14px;
+		}
+
+/* Map and Location page */
+.page-location #content-main h3 {
+	margin-bottom:10px;
+	font-size:30px;
+	line-height:1.4;
+	}
+.page-location #content-main h4 {
+	font-size:21px;
+	color:#666;
+	}
+.page-location dd {
+	margin:0 0 10px;
+	}
+#map_canvas {
+	margin:0 0 15px;
+	padding:0;
+	width:100%;
+	height:290px;
+	}
+.page-location .thumbnail {
+	margin:0 0 30px;
+	}
+	.page-location .thumbnail p {
+		margin:0 0 10px;
+		}
+
+/* Partners and organizers pages */
+ul.list-of-partners,
+ul.list-of-organizers {
+	margin:0 0 20px;
+	}
+	.list-of-partners .partner,
+	.list-of-organizers .organizer {
+		margin:0 0 20px;
+		min-height:160px;
+		list-style:none;
+		}
+	.list-of-partners .logo,
+	.list-of-organizers .logo {
+		margin:0;
+		}
+		.list-of-partners .logo a,
+		.list-of-organizers .logo a {
+			border:none;
+			}
+		.list-of-partners .logo img,
+		.list-of-organizers .logo img {
+			min-width:86px;
+			min-height:86px;
+			background:none;
+			}
+	.list-of-partners h3,
+	.list-of-organizers h3 {
+		margin:0 0 20px;
+		font-size:30px;
+		line-height:1.2;
+		}
+
+/* Conferees page */
+.members h3 {
+	margin-bottom:30px;
+	font-size:30px;
+	line-height:1.4;
+	}
+.members .letters-list {
+	color:#999;
+	}
+.members .people-list-header {
+	margin:0 0 10px;
+	}
+.members .people-list li {
+	margin:0 0 5px;
+	}
+
+#share-block {
+	margin:0 0 30px;
+	}
+	#share-block h3 {
+		margin:0 0 10px;
+		font-size:24px;
+		line-height:1.2;
+		color:@textColor;
+		}
+	#share-block a {
+		margin-right:3px;
+		border:none;
+		}
+		#share-block a:hover {border:none;}
+
+/* Selection */
+::-moz-selection { background:rgba(255,222,0,.5); color:#000; text-shadow:none !important; }
+::selection { background:rgba(255,222,0,.5); color:#000; text-shadow:none !important; }
+#footer ::-moz-selection { background:rgba(255,222,0,.8); }
+#footer ::selection { background:rgba(255,222,0,.8); }

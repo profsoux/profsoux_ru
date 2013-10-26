@@ -1,0 +1,321 @@
+/* schedule */
+@scheduleAxlColor: #ACACAC;
+@scheduleBgColor: #f7f7f7;
+@scheduleAxisMargin: 55px;
+@scheduleUnitHeight: 151px;
+
+.segment-height(@val) {
+    height:round(@scheduleUnitHeight * (((@val * 100%)/60%))/100) - 3px;
+}
+.segment-pre(@val) {
+    margin-top:round(@scheduleUnitHeight * (((@val * 100%)/60%))/100) - 3px;
+}
+
+.schedule {
+    text-align:left;
+    padding-left:@scheduleAxisMargin;
+    margin-bottom:80px;
+}
+
+    /* axl */
+    .schedule-axl {
+        border-width:1px 1px 0;
+        border-color:@scheduleAxlColor;
+        border-style:solid;
+        position:relative;
+        background-color:@scheduleBgColor;
+    }
+
+        /* current time marker */
+        .schedule-axl .current-time {
+            z-index:2;
+            left:-5px;
+            right:0;
+            /*width:16px;*/
+            height:0;
+            border-bottom:1px dashed #2d2d2d;
+            top:0;
+            position:absolute;
+            display:none;
+        }
+        .schedule-axl .current-time:after {
+            left:-7px;
+            top:-3px;
+        	height:7px;
+            width:7px;
+            .border-radius(7px);
+            background-color:#0048D9;
+            position:absolute;
+            content:"";
+            display:block;
+        }
+
+        /* events */
+        .schedule-axl .events {
+            z-index:3;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            margin:0;
+            padding:0;
+            list-style:none;
+            position:absolute;
+        }
+        .schedule-axl .event {
+            display:block;
+            position:relative;
+            overflow:hidden;
+            margin:0 10px 1px;
+            background-color:transparent;
+            background-image:url("../img/schedule/event-bg.png");
+            border-width:1px;
+
+            border-style:solid;
+            border-color:@scheduleAxlColor;
+            .border-radius(6px);
+            text-decoration:none;
+            text-overflow:ellipsis;
+        }
+        .schedule-axl .event:hover {background-color:#fff;}
+        .schedule-axl .event .time {
+            display:inline-block;
+            padding:0 5px 0 10px;
+            font-size:11px;
+            line-height:24px;
+            color:#A2A2A2;
+            }
+        .schedule-axl .event .description {
+            text-overflow:ellipsis;
+            white-space:nowrap;
+            font-size:13px;
+            line-height:35px;
+            margin-bottom:0;
+            color:#000;
+            text-decoration:none;
+        }
+        .schedule-axl .event .description em {
+            font-style:normal;
+            color:#9D2900;
+            text-decoration:underline;
+        }
+
+        /* captions */
+        .schedule-axl .captions {
+            z-index:1;
+            position:relative;
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        .schedule-axl .caption {
+            border-width:0 0 1px;
+            border-style:solid;
+            border-color:@scheduleAxlColor;
+            height:@scheduleUnitHeight;
+            position:relative;
+            margin:0;
+            padding:0;
+            display:block;
+        }
+        .schedule-axl .caption:after {
+            content:"";
+            display:block;
+            position:absolute;
+            height:1px;
+            left:0;
+            width:100%;
+            background-color:@scheduleAxlColor;
+        }
+        .schedule-axl .caption:after {top:50%; margin-top:0;}
+        .schedule-axl .caption .text {
+            top:-12px;
+            left:-@scheduleAxisMargin;
+            position:absolute;
+        }
+
+        .schedule-axl .caption:last-child {height:0; border-width:0;}
+        .schedule-axl .caption:last-child:after {height:0;}
+
+
+    /* legends list */
+    .schedule-legends {margin-bottom:20px;}
+    .schedule-legends li {display:inline-block; position:relative; margin-left:20px;}
+    .schedule-legends li:first-child {margin-left:0;}
+    .schedule-legends .legend-view {
+        top:3px;
+        left:0;
+        width:15px;
+        height:15px;
+        border:1px solid #ccc;
+        position:absolute;
+        background-color:@scheduleBgColor;
+        background-repeat:repeat;
+    }
+    .schedule-legends .legend-name {padding-left:25px;}
+
+        /* legends */
+        .schedule .legend-analytics {background-image:url("../img/schedule/legend-analytics.png");}
+        .schedule .legend-ui {background-image:url("../img/schedule/legend-ui.png");}
+        .schedule .legend-testing {background-image:url("../img/schedule/legend-testing.png");}
+        .schedule .legend-implementation {background-image:url("../img/schedule/legend-implementation.png");}
+
+
+    /* axl division */
+    /* percent in .segment-height() == minutes */
+    .schedule-axl {
+        .div-5 {.segment-height(5%);}
+        .div-10 {.segment-height(10%);}
+        .div-15 {.segment-height(15%);}
+        .div-20 {.segment-height(20%);}
+        .div-25 {.segment-height(25%);}
+        .div-30 {.segment-height(30%);}
+        .div-35 {.segment-height(35%);}
+        .div-40 {.segment-height(40%);}
+        .div-45 {.segment-height(45%);}
+        .div-50 {.segment-height(50%);}
+        .div-55 {.segment-height(55%);}
+        .div-60 {.segment-height(60%); height:149px;}
+
+        .pre-5 {.segment-pre(5%);}
+        .pre-10 {.segment-pre(10%);}
+        .pre-15 {.segment-pre(15%);}
+        .pre-20 {.segment-pre(20%);}
+        .pre-25 {.segment-pre(25%);}
+        .pre-30 {.segment-pre(30%);}
+        .pre-35 {.segment-pre(35%);}
+        .pre-40 {.segment-pre(40%);}
+        .pre-45 {.segment-pre(45%);}
+        .pre-50 {.segment-pre(50%);}
+        .pre-55 {.segment-pre(55%);}
+        .pre-60 {.segment-pre(60%); height:149px;}
+    }
+
+
+/* Members */
+.members {}
+.members .row {margin-left:0px}
+.members .span4 {width:33%; margin-left:0;}
+.members h3 {}
+
+    .letters-list {margin-bottom:25px; list-style:none;}
+    .letters-list li {display:inline-block; margin-right:7px;}
+    .letters-list li:last-child {margin-right:0;}
+    .letters-list .disabled {color:#999; text-decoration:none; cursor:default;}
+
+    .people-list {margin-left:0; list-style:none;}
+    .members .people-list {margin-right:30px;}
+    .people-list li {}
+    .people-list-header {}
+
+
+/* Paygate */
+
+.epts-buyTicketsWidget {}
+.epts-widget-hint {
+  margin-bottom: 1em;
+}
+.epts-header {display: none;}
+.epts-magic-table {
+  float: none;
+  width: 100%;
+
+  th, td {
+    padding: 8px;
+    line-height: 24px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
+  }
+  tr:nth-child(odd) th,
+  tr:nth-child(odd) td {
+    background: #f9f9f9;
+  }
+}
+.epts-table-header {
+  text-align: left;
+
+  th {
+    border-bottom: solid 2px #C9C9C9;
+  }
+  .epts-th-price,
+  .epts-th-sum {
+    text-align: center;
+  }
+}
+.epts-td-quantity {
+  width: 4em;
+}
+  select {
+    width: 100%;
+    font-size: 1em;
+    height: auto;
+  }
+.epts-price,
+.epts-sum {
+  text-align: right;
+  width: 6em;
+}
+.epts-td-type {
+  font-weight: bold;
+}
+.epts-type-description {
+  font-size: 0.8em;
+  font-weight: normal;
+}
+.epts-totalRow {
+  font-weight: bold;
+}
+.epts-widget-actions {
+  th, td {
+    background: none !important;
+  }
+}
+.epts-goToFormButton {
+  float: right;
+  padding-top: 1.3em;
+}
+.cool-button,
+.cool-button:hover,
+.cool-button:active {
+  border-width:5px;
+  .border-image(url(../img/textures/brd_btn.png), 5, repeat);
+  background:@navbarLinkBackgroundActive url(../img/textures/bg_nav_active.png) 0 0 repeat;
+}
+
+.cool-button {
+  padding: 0 8px 2px;
+
+  @shadow:inset 0 20px 20px rgba(255,255,255,.25), 0 1px 2px rgba(0,0,0,.25);
+  .box-shadow(@shadow);
+
+  color: @navbarLinkColorActive;
+  text-shadow:0 -1px 0 fadeout(#4a1809, 10%);
+
+  &:hover{
+    @shadow:inset 0 20px 20px rgba(255,255,255,.15), 0 1px 2px rgba(0,0,0,.3);
+    .box-shadow(@shadow);
+    text-shadow: 0 -1px 0 rgba(0,0,0,.75);
+  }
+  &:active {
+    @shadow:0 10px 5px rgba(0,0,0, 0.1) inset,0 -10px 5px rgba(255, 255, 255, 0.1) inset, 0 1px 2px rgba(0, 0, 0, 0.3);
+    .box-shadow(@shadow);
+    text-shadow: 0 -1px 0 rgba(0,0,0,.75);
+  }
+  &:disabled {
+    visibility: hidden;
+    color: @navbarLinkColorDisabled;
+  }
+
+  &.btn-large {
+    padding: 3px 10px 5px;
+  }
+
+  &.btn-small {
+    padding: 0 6px;
+  }
+
+  &.btn-mini {
+    border:1px solid darken(@navbarLinkBackgroundActive, 5%);
+  }
+}
