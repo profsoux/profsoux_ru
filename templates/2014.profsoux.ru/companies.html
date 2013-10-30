@@ -1,0 +1,66 @@
+{% extends "__two-column.html" %}
+
+{% load conference_tags %}
+
+{% block page_title %}{{ title }} - {{ block.super }}{% endblock %}
+
+{% block body_className %}page-people{% endblock %}
+
+{% block page-header %}
+    <h2>{{ title }}</h2>
+
+    <p><a href="http://media.profsoux.ru/docs/ProfsoUX_2014_Sponsorship.1383137701.pdf" target="_blank">Презентация для партнеров</a> (pdf, 1,8 Мб).</p>
+{% endblock %}
+
+{% block content-main %}
+    <div class="clearfix">
+
+    {% regroup companies by partner_type as partners_list %}
+
+    {% for partner_group in partners_list %}
+        {% if not forloop.first %}
+            <h3>{{ partner_group.grouper.title_plural }}</h3>
+        {% endif %}
+        <ul class="list-of-partners">
+        {% for partner in partner_group.list %}
+            <li class="partner">
+                <article class="row">
+                    <div class="span2">
+                        <figure class="logo">
+                            {% if partner.organization.site %}
+                            <a href="{{ partner.organization.site }}" class="thumbnail" target="_blank" title="{{ partner.organization.name }}">
+                                {% if partner.organization.logo %}
+                                    <img src="{{ partner.organization.logo|thumbnail:"140x140" }}" alt="{{ partner.organization.name|safe }}">
+                                {% else %}
+                                    <img src="http://placehold.it/140x140" alt="{{ partner.organization.name|safe }}">
+                                {% endif %}
+                            </a>
+                            {% else %}
+                            <span class="thumbnail" title="{{ partner.organization.name|safe }}">
+                                {% if partner.organization.logo %}
+                                    <img src="{{ partner.organization.logo|thumbnail:"140x140" }}" width="140" alt="{{ partner.organization.name }}">
+                                {% else %}
+                                    <img src="http://placehold.it/140x140" alt="{{ partner.organization.name|safe }}">
+                                {% endif %}
+                            </span>
+                            {% endif %}
+                        </figure>
+                    </div>
+                    <div class="span6">
+                        <h3>{{ partner.organization.name|safe }}</h3>
+
+                        {% if partner.organization.site %}
+                        <address>{{ partner.organization.site|pretty_url }}</address>
+                        {% endif %}
+
+                        {% if partner.organization.description %}
+                        {{ partner.organization.description|safe }}
+                        {% endif %}
+                    </div>
+                </article>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+    </div>
+{% endblock %}
