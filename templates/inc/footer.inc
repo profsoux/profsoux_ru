@@ -36,7 +36,7 @@
             {% if not nosocial %}
             <div id="social">
                 <ul class="clearfix">
-                    <li class="facebook"><a class="ico hide-text" href="https://www.facebook.com/events/488277977870243/" title="Facebook" target="_blank">Facebook</a></li>
+                    <li class="facebook"><a class="ico hide-text" href="https://www.facebook.com/Profsoux" title="Facebook" target="_blank">Facebook</a></li>
                     <li class="twitter"><a class="ico hide-text" href="https://twitter.com/profsoux" title="Twitter" target="_blank">Twitter</a></li>
                     <li class="linkedin"><a class="ico hide-text" href="http://www.linkedin.com/groups/ProfsoUX-4806057" title="LinkedIn" target="_blank">LinkedIn</a></li>
                     <li class="vkontakte"><a class="ico hide-text" href="http://vk.com/profsoux" title="ВКонтакте" target="_blank">ВКонтакте</a></li>
