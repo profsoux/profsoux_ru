@@ -1,0 +1,24 @@
+<table class="table table-stripped">
+<tr>
+    <th>Дата регистрации:</th>
+    {% for month in months %}
+        <th>{{ month }}</th>
+    {% endfor %}
+</tr>
+
+{% for price_item in price_items %}
+<tr>
+    <th>{{ price_item.title|safe }}</th>
+    {% for price_value in price_item.price %}
+        {% if price_value.available_to < now %}
+            <td><del>{{ price_value.value }}&nbsp;р.</del></td>
+        {% elif price_value.available_from <= now and price_value.available_to >= now %}
+            <td><strong>{{ price_value.value }}&nbsp;р.</strong></td>
+        {% else %}
+            <td>{{ price_value.value }}&nbsp;р.</td>
+        {% endif %}
+    {% endfor %}
+</tr>
+{% endfor %}
+
+</table>
