@@ -17,20 +17,19 @@
 {% endif %}
 
 {% if states.conference == 'waiting' %}
+    <p>ПрофсоUX —&nbsp;главная питерская конференция о&nbsp;юзабилити, UX и&nbsp;создании
+            цифровых&nbsp;продуктов, ориентированных на&nbsp;человека</p>
 
     {% if states.registration = "waiting" %}
         {% if event.registration_start %}
             <p>Приём заявок на участие в конференции «ProfsoUX» откроется <nobr>{{ event.registration_start }}</nobr></p>
         {% else %}
-            <p>ПрофсоUX —&nbsp;главная питерская конференция о&nbsp;юзабилити, UX и&nbsp;создании
-            цифровых&nbsp;продуктов, ориентированных на&nbsp;человека</p>
-
-            <p><a href="{{ registration_url }}" class="btn btn-signup btn-primary btn-large">Хочу принять участие
-            в&nbsp;ProfsoUX 2014</a></p>
         {% endif %}
+        <p><a href="{{ registration_url }}" class="btn btn-signup btn-primary btn-large">Хочу принять участие
+            в&nbsp;ProfsoUX 2014</a></p>
 
     {% elif states.registration = "active" %}
-        <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
+        <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Хочу участвовать</a>
 
             <small>Торопитесь! Количество мест ограничено.</small><br />
             {% if event.registration_end %}
@@ -54,7 +53,7 @@
 {% if states.conference == 'in_progress' %}
     <p class="small">Регистрация закрыта. </p>
 
-    <p class="small">Начало трансляции&nbsp;&mdash; 18&nbsp;мая в&nbsp;11:30. <a href="/online/">Смотреть онлайн-трансляцию</a></p>
+    <p class="small">Начало трансляции&nbsp;&mdash; 26&nbsp;апреля в&nbsp;11:30. <a href="/online/">Смотреть онлайн-трансляцию</a></p>
 {% endif %}
 
 {% include "inc/btn-share.inc" %}
