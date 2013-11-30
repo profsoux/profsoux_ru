@@ -21,6 +21,12 @@
     {% if states.registration = "waiting" %}
         {% if event.registration_start %}
             <p>Приём заявок на участие в конференции «ProfsoUX» откроется <nobr>{{ event.registration_start }}</nobr></p>
+        {% else %}
+            <p>ПрофсоUX —&nbsp;главная питерская конференция о&nbsp;юзабилити, UX и&nbsp;создании
+            цифровых&nbsp;продуктов, ориентированных на&nbsp;человека</p>
+
+            <p><a href="{{ registration_url }}" class="btn btn-signup btn-primary btn-large">Хочу принять участие
+            в&nbsp;ProfsoUX 2014</a></p>
         {% endif %}
 
     {% elif states.registration = "active" %}
