@@ -1,0 +1,49 @@
+{% extends "__two-column.html" %}
+
+{% load conference_tags %}
+{% load registration_tags %}
+
+{% block page_title %}Регистрация - {{ block.super }}{% endblock %}
+
+{% block body_className %}page-signup{% endblock %}
+
+{% block page-header %}
+    {% if states.registration == "active" %}
+    <h2>Регистрация</h2>
+    {% else %}
+    <h2 class="span6 offset2">Регистрация окончена</h2>
+    {% endif %}
+{% endblock %}
+
+{% block content-main %}
+    {% if states.registration == "active" %}
+    <h3>Стоимость участия</h3>
+
+    {% price_table %}
+
+    <h3>Подать заявку</h3>
+    <div id="paygate">
+        <script type="text/javascript" src="http://profsoux2014.ticketforevent.com/ru/widget/?h=0&s=0"></script>
+    </div>
+    <p>По вопросам оплаты и предоставления платежных документов звоните: <nobr>+7 499 272 47 11</nobr>.</p>
+    {% else %}
+    <div class="span6 offset2">
+        <p>ProfsoUX 2013 завершен. <a href="https://docs.google.com/forms/d/1KkbRy9uXRu_RLdKo3tnGhvhTHLuHWu2erAyaJAVSdz0/viewform">Оставить заявку на участие в ProfsoUX 2014</a></p>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block aside %}
+    {% if states.registration == "active" %}
+    <h4>Способы оплаты</h4>
+
+    <ol>
+        <li>По карте</li>
+        <li>Банковским переводом (по запросу предоставляется договор, акт и пр.)</li>
+        <li>Робокасса (Яндекс.Деньги, платёжные терминалы и др.)</li>
+        <li>QIWI Кошелек</li>
+    </ol>
+
+    <p><a href="/registation/return-policy/">Политика возврата</a></p>
+    {% endif %}
+{% endblock %}
