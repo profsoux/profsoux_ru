@@ -2,6 +2,7 @@
 data.db
 *.sublime-*
 uploads
+conference/static
 /static
 
 # Idea projects files & folders

@@ -1,10 +1,16 @@
 {% if states.conference == 'ended' %}
 
-    <p class="small">18 мая 2013&nbsp;г. в&nbsp;Санкт-Петербурге прошла конференция, посвященная юзабилити и&nbsp;проектированию пользовательского взаимодействия.</p>
+    {% if event.short_name == '2013' %}
 
-    <p class="small">Презентации и&nbsp;видеозаписи (из&nbsp;Большого зала) будут доступны на&nbsp;страницах <a href="/papers/">докладов</a>. Фотографии смотрите <a href="https://www.facebook.com/Profsoux">в&nbsp;группе на&nbsp;Facebook</a>.</p>
+        <p class="small">18 мая 2013&nbsp;г. в&nbsp;Санкт-Петербурге прошла конференция, посвященная юзабилити
+        и&nbsp;проектированию пользовательского взаимодействия.</p>
 
-    <p class="small">Спасибо всем, кто <a href="http://profsoux.ru/organizers/">сделал эту конференцию</a>!</p>
+        <p class="small">Все презентации, а также видеозаписи из Большого зала доступны <a href="/papers/">на страницах докладов</a>.
+        Фотографии смотрите <a href="https://www.facebook.com/Profsoux">в&nbsp;группе на&nbsp;Facebook</a>.</p>
+
+        <p class="small">Спасибо всем, кто <a href="http://profsoux.ru/organizers/">сделал эту конференцию</a>!</p>
+
+    {% endif %}
 
     <p><a href="{{ registration_url }}" class="btn btn-signup btn-primary btn-large">Хочу принять участие в&nbsp;ProfsoUX 2014</a>
 
