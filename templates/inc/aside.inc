@@ -25,11 +25,10 @@
             <p>Приём заявок на участие в конференции «ProfsoUX» откроется <nobr>{{ event.registration_start }}</nobr></p>
         {% else %}
         {% endif %}
-        <p><a href="{{ registration_url }}" class="btn btn-signup btn-primary btn-large">Хочу принять участие
-            в&nbsp;ProfsoUX 2014</a></p>
+        <p><a href="{{ registration_url }}" class="btn btn-signup btn-primary btn-large">Принять участие</a></p>
 
     {% elif states.registration = "active" %}
-        <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Хочу участвовать</a>
+        <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
 
             <small>Торопитесь! Количество мест ограничено.</small><br />
             {% if event.registration_end %}
