@@ -1,4 +1,4 @@
-# -*- coding: utf8 -*-
+# -*- coding: utf-8 -*-
 # Create your views here.
 
 from datetime import datetime, timedelta, time

@@ -1,4 +1,4 @@
-#-*- coding: utf8 -*-
+#-*- coding: utf-8 -*-
 from hashlib import md5
 
 from django.contrib import admin

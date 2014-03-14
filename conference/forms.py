@@ -1,4 +1,4 @@
-# -*- coding: utf8 -*-
+# -*- coding: utf-8 -*-
 from django import forms
 
 from conference.models import Participant, ParticipantFuture, Contacts, Result, LectureRate, Lecture
