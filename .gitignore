@@ -4,6 +4,7 @@ data.db
 uploads
 conference/static
 /static
+*.mo
 
 # Idea projects files & folders
 .idea
