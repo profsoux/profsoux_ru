@@ -55,17 +55,6 @@ THOUSAND_SEPARATOR = " "
 
 LANGUAGE_CODE = 'ru-RU'
 
-from django.utils.translation import ugettext as _
-
-LANGUAGES = (
-  ('ru', _('Russian')),
-  ('en', _('English')),
-)
-
-LOCALE_PATHS = (
-    os.path.join(PROJECT_ROOT, 'locale'),
-)
-
 FIRST_DAY_OF_WEEK = 1
 
 DATE_FORMAT = 'd E Y'

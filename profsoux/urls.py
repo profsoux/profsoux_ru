@@ -1,6 +1,5 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -45,7 +44,7 @@ urlpatterns = patterns('',
     url(r'^api/schedule/$', 'conference.views.schedule_as_json'),
 )
 
-urlpatterns += i18n_patterns(
+urlpatterns += patterns(
     'django.contrib.flatpages.views',
     url(r'^en/$', 'flatpage', {'url': '/en/'}, name='en'),
 )
