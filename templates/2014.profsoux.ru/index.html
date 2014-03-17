@@ -37,12 +37,13 @@
         </section>
 
         <section id="speakers" class="span4">
-            <h2>Докладчикам</h2>
+            <h2>Докладчики</h2>
 
-            <p>Приём заявок на доклады завершён.</p>
-            <p>Авторам заявок будет сообщено, принят ли их доклад в программу, не позднее &nbsp;26&nbsp;марта 2014&nbsp;г.</p>
-            <p>Подробнее&nbsp;&ndash; в <a href="/4speakers/">разделе для докладчиков</a></p>
-            
+            {% speakers_list %}
+
+            {% if counts.speakers %}
+            <p><a href="/speakers/">Все докладчики »</a></p>
+            {% endif %}
         </section>
     </div>
     {% if states.show_tweets %}
