@@ -1,8 +1,10 @@
 {% load conference_tags %}
-{% load i18n %}
 
 <section id="organizers" class="span4">
-    <h2><a href="/organizers/">{% trans "Организаторы" %}</a></h2>
+    <h2><a href="/organizers/">
+        {% if lang == "ru" %}Организаторы{% endif%}
+        {% if lang == "en" %}Organizers{% endif%}
+    </a></h2>
     <ul class="clearfix">
     {% for organization in items.orgs %}
         <li>
@@ -31,7 +33,10 @@
 {% regroup items.partners by partner_type as partners_list %}
 
 <section id="partners" class="span8">
-    <h2><a href="/partners/">{% trans "Партёры" %}</a></h2>
+    <h2><a href="/partners/">
+        {% if lang == "ru" %}Патнёры{% endif%}
+        {% if lang == "en" %}Partners{% endif%}
+    </a></h2>
     {% for partner_group in partners_list %}
         {% if not forloop.first %}
             <h3>{{ partner_group.grouper.title_plural }}</h3>
