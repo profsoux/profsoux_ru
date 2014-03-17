@@ -11,3 +11,4 @@ six==1.2.0
 vobject==0.8.1c
 wsgiref==0.1.2
 xlwt==0.7.4
+Fabric==1.8.2
