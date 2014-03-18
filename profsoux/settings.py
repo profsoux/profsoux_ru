@@ -5,6 +5,7 @@ import os
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
 DEBUG = True
+
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -45,7 +46,7 @@ USE_I18N = True
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
-USE_L10N = False
+USE_L10N = True
 
 USE_THOUSAND_SEPARATOR = True
 
@@ -53,7 +54,7 @@ NUMBER_GROUPING = 3
 
 THOUSAND_SEPARATOR = " "
 
-LANGUAGE_CODE = 'ru-RU'
+LANGUAGE_CODE = 'ru-ru'
 
 FIRST_DAY_OF_WEEK = 1
 
