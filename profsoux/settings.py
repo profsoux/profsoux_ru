@@ -46,7 +46,7 @@ USE_I18N = True
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
-USE_L10N = True
+USE_L10N = False
 
 USE_THOUSAND_SEPARATOR = True
 
@@ -54,7 +54,7 @@ NUMBER_GROUPING = 3
 
 THOUSAND_SEPARATOR = " "
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru-RU'
 
 FIRST_DAY_OF_WEEK = 1
 
