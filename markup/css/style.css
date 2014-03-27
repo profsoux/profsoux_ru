@@ -5487,6 +5487,7 @@ select {
 }
 .epts-price,
 .epts-sum {
+  white-space: nowrap;
   text-align: right;
   width: 6em;
 }
