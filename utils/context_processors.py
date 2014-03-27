@@ -12,6 +12,9 @@ def site_globals(request):
     participants = Participant.objects.filter(event=event)
     lectures = Lecture.objects.filter(event=event)
 
+    if event is None:
+        return {}
+
     return {
         'now': now,
         'event': event,

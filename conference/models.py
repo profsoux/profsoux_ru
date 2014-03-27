@@ -32,13 +32,15 @@ class EventManager(models.Manager):
         try:
             event = self.get(default=True)
         except ObjectDoesNotExist:
-            event = self.order_by('date')[0]
+            event = (self.order_by('date') or [None])[0]
         except MultipleObjectsReturned:
             event = self.filter(default=True)[0]
         return event
 
     def get_registration_url(self, request):
         event = self.get_default_event()
+        if event is None:
+            return
         domain = event.domain if event != self.get_current_event(request) else None
         if event.get_registration_state() != 'waiting':
             path = '/registration/'
