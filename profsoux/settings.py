@@ -167,6 +167,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'south',
 
+    'flatblocks',
     'conference',
     'registration',
 )
