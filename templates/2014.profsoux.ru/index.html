@@ -1,13 +1,14 @@
 {% extends '__base.html' %}
 
-{% load conference_tags %}
+{% load conference_tags flatblock_tags %}
 
 {% block body_className %}page-home{% endblock %}
 
 {% block content %}
     <div class="row">
         <section id="intro" class="span4">
-            <p><strong>ПрофсоUX</strong>&nbsp;&mdash; главная питерская конференция о&nbsp;юзабилити, UX&nbsp;и&nbsp;создании цифровых продуктов, ориентированных на&nbsp;человека.</p>
+            {% flatblock "index.left.before" %}
+
 
             {% if now.month == 12 %}
                 <p>В декабре действует максимальная скидка, <a href="/registration/">зарегистрируйтесь сейчас</a>.</p>
@@ -24,15 +25,11 @@
             {% endif %}
             {% include "inc/btn-share.inc" %}
 
-            <p><a href="http://media.profsoux.ru/docs/ProfsoUX_2014_Sponsorship.1383137701.pdf" target="_blank">Презентация для партнеров</a> (pdf, 1,8 Мб).</p>
+            {% flatblock "index.presentation.link" %}
         </section>
 
        <section id="programm" class="span4">
-        <h2>В&nbsp;программе</h2>
-            <p>Презентации, интерактивы, мастер-классы и&nbsp;дискуссиями от&nbsp;<a href="/speakers/">докладчиков</a> из&nbsp;России, Белоруссии, Украины, США, Нидерландов, Эстонии, Финляндии и&nbsp;Израиля.</p>
-            <p><strong>Официальное открытие</strong>: 26&nbsp;апреля в&nbsp;11:30.<br>Завершится конференция в&nbsp;19:00.</p>
-            <p><strong>Для начинающих</strong> до&nbsp;начала основных докладов пройдёт класс &laquo;<a href="/papers/53/">Введение в&nbsp;User Experience Design</a>&raquo;. Ведущий&nbsp;&mdash; один из&nbsp;лучших преподавателей Эйндховенского университета Сулеман Шахид (Нидерланды). </p>
-            <p>Накануне и&nbsp;после конференции пройдут неформальные встречи участников в&nbsp;пабах города :) Следите за&nbsp;новостями в <a href="https://plus.google.com/u/0/events/cvcvs199orr36p49jejspfp7734">Google+</a>, <a href="https://www.facebook.com/Profsoux">Facebook</a> и&nbsp;<a href="https://twitter.com/profsoux">Twitter</a>.</p>
+        {% flatblock "index.center" %}
         </section>  
         
         <section id="speakers" class="span4">
