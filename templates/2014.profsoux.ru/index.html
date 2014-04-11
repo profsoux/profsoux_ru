@@ -1,13 +1,14 @@
 {% extends '__base.html' %}
 
-{% load conference_tags %}
+{% load conference_tags flatblock_tags %}
 
 {% block body_className %}page-home{% endblock %}
 
 {% block content %}
     <div class="row">
         <section id="intro" class="span4">
-            <p><strong>ПрофсоUX</strong>&nbsp;&mdash; главная питерская конференция о&nbsp;юзабилити, UX&nbsp;и&nbsp;создании цифровых продуктов, ориентированных на&nbsp;человека.</p>
+            {% flatblock "index.left.before" %}
+
 
             {% if now.month == 12 %}
                 <p>В декабре действует максимальная скидка, <a href="/registration/">зарегистрируйтесь сейчас</a>.</p>
@@ -24,20 +25,13 @@
             {% endif %}
             {% include "inc/btn-share.inc" %}
 
-            <p><a href="http://media.profsoux.ru/docs/ProfsoUX_2014_Sponsorship.1383137701.pdf" target="_blank">Презентация для партнеров</a> (pdf, 1,8 Мб).</p>
+            {% flatblock "index.presentation.link" %}
         </section>
 
-        <section id="programm" class="span4">
-            <h2>В&nbsp;программе</h2>
-
-            <p>На&nbsp;конференцию было подано более 30&nbsp;заявок на&nbsp;доклады и&nbsp;интерактивы от&nbsp;представителей России, Белоруссии, Украины, США, Нидерландов, Эстонии, Финляндии и&nbsp;Израиля.</p>
-            <p>Имена <a href="/speakers/">докладчиков</a>, прошедших конкурсный отбор, публикуются по&nbsp;мере принятия. Следите за&nbsp;новостями в&nbsp;<a href="https://www.facebook.com/Profsoux">Facebook</a> и&nbsp;<a href="https://twitter.com/profsoux">Twitter</a>.</p>
-                
-            <h5>Вниманию начинающих</h5>
-            <p>До&nbsp;начала основных докладов пройдёт класс &laquo;<a href="/papers/53/">Введение в&nbsp;User Experience Design</a>&raquo;. Ведущий&nbsp;&mdash; один из&nbsp;лучших преподавателей Эйндховенского университета Сулеман Шахид. </p>
-            <p><a href="/registration/">Перейти к&nbsp;регистрации &raquo;</a></p>
-        </section>
-
+       <section id="programm" class="span4">
+        {% flatblock "index.center" %}
+        </section>  
+        
         <section id="speakers" class="span4">
             <h2>Докладчики</h2>
 
