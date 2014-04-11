@@ -19,7 +19,7 @@ def price_table(context):
             'title': item.title,
             'price': item.itemprice_set.all()
         })
-    else:
+    if len(items) == 0:
         return {
         'now': context['now'],
         'price_items': price_items,
