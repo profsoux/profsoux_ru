@@ -17,6 +17,17 @@
 {% endblock %}
 
 {% block content-main %}
+    {% if paper.flow or paper.start_time  %}
+    <ul>
+
+        {% if paper.start_time %}
+            <li>Начало доклада: <b>{{ paper.start_time }}</b></li>
+        {% endif %}
+        {% if paper.flow %}
+            <li><em>{{ paper.flow }}</em></li>
+        {% endif %}
+    </ul>
+{% endif %}
 {% if paper.vimeo_id %}
     <iframe src="http://player.vimeo.com/video/{{ paper.vimeo_id }}"
         width="700" height="394"
@@ -24,22 +35,6 @@
 {% endif %}
 
 {{ paper.description|safe }}
-
-{% if paper.category or paper.timing or paper.start_time  %}
-    <ul>
-
-        {% if paper.start_time %}
-            <li>Начало доклада: <b>{{ paper.start_time }}</b></li>
-        {% endif %}
-        {% if paper.category %}
-            <li>Секция доклада: <em>{{ paper.category }}</em></li>
-        {% endif %}
-
-        {% if paper.timing %}
-            <li>Длительность доклада: <em>{{ paper.timing }} минут</em></li>
-        {% endif %}
-    </ul>
-{% endif %}
 
 {% if paper.presentation %}
     <p><a href="{{ paper.presentation }}">Скачать презентацию</a></p>

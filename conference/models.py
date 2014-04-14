@@ -191,6 +191,11 @@ class Lecture(models.Model):
     def start_time(self):
         return self.schedule.all()[0].start_time
 
+    @property
+    def flow(self):
+        flows = [x.title for x in self.schedule.all()[0].flow.all()]
+        return ", ".join(flows)
+
     class Meta:
         verbose_name = 'Доклад'
         verbose_name_plural = 'Доклады'
