@@ -187,6 +187,10 @@ class Lecture(models.Model):
     def get_absolute_url(self):
         return '/papers/%s/' % self.id
 
+    @property
+    def start_time(self):
+        return self.schedule.all()[0].start_time
+
     class Meta:
         verbose_name = 'Доклад'
         verbose_name_plural = 'Доклады'
@@ -232,7 +236,7 @@ class ScheduleSection(models.Model):
     duration = models.IntegerField('Длительность, мин.', default=15)
     title = models.CharField('Название', max_length=64, blank=True)
     category = models.ForeignKey('Category', verbose_name='Категория', blank=True, null=True)
-    lecture = models.ForeignKey('Lecture', verbose_name='Доклад', blank=True, null=True)
+    lecture = models.ForeignKey('Lecture', verbose_name='Доклад', blank=True, null=True, related_name='schedule')
     flow = models.ManyToManyField('ScheduleFlow', blank=True, null=True,
                                   verbose_name="Поток",
                                   help_text="Можно выбрать несколько потоков одновременно")

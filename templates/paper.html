@@ -25,8 +25,12 @@
 
 {{ paper.description|safe }}
 
-{% if paper.category or paper.timing %}
+{% if paper.category or paper.timing or paper.start_time  %}
     <ul>
+
+        {% if paper.start_time %}
+            <li>Начало доклада: <b>{{ paper.start_time }}</b></li>
+        {% endif %}
         {% if paper.category %}
             <li>Секция доклада: <em>{{ paper.category }}</em></li>
         {% endif %}
