@@ -1,0 +1,29 @@
+{% extends "__one-column.html" %}
+
+{% load conference_tags %}
+
+{% block page_title %}Расписание - {{ block.super }}{% endblock %}
+
+{% block body_className %}page-schedule{% endblock %}
+
+{% block page-header %}
+<h2>Программа</h2>
+{% endblock %}
+
+{% block content-main %}
+<div id="schedule" class="schedule">
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/api/schedule/"></script>
+<script>
+$(document).ready(function() {
+    var table;
+    table = ui.program.init({
+        data: programData
+    });
+});
+</script>
+{% endblock %}
