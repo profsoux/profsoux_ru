@@ -3,6 +3,8 @@ var programData = {};
 programData.start = "{{ startTime }}";
 programData.end = "{{ endTime }}";
 
+ts = {{ event.date|date:"U" }};
+
 programData.flows = [
     {% for flow in flows %}
     {

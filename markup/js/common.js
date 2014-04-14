@@ -201,7 +201,7 @@ ui.program = {
         timelineRight.className += ' right';
 
         confStartTimeFrom = opts.from.split(':');
-        that.confStartTime = ui.CONF_DATE;
+        that.confStartTime = opts.conf_ts ? new Date(opts.conf_ts) : ui.CONF_DATE;
         that.confStartTime.setHours(confStartTimeFrom[0]);
         that.confStartTime.setMinutes(confStartTimeFrom[1]);
 
