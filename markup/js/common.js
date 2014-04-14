@@ -185,8 +185,8 @@ ui.program = {
         programPositionTop = $programBlock.offset().top;
 
         // Defaults
-        opts.from = '10:00';
-        opts.to = '20:00';
+        opts.from = opts.from || '10:00';
+        opts.to = opts.to || '20:00';
         opts.timelineSegments = 2;
         that.now = new Date();
         that.data = opts.data;

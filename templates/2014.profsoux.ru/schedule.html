@@ -24,7 +24,8 @@ $(document).ready(function() {
     var table;
     table = ui.program.init({
         data: programData,
-        from: "9:00"
+        from: programData.start,
+        to: programData.end
     });
 });
 </script>

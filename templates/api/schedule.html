@@ -1,5 +1,8 @@
 var programData = {};
 
+programData.start = "{{ startTime }}";
+programData.end = "{{ endTime }}";
+
 programData.flows = [
     {% for flow in flows %}
     {

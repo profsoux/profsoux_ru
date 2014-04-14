@@ -742,7 +742,16 @@ def schedule_as_json(request):
     event = request.event
     flows = ScheduleFlow.objects.filter(event=event)
     sections = ScheduleSection.objects.filter(event=event).distinct().order_by('start_time', 'flow_slot')
+    last_section = max(sections, key=lambda x: x.start_time) if len(sections) > 0 else None
+    last_section_datetime = datetime(1000, 1, 1, last_section.start_time.hour, last_section.start_time.minute)
+    last_section_timedelta = timedelta(minutes=last_section.duration)
+    last_section_endtime = last_section_datetime + last_section_timedelta
+
+    print last_section_endtime
+
     c = {
+        'startTime': min(flows, key=lambda x: x.start_time).start_time if len(flows) > 0 else "NaN",
+        'endTime': "{d.hour}:{d.minute}".format(d=last_section_endtime),
         'flows': flows,
         'sections': sections,
     }
