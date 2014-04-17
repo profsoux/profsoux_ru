@@ -65,6 +65,7 @@ def partners(request):
     return render(request,
                   get_template('companies.html', request),
                   {
+                      'is_partners': True,
                       'title': 'Партнёры',
                       'companies': partners
                   })
