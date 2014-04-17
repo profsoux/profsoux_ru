@@ -2,10 +2,17 @@
 from hashlib import md5
 
 from django.contrib import admin
+from django.forms import ModelForm, fields, widgets
 from conference.models import *
 
 
+class EventForm(ModelForm):
+    description = fields.CharField(widget=widgets.Textarea(attrs={'class': 'mceEditor'}))
+
+
 class EventMixin(admin.ModelAdmin):
+    form = EventForm
+
     def changelist_view(self, request, extra_context=None):
         ref = request.META.get('HTTP_REFERER', '')
         path = request.META.get('PATH_INFO', '')
@@ -22,6 +29,12 @@ class EventMixin(admin.ModelAdmin):
         if db_field.name == "event":
             kwargs['initial'] = request.event
         return super(EventMixin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+    class Media:
+        js = [
+            '/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
+            '/static/js/tinymce_setup.js',
+        ]
 
 
 class ParticipantAdmin(EventMixin, admin.ModelAdmin):

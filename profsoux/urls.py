@@ -3,7 +3,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.conf import settings
 
-# from filebrowser.sites import site
+from filebrowser.sites import site
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -12,7 +12,7 @@ admin.autodiscover()
 from conference.views import Papers
 
 urlpatterns = patterns('',
-
+    url(r'^admin/filebrowser/', include(site.urls)),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
