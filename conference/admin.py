@@ -3,6 +3,7 @@ from hashlib import md5
 
 from django.contrib import admin
 from django.forms import ModelForm, fields, widgets
+from django.templatetags.static import static
 from conference.models import *
 
 
@@ -32,8 +33,8 @@ class EventMixin(admin.ModelAdmin):
 
     class Media:
         js = [
-            '/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
-            '/static/js/tinymce_setup.js',
+             static('grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js'),
+            static('js/tinymce_setup.js'),
         ]
 
 
