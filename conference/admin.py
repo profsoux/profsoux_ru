@@ -7,13 +7,11 @@ from django.templatetags.static import static
 from conference.models import *
 
 
-class EventForm(ModelForm):
+class LectureForm(ModelForm):
     description = fields.CharField(widget=widgets.Textarea(attrs={'class': 'mceEditor'}))
 
 
 class EventMixin(admin.ModelAdmin):
-    form = EventForm
-
     def changelist_view(self, request, extra_context=None):
         ref = request.META.get('HTTP_REFERER', '')
         path = request.META.get('PATH_INFO', '')
@@ -36,6 +34,10 @@ class EventMixin(admin.ModelAdmin):
              static('grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js'),
             static('js/tinymce_setup.js'),
         ]
+
+
+class LectureAdmin(EventMixin):
+    form = LectureForm
 
 
 class ParticipantAdmin(EventMixin, admin.ModelAdmin):
@@ -258,7 +260,7 @@ class EventAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Person)
-admin.site.register(Lecture, EventMixin)
+admin.site.register(Lecture, LectureAdmin)
 admin.site.register(Organization)
 admin.site.register(Category)
 admin.site.register(ScheduleSection, ScheduleAdmin)
