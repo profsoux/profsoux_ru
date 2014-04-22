@@ -8,7 +8,10 @@ from conference.models import *
 
 
 class LectureForm(ModelForm):
-    description = fields.CharField(widget=widgets.Textarea(attrs={'class': 'mceEditor'}))
+    description = fields.CharField(
+        widget=widgets.Textarea(attrs={'class': 'mceEditor'}),
+        required = False,
+    )
 
 
 class EventMixin(admin.ModelAdmin):
