@@ -1,63 +1,58 @@
 {% extends '__base.html' %}
 
-{% load conference_tags %}
+{% load conference_tags flatblock_tags %}
 
 {% block body_className %}page-home{% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="span8">
+        <div class="span12">
             <h2>Онлайн-трансляция</h2>
 
-            <object id="c37609"
-                    name="c37609"
-                    height="380"
-                    width="640"
-                    type="application/x-shockwave-flash"
-                    data="http://yatv.ru/files/swf/container.swf?layout=1full&amp;leftWidth=512&amp;upHeight=0&amp;apps=translations&amp;cid=37609&amp;autoplay=1">
+            <object id="c37609" name="c37609" height="438" width="1170" type="application/x-shockwave-flash" data="http://yatv.ru/files/swf/container.swf?layout=1full&channel_title=0&program_title=0&leftWidth=0&upHeight=0&apps=translations&cid=37609&autoplay=1">
                 <param name="allowScriptAccess" value="always"></param>
                 <param name="allowFullScreen" value="true"></param>
-                <param name="movie" value="http://yatv.ru/files/swf/container.swf?layout=2hor&amp;leftWidth=512&amp;upHeight=0&amp;apps=translations&amp;cid=37609&amp;autoplay=1"></param>
+                <param name="movie" value="http://yatv.ru/files/swf/container.swf?layout=1full&channel_title=0&program_title=0&leftWidth=0&upHeight=0&apps=translations&cid=37609&autoplay=1"></param>
             </object>
 
-            <object id="c37609"
-                    name="c37609"
-                    height="400"
-                    width="640"
-                    type="application/x-shockwave-flash"
-                    data="http://yatv.ru/files/swf/container.swf?layout=1full&amp;channel_title=0&amp;program_title=0&amp;leftWidth=0&amp;upHeight=0&amp;apps=translations&amp;cid=37609&amp;autoplay=2&amp;tid=2">
-                <param name="allowScriptAccess" value="always"></param>
-                <param name="allowFullScreen" value="true"></param>
-                <param name="movie" value="http://yatv.ru/files/swf/container.swf?layout=1full&amp;channel_title=0&amp;program_title=0&amp;leftWidth=0&amp;upHeight=0&amp;apps=translations&amp;cid=37609&amp;autoplay=1"></param>
-            </object>
-
-            <p><img src="http://talks.rosalinux.ru/images/2/2f/Help-for-tv.png"></p>
         </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <section id="intro" class="span4">
+            {% flatblock "index.left.before" %}
+            {% if states.registration == "active" %}
+                <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
+            {% else %}
+                <p><a href="https://docs.google.com/forms/d/1KkbRy9uXRu_RLdKo3tnGhvhTHLuHWu2erAyaJAVSdz0/viewform" class="btn btn-signup btn-primary btn-large">Хочу принять участие в&nbsp;ProfsoUX 2015</a></p>
+            {% endif %}
+
+            {% if counts.participants %}
+                <p>Уже идут: {{ counts.participants }}. <a href="/people/">Кто идёт? »</a></p>
+            {% endif %}
+            {% include "inc/btn-share.inc" %}
+
+            {% flatblock "index.presentation.link" %}
+        </section>
+
+       <section id="programm" class="span4">
+        {% flatblock "index.center" %}
+        </section>
 
         <section id="speakers" class="span4">
-            <p><strong>ПрофсоUX</strong> – главная питерская конференция о юзабилити, UX и создании цифровых продуктов, ориентированных на человека.</p>
             <h2>Докладчики</h2>
+
             {% speakers_list %}
 
+            {% if counts.speakers %}
             <p><a href="/speakers/">Все докладчики »</a></p>
+            {% endif %}
         </section>
     </div>
 
-    <div class="row conf-tweets-block" id="confTweetsBlock">
-        <h2 class="span12">Twitter <a href="http://twitter.com/search?q=#profsoux" target="_blank">#ProfsoUX</a></h2>
-        <div class="clearfix"></div>
-        <ul id="confTweets" class="conf-tweets unstyled"></ul>
-    </div>
 {% endblock %}
 
 {% block extra_js %}
-<script type="text/javascript">
-$(document).ready(function() {
-    // tweets stream
-    ui.twee.init({
-        mode: 'normal',
-        searchQuery: '#profsoux since:2012-05-18 -filter:retweets'
-    });
-});
-</script>
 {% endblock %}
