@@ -26,6 +26,15 @@
             {% include "inc/btn-share.inc" %}
 
             {% flatblock "index.presentation.link" %}
+
+            {% if states.show_tweets %}
+                <h2>Twitter <a href="https://twitter.com/search?q=#profsoux&amp;src=typd" target="_blank">#ProfsoUX</a></h2>
+                <a class="twitter-timeline" href="https://twitter.com/search?q=%23profsoux+-filter%3Aretweets"
+                   height="450"
+                   data-chrome="noheader"
+                   data-widget-id="459778423712280576">Tweets about "#profsoux -filter:retweets"</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            {% endif %}
         </section>
 
        <section id="programm" class="span4">
@@ -42,13 +51,5 @@
             {% endif %}
         </section>
     </div>
-    {% if states.show_tweets %}
-    <div class="row">
-        <section id="confTweetsBlock" class="conf-tweets-block span12">
-            <h2>Twitter <a href="https://twitter.com/search?q=#profsoux&amp;src=typd" target="_blank">#ProfsoUX</a></h2>
-            <ul id="confTweets" class="conf-tweets unstyled"></ul>
-        </section>
-    </div>
-    {% endif %}
 {% endblock %}
 
