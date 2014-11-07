@@ -1,0 +1,140 @@
+{% extends "__two-column.html" %}
+
+{% block page_title %}Контакты - {{ block.super }}{% endblock %}
+
+{% block body_className %}page-contacts{% endblock %}
+
+{% block page-header %}
+<h2>Контакты</h2>
+{% endblock %}
+
+{% block content-main %}
+<div>
+
+        <p>По оплате и платежным документам звоните: <a href="tel:+74992724711">+7 (499) 272 47 11</a>.<br />
+        По остальным вопросам: <a href="tel:+78123369344">+7 (812) 336 93 44</a>.
+
+        <p>Для оперативной связи с организаторами во время конференции используйте
+            <a href="http://twitter.com/search?q=#profsoux" target="_blank">#profsoux</a> в Твиттере.</p>
+
+	<div class="row">
+	    <div class="span4">
+		<div class="thumbnail">
+		    <div id="map_canvas"></div>
+		    <p><a id="large-map-link" href="/map/" target="_blank">Открыть карту на весь экран</a></p>
+		</div>
+	    </div>
+	    <div class="span4">
+		<hgroup>
+		    <h3>{{ event.place}}</h3>
+		</hgroup>
+
+		<dl>
+		    <dt>Адрес:</dt>
+		    <dd>{{ event.city }}, {{ event.address }}</dd>
+
+		    <dt>Координаты:</dt>
+		    <dd>{{ event.coordinates }}</dd>
+
+		    {{ event.place_note|safe }}
+		</dl>
+	    </div>
+	</div>
+
+    <h3>Остались вопросы?</h3>
+
+    <form action="/contacts/" id="contact-form"method="POST">{% csrf_token %}
+        {% if state == 'thanks' %}
+            <div class="alert alert-block alert-success">
+                <a class="close" data-dismiss="alert">×</a>
+                <h4 class="alert-heading">Спасибо!</h4>
+                Ваше сообщение отправлено
+            </div>
+        {% endif %}
+        {% if form.errors %}
+            <div class="alert alert-block alert-error">
+                <a class="close" data-dismiss="alert">×</a>
+                <h4 class="alert-heading">Произошла ошибка</h4>
+                Проверьте правильность заполнения полей формы
+            </div>
+        {% endif %}
+
+        <div class="control-group {% if form.name.errors %}error{% endif %}">
+            <label class="control-label" for="id_name">{{ form.name.label }} <em>*</em></label>
+            {{ form.name }}
+        </div>
+
+        <div class="control-group {% if form.email.errors %}error{% endif %}">
+            <label class="control-label" for="id_email">{{ form.email.label }} <em>*</em></label>
+            {{ form.email }}
+        </div>
+
+        <div class="control-group {% if form.site.errors %}error{% endif %}">
+            <label class="control-label" for="id_site">{{ form.site.label }}</label>
+            {{ form.site }}
+        </div>
+
+        <div class="control-group {% if form.comment.errors %}error{% endif %}">
+            <label class="control-label" for="id_comment">{{ form.comment.label }} <em>*</em></label>
+            {{ form.comment }}
+        </div>
+
+        <p><small><em>*</em> Обязательные поля</small></p>
+
+        <button type="submit" id="submit-button" class="btn btn-primary btn-large">Отправить</button>
+    </form>
+</div>
+
+<div id="follow-us" class="clearfix">
+    <h3>Следите за нами!</h3>
+    <div id="social">
+        <ul class="clearfix">
+            <li class="facebook"><a class="ico hide-text" href="https://www.facebook.com/Profsoux" title="Facebook" target="_blank">Facebook</a></li>
+            <li class="twitter"><a class="ico hide-text" href="https://twitter.com/profsoux" title="Twitter" target="_blank">Twitter</a></li>
+            <li class="linkedin"><a class="ico hide-text" href="http://www.linkedin.com/groups/ProfsoUX-4806057" title="LinkedIn" target="_blank">LinkedIn</a></li>
+            <li class="vkontakte"><a class="ico hide-text" href="http://vk.com/profsoux" title="ВКонтакте" target="_blank">ВКонтакте</a></li>
+            <li class="email"><a class="ico hide-text" href="mailto:contact@ux-spb.ru" title="Написать письмо">Написать письмо</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block partners %} {% endblock %}
+
+{% block footer %}
+{% include "inc/footer.inc" with nosocial="True" %}
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCsKlIpzWXPGSMR6Dgq7hwPuX1lf5voHZU&sensor=true"></script>
+<script type="text/javascript">
+    (function () {
+        if(typeof $ === 'undefined') {
+            t = setTimeout(arguments.callee, 100)
+        } else {
+            init_map();
+        }
+    })();
+
+    function init_map() {
+        $(document).ready(function() {
+            var latlng = new google.maps.LatLng({{event.coordinates}});
+
+            var myOptions = {
+                zoom: 14,
+                center: latlng,
+                mapTypeControl: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+            var marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                title:"{{event.place}}"
+            });
+        });
+    }
+</script>
+{% endblock %}
+

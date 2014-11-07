@@ -1,0 +1,55 @@
+{% extends '__base.html' %}
+
+{% load conference_tags flatblock_tags %}
+
+{% block body_className %}page-home{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <section id="intro" class="span4">
+            {% flatblock "index.left.before" %}
+
+
+            {% if now.month == 12 %}
+                <p>В декабре действует максимальная скидка, <a href="/registration/">зарегистрируйтесь сейчас</a>.</p>
+            {% endif %}
+
+            {% if states.registration == "active" %}
+                <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
+            {% else %}
+                <p><a href="https://docs.google.com/forms/d/13y6xAXjJ9J8uemzwEzVu5Fo2a5vBk4L4ddFfscTFxf8/viewform" class="btn btn-signup btn-primary btn-large">Хочу принять участие в&nbsp;ProfsoUX 2015</a></p>
+            {% endif %}
+        
+            {% if counts.participants %}
+                <p>Уже идут: {{ counts.participants }}. <a href="/people/">Кто идёт? »</a></p>
+            {% endif %}
+            {% include "inc/btn-share.inc" %}
+
+            {% flatblock "index.presentation.link" %}
+
+            {% if states.show_tweets %}
+                <h2>Twitter <a href="https://twitter.com/search?q=#profsoux&amp;src=typd" target="_blank">#ProfsoUX</a></h2>
+                <a class="twitter-timeline" href="https://twitter.com/search?q=%23profsoux+-filter%3Aretweets"
+                   height="450"
+                   data-chrome="noheader"
+                   data-widget-id="459778423712280576">Tweets about "#profsoux -filter:retweets"</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            {% endif %}
+        </section>
+
+       <section id="programm" class="span4">
+        {% flatblock "index.center" %}
+        </section>  
+        
+        <section id="speakers" class="span4">
+            <h2>Докладчики</h2>
+
+            {% speakers_list %}
+
+            {% if counts.speakers %}
+            <p><a href="/speakers/">Все докладчики »</a></p>
+            {% endif %}
+        </section>
+    </div>
+{% endblock %}
+
