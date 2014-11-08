@@ -11,37 +11,9 @@
 {% block content-main %}
 <div>
 
-        <p>По оплате и платежным документам звоните: <a href="tel:+74992724711">+7 (499) 272 47 11</a>.<br />
-        По остальным вопросам: <a href="tel:+78123369344">+7 (812) 336 93 44</a>.
+        <p>Телефон (понедельник - пятница, 11:00 - 18:00): <a href="tel:+78123369344">+7 (812) 336 93 44</a>.
 
-        <p>Для оперативной связи с организаторами во время конференции используйте
-            <a href="http://twitter.com/search?q=#profsoux" target="_blank">#profsoux</a> в Твиттере.</p>
-
-	<div class="row">
-	    <div class="span4">
-		<div class="thumbnail">
-		    <div id="map_canvas"></div>
-		    <p><a id="large-map-link" href="/map/" target="_blank">Открыть карту на весь экран</a></p>
-		</div>
-	    </div>
-	    <div class="span4">
-		<hgroup>
-		    <h3>{{ event.place}}</h3>
-		</hgroup>
-
-		<dl>
-		    <dt>Адрес:</dt>
-		    <dd>{{ event.city }}, {{ event.address }}</dd>
-
-		    <dt>Координаты:</dt>
-		    <dd>{{ event.coordinates }}</dd>
-
-		    {{ event.place_note|safe }}
-		</dl>
-	    </div>
-	</div>
-
-    <h3>Остались вопросы?</h3>
+<h3>Пишите, мы ответим!</h3>
 
     <form action="/contacts/" id="contact-form"method="POST">{% csrf_token %}
         {% if state == 'thanks' %}
