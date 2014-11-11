@@ -6,7 +6,7 @@
 
     <p class="small">Thanks to the <a href="http://{{ event.domain }}/organizers/">conference organizers</a>!</p>
 
-    <p><a href="{{ registration_url }}" class="btn btn-signup btn-primary btn-large">I wish to attend &nbsp;ProfsoUX14</a>
+    <p><a href="{{ registration_url }}" class="btn btn-signup btn-primary btn-large">I wish to attend &nbsp;ProfsoUX15</a>
 
 {% else %}
 
@@ -16,7 +16,7 @@
         {% endif %}
 
     {% elif states.registration = "active" %}
-        <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Registration</a>
+        <p><a href="https://docs.google.com/forms/d/13y6xAXjJ9J8uemzwEzVu5Fo2a5vBk4L4ddFfscTFxf8/viewform" class="btn btn-signup btn-primary btn-large">Registration</a>
 
             <small>Hurry up! The places are limited.<br>Please note that the primary conference language is Russian.</small><br />
             {% if event.registration_end %}
