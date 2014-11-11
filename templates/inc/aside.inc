@@ -12,7 +12,7 @@
 
     {% endif %}
 
-    <p><a href="{{ registration_url }}" class="btn btn-signup btn-primary btn-large">Хочу принять участие в&nbsp;ProfsoUX 2015</a>
+    <p><a href="https://docs.google.com/forms/d/13y6xAXjJ9J8uemzwEzVu5Fo2a5vBk4L4ddFfscTFxf8/viewform" class="btn btn-signup btn-primary btn-large">Хочу принять участие в&nbsp;ProfsoUX 2015</a>
 
 {% endif %}
 
