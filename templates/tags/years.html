@@ -6,7 +6,11 @@
                 <li class="{% if event.is_active %}active{% endif %}"><a href="http://{{ event.domain }}">{{ event.short_name }}</a></li>
                 {% endfor %}
                 {% if path != '/en/' %}
+                {% if event.short_name == '2015' %}
+                <li class="pull-right"><a href="/eng/">English</a></li>
+                {% else %}
                 <li class="pull-right"><a href="/en/">English</a></li>
+                {% endif %}
                 {% else %}
                 <li class="pull-right"><a href="/">Русский</a></li>
                 {% endif %}
