@@ -65,7 +65,8 @@ def years_menu(context):
 
     return {
         'events': events,
-        'path': path
+        'path': path,
+        'event': context['event']
     }
 
 
