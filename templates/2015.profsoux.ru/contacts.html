@@ -11,7 +11,33 @@
 {% block content-main %}
 <div>
 
-        <p>Телефон (понедельник - пятница, 11:00 - 18:00): <a href="tel:+78123369344">+7 (812) 336 93 44</a>.
+        <p>Телефон: <a href="tel:+78123369344">+7 (812) 336 93 44</a> (понедельник - пятница, 11:00 - 18:00).</p>
+        <p>Для оперативной связи во время конференции используйте
+            <a href="http://twitter.com/search?q=#profsoux" target="_blank">#profsoux</a> в Твиттере.</p>
+
+	<div class="row">
+	    <div class="span4">
+		<div class="thumbnail">
+		    <div id="map_canvas"></div>
+		    <p><a id="large-map-link" href="/map/" target="_blank">Открыть карту на весь экран</a></p>
+		</div>
+	    </div>
+	    <div class="span4">
+		<hgroup>
+		    <h3>{{ event.place}}</h3>
+		</hgroup>
+
+		<dl>
+		    <dt>Адрес:</dt>
+		    <dd>{{ event.city }}, {{ event.address }}</dd>
+
+		    <dt>Координаты:</dt>
+		    <dd>{{ event.coordinates }}</dd>
+
+		    {{ event.place_note|safe }}
+		</dl>
+	    </div>
+	</div>
 
 <h3>Пишите, мы ответим!</h3>
 
