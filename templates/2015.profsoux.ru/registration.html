@@ -17,7 +17,6 @@
 
 {% block content-main %}
     {% if states.registration == "active" %}
-{% comment "Testing table and widget" %}
     <h3>Стоимость участия</h3>
 
     {% price_table %}
@@ -27,8 +26,6 @@
         <script type="text/javascript" src="http://profsoux2015.ticketforevent.com/ru/widget/?h=0&s=0"></script>
     </div>
     <p>По вопросам оплаты и предоставления платежных документов звоните: <nobr>+7 499 272 47 11</nobr>.</p>
-{% endcomment %}
-    <p>Открыта предварительная регистрация на ProfsoUX 15: заполните форму, и мы соообщим вам о начале льготной регистрации. <a href="https://docs.google.com/forms/d/13y6xAXjJ9J8uemzwEzVu5Fo2a5vBk4L4ddFfscTFxf8/viewform">Перейти к предварительной регистрации на ProfsoUX 2015</a>.</p>
     {% else %}
     <div class="span6 offset2">
         <p>ProfsoUX 2014 завершен. <a href="https://docs.google.com/forms/d/13y6xAXjJ9J8uemzwEzVu5Fo2a5vBk4L4ddFfscTFxf8/viewform">Перейти к предварительной регистрации на ProfsoUX 2015</a>.</p>
