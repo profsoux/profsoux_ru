@@ -5445,6 +5445,14 @@ body.twitter-widget-mode-projection {
   margin-right: 30px;
 }
 /* Paygate */
+/* quck fix */
+#paygate select {
+	padding: 0;
+	}
+#paygate .cool-button {
+	line-height: 1em;
+	}
+/* removed until further notice
 .epts-widget-hint {
   margin-bottom: 1em;
 }
@@ -5553,6 +5561,7 @@ select {
 .cool-button.btn-mini {
   border: 1px solid #ad2900;
 }
+*/
 /* Responsive styles */
 /*!
  * Bootstrap Responsive v2.0.2
