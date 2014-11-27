@@ -17,8 +17,17 @@
 
 {% block content-main %}
     {% if states.registration == "active" %}
+<!--
+    <h3>Стоимость участия</h3>
 
+    {% price_table %}
 
+    <h3>Регистрация</h3>
+    <div id="paygate">
+        <script type="text/javascript" src="http://profsoux2015.ticketforevent.com/ru/widget/?h=0&s=0"></script>
+    </div>
+    <p>По вопросам оплаты и предоставления платежных документов звоните: <nobr>+7 499 272 47 11</nobr>.</p>
+-->
     <p>Открыта предварительная регистрация на ProfsoUX 15: заполните форму, и мы соообщим вам о начале льготной регистрации. <a href="https://docs.google.com/forms/d/13y6xAXjJ9J8uemzwEzVu5Fo2a5vBk4L4ddFfscTFxf8/viewform">Перейти к предварительной регистрации на ProfsoUX 2015</a>.</p>
     {% else %}
     <div class="span6 offset2">
