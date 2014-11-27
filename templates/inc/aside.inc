@@ -27,7 +27,7 @@
         <p><a href="https://docs.google.com/forms/d/13y6xAXjJ9J8uemzwEzVu5Fo2a5vBk4L4ddFfscTFxf8/viewform" class="btn btn-signup btn-primary btn-large">Принять участие</a></p>
 
     {% elif states.registration = "active" %}
-        <p><a href="https://docs.google.com/forms/d/13y6xAXjJ9J8uemzwEzVu5Fo2a5vBk4L4ddFfscTFxf8/viewform" class="btn btn-signup btn-primary btn-large">Принять участие</a>
+        <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
 
             <small>Торопитесь! Количество мест ограничено.</small><br />
             {% if event.registration_end %}
