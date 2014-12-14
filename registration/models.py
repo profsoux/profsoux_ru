@@ -14,7 +14,7 @@ class Item(models.Model):
         ordering = ['weight']
 
     def __unicode__(self):
-        return u'{} на {}'.format(self.title, self.event)
+        return u'{0} на {1}'.format(self.title, self.event)
 
 
 class ItemPrice(models.Model):
@@ -30,4 +30,4 @@ class ItemPrice(models.Model):
         ordering = ['available_from']
 
     def __unicode__(self):
-        return u'{} ({} c {} до {})'.format(self.value, self.item, self.available_from, self.available_to)
+        return u'{0} ({1} c {2} до {3})'.format(self.value, self.item, self.available_from, self.available_to)

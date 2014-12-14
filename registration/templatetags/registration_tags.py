@@ -30,7 +30,7 @@ def price_table(context):
         if price_item.available_from.month == price_item.available_to.month:
             months.append(months_names[price_item.available_from.month])
         else:
-            months.append('{}, {}'.format(
+            months.append('{0}, {1}'.format(
                 months_names[price_item.available_from.month],
                 months_names[price_item.available_to.month]
             ))
