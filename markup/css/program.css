@@ -32,9 +32,12 @@
 @media (min-width: 600px) and (max-width: 900px) {
   #content-container {
     width: 560px; } }
-@media (max-width: 600px) {
+@media (min-width: 480px) and (max-width: 600px) {
   #content-container {
     width: 440px; } }
+@media (max-width: 480px) {
+  #content-container {
+    width: 280px; } }
 
 .page-schedule {
   min-width: 800px; }
