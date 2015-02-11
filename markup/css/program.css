@@ -29,12 +29,12 @@
 @media (min-width: 770px) and (max-width: 820px) {
   #content-container {
     width: 760px; } }
-@media (max-width: 819px) {
-  #content-container {
-    width: 750px; } }
 @media (min-width: 600px) and (max-width: 900px) {
   #content-container {
-    width: 900px; } }
+    width: 560px; } }
+@media (max-width: 600px) {
+  #content-container {
+    width: 440px; } }
 
 .page-schedule {
   min-width: 800px; }
