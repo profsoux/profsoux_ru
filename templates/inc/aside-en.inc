@@ -1,10 +1,12 @@
 {% if states.conference_ended %}
 
-    <p class="small">On {{ event.date|date:"m/d/Y" }} the conference dedicated to usability and UX was held in Saint Petersburg.</p>
+    <p class="small">On {{ event.date|date:"m/d/Y" }} the great UX event was held in Saint Petersburg.</p>
 
-    <p class="small">Presentations and <a href="http://www.facebook.com/media/set/?set=oa.344384208963349&type=1" target="_blank">the conference photos</a> are published already. Videos will be available soon.</p>
+    <p class="small">The Videos and Presentation slides can be found in the <a href="/speakers/">Speakers section</a>.</p>
+    
+    <p class="small">The Photos are at our <a href="http://www.facebook.com/Profsoux/">Facebook group</a>.</p>
 
-    <p class="small">Thanks to the <a href="http://{{ event.domain }}/organizers/">conference organizers</a>!</p>
+    <p class="small">Many Thanks to our Guests, <a href="/partners/">Partners</a> and <a href="/organizers/">Volunteers</a>!</p>
 
     <p><a href="{{ registration_url }}" class="btn btn-signup btn-primary btn-large">I wish to attend &nbsp;ProfsoUX15</a>
 
