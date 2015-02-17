@@ -1,6 +1,6 @@
 {% if states.conference_ended %}
 
-    <p class="small">On {{ event.registration_start|date:"m/d/Y" }} the conference dedicated to usability and UX was held in Saint Petersburg.</p>
+    <p class="small">On {{ event.date|date:"m/d/Y" }} the conference dedicated to usability and UX was held in Saint Petersburg.</p>
 
     <p class="small">Presentations and <a href="http://www.facebook.com/media/set/?set=oa.344384208963349&type=1" target="_blank">the conference photos</a> are published already. Videos will be available soon.</p>
 
