@@ -8,7 +8,7 @@
                     <time class="year">{{ event.short_name }}</time>
                 </a>
                 <h2 id="site-description">ProfsoUX'14<br>User Experience conference</h2>
--                <p><time>April 26, 2014</time>. St. Petersburg, Russia</p>
+                <p><time>April 26, 2014</time>. St. Petersburg, Russia</p>
             </div>
         </hgroup>
     </div>
