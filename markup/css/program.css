@@ -1,10 +1,10 @@
 /* ========================================================================== */
 @media (min-width: 979px) and (max-width: 1020px) {
   #content-container {
-    width: 950px; } }
+    width: 935px; } }
 @media (min-width: 979px) and (max-width: 1000px) {
   #content-container {
-    width: 945px; } }
+    width: 920px; } }
 @media (min-width: 900px) and (max-width: 979px) {
   #content-container {
     width: 890px; } }
@@ -13,7 +13,7 @@
     width: 850px; } }
 @media (min-width: 840px) and (max-width: 910px) {
   #content-container {
-    width: 855px; } }
+    width: 830px; } }
 @media (min-width: 840px) and (max-width: 900px) {
   #content-container {
     width: 830px; } }
