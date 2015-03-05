@@ -6286,6 +6286,11 @@ select {
     overflow: visible !important;
   }
 }
+@media (min-width: 980px) and (max-width: 1120px) {
+  .span3 {
+    width: 200px;
+  }
+}
 @media (min-width: 1200px) {
   .row {
     margin-left: -30px;
