@@ -2,16 +2,16 @@
 
 {% load conference_tags %}
 
-{% block page_title %}Заявки на доклады - {{ block.super }}{% endblock %}
+{% block page_title %}Доклады - {{ block.super }}{% endblock %}
 
 {% block body_className %}page-speakers{% endblock %}
 
 {% block page-header %}
-<h2>Заявки на доклады</h2>
+<h2>Доклады</h2>
 {% endblock %}
 
 {% block content-main %}
-<p>Представлены заявки, авторы которых согласились на публикацию на период рассмотрения заявок <a href="/organizers/">Программным комитетом</a>.</p><div class="list-of-speakers">
+<!--<p>Представлены заявки, авторы которых согласились на публикацию на период рассмотрения заявок <a href="/organizers/">Программным комитетом</a>.</p>--><div class="list-of-speakers">
 
     {% for speaker in speakers %}
 
