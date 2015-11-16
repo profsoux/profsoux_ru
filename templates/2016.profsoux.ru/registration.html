@@ -1,0 +1,51 @@
+{% extends "__two-column.html" %}
+
+{% load conference_tags %}
+{% load registration_tags %}
+
+{% block page_title %}Регистрация - {{ block.super }}{% endblock %}
+
+{% block body_className %}page-signup{% endblock %}
+
+{% block page-header %}
+    {% if states.registration == "active" %}
+    <h2>Регистрация</h2>
+    {% else %}
+    <h2 class="span6 offset2">Регистрация окончена</h2>
+    {% endif %}
+{% endblock %}
+
+{% block content-main %}
+    {% if states.registration == "active" %}
+    <h3>Стоимость участия</h3>
+
+    {% price_table %}
+
+    <h3>Регистрация</h3>
+    <div id="paygate">
+        <script type="text/javascript" src="http://profsoux2015.ticketforevent.com/ru/widget/?h=0&s=0"></script>
+    </div>
+    <p>Компаниям-членам <a href="http://www.russoft.ru/members">НП «РУССОФТ»</a> — <strong>скидка 10%</strong>. Свяжитесь, чтобы <a href="/contacts">получить промокод</a></p>
+    <p>По вопросам оплаты и предоставления платежных документов звоните: <nobr>+7 499 272 47 11</nobr>.</p>
+    {% else %}
+    <div class="span6 offset2">
+        <p>ProfsoUX 2014 завершен. <a href="https://docs.google.com/forms/d/13y6xAXjJ9J8uemzwEzVu5Fo2a5vBk4L4ddFfscTFxf8/viewform">Перейти к предварительной регистрации на ProfsoUX 2015</a>.</p>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block aside %}
+    {% if states.registration == "active" %}
+    <h4>Способы оплаты</h4>
+
+    <ol>
+	<li>Банковская карта</li>
+	<li>Банковский перевод (по запросу предоставляется договор, акт и пр.)</li>
+	<li>Платёжные системы: Яндекс.Деньги, QIWI Кошелек, Webmoney, Деньги@Mail.Ru, LiqPay, EasyPay, Альфа-Клик и др.</li>
+	<li>Наличные: через Евросеть, CONTACT, Рапида, Связной (касса)</li>
+	<li>Мобильный платеж: Билайн, Мегафон, МТС и iPay МТС.</li>
+    </ol>
+
+    <p><a href="/registration/return-policy/">Политика возврата</a></p>
+    {% endif %}
+{% endblock %}
