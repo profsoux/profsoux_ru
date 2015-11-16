@@ -1,0 +1,30 @@
+{% extends 'flatpages/default.html' %}
+
+{% block page_title %}{{ flatpage.title }} - {{ block.super }}{% endblock %}
+
+{% block body_className %}page-home{% endblock %}
+
+{% block header %}
+<header id="header">
+    <div class="container">
+        <hgroup id="branding" class="row">
+            <div class="span3">
+                <p><a href="http://profsoux.ru/">« ProfsoUX</a></p>
+            </div>
+            <div class="offset3">
+                <h2 id="site-description">{{ flatpage.title }}</h2>
+                <p><time>27 апреля 2014</time></p>
+            </div>
+        </hgroup>
+    </div>
+</header>
+{% endblock %}
+
+{% block page-header-wrapper %}{% endblock %}
+
+{% block aside %}
+<p><a href="http://profsoux.ru/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
+
+<small>Количество мест на мастер-класс ограничено.</small>
+</p>
+{% endblock %}
