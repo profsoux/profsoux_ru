@@ -10,7 +10,7 @@
             {% flatblock "index.left.before" %}
 
 
-            {% if now.month == 12 && states.registration == "active" %}
+            {% if now.month == 12 AND states.registration == "active" %}
                 <p>В декабре действует максимальная скидка, <a href="/registration/">зарегистрируйтесь сейчас</a>.</p>
             {% endif %}
 
