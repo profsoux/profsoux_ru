@@ -29,7 +29,7 @@
     {% elif states.registration = "active" %}
         <p><a href="/registration/" class="btn btn-signup btn-primary btn-large">Принять участие</a>
 
-            <small>Торопитесь! Количество мест ограничено.</small><br />
+            Торопитесь! Количество мест ограничено.<br />
             {% if event.registration_end %}
             Приём заявок прекращается
             {{ event.registration_end }}
