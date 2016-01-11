@@ -19,8 +19,12 @@
     {% if states.registration == "active" %}
     <h3>Стоимость участия</h3>
 
-    {% price_table %}
-
+    <!--{% price_table %}-->
+<table class="table table-stripped">
+<tr><th>Дата регистрации:</th><th>по 15 января</th><th>с 16 по 31 января</th><th>февраль</th><th>март</th><th>апрель</th></tr>
+<tr><th>Конференция ProfsoUX</th><td><strong>2600&nbsp;р.</strong></td><td>3900&nbsp;р.</td><td>5500&nbsp;р.</td><td>6500&nbsp;р.</td><td>7500&nbsp;р.</td></tr>
+<tr><th>Студенческий, конференция ProfsoUX<br> (для студентов, аспирантов и преподавателей вузов)</th><td><strong>1000&nbsp;р.</strong></td><td>1250&nbsp;р.</td><td>1500&nbsp;р.</td><td>1750&nbsp;р.</td><td>2000&nbsp;р.</td></tr>
+</table>
     <h3>Регистрация</h3>
     <div id="paygate">
         <script type="text/javascript" src="http://profsoux2016.ticketforevent.com/ru/widget/?h=0&s=0"></script>
