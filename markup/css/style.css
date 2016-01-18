@@ -5452,6 +5452,9 @@ body.twitter-widget-mode-projection {
 #paygate .cool-button {
 	line-height: 1em;
 	}
+.epts-buyTicketsWidget .epts-td-type strong {
+	font-weight: normal;
+	}
 /* removed until further notice
 .epts-widget-hint {
   margin-bottom: 1em;
