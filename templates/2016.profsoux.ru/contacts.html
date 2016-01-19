@@ -10,36 +10,6 @@
 
 {% block content-main %}
 <div>
-
-	<p>По&nbsp;вопросам оплаты и&nbsp;предоставления платежных документов: <a href="tel:+74992724711">+7 (499) 272 47 11</a>, <a href="mailto:doc@ticketforevent.com">doc@ticketforevent.com</a>.</p>
-	<p>Телефоны оргкомитета: СПб: <a href="tel:+78123369344">+7 (812) 336 93 44</a>, Москва: <a href="tel:+74997031655">+7 (499) 703 1655</a> (понедельник&nbsp;&mdash; пятница, 11:00&nbsp;&mdash; 18:00).</p>
-	<p>Для оперативной связи во&nbsp;время конференции используйте <a href="http://twitter.com/search?q=#profsoux" target="_blank">#profsoux</a> в&nbsp;Твиттере.</p>
-
-	<div class="row">
-	<img style="max-width:100%; margin-bottom: 1em;" src="http://media.profsoux.ru/photos/misc/map-to-clubhouse.jpg" alt="Как пройти от метро" title="Как пройти от метро">
-<!--	    <div class="span4">
-		<div class="thumbnail">
-		    <div id="map_canvas"></div>
-		    <p><a id="large-map-link" href="/map/" target="_blank">Открыть карту на весь экран</a></p>
-		</div>
-	    </div>-->
-	    <div class="span4">
-		<hgroup>
-		    <h3>{{ event.place}}</h3>
-		</hgroup>
-
-		<dl>
-		    <dt>Адрес:</dt>
-		    <dd>{{ event.city }}, {{ event.address }}</dd>
-
-		    <dt>Координаты:</dt>
-		    <dd>{{ event.coordinates }}</dd>
-
-		    {{ event.place_note|safe }}
-		</dl>
-	    </div>
-	</div>
-
 <h3>Пишите, мы ответим!</h3>
 
     <form action="/contacts/" id="contact-form"method="POST">{% csrf_token %}
@@ -68,10 +38,10 @@
             {{ form.email }}
         </div>
 
-        <div class="control-group {% if form.site.errors %}error{% endif %}">
+        <!--<div class="control-group {% if form.site.errors %}error{% endif %}">
             <label class="control-label" for="id_site">{{ form.site.label }}</label>
             {{ form.site }}
-        </div>
+        </div>-->
 
         <div class="control-group {% if form.comment.errors %}error{% endif %}">
             <label class="control-label" for="id_comment">{{ form.comment.label }} <em>*</em></label>
@@ -82,6 +52,36 @@
 
         <button type="submit" id="submit-button" class="btn btn-primary btn-large">Отправить</button>
     </form>
+	<p>По&nbsp;вопросам оплаты и&nbsp;предоставления платежных документов: <a href="tel:+74992724711">+7 (499) 272 47 11</a>, <a href="mailto:doc@ticketforevent.com">doc@ticketforevent.com</a>.</p>
+	<p>Телефоны оргкомитета: СПб: <a href="tel:+78123369344">+7 (812) 336 93 44</a>, Москва: <a href="tel:+74997031655">+7 (499) 703 1655</a> (понедельник&nbsp;&mdash; пятница, 11:00&nbsp;&mdash; 18:00).</p>
+	<!--<p>Для оперативной связи во&nbsp;время конференции используйте <a href="http://twitter.com/search?q=#profsoux" target="_blank">#profsoux</a> в&nbsp;Твиттере.</p>-->
+
+	<div class="row">
+	<img style="max-width:100%; margin-bottom: 1em;" src="http://media.profsoux.ru/photos/misc/map-to-clubhouse.jpg" alt="Как пройти от метро" title="Как пройти от метро">
+<!--	    <div class="span4">
+		<div class="thumbnail">
+		    <div id="map_canvas"></div>
+		    <p><a id="large-map-link" href="/map/" target="_blank">Открыть карту на весь экран</a></p>
+		</div>
+	    </div>-->
+	    <div class="span4">
+		<hgroup>
+		    <h3>{{ event.place}}</h3>
+		</hgroup>
+
+		<dl>
+		    <dt>Адрес:</dt>
+		    <dd>{{ event.city }}, {{ event.address }}</dd>
+
+		    <dt>Координаты:</dt>
+		    <dd>{{ event.coordinates }}</dd>
+
+		    {{ event.place_note|safe }}
+		</dl>
+	    </div>
+	</div>
+
+
 </div>
 
 <div id="follow-us" class="clearfix">
