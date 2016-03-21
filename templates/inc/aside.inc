@@ -12,7 +12,7 @@
 
     {% endif %}
 
-    <p><a href="https://docs.google.com/forms/d/1luttdjHqZSGpkCYkROM8SbWkuh4QVLP2qaKk_BHIa6s/viewform" class="btn btn-signup btn-primary btn-large">Хочу принять участие в&nbsp;ProfsoUX 2016</a>
+    <p><a href="http://www.profsoux.ru/registration" class="btn btn-signup btn-primary btn-large">Хочу принять участие в&nbsp;ProfsoUX 2016</a>
 
 {% endif %}
 
